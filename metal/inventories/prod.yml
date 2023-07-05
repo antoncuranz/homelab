@@ -1,6 +1,0 @@
-metal:
-  children:
-    masters:
-      hosts:
-        metal0:
-          ansible_host: 192.168.0.102
