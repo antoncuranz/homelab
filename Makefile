@@ -5,7 +5,7 @@
 KUBECONFIG = $(shell pwd)/kubeconfig
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
-default: ansible bootstrap external smoke-test post-install clean
+default: ansible bootstrap smoke-test post-install clean
 
 configure:
 	./scripts/configure
@@ -16,9 +16,6 @@ ansible:
 
 bootstrap:
 	make -C bootstrap
-
-external:
-	make -C external
 
 smoke-test:
 	make -C test filter=Smoke
