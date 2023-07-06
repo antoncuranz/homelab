@@ -9,4 +9,5 @@
       loop:
         - cert-manager
         - external-dns
+        - onepassword
         - k8up-operator

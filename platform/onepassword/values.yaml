@@ -1,5 +1,8 @@
-onepassword:
-  connect:
-    serviceType: ClusterIP
-    credentialsName: onepassword-secret
-    credentialsKey: credentials
+connect:
+  serviceType: ClusterIP
+  credentialsName: onepassword-secret
+  credentialsKey: credentials
+operator:
+  create: true
+  token:
+    name: onepassword-secret
