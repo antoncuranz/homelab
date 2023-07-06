@@ -20,17 +20,6 @@ grafana:
     datasources:
       enabled: true
       searchNamespace: monitoring-system
-  envFromSecret: grafana-secrets
   grafana.ini:
     server:
       root_url: https://grafana.cloudton.de
-    auth.generic_oauth:
-      enabled: true
-      allow_sign_up: true
-      name: Dex
-      client_id: grafana-sso
-      client_secret: $__env{GRAFANA_SSO_CLIENT_SECRET}
-      scopes: openid profile email groups
-      auth_url: https://dex.cloudton.de/auth
-      token_url: https://dex.cloudton.de/token
-      api_url: https://dex.cloudton.de/userinfo

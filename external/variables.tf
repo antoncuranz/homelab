@@ -10,3 +10,11 @@ variable "cloudflare_api_key" {
 variable "cloudflare_account_id" {
   type = string
 }
+
+variable "onepassword_credentials" {
+  type = string
+}
+
+variable "onepassword_token" {
+  type = string
+}
