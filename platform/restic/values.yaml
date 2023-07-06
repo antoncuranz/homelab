@@ -1,0 +1,12 @@
+restic-rest-server:
+  persistence:
+    data:
+      enabled: true
+      mountPath: /data
+      storageClass: local-path
+  resources:
+    requests:
+      cpu: 10m
+      memory: 100Mi
+    limits:
+      memory: 750Mi
