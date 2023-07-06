@@ -16,7 +16,7 @@ The Git repository contains the following directories under `kubernetes` and are
 └─📁 metal         # K3s installation using Ansible 
 ```
 
-## Changes from [khuedoan/homelab](https://github.com/khuedoan/homelab)
+## Changes to [khuedoan/homelab](https://github.com/khuedoan/homelab)'s architecture
 
 - replaced metal/ with ansible/ from [onedr0p's template](https://github.com/onedr0p/flux-cluster-template)
 - removed cloudflared, zerotier and terraform cloud dependency
