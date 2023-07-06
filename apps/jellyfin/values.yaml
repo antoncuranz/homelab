@@ -5,6 +5,7 @@ jellyfin:
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
+        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
         hajimari.io/appName: Jellyfin
         hajimari.io/icon: filmstrip
       hosts:

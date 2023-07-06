@@ -5,6 +5,7 @@ paperless:
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
+        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
         hajimari.io/appName: Paperless
         hajimari.io/icon: file-document
       hosts:
