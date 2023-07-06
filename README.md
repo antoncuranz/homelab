@@ -18,12 +18,14 @@ The Git repository contains the following directories under `kubernetes` and are
 
 ## Changes to [khuedoan/homelab](https://github.com/khuedoan/homelab)'s architecture
 
+- followed instructions for single node operation
 - replaced metal/ with ansible/ from [onedr0p's template](https://github.com/onedr0p/flux-cluster-template)
 - removed cloudflared, zerotier and terraform cloud dependency
 - removed gitea and tekton
 - replaced vault with onepassword connect
 - changed external-dns labels to target (cname) a single a record
 - removed nix-shell stuff
+- removed longhorn in favor of local-path-provisioner
 - ...
 - added my own apps
 
