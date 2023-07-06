@@ -5,17 +5,20 @@
 KUBECONFIG = $(shell pwd)/kubeconfig
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
-default: ansible bootstrap smoke-test post-install clean
+default: metal bootstrap external # smoke-test post-install clean
 
 configure:
 	./scripts/configure
 	git status
 
-ansible:
-	make -C ansible
+metal:
+	make -C metal
 
 bootstrap:
 	make -C bootstrap
+
+external:
+	make -C external
 
 smoke-test:
 	make -C test filter=Smoke
@@ -27,7 +30,7 @@ test:
 	make -C test
 
 dev:
-	make -C ansible cluster env=dev
+	make -C metal cluster env=dev
 	make -C bootstrap
 
 git-hooks:
