@@ -1,14 +1,5 @@
 terraform {
-  required_version = "~> 1.3.0"
-
-  # backend "remote" {
-  #   hostname     = "app.terraform.io"
-  #   organization = "khuedoan"
-
-  #   workspaces {
-  #     name = "homelab-external"
-  #   }
-  # }
+  required_version = "~> 1.4.6"
 
   required_providers {
     cloudflare = {
@@ -34,6 +25,5 @@ provider "cloudflare" {
 }
 
 provider "kubernetes" {
-  # Use KUBE_CONFIG_PATH environment variables
-  # Or in cluster service account
+  config_path    = "../kubeconfig"
 }
