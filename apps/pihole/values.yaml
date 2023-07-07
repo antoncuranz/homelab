@@ -1,0 +1,28 @@
+pihole:
+  serviceDns:
+    type: LoadBalancer
+    annotations:
+      metallb.universe.tf/allow-shared-ip: pihole-svc
+  serviceDhcp:
+    enabled: false
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - "pihole.cloudton.de"
+    tls:
+      - secretName: pihole-tls-certificate
+        hosts:
+          - "pihole.cloudton.de"
+  persistentVolumeClaim:
+    enabled: true
+    storageClass: local-path
+    annotations:
+      'k8up.io/backup': 'true'
+  DNS1: 1.1.1.1
+  DNS2: 1.0.0.1
+  ftl:
+    BLOCK_ICLOUD_PR: false

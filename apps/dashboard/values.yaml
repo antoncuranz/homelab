@@ -1,0 +1,61 @@
+app-template:
+  controller:
+    strategy: RollingUpdate
+  image:
+    repository: ghcr.io/linuxserver/nginx
+    tag: latest
+  service:
+    main:
+      ports:
+        http:
+          port: &port 80
+  persistence:
+    www:
+      enabled: true
+      type: emptyDir
+      mountPath: /config/www
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: "cloudton.de"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: dashboard-tls-certificate
+          hosts:
+            - *host
+  initContainers:
+    www-provider:
+      name: www-provider
+      image: registry.gitlab.com/antoncuranz/dashboard:latest
+      command:
+        - sh
+      args:
+        - -c
+        - |
+          echo "Copying www..."
+          cp -R /www/* /volume
+      volumeMounts:
+        - name: www
+          mountPath: /volume
+  probes:
+    liveness:
+      enabled: true
+      custom: true
+      spec:
+        httpGet:
+          path: /
+          port: *port
+        initialDelaySeconds: 30
+  resources:
+    requests:
+      cpu: 10m
+      memory: 100Mi
+    limits:
+      memory: 750Mi
