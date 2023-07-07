@@ -55,6 +55,10 @@ app-template:
           paths:
             - path: /
               pathType: Prefix
+      tls:
+        - secretName: hajimari-tls-certificate
+          hosts:
+            - *host
   resources:
     requests:
       cpu: 100m
