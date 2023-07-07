@@ -2,8 +2,8 @@ app-template:
   controller:
     strategy: RollingUpdate
   image:
-    repository: fallenbagel/jellyseerr
-    tag: 1.5.0
+    repository: ghcr.io/linuxserver/prowlarr
+    tag: version-1.4.1.3258
   env:
     TZ: Europe/Berlin
     PUID: 1000
@@ -18,7 +18,7 @@ app-template:
     main:
       ports:
         http:
-          port: &port 5055
+          port: &port 9696
   probes:
     liveness: &probes
       enabled: true
@@ -42,12 +42,12 @@ app-template:
         external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: &host "jellyseerr.cloudton.de"
+        - host: &host "prowlarr.cloudton.de"
           paths:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: jellyseerr-tls-certificate
+        - secretName: prowlarr-tls-certificate
           hosts:
             - *host
   resources:
