@@ -12,7 +12,7 @@ keycloak:
     hostname: "keycloak.cloudton.de"
     tls: true
     secrets:
-      - name: keycloak-tls-certificate
+      - name: "keycloak-tls-certificate"
   initContainers:
     - name: theme-provider
       image: registry.gitlab.com/antoncuranz/keycloak-theme:latest
