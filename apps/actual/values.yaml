@@ -5,7 +5,18 @@ app-template:
     repository: actualbudget/actual-server
     tag: 23.7.1
   env:
-    TZ: "Europe/Berlin"
+    - name: TZ
+      value: "Europe/Berlin"
+    - name: ACTUAL_NORDIGEN_SECRET_ID
+      valueFrom:
+        secretKeyRef:
+          name: actual-secrets
+          key: NORDIGEN_SECRET_ID
+    - name: ACTUAL_NORDIGEN_SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: actual-secrets
+          key: NORDIGEN_SECRET_KEY
   persistence:
     data:
       enabled: true
