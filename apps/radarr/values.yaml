@@ -1,0 +1,63 @@
+app-template:
+  controller:
+    strategy: RollingUpdate
+  image:
+    repository: ghcr.io/linuxserver/radarr
+    tag: version-4.4.4.7068
+  env:
+    TZ: Europe/Berlin
+    PUID: 1000
+    PGID: 1000
+  persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      storageClass: local-path
+    filme:
+      enabled: true
+      type: hostPath
+      hostPath: /mnt/HDD1/Public/Filme
+      mountPath: /filme
+  service:
+    main:
+      ports:
+        http:
+          port: &port 7878
+  probes:
+    liveness: &probes
+      enabled: true
+      custom: true
+      spec:
+        httpGet:
+          path: /ping
+          port: *port
+        initialDelaySeconds: 0
+        periodSeconds: 10
+        timeoutSeconds: 1
+        failureThreshold: 3
+    readiness: *probes
+    startup:
+      enabled: false
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: &host "radarr.cloudton.de"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: radarr-tls-certificate
+          hosts:
+            - *host
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      memory: 1024Mi
