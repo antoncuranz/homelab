@@ -1,0 +1,51 @@
+app-template:
+  controller:
+    strategy: RollingUpdate
+  image:
+    repository: actualbudget/actual-server
+    tag: 23.7.1
+  env:
+    TZ: "Europe/Berlin"
+  persistence:
+    data:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 4Gi
+      storageClass: local-path
+  service:
+    main:
+      ports:
+        http:
+          port: &port 5006
+  # probes:
+  #   liveness: &probes
+  #     enabled: true
+  #     custom: true
+  #     spec:
+  #       httpGet:
+  #         path: /health
+  #         port: *port
+  #       initialDelaySeconds: 0
+  #       periodSeconds: 10
+  #       timeoutSeconds: 1
+  #       failureThreshold: 3
+  #   readiness: *probes
+  #   startup:
+  #     enabled: false
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+      hosts:
+        - host: "actual.cloudton.de"
+          paths:
+            - path: /
+              pathType: Prefix
+  resources:
+    requests:
+      cpu: 100m
+      memory: 1024Mi
+    limits:
+      memory: 4096Mi
