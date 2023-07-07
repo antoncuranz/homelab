@@ -1,0 +1,36 @@
+immich:
+  image:
+    tag: v1.56.2
+  immich:
+    persistence:
+      library:
+        existingClaim: immich-data
+  postgresql:
+    enabled: true
+    global:
+      storageClass: local-path
+  redis:
+    enabled: true
+    global:
+      storageClass: local-path
+  typesense:
+    enabled: true
+    persistence:
+      tsdata:
+        enabled: true
+        storageClass: local-path
+  proxy:
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        hosts:
+          - host: "immich.cloudton.de"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: immich-tls-certificate
+            hosts:
+              - *host

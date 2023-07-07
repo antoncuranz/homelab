@@ -1,0 +1,34 @@
+keycloak:
+  production: true
+  proxy: edge
+  global:
+    storageClass: local-path
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hostname: "keycloak.cloudton.de"
+    tls: true
+    secrets:
+      - name: keycloak-tls-certificate
+  initContainers:
+    - name: theme-provider
+      image: registry.gitlab.com/antoncuranz/keycloak-theme:latest
+      command:
+        - sh
+      args:
+        - -c
+        - |
+          echo "Copying theme..."
+          cp -R /keywind/* /theme
+      volumeMounts:
+        - name: theme
+          mountPath: /theme
+  extraVolumeMounts:
+    - name: theme
+      mountPath: /opt/bitnami/keycloak/themes/keywind
+  extraVolumes:
+    - name: theme
+      emptyDir: {}
