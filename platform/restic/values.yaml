@@ -1,4 +1,6 @@
 restic-rest-server:
+  env:
+    DISABLE_AUTHENTICATION: "yes"
   persistence:
     data:
       enabled: true
