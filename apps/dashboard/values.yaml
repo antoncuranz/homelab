@@ -22,7 +22,7 @@ app-template:
         external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: "cloudton.de"
+        - host: &host "cloudton.de"
           paths:
             - path: /
               pathType: Prefix

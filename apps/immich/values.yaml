@@ -26,7 +26,7 @@ immich:
         annotations:
           external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
         hosts:
-          - host: "immich.cloudton.de"
+          - host: &host "immich.cloudton.de"
             paths:
               - path: /
                 pathType: Prefix
