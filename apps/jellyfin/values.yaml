@@ -48,6 +48,7 @@ app-template:
       ingressClassName: nginx
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
         - host: &host "jellyfin.cloudton.de"
           paths:
