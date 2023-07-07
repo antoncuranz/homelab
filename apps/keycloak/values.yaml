@@ -13,8 +13,8 @@ keycloak:
     tls: true
     secrets:
       - name: "keycloak-tls-certificate"
-        key:
-        certificate:
+        key: ""
+        certificate: ""
   initContainers:
     - name: theme-provider
       image: registry.gitlab.com/antoncuranz/keycloak-theme:latest
