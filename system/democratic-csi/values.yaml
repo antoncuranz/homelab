@@ -1,0 +1,51 @@
+democratic-csi:
+  driver:
+    config:
+      driver: freenas-api-nfs
+      httpConnection:
+        protocol: http
+        apiKey: 1-M4DHWLIBfTGasos8jXmSflDWuxGn1jHPGUc8SVrcqeNpx4FB23XcrIXyVuB3SZFM
+        host: 192.168.0.103
+        port: 80
+        allowInsecure: true
+      zfs:
+        datasetParentName: nvme2/k8s/vols
+        detachedSnapshotsDatasetParentName: nvme2/k8s/snaps
+        datasetEnableQuotas: true
+        datasetEnableReservation: false
+        datasetPermissionsMode: "0777"
+        datasetPermissionsUser: 0
+        datasetPermissionsGroup: 0
+      nfs:
+        shareCommentTemplate: "{{ parameters.[csi.storage.k8s.io/pvc/namespace] }}-{{ parameters.[csi.storage.k8s.io/pvc/name] }}"
+        shareHost: 192.168.0.103
+        shareAlldirs: false
+        shareAllowedHosts: []
+        shareAllowedNetworks: []
+        shareMaprootUser: root
+        shareMaprootGroup: root
+        shareMapallUser: ""
+        shareMapallGroup: ""
+  
+  node:
+    # Required for MicroK8s
+    kubeletHostPath: /var/snap/microk8s/common/var/lib/kubelet
+  
+  csiDriver:
+    # should be globally unique for a given cluster
+    name: "org.democratic-csi.nfs-api"
+  
+  storageClasses:
+    - name: truenas
+      defaultClass: true
+      reclaimPolicy: Retain
+      volumeBindingMode: Immediate
+      allowVolumeExpansion: true
+      parameters:
+        fsType: nfs
+      mountOptions:
+        - noatime
+        - nfsvers=4
+  
+  volumeSnapshotClasses:
+    - name: truenas
