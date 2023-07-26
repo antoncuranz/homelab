@@ -45,3 +45,5 @@ democratic-csi:
   
   volumeSnapshotClasses:
     - name: truenas
+      deletionPolicy: Retain
+      parameters: {}
