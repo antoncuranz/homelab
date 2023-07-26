@@ -43,5 +43,5 @@ democratic-csi:
         - noatime
         - nfsvers=4
   
-  volumeSnavolumeSnapshotClasses:
+  volumeSnapshotClasses:
     - name: truenas
