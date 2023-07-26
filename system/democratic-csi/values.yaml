@@ -27,10 +27,6 @@ democratic-csi:
         shareMapallUser: ""
         shareMapallGroup: ""
   
-  node:
-    # Required for MicroK8s
-    kubeletHostPath: /var/snap/microk8s/common/var/lib/kubelet
-  
   csiDriver:
     # should be globally unique for a given cluster
     name: "org.democratic-csi.nfs-api"
