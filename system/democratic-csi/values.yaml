@@ -9,8 +9,8 @@ democratic-csi:
         port: 80
         allowInsecure: true
       zfs:
-        datasetParentName: nvme2/k8s/vols
-        detachedSnapshotsDatasetParentName: nvme2/k8s/snaps
+        datasetParentName: nvme2/k8s/nfs/vols
+        detachedSnapshotsDatasetParentName: nvme2/k8s/nfs/snaps
         datasetEnableQuotas: true
         datasetEnableReservation: false
         datasetPermissionsMode: "0777"
