@@ -48,4 +48,4 @@ democratic-csi:
       annotations: {}
       labels: {}
       deletionPolicy: Retain
-      parameters:
+      parameters: {}
