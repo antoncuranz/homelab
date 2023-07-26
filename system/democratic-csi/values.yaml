@@ -42,3 +42,6 @@ democratic-csi:
       mountOptions:
         - noatime
         - nfsvers=4
+
+volumeSnapshotClasses:
+  - name: truenas
