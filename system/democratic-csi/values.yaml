@@ -47,3 +47,4 @@ democratic-csi:
     - name: truenas2
       deletionPolicy: Retain
       parameters:
+        detachedSnapshots: "false"
