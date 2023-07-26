@@ -44,6 +44,8 @@ democratic-csi:
         - nfsvers=4
   
   volumeSnapshotClasses:
-    - name: truenas
+    - name: truenas2
+      annotations: {}
+      labels: {}
       deletionPolicy: Retain
-      parameters: {}
+      parameters:
