@@ -1,0 +1,6 @@
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: truenas
+driver: "org.democratic-csi.nfs-api"
+deletionPolicy: Retain
