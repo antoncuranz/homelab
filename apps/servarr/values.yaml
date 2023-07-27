@@ -124,3 +124,6 @@ radarr:
       memory: 256Mi
     limits:
       memory: 1024Mi
+
+jellyfin:
+  {{- $v := (.Files.Get "jellyfin.yaml") | fromYaml }}
