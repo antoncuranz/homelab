@@ -1,0 +1,68 @@
+jellyfin:
+  # global:
+  #   nameOverride: jellyfin
+  controller:
+    strategy: RollingUpdate
+  image:
+    repository: linuxserver/jellyfin
+    tag: 10.8.10
+  env:
+    TZ: "Europe/Berlin"
+  persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 1Gi
+      storageClass: local-path
+    filme:
+      enabled: true
+      type: hostPath
+      hostPath: /mnt/HDD1/Public/Filme
+      mountPath: /filme
+    serien:
+      enabled: true
+      type: hostPath
+      hostPath: /mnt/HDD1/Public/Serien
+      mountPath: /serien
+  service:
+    main:
+      ports:
+        http:
+          port: &port 8096
+  probes:
+    liveness: &probes
+      enabled: true
+      custom: true
+      spec:
+        httpGet:
+          path: /health
+          port: *port
+        initialDelaySeconds: 0
+        periodSeconds: 10
+        timeoutSeconds: 1
+        failureThreshold: 3
+    readiness: *probes
+    startup:
+      enabled: false
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: &host "jellyfin.cloudton.de"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: jellyfin-tls-certificate
+          hosts:
+            - *host
+  resources:
+    requests:
+      cpu: 100m
+      memory: 1024Mi
+    limits:
+      memory: 4096Mi
