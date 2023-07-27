@@ -1,4 +1,4 @@
-jellyfin:
+app-template:
   # global:
   #   nameOverride: jellyfin
   controller:
