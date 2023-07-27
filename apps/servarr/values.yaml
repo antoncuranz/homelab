@@ -1,3 +1,28 @@
+globalEnv:
+  TZ: Europe/Berlin
+  PUID: 1000
+  PGID: 1000
+
+globalProbes:
+  liveness: &probes
+    enabled: true
+    custom: true
+    spec:
+      httpGet:
+        path: /ping
+        port: *port
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      timeoutSeconds: 1
+      failureThreshold: 3
+  readiness: *probes
+  startup:
+    enabled: false
+
+####################################################################################################
+# Prowlarr                                                                                         #
+####################################################################################################
+
 prowlarr:
   global:
     nameOverride: prowlarr
@@ -7,9 +32,7 @@ prowlarr:
     repository: ghcr.io/linuxserver/prowlarr
     tag: version-1.4.1.3258
   env:
-    TZ: Europe/Berlin
-    PUID: 1000
-    PGID: 1000
+    {{ tpl (.Values.globalEnv | toYaml) . | indent 4 }}
   persistence:
     config:
       enabled: true
@@ -21,20 +44,7 @@ prowlarr:
         http:
           port: &port 9696
   probes:
-    liveness: &probes
-      enabled: true
-      custom: true
-      spec:
-        httpGet:
-          path: /ping
-          port: *port
-        initialDelaySeconds: 0
-        periodSeconds: 10
-        timeoutSeconds: 1
-        failureThreshold: 3
-    readiness: *probes
-    startup:
-      enabled: false
+    {{ tpl (.Values.globalProbes | toYaml) . | indent 4 }}
   ingress:
     main:
       enabled: true
@@ -51,12 +61,6 @@ prowlarr:
         - secretName: prowlarr-tls-certificate
           hosts:
             - *host
-  resources:
-    requests:
-      cpu: 100m
-      memory: 256Mi
-    limits:
-      memory: 1024Mi
 
 radarr:
   global:
@@ -67,9 +71,7 @@ radarr:
     repository: ghcr.io/linuxserver/radarr
     tag: version-4.4.4.7068
   env:
-    TZ: Europe/Berlin
-    PUID: 1000
-    PGID: 1000
+    {{ tpl (.Values.globalEnv | toYaml) . | indent 4 }}
   persistence:
     config:
       enabled: true
@@ -88,20 +90,7 @@ radarr:
         http:
           port: &port 7878
   probes:
-    liveness: &probes
-      enabled: true
-      custom: true
-      spec:
-        httpGet:
-          path: /ping
-          port: *port
-        initialDelaySeconds: 0
-        periodSeconds: 10
-        timeoutSeconds: 1
-        failureThreshold: 3
-    readiness: *probes
-    startup:
-      enabled: false
+    {{ tpl (.Values.globalProbes | toYaml) . | indent 4 }}
   ingress:
     main:
       enabled: true
@@ -118,9 +107,3 @@ radarr:
         - secretName: radarr-tls-certificate
           hosts:
             - *host
-  resources:
-    requests:
-      cpu: 100m
-      memory: 256Mi
-    limits:
-      memory: 1024Mi
