@@ -1,4 +1,6 @@
 prowlarr:
+  global:
+    nameOverride: prowlarr
   controller:
     strategy: RollingUpdate
   image:
@@ -57,6 +59,8 @@ prowlarr:
       memory: 1024Mi
 
 radarr:
+  global:
+    nameOverride: radarr
   controller:
     strategy: RollingUpdate
   image:
