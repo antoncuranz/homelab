@@ -126,4 +126,4 @@ radarr:
       memory: 1024Mi
 
 jellyfin:
-{{include "jellyfin.yaml" | nindent 2 }}
+{{- include "jellyfin.yaml" | nindent 2 }}
