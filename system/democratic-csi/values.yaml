@@ -45,6 +45,8 @@ democratic-csi:
   
   volumeSnapshotClasses:
     - name: truenas
+      annotations:
+        snapshot.storage.kubernetes.io/is-default-class: "true"
       deletionPolicy: Retain
       parameters:
         detachedSnapshots: false
