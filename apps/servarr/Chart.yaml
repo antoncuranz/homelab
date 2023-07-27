@@ -3,6 +3,10 @@ name: servarr
 version: 0.0.0
 dependencies:
   - name: app-template
+    alias: jellyfin
+    version: 0.0.0
+    repository: https://bjw-s.github.io/helm-charts
+  - name: app-template
     alias: prowlarr
     version: 1.5.0
     repository: https://bjw-s.github.io/helm-charts
@@ -10,6 +14,3 @@ dependencies:
     alias: radarr
     version: 1.5.0
     repository: https://bjw-s.github.io/helm-charts
-  - name: jellyfin
-    version: 0.0.0
-    repository: file://./charts/jellyfin
