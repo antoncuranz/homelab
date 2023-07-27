@@ -1,0 +1,9 @@
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: prowlarr-snapshot-2
+  namespace: prowlarr
+spec:
+  volumeSnapshotClassName: truenas
+  source:
+    persistentVolumeClaimName: prowlarr-config
