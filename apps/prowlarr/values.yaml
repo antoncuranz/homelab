@@ -73,9 +73,10 @@ radarr:
       size: 250Mi
     filme:
       enabled: true
-      type: hostPath
-      hostPath: /mnt/HDD1/Public/Filme
+      # type: hostPath
+      # hostPath: /mnt/HDD1/Public/Filme
       mountPath: /filme
+      size: 5Gi
   service:
     main:
       ports:
