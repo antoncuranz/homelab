@@ -73,6 +73,7 @@ radarr:
       size: 250Mi
     filme:
       enabled: true
+      accessMode: ReadWriteOnce
       # type: hostPath
       # hostPath: /mnt/HDD1/Public/Filme
       mountPath: /filme
