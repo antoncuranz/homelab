@@ -322,6 +322,8 @@ sonarr:
 ######################
 
 transmission:
+  global:
+    nameOverride: transmission
   controller:
     strategy: RollingUpdate
   image:
