@@ -17,13 +17,11 @@ jellyfin:
       enabled: true
       accessMode: ReadWriteOnce
       size: 5Gi # TODO
-      nameOverride: filme
       mountPath: /filme
     serien:
       enabled: true
       accessMode: ReadWriteOnce
       size: 5Gi # TODO
-      nameOverride: serien
       mountPath: /serien
   service:
     main:
@@ -137,7 +135,7 @@ radarr:
       size: 250Mi
     filme:
       enabled: true
-      existingClaim: servarr-filme
+      existingClaim: servarr-jellyfin-filme
   service:
     main:
       ports:
