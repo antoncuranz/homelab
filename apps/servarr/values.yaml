@@ -124,6 +124,3 @@ radarr:
       memory: 256Mi
     limits:
       memory: 1024Mi
-
-jellyfin:
-{{ template "jellyfin.yaml" . | nindent 2 }}
