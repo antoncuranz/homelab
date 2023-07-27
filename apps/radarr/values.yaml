@@ -12,7 +12,7 @@ app-template:
     config:
       enabled: true
       accessMode: ReadWriteOnce
-      size: 2Gi
+      size: 250Mi
     filme:
       enabled: true
       type: hostPath
