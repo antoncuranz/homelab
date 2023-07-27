@@ -3,26 +3,6 @@ globalEnv:
   PUID: 1000
   PGID: 1000
 
-globalProbes:
-  liveness: &probes
-    enabled: true
-    custom: true
-    spec:
-      httpGet:
-        path: /ping
-        port: *port
-      initialDelaySeconds: 0
-      periodSeconds: 10
-      timeoutSeconds: 1
-      failureThreshold: 3
-  readiness: *probes
-  startup:
-    enabled: false
-
-####################################################################################################
-# Prowlarr                                                                                         #
-####################################################################################################
-
 prowlarr:
   global:
     nameOverride: prowlarr
@@ -44,7 +24,20 @@ prowlarr:
         http:
           port: &port 9696
   probes:
-    {{ tpl (.Values.globalProbes | toYaml) . | indent 4 }}
+    liveness: &probes
+      enabled: true
+      custom: true
+      spec:
+        httpGet:
+          path: /ping
+          port: *port
+        initialDelaySeconds: 0
+        periodSeconds: 10
+        timeoutSeconds: 1
+        failureThreshold: 3
+    readiness: *probes
+    startup:
+      enabled: false
   ingress:
     main:
       enabled: true
@@ -90,7 +83,20 @@ radarr:
         http:
           port: &port 7878
   probes:
-    {{ tpl (.Values.globalProbes | toYaml) . | indent 4 }}
+    liveness: &probes
+      enabled: true
+      custom: true
+      spec:
+        httpGet:
+          path: /ping
+          port: *port
+        initialDelaySeconds: 0
+        periodSeconds: 10
+        timeoutSeconds: 1
+        failureThreshold: 3
+    readiness: *probes
+    startup:
+      enabled: false
   ingress:
     main:
       enabled: true
