@@ -1,8 +1,0 @@
-k8up:
-  k8up:
-    envVars:
-      - name: BACKUP_GLOBALREPOPASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: k8up-secrets
-            key: repo-password
