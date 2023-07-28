@@ -86,6 +86,7 @@ jellyseerr:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
+      mountPath: /app/config
   service:
     main:
       ports:
