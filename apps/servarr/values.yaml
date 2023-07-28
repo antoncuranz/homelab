@@ -212,7 +212,7 @@ radarr:
     data:
       enabled: true
       existingClaim: servarr-transmission-data
-      mountPath: /data/completed
+      mountPath: /data
   service:
     main:
       ports:
@@ -279,7 +279,7 @@ sonarr:
     data:
       enabled: true
       existingClaim: servarr-transmission-data
-      mountPath: /data/completed
+      mountPath: /data
   service:
     main:
       ports:
