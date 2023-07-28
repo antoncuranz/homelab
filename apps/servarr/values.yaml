@@ -161,7 +161,7 @@ prowlarr:
           port: *port
         initialDelaySeconds: 0
         periodSeconds: 10
-        timeoutSeconds: 1
+        timeoutSeconds: 2
         failureThreshold: 3
     readiness: *probes
     startup:
@@ -228,7 +228,7 @@ radarr:
           port: *port
         initialDelaySeconds: 0
         periodSeconds: 10
-        timeoutSeconds: 1
+        timeoutSeconds: 2
         failureThreshold: 3
     readiness: *probes
     startup:
@@ -295,7 +295,7 @@ sonarr:
           port: *port
         initialDelaySeconds: 0
         periodSeconds: 10
-        timeoutSeconds: 1
+        timeoutSeconds: 2
         failureThreshold: 3
     readiness: *probes
     startup:
