@@ -11,9 +11,6 @@ keycloak:
       cert-manager.io/cluster-issuer: letsencrypt-prod
     hostname: "keycloak.cloudton.de"
     tls: true
-  postgres:
-    auth:
-      password: "adsfadgds"
   initContainers:
     - name: theme-provider
       image: registry.gitlab.com/antoncuranz/keycloak-theme:latest
