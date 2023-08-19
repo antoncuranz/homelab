@@ -15,10 +15,8 @@ democratic-csi:
       volumeBindingMode: Immediate
       allowVolumeExpansion: true
       parameters:
-        fsType: nfs
-      mountOptions:
-        - noatime
-        - nfsvers=4
+        fsType: xfs
+      mountOptions: []
   
   volumeSnapshotClasses:
     - name: truenas-iscsi
