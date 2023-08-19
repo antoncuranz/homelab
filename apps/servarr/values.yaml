@@ -19,11 +19,13 @@ jellyfin:
       size: 250Mi
     filme:
       enabled: true
+      storageClass: truenas-nfs
       accessMode: ReadWriteMany
       size: 5Gi # TODO
       mountPath: /filme
     serien:
       enabled: true
+      storageClass: truenas-nfs
       accessMode: ReadWriteMany
       size: 5Gi # TODO
       mountPath: /serien
@@ -340,6 +342,7 @@ transmission:
   persistence:
     data:
       enabled: true
+      storageClass: truenas-nfs
       accessMode: ReadWriteMany
       size: 5Gi # TODO
       mountPath: /data
