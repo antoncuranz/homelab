@@ -11,7 +11,7 @@ democratic-csi:
   storageClasses:
     - name: truenas-iscsi
       defaultClass: true
-      reclaimPolicy: Delete # TODO
+      reclaimPolicy: Retain
       volumeBindingMode: Immediate
       allowVolumeExpansion: true
       parameters:
@@ -22,6 +22,6 @@ democratic-csi:
     - name: truenas-iscsi
       annotations:
         snapshot.storage.kubernetes.io/is-default-class: "true"
-      deletionPolicy: Delete # TODO
+      deletionPolicy: Retain
       parameters:
         detachedSnapshots: false
