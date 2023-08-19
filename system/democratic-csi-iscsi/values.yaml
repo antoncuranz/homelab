@@ -1,0 +1,29 @@
+democratic-csi:
+  driver:
+    existingConfigSecret: democratic-csi-iscsi-secret
+    config:
+      driver: freenas-api-iscsi
+  
+  csiDriver:
+    # should be globally unique for a given cluster
+    name: "org.democratic-csi.iscsi"
+  
+  storageClasses:
+    - name: truenas-iscsi
+      defaultClass: true
+      reclaimPolicy: Delete # TODO
+      volumeBindingMode: Immediate
+      allowVolumeExpansion: true
+      parameters:
+        fsType: nfs
+      mountOptions:
+        - noatime
+        - nfsvers=4
+  
+  volumeSnapshotClasses:
+    - name: truenas-iscsi
+      annotations:
+        snapshot.storage.kubernetes.io/is-default-class: "true"
+      deletionPolicy: Delete # TODO
+      parameters:
+        detachedSnapshots: false
