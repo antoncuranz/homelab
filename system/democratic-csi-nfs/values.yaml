@@ -1,0 +1,25 @@
+democratic-csi:
+  driver:
+    existingConfigSecret: democratic-csi-nfs-secret
+    config:
+      driver: freenas-api-nfs
+  
+  csiDriver:
+    # should be globally unique for a given cluster
+    name: "org.democratic-csi.nfs-api"
+  
+  storageClasses:
+    - name: truenas-nfs
+      defaultClass: false
+      reclaimPolicy: Delete # TODO
+      volumeBindingMode: Immediate
+      allowVolumeExpansion: true
+      parameters:
+        fsType: xfs
+      mountOptions: []
+  
+  volumeSnapshotClasses:
+    - name: truenas-nfs
+      deletionPolicy: Delete # TODO
+      parameters:
+        detachedSnapshots: false
