@@ -14,7 +14,7 @@ keycloak:
   postgresql:
     enabled: true
     auth:
-      existingSecret: keycloak-secret
+      existingSecret: keycloak-secrets
   initContainers:
     - name: theme-provider
       image: registry.gitlab.com/antoncuranz/keycloak-theme:latest
