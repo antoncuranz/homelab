@@ -3,5 +3,5 @@ name: pihole
 version: 0.0.0
 dependencies:
   - name: pihole
-    version: 2.14.0
+    version: 2.18.0
     repository: https://mojo2600.github.io/pihole-kubernetes/
