@@ -8,8 +8,8 @@ jellyfin:
   controller:
     strategy: RollingUpdate
   image:
-    repository: linuxserver/jellyfin
-    tag: 10.8.10
+    repository: ghcr.io/linuxserver/jellyfin
+    tag: version-10.8.10
   env:
     TZ: "Europe/Berlin"
   persistence:
