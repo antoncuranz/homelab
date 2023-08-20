@@ -9,7 +9,7 @@ jellyfin:
     strategy: RollingUpdate
   image:
     repository: linuxserver/jellyfin
-    tag: 10.8.10
+    tag: 2021.12.16
   env:
     TZ: "Europe/Berlin"
   persistence:
