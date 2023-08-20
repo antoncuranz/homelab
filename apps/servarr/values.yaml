@@ -65,6 +65,11 @@ jellyfin:
         - secretName: jellyfin-tls-certificate
           hosts:
             - *host
+  resources: 
+    requests: 
+      gpu.intel.com/i915: "1" 
+    limits: 
+      gpu.intel.com/i915: "1"
 
 
 ######################
