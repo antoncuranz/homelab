@@ -3,5 +3,16 @@
   "extends": [
     "config:recommended"
   ],
-  "ignoreDeps": ["gomod", "terraform", "ansible-galaxy"]
+  "kubernetes": {
+    "fileMatch": ["\\.yaml$"]
+  },
+  "gomod": {
+    "enabled": false
+  },
+  "terraform":{
+    "enabled": false
+  },
+  "ansible-galaxy": {
+    "enabled": false
+  }
 }
