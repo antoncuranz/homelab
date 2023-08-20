@@ -11,7 +11,11 @@ app-template:
           port: &port 8581
         shelly:
           port: 8181
-  hostNetwork: true
+        homekit:
+          port: 51719
+        coiot:
+          port: 5683/udp
+  # hostNetwork: true
   persistence:
     homebridge:
       enabled: true

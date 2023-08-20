@@ -8,3 +8,6 @@ ingress-nginx:
       enabled: true
       serviceMonitor:
         enabled: true
+    extraArgs:
+      tcp-services-configmap: "ingress-nginx/tcp-services"
+      udp-services-configmap: "ingress-nginx/udp-services"
