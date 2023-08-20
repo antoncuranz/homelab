@@ -3,6 +3,7 @@
   "extends": [
     "config:recommended"
   ],
+  "commitMessageExtra": "from {{{displayFrom}}} to {{{displayTo}}}",
   "kubernetes": {
     "fileMatch": ["\\.yaml$"]
   },
