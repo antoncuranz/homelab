@@ -6,6 +6,7 @@
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "commitMessageExtra": "from {{{displayFrom}}} to {{{displayTo}}}",
+  "semanticCommits": "enabled",
   "packageRules": [
     {
       "matchDatasources": ["docker"],
