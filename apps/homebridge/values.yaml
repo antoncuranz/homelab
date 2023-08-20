@@ -14,8 +14,7 @@ app-template:
         homekit:
           port: 51719
         coiot:
-          port: 5683
-          protocol: "UDP"
+          port: 5683/udp
   # hostNetwork: true
   persistence:
     homebridge:
