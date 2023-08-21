@@ -11,7 +11,7 @@ finance-backend:
   env:
     KEYCLOAK_REALM_URL: "https://keycloak.cloudton.de/realms/finance"
     KEYCLOAK_CLIENT_ID: "finance-backend"
-    POSTGRES_URL: "jdbc:postgresql://postgres:5432/finance"
+    POSTGRES_URL: "jdbc:postgresql://finance-postgres:5432/finance"
     POSTGRES_USER: "postgres"
     CORS_ALLOW_ORIGINS: "https://finance.cloudton.de"
     CRON_ALERT_DELIVERY: "0 */15 * * * ?"
