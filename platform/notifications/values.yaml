@@ -1,0 +1,93 @@
+signal-cli:
+  global:
+    nameOverride: signal-cli
+  controller:
+    strategy: RollingUpdate
+  image:
+    repository: bbernhard/signal-cli-rest-api
+    tag: 0.67
+  env:
+    TZ: "Europe/Berlin"
+    MODE: "native"
+    AUTO_RECEIVE_SCHEDULE: "0 22 * * *"
+  persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      mountPath: /home/.local/share/signal-cli
+  service:
+    main:
+      ports:
+        http:
+          port: &port 8080
+      custom: true
+      spec:
+        httpGet:
+          path: /v1/health
+          port: *port
+        initialDelaySeconds: 0
+        periodSeconds: 10
+        timeoutSeconds: 1
+        failureThreshold: 3
+    readiness: *probes
+    startup:
+      enabled: false
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: &host "signal-cli.cloudton.de"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: signal-tls-certificate
+          hosts:
+            - *host
+
+apprise-api:
+  global:
+    nameOverride: apprise-api
+  controller:
+    strategy: RollingUpdate
+  image:
+    repository: caronc/apprise
+    tag: v0.9.3
+  env:
+    APPRISE_STATEFUL_MODE: simple
+    APPRISE_CONFIG_LOCK: yes
+  persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+    attach:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+  service:
+    main:
+      ports:
+        http:
+          port: &port 8000
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: &host "apprise.cloudton.de"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: apprise-tls-certificate
+          hosts:
+            - *host
