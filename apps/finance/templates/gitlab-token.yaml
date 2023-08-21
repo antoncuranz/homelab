@@ -1,6 +1,7 @@
 ---
 apiVersion: onepassword.com/v1
 kind: OnePasswordItem
+type: kubernetes.io/dockerconfigjson
 metadata:
   name: gitlab-token
 spec:
