@@ -5,6 +5,6 @@ dependencies:
   - name: kube-prometheus-stack
     version: 48.3.2
     repository: https://prometheus-community.github.io/helm-charts
-  - name: influxdb2
-    version: 2.1.1
+  - name: influxdb
+    version: 4.12.4
     repository: https://helm.influxdata.com/
