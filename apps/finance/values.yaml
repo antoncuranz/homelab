@@ -1,6 +1,6 @@
 finance-backend:
   global:
-    nameOverride: finance-backend
+    nameOverride: backend
   controller:
     strategy: RollingUpdate
   image:
@@ -43,7 +43,7 @@ finance-backend:
 
 finance-frontend:
   global:
-    nameOverride: finance-frontend
+    nameOverride: frontend
   controller:
     strategy: RollingUpdate
   image:
