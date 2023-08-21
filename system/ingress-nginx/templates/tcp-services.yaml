@@ -4,4 +4,4 @@ metadata:
   name: tcp-services
   namespace: ingress-nginx
 data:
-  2003: "monitoring-system/monitoring-system-influxdb:api"
+  2003: "monitoring-system/monitoring-system-influxdb:2003"
