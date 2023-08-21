@@ -37,7 +37,7 @@ finance-backend:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: finance-tls-certificate
+        - secretName: financeq-tls-certificate
           hosts:
             - *host
 
