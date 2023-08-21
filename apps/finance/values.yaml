@@ -17,7 +17,7 @@ finance-backend:
     CRON_ALERT_DELIVERY: "0 */15 * * * ?"
     CRON_TRANSACTION_VALIDATION: "0 0 */1 * * ?"
   envFrom:
-    - secretKeyRef:
+    - secretRef:
         name: finance-secrets
   service:
     main:
