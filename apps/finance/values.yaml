@@ -1,0 +1,93 @@
+finance-backend:
+  global:
+    nameOverride: finance-backend
+  controller:
+    strategy: RollingUpdate
+  image:
+    repository: registry.gitlab.com/antoncuranz/financeq
+    tag: dev
+  imagePullSecrets:
+    - name: gitlab-token
+  env:
+    KEYCLOAK_REALM_URL: "https://keycloak.cloudton.de/realms/finance"
+    KEYCLOAK_CLIENT_ID: "finance-backend"
+    POSTGRES_URL: "jdbc:postgresql://postgres:5432/finance"
+    POSTGRES_USER: "postgres"
+    CORS_ALLOW_ORIGINS: "https://finance.cloudton.de"
+    CRON_ALERT_DELIVERY: "0 */15 * * * ?"
+    CRON_TRANSACTION_VALIDATION: "0 0 */1 * * ?"
+  envFrom:
+    - secretKeyRef:
+        name: finance-secrets
+  service:
+    main:
+      ports:
+        http:
+          port: &port 8080
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: &host "financeq.cloudton.de"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: finance-tls-certificate
+          hosts:
+            - *host
+
+finance-frontend:
+  global:
+    nameOverride: finance-frontend
+  controller:
+    strategy: RollingUpdate
+  image:
+    repository: registry.gitlab.com/antoncuranz/financeionic
+    tag: dev
+  imagePullSecrets:
+    - name: gitlab-token
+  env:
+    KEYCLOAK_URL: "https://keycloak.serverton.de"
+    KEYCLOAK_REALM: "finance"
+    KEYCLOAK_CLIENT_ID: "finance-frontend"
+    BACKEND_URL: "https://financeq.serverton.de"
+  service:
+    main:
+      ports:
+        http:
+          port: &port 80
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: &host "finance.cloudton.de"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: finance-tls-certificate
+          hosts:
+            - *host
+
+postgresql:
+  fullnameOverride: finance-postgres
+  auth:
+    database: finance
+    existingSecret: finance-secrets
+    secretKeys:
+      adminPasswordKey: POSTGRES_PASSWD
+      userPasswordKey: POSTGRES_PASSWD
+      replicationPasswordKey: POSTGRES_PASSWD
+  primary:
+    persistence:
+      enabled: true
+      storageClass: truenas-iscsi
