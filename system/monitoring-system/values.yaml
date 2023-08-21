@@ -14,7 +14,7 @@ kube-prometheus-stack:
       podMonitorSelectorNilUsesHelmValues: false
       probeSelectorNilUsesHelmValues: false
 
-influxdb2:
+influxdb:
   persistence:
     storageClass: truenas-iscsi
     size: 2Gi
