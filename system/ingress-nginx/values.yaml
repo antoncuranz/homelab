@@ -8,5 +8,5 @@ ingress-nginx:
       enabled: true
       serviceMonitor:
         enabled: true
-    extraArgs:
-      tcp-services-configmap: "ingress-nginx/tcp-services"
+    tcp:
+      2003: "monitoring-system/monitoring-system-influxdb:2003"
