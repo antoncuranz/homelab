@@ -14,6 +14,10 @@ kube-prometheus-stack:
       podMonitorSelectorNilUsesHelmValues: false
       probeSelectorNilUsesHelmValues: false
 
+prometheus-pushgateway:
+  serviceMonitor:
+    enabled: true
+
 influxdb:
   persistence:
     storageClass: truenas-iscsi
