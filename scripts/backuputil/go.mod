@@ -1,4 +1,4 @@
-module scripts
+module backuputil
 
 go 1.20
 
