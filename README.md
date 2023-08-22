@@ -26,7 +26,6 @@ The Git repository contains the following directories under `kubernetes` and are
 - changed external-dns labels to target (cname) a single a record
 - removed nix-shell stuff
 - removed longhorn in favor of local-path-provisioner
-- disabled http in nginx-ingress
 - ...
 - added my own apps
 
