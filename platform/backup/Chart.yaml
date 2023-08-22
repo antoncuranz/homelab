@@ -5,6 +5,6 @@ dependencies:
   - name: k8up
     version: 4.4.1
     repository: https://k8up-io.github.io/k8up
-  - name: restic-rest-server
-    version: 2.0.9
-    repository: https://charts.truecharts.org/
+  - name: rclone
+    version: 1.0.1
+    repository: https://jacobcolvin.com/helm-charts
