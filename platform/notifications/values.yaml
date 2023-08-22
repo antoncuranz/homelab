@@ -16,6 +16,8 @@ signal-cli:
       accessMode: ReadWriteOnce
       size: 250Mi
       mountPath: /home/.local/share/signal-cli
+      annotations:
+        'k8up.io/backup': 'true'
   service:
     main:
       ports:
