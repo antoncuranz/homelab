@@ -3,9 +3,23 @@ k8up:
     - name: BACKUP_GLOBAL_OPERATOR_NAMESPACE
       value: backup
 
-restic-rest-server:
+rclone:
+  image:
+    repository: rclone/rclone
+    tag: "1.63.0"
+  init: |
+    rclone rcd \
+      --rc-web-gui \
+      --rc-web-gui-no-open-browser \
+      --rc-no-auth \
+      --rc-addr=:5572 &
+    
+    rclone serve restic remote:backup \
+      --addr=:9001 &
+
+    wait -n
+    exit $?
   persistence:
-    data:
-      enabled: true
-      mountPath: /data
-      storageClass: truenas-nfs
+    config:
+      name: rclone-config
+      type: secret
