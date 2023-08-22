@@ -4,9 +4,10 @@ k8up:
       - name: BACKUP_GLOBAL_OPERATOR_NAMESPACE
         value: backup
       - name: BACKUP_GLOBALREPOPASSWORD
-        secretKeyRef:
-          name: k8up-secrets
-          key: repo-password
+        valueFrom:
+          secretKeyRef:
+            name: k8up-secrets
+            key: repo-password
 
 rclone:
   image:
