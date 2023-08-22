@@ -1,11 +1,12 @@
 k8up:
-  envVars:
-    - name: BACKUP_GLOBAL_OPERATOR_NAMESPACE
-      value: backup
-    - name: BACKUP_GLOBALREPOPASSWORD
-      secretKeyRef:
-        name: k8up-secrets
-        key: repo-password
+  k8up:
+    envVars:
+      - name: BACKUP_GLOBAL_OPERATOR_NAMESPACE
+        value: backup
+      - name: BACKUP_GLOBALREPOPASSWORD
+        secretKeyRef:
+          name: k8up-secrets
+          key: repo-password
 
 rclone:
   image:
