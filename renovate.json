@@ -9,6 +9,12 @@
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "commitMessageExtra": "from {{{displayFrom}}} to {{{displayTo}}}",
   "requiredStatusChecks": null,
+  "packageRules": [
+    {
+      "packagePatterns": ["^ghcr.io\\/linuxserver\\/"],
+      "versionScheme": "regex:^(?<compatibility>.*?)-(?<major>v?\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)[\\.-]*(?<build>r?\\d+)*$"
+    }
+  ],
   "kubernetes": {
     "fileMatch": ["\\.yaml$"]
   },
