@@ -3,6 +3,8 @@ k8up:
     envVars:
       - name: BACKUP_PROMURL
         value: http://prometheus-operated.monitoring-system.svc.cluster.local
+      - name: BACKUP_METRICS_BINDADDRESS
+        value: 9090
       - name: BACKUP_GLOBAL_OPERATOR_NAMESPACE
         value: backup
       - name: BACKUP_GLOBALREPOPASSWORD
