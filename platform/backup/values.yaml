@@ -2,7 +2,7 @@ k8up:
   k8up:
     envVars:
       - name: BACKUP_PROMURL
-        value: "http://monitoring-system-kube-pro-prometheus.monitoring-system.svc.cluster.local"
+        value: "http://monitoring-system-kube-pro-prometheus.monitoring-system.svc.cluster.local:9090"
       - name: BACKUP_GLOBAL_OPERATOR_NAMESPACE
         value: "backup"
       - name: BACKUP_GLOBALREPOPASSWORD
