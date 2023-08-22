@@ -20,7 +20,7 @@ The Git repository contains the following directories under `kubernetes` and are
 
 - followed instructions for single node operation
 - replaced metal/ with ansible/ from [onedr0p's template](https://github.com/onedr0p/flux-cluster-template)
-- removed cloudflared, zerotier and terraform cloud dependency
+- removed cloudflared, zerotier and terraform cloud dependencies
 - removed gitea and tekton
 - replaced vault with onepassword connect
 - changed external-dns labels to target (cname) a single a record
@@ -84,7 +84,7 @@ make bootstrap
 
 ### 🤫 Setting up initial secrets
 
-The following will ask you for Cloudflare and 1Password credentials and create respective kubernetes secrets:
+The following will ask you for Cloudflare and 1Password credentials and creates respective kubernetes secrets:
 ```sh
 make external
 ```
