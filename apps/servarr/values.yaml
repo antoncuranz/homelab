@@ -25,12 +25,16 @@ jellyfin:
       accessMode: ReadWriteMany
       size: 5Gi # TODO
       mountPath: /filme
+      annotations:
+        'k8up.io/backup': 'false'
     serien:
       enabled: true
       storageClass: truenas-nfs
       accessMode: ReadWriteMany
       size: 5Gi # TODO
       mountPath: /serien
+      annotations:
+        'k8up.io/backup': 'false'
   service:
     main:
       ports:
@@ -293,14 +297,10 @@ sonarr:
       enabled: true
       existingClaim: servarr-jellyfin-serien
       mountPath: /serien
-      annotations:
-        'k8up.io/backup': 'false'
     data:
       enabled: true
       existingClaim: servarr-transmission-data
       mountPath: /data
-      annotations:
-        'k8up.io/backup': 'false'
   service:
     main:
       ports:
