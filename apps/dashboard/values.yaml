@@ -3,7 +3,7 @@ app-template:
     strategy: RollingUpdate
   image:
     repository: ghcr.io/linuxserver/nginx
-    tag: latest
+    tag: version-1.20.2-r1
   service:
     main:
       ports:
