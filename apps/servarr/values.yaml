@@ -293,10 +293,14 @@ sonarr:
       enabled: true
       existingClaim: servarr-jellyfin-serien
       mountPath: /serien
+      annotations:
+        'k8up.io/backup': 'false'
     data:
       enabled: true
       existingClaim: servarr-transmission-data
       mountPath: /data
+      annotations:
+        'k8up.io/backup': 'false'
   service:
     main:
       ports:
