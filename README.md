@@ -45,7 +45,7 @@ make configure
 
 📍 Here we will be running a Ansible Playbook to install [k3s](https://k3s.io/) with [this](https://galaxy.ansible.com/xanmanning/k3s) wonderful k3s Ansible galaxy role. After completion, Ansible will drop a `kubeconfig` in `./kubeconfig` for use with interacting with your cluster with `kubectl`.
 
-☢️ If you run into problems, you can run `task ansible:nuke` to destroy the k3s cluster and start over.
+☢️ If you run into problems, you can run `make -C metal nuke` to destroy the k3s cluster and start over.
 
 1. Ensure you are able to SSH into your nodes from your workstation using a private SSH key **without a passphrase**. This is how Ansible is able to connect to your remote nodes.
 
