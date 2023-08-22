@@ -17,6 +17,8 @@ jellyfin:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
+      annotations:
+        'k8up.io/backup': 'true'
     filme:
       enabled: true
       storageClass: truenas-nfs
