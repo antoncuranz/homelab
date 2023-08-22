@@ -1,0 +1,11 @@
+k8up:
+  envVars:
+    - name: BACKUP_GLOBAL_OPERATOR_NAMESPACE
+      value: backup
+
+restic-rest-server:
+  persistence:
+    data:
+      enabled: true
+      mountPath: /data
+      storageClass: truenas-nfs
