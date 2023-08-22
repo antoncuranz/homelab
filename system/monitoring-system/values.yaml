@@ -17,6 +17,7 @@ kube-prometheus-stack:
 prometheus-pushgateway:
   serviceMonitor:
     enabled: true
+    namespace: monitoring-system
 
 influxdb:
   persistence:
