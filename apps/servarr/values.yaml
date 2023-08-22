@@ -202,7 +202,7 @@ radarr:
     strategy: RollingUpdate
   image:
     repository: ghcr.io/linuxserver/radarr
-    tag: version-4.4.4.7068
+    tag: version-4.7.5.7809
   env:
     TZ: Europe/Berlin
     PUID: 1000
