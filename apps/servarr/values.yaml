@@ -365,14 +365,20 @@ transmission:
       accessMode: ReadWriteMany
       size: 5Gi # TODO
       mountPath: /data
+      annotations:
+        'k8up.io/backup': 'false'
     openvpn-config:
       enabled: true
       type: secret
       name: openvpn-config
+      annotations:
+        'k8up.io/backup': 'false'
     custom:
       enabled: true
       type: emptyDir
       mountPath: /etc/openvpn/custom
+      annotations:
+        'k8up.io/backup': 'false'
   initContainers:
     config-provider:
       name: config-provider
@@ -387,7 +393,7 @@ transmission:
     main:
       ports:
         http:
-          port: &port 9091
+          port: 9091
   ingress:
     main:
       enabled: true
