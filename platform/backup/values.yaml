@@ -16,7 +16,7 @@ rclone:
       --rc-no-auth \
       --rc-addr=:5572 &
     
-    rclone serve restic koofr:k8up \
+    rclone serve restic koofr:/ \
       --addr=:50001 &
 
     wait -n
