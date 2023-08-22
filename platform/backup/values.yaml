@@ -9,8 +9,6 @@ rclone:
     tag: "1.63.1"
   init: |
     rclone rcd \
-      --rc-web-gui \
-      --rc-web-gui-no-open-browser \
       --rc-no-auth \
       --rc-addr=:5572 &
     
