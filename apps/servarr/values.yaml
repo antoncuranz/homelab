@@ -96,6 +96,8 @@ jellyseerr:
       accessMode: ReadWriteOnce
       size: 250Mi
       mountPath: /app/config
+      annotations:
+        'k8up.io/backup': 'true'
   service:
     main:
       ports:
@@ -155,6 +157,8 @@ prowlarr:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
+      annotations:
+        'k8up.io/backup': 'true'
   service:
     main:
       ports:
@@ -214,6 +218,8 @@ radarr:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
+      annotations:
+        'k8up.io/backup': 'true'
     filme:
       enabled: true
       existingClaim: servarr-jellyfin-filme
@@ -281,6 +287,8 @@ sonarr:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
+      annotations:
+        'k8up.io/backup': 'true'
     serien:
       enabled: true
       existingClaim: servarr-jellyfin-serien
@@ -346,7 +354,7 @@ transmission:
     OPENVPN_USERNAME: user
     OPENVPN_PASSWORD: pass
     TRANSMISSION_WEB_UI: combustion
-  persistence:
+  persistence: # TODO: backup configuration?
     data:
       enabled: true
       storageClass: truenas-nfs
