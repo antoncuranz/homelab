@@ -1,6 +1,8 @@
 k8up:
   k8up:
     envVars:
+      - name: BACKUP_PROMURL
+        value: http://prometheus-operated.monitoring-system.svc.cluster.local
       - name: BACKUP_GLOBAL_OPERATOR_NAMESPACE
         value: backup
       - name: BACKUP_GLOBALREPOPASSWORD
@@ -18,7 +20,7 @@ rclone:
       --rc-no-auth \
       --rc-addr=:5572 &
     
-    rclone serve restic koofr:/ \
+    rclone serve restic koofr:k8up \
       --addr=:50001 &
 
     wait -n
