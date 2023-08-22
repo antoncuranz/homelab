@@ -12,6 +12,9 @@ rclone:
       --rc-no-auth \
       --rc-addr=:5572 &
     
+    rclone serve restic koofr:k8up \
+      --addr=:50001 &
+
     wait -n
     exit $?
   service:
@@ -21,3 +24,8 @@ rclone:
           enabled: true
           port: 50001
           protocol: TCP
+  probes:
+    liveness:
+      enabled: false
+    readiness:
+      enabled: false
