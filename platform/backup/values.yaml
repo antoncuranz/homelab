@@ -12,7 +12,7 @@ rclone:
       --rc-no-auth \
       --rc-addr=:5572 &
     
-    rclone serve restic remote:backup \
+    rclone serve restic koofr:k8up \
       --addr=:9001 &
 
     wait -n
