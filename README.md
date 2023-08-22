@@ -41,7 +41,7 @@ Run configure script to setup Ansible inventory and other things:
 make configure
 ```
 
-### ⛵ Installing k3s with Ansible
+### ⛵️ Installing k3s with Ansible
 
 📍 Here we will be running a Ansible Playbook to install [k3s](https://k3s.io/) with [this](https://galaxy.ansible.com/xanmanning/k3s) wonderful k3s Ansible galaxy role. After completion, Ansible will drop a `kubeconfig` in `./kubeconfig` for use with interacting with your cluster with `kubectl`.
 
