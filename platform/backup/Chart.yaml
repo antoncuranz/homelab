@@ -2,8 +2,7 @@ apiVersion: v2
 name: notifications
 version: 0.0.0
 dependencies:
-  - name: app-template
-    alias: k8up
+  - name: k8up
     version: 4.4.1
     repository: https://k8up-io.github.io/k8up
   - name: restic-rest-server
