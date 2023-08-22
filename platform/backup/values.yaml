@@ -21,6 +21,5 @@ rclone:
     exit $?
   persistence:
     config:
-      enabled: false
       name: rclone-config
       type: secret
