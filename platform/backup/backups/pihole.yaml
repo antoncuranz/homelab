@@ -1,0 +1,12 @@
+---
+apiVersion: k8up.io/v1
+kind: Backup
+metadata:
+  namespace: pihole
+  name: backup-pihole
+spec:
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 0
+  backend:
+    rest:
+      url: http://backup.backup.svc.cluster.local:50001/pihole
