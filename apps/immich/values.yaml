@@ -9,20 +9,20 @@ immich:
   postgresql:
     enabled: true
     global:
-      storageClass: local-path
+      storageClass: truenas-iscsi
     podAnnotations:
       k8up.io/backupcommand: sh -c 'pg_dumpall -c -U postgres | gzip'
       k8up.io/file-extension: .sql.gz
   redis:
     enabled: true
     global:
-      storageClass: local-path
+      storageClass: truenas-iscsi
   typesense:
     enabled: true
     persistence:
       tsdata:
         enabled: true
-        storageClass: local-path
+        storageClass: truenas-iscsi
   proxy:
     ingress:
       main:

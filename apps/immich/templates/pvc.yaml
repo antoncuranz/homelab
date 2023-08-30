@@ -5,7 +5,6 @@ metadata:
   name: immich-data
 spec:
   storageClassName: truenas-nfs
-  volumeName: immich-data
   accessModes:
     - ReadWriteOnce
   resources:
