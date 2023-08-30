@@ -1,5 +1,6 @@
 immich:
   image:
+    # renovate: datasource=github-releases depName=immich-app/immich
     tag: v1.56.2
   immich:
     persistence:
