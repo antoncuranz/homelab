@@ -234,10 +234,12 @@ radarr:
       mountPath: /data
   podAnnotations:
     k8up.io/backupcommand: >
+      sh -c '
       APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
       curl -X POST "http://localhost/api/v3/command?apikey=$APIKEY" -H "Content-Type: application/json" -d '{"name":"Backup"}';
       BACKUP_URL=$(curl "http://localhost/api/v3/system/backup?apikey=$APIKEY" | jq -r ".[0].path");
       curl "http://localhost$BACKUP_URL?apikey=$APIKEY"
+      '
     k8up.io/file-extension: .zip
   service:
     main:
