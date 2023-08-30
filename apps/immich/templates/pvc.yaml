@@ -1,30 +1,11 @@
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: immich-data-pv
-  namespace: immich
-  labels:
-    type: local
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 50Gi
-  accessModes:
-    - ReadWriteOnce
-  claimRef:
-    namespace: immich
-    name: immich-data
-  hostPath:
-    path: /mnt/HDD1/Immich
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   namespace: immich
   name: immich-data
 spec:
-  storageClassName: manual
-  volumeName: immich-data-pv
+  storageClassName: truenas-nfs
+  volumeName: immich-data
   accessModes:
     - ReadWriteOnce
   resources:
