@@ -236,6 +236,10 @@ radarr:
     k8up.io/backupcommand: >
       sh -c '
       APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
+      # Delete old backup
+      OLD_ID=$(curl "http://localhost:7878/api/v3/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
+      curl -X DELETE "http://localhost:7878/api/v3/system/backup/$OLD_ID?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}";
+      # Create new backup
       curl -X POST "http://localhost:7878/api/v3/command?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}";
       BACKUP_URL=$(curl "http://localhost:7878/api/v3/system/backup?apikey=$APIKEY" | jq -r ".[0].path");
       curl "http://localhost:7878$BACKUP_URL?apikey=$APIKEY"
