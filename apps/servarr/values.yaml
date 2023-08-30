@@ -162,7 +162,7 @@ prowlarr:
       accessMode: ReadWriteOnce
       size: 250Mi
       annotations:
-        'k8up.io/backup': 'true'
+        'k8up.io/backup': 'false'
   podAnnotations:
     k8up.io/backupcommand: >
       sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
@@ -232,7 +232,7 @@ radarr:
       accessMode: ReadWriteOnce
       size: 250Mi
       annotations:
-        'k8up.io/backup': 'true'
+        'k8up.io/backup': 'false'
     filme:
       enabled: true
       existingClaim: servarr-jellyfin-filme
@@ -310,7 +310,7 @@ sonarr:
       accessMode: ReadWriteOnce
       size: 250Mi
       annotations:
-        'k8up.io/backup': 'true'
+        'k8up.io/backup': 'false'
     serien:
       enabled: true
       existingClaim: servarr-jellyfin-serien
