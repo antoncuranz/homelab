@@ -18,6 +18,8 @@ app-template:
       accessMode: ReadWriteOnce
       size: 250Mi
       storageClass: local-path
+      annotations:
+        'k8up.io/backup': 'true'
   ingress:
     main:
       enabled: true
