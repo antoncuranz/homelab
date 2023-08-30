@@ -10,6 +10,9 @@ immich:
     enabled: true
     global:
       storageClass: local-path
+    podAnnotations:
+      k8up.io/backupcommand: sh -c 'pg_dumpall -c -U postgres | gzip'
+      k8up.io/file-extension: .sql.gz
   redis:
     enabled: true
     global:
