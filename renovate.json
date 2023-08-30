@@ -15,6 +15,16 @@
       "versionScheme": "regex:^(?<compatibility>.*?)-(?<major>v?\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)[\\.-]*(?<build>r?\\d+)*$"
     }
   ],
+  "regexManagers": [
+    {
+      "description": "Process various dependencies",
+      "fileMatch": ["k8s/.+\\.ya?ml$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*=?))?\n .*: (?<currentValue>.*=?)",
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    }
+  ],
   "kubernetes": {
     "fileMatch": ["\\.yaml$"]
   },
