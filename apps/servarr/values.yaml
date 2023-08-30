@@ -268,7 +268,7 @@ radarr:
         - secretName: radarr-tls-certificate
           hosts:
             - *host
-  podSecurityContext:
+  securityContext:
     runAsNonRoot: true
     readOnlyRootFilesystem: true
 
