@@ -71,10 +71,14 @@ apprise-api:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
+      annotations:
+        'k8up.io/backup': 'true'
     attach:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
+      annotations:
+        'k8up.io/backup': 'false'
   service:
     main:
       ports:
