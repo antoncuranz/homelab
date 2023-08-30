@@ -4,7 +4,7 @@ metadata:
   namespace: immich
   name: immich-data
   annotations:
-    k8up.io/backup: 'false'
+    k8up.io/backup: 'true'
 spec:
   storageClassName: truenas-nfs
   accessModes:
