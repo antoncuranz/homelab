@@ -18,7 +18,7 @@
   "regexManagers": [
     {
       "description": "Process various dependencies",
-      "fileMatch": ["k8s/.+\\.ya?ml$"],
+      "fileMatch": [".+\\.ya?ml$"],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*=?))?\n .*: (?<currentValue>.*=?)",
       ],
