@@ -22,6 +22,9 @@ pihole:
     storageClass: local-path
     annotations:
       'k8up.io/backup': 'true'
+  podAnnotations:
+    k8up.io/backupcommand: sh -c 'pihole -a -t k8up.tar.gz && cat k8up.tar.gz'
+    k8up.io/file-extension: .tar.gz
   DNS1: 1.1.1.1
   DNS2: 1.0.0.1
   ftl:
