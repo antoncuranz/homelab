@@ -12,7 +12,7 @@ immich:
       persistence:
         storageClass: truenas-iscsi
         annotations:
-          k8up.io/backup: false
+          k8up.io/backup: 'false'
       podAnnotations:
         k8up.io/backupcommand: sh -c 'pg_dumpall -c -U postgres | gzip'
         k8up.io/file-extension: .sql.gz
@@ -22,7 +22,7 @@ immich:
       persistence:
         storageClass: truenas-iscsi
         annotations:
-          k8up.io/backup: false
+          k8up.io/backup: 'false'
   typesense:
     enabled: true
     persistence:
@@ -30,7 +30,7 @@ immich:
         enabled: true
         storageClass: truenas-iscsi
         annotations:
-          k8up.io/backup: false
+          k8up.io/backup: 'false'
   proxy:
     ingress:
       main:
