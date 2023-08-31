@@ -19,6 +19,7 @@ func main() {
 		Backup()
 	} else {
 		fmt.Println("Restoring...")
-		Restore()
+		//Restore()
+		RestoreImmich()
 	}
 }
