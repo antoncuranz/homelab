@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"backuputil/common"
 	"backuputil/restore"
 	"github.com/spf13/cobra"
 	"log"
@@ -12,9 +13,14 @@ var restoreCmd = &cobra.Command{
 	Short: "Restores services in a namespace",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
+		client, err := common.InitClient()
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		switch strings.ToLower(args[0]) {
 		case "immich":
-			restore.RestoreImmich()
+			restore.Immich(client)
 			break
 		default:
 			log.Fatal("Error: Namespace not supported")
