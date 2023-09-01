@@ -2,34 +2,26 @@ package restore
 
 import (
 	. "backuputil/common"
-	"bufio"
 	"fmt"
 	"k8s.io/client-go/kubernetes"
 	"log"
-	"os"
 	"os/exec"
 )
 
-const namespace = "immich"
-const postgresPod = "immich-postgresql-0"
-const sqlDumpPath = "/immich-postgresql.sql.gz"
-const dataPath = "/data/immich-data"
-const tmpDir = "./tmp"
+func Immich(client *kubernetes.Clientset) {
+	// IMPORTANT: new postgresPassword must match old deployment's postgresPassword!
 
-func RestoreImmich() {
+	const namespace = "immich"
+	const postgresPod = "immich-postgresql-0"
+	const sqlDumpPath = "/immich-postgresql.sql.gz"
+	const dataPath = "/data/immich-data"
+	const tmpDir = "./tmp"
 
-	// TODO: pass client here?
-	client, err := InitClient()
-	if err != nil {
-		log.Fatal(err)
-	}
-
+	// Input: snapshot ids => download postgres dump
 	snapshotMap, err := CreateResticSnapshotMap(namespace)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	// 0. Input: snapshot ids, sql backup path
 	dataSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, dataPath)
 	psqlSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, sqlDumpPath)
 	if err := RestoreResticSnapshot(namespace, sqlDumpPath, psqlSnapshot, tmpDir); err != nil {
@@ -38,13 +30,7 @@ func RestoreImmich() {
 
 	// 1. Scale down Deployments and Statefulsets
 	fmt.Println("Scaling down Deployments and StatefulSets...")
-	if err := ScaleDownDeploymentsInNamespace(client, namespace); err != nil {
-		log.Fatal(err)
-	}
-	if err := ScaleDownStatefulSetsInNamespace(client, namespace); err != nil {
-		log.Fatal(err)
-	}
-	if err := WaitUntilPodsAreDeleted(client, namespace); err != nil {
+	if err := ScaleDownDeploymentsAndStatefulSets(client, namespace); err != nil {
 		log.Fatal(err)
 	}
 
@@ -68,13 +54,13 @@ func RestoreImmich() {
 	if err := ArgoSyncResource("immich", "apps:StatefulSet:immich-postgresql"); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("IS IT DONE????") // TODO: use survey confirm or wait for pod to be ready
-	bufio.NewScanner(os.Stdin).Scan()
+	fmt.Println("Waiting for " + postgresPod + " to be ready...")
+	if err := WaitUntilPodIsReady(client, namespace, postgresPod); err != nil {
+		log.Fatal(err)
+	}
 
-	cmdStr := "gunzip < " + tmpDir + sqlDumpPath + " | kubectl exec -i " + postgresPod + " -n " + namespace +
-		" -- sh -c 'PGPASSWORD=\"$POSTGRES_POSTGRES_PASSWORD\" psql -U postgres -d immich'"
-	cmd := exec.Command("sh", "-c", cmdStr)
-	if _, err = cmd.Output(); err != nil {
+	if err := RestorePostgresDatabase(namespace, postgresPod, tmpDir+sqlDumpPath); err != nil {
+		fmt.Println("Error restoring postgres DB:")
 		log.Fatal(err)
 	}
 
@@ -83,6 +69,12 @@ func RestoreImmich() {
 	if err := ArgoSyncApplication("immich"); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func RestorePostgresDatabase(namespace string, postgresPod string, sqlDumpPath string) error {
+	cmdStr := "gunzip < " + sqlDumpPath + " | kubectl exec -i " + postgresPod + " -n " + namespace +
+		" -- sh -c 'PGPASSWORD=\"$POSTGRES_POSTGRES_PASSWORD\" psql -U postgres -d immich'"
+	return exec.Command("sh", "-c", cmdStr).Run()
 }
 
 func RestorePvc(client *kubernetes.Clientset, namespace string, snapshot string) error {

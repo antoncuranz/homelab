@@ -64,3 +64,14 @@ func ScaleStatefulSet(client *kubernetes.Clientset, namespace string, statefulSe
 	_, err := client.AppsV1().StatefulSets(namespace).Update(context.Background(), &statefulSet, metav1.UpdateOptions{})
 	return err
 }
+
+func ScaleDownDeploymentsAndStatefulSets(client *kubernetes.Clientset, namespace string) error {
+	if err := ScaleDownDeploymentsInNamespace(client, namespace); err != nil {
+		return err
+	}
+	if err := ScaleDownStatefulSetsInNamespace(client, namespace); err != nil {
+		return err
+	}
+
+	return WaitUntilPodsAreDeleted(client, namespace)
+}

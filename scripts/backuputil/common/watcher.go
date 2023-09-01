@@ -3,6 +3,7 @@ package common
 import (
 	"context"
 	"fmt"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/kubernetes"
@@ -78,7 +79,35 @@ func WaitUntilPodsAreDeleted(client *kubernetes.Clientset, namespace string) err
 	return nil
 }
 
-func WaitUntilPodIsReady(client *kubernetes.Clientset, namespace string, pod string) error {
-	//watcher, err := client.CoreV1().Pods(namespace).Watch(context.Background(), metav1.ListOptions{})
+func WaitUntilPodIsReady(client *kubernetes.Clientset, namespace string, podName string) error {
+	options := metav1.ListOptions{
+		FieldSelector: "metadata.name=" + podName,
+	}
+	watcher, err := client.CoreV1().Pods(namespace).Watch(context.Background(), options)
+	if err != nil {
+		return err
+	}
+
+	for event := range watcher.ResultChan() {
+		switch event.Type {
+		case watch.Added:
+		case watch.Modified:
+			pod := event.Object.(*corev1.Pod)
+			if pod.Status.Phase == "Running" && AreContainersReady(pod.Status.ContainerStatuses) {
+				return nil
+			}
+		}
+	}
+
 	return nil
+}
+
+func AreContainersReady(containerStatuses []corev1.ContainerStatus) bool {
+	for _, status := range containerStatuses {
+		if !status.Ready {
+			return false
+		}
+	}
+
+	return true
 }
