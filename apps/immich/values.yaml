@@ -2,16 +2,20 @@ immich:
   image:
     # renovate: datasource=github-releases depName=immich-app/immich
     tag: v1.76.1
+  env:
+    DB_PASSWORD:
+      valueFrom:
+        secretKeyRef:
+          name: immich-secrets
+          key: password
   immich:
     persistence:
       library:
         existingClaim: immich-data
   postgresql:
     enabled: true
-    global:
-      postgresql:
-        auth:
-          existingSecret: immich-secrets
+    auth:
+      existingSecret: immich-secrets
     primary:
       persistence:
         storageClass: truenas-iscsi
