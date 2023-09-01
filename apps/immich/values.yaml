@@ -8,6 +8,8 @@ immich:
         existingClaim: immich-data
   postgresql:
     enabled: true
+    auth:
+      existingSecret: immich-secrets
     primary:
       persistence:
         storageClass: truenas-iscsi
