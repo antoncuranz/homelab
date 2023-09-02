@@ -20,11 +20,11 @@ keycloak:
         storageClass: truenas-iscsi
         annotations:
           k8up.io/backup: 'false'
-      podAnnotations:
-        k8up.io/backupcommand: sh -c '/opt/bitnami/keycloak/bin/kc.sh export --file /opt/bitnami/keycloak/data/finance-realm.json --realm finance --users realm_file > /dev/null && cat /opt/keycloak/data/finance-realm.json'
-        k8up.io/file-extension: .json
-        # copy: kubectl cp ~/finance-realm.json keycloak/keycloak-0:/opt/bitnami/keycloak/data/finance-realm.json
-        # import: /opt/bitnami/keycloak/bin/kc.sh import --file /opt/bitnami/keycloak/data/finance-realm.json
+  podAnnotations:
+    k8up.io/backupcommand: sh -c '/opt/bitnami/keycloak/bin/kc.sh export --file /opt/bitnami/keycloak/data/finance-realm.json --realm finance --users realm_file > /dev/null && cat /opt/keycloak/data/finance-realm.json'
+    k8up.io/file-extension: .json
+    # copy: kubectl cp ~/finance-realm.json keycloak/keycloak-0:/opt/bitnami/keycloak/data/finance-realm.json
+    # import: /opt/bitnami/keycloak/bin/kc.sh import --file /opt/bitnami/keycloak/data/finance-realm.json
   initContainers:
     - name: theme-provider
       image: registry.gitlab.com/antoncuranz/keycloak-theme:latest
