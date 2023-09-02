@@ -22,6 +22,9 @@ var restoreCmd = &cobra.Command{
 		case "immich":
 			restore.Immich(client)
 			break
+		case "finance":
+			restore.Finance(client)
+			break
 		default:
 			log.Fatal("Error: Namespace not supported")
 		}

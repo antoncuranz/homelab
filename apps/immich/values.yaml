@@ -22,8 +22,8 @@ immich:
         annotations:
           k8up.io/backup: 'false'
       podAnnotations:
-        k8up.io/backupcommand: sh -c 'PGPASSWORD="$POSTGRES_POSTGRES_PASSWORD" pg_dumpall -c -U postgres | gzip'
-        k8up.io/file-extension: .sql.gz
+        k8up.io/backupcommand: sh -c 'PGPASSWORD="$POSTGRES_POSTGRES_PASSWORD" pg_dumpall -c -U postgres'
+        k8up.io/file-extension: .sql
   redis:
     enabled: true
     master:
