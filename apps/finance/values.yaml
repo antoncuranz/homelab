@@ -94,5 +94,5 @@ postgresql:
       annotations:
         k8up.io/backup: 'false'
     podAnnotations:
-      k8up.io/backupcommand: sh -c 'PGPASSWORD="$POSTGRES_POSTGRES_PASSWORD" pg_dumpall -c -U postgres'
+      k8up.io/backupcommand: sh -c 'PGPASSWORD="$POSTGRES_PASSWORD" pg_dumpall -c -U postgres'
       k8up.io/file-extension: .sql
