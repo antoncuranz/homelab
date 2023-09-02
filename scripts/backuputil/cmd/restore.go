@@ -5,6 +5,7 @@ import (
 	"backuputil/restore"
 	"github.com/spf13/cobra"
 	"log"
+	"os/exec"
 	"strings"
 )
 
@@ -21,12 +22,17 @@ var restoreCmd = &cobra.Command{
 		switch strings.ToLower(args[0]) {
 		case "immich":
 			restore.Immich(client)
-			break
 		case "finance":
 			restore.Finance(client)
-			break
+		case "keycloak":
+			restore.Keycloak(client)
 		default:
 			log.Fatal("Error: Namespace not supported")
+		}
+	},
+	PreRun: func(cmd *cobra.Command, args []string) {
+		if err := exec.Command("argocd", "app", "list").Run(); err != nil {
+			log.Fatal("error: argocd cli not configured.")
 		}
 	},
 }
