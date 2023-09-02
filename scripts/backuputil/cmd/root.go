@@ -1,21 +1,15 @@
 package cmd
 
 import (
+	"github.com/spf13/cobra"
 	"log"
 	"os"
-	"os/exec"
-
-	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{
 	Use:   "backuputil",
 	Short: "Utility for backing up and restoring my homelab services",
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
-		if err := exec.Command("argocd", "app", "list").Run(); err != nil {
-			log.Fatal("error: argocd cli not configured.")
-		}
-
 		if len(os.Getenv("RESTIC_PASSWORD")) == 0 {
 			log.Fatal("error: RESTIC_PASSWORD environment variable must be set.")
 		}

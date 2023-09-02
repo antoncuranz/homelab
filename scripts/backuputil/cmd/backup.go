@@ -20,10 +20,13 @@ var backupCmd = &cobra.Command{
 		namespace := strings.ToLower(args[0])
 		switch namespace {
 		case "immich":
+			fallthrough
+		case "keycloak":
+			fallthrough
+		case "finance":
 			if err := common.CreateBackup(client, namespace, "backup-"+namespace); err != nil {
 				log.Fatal(err)
 			}
-			break
 		default:
 			log.Fatal("Error: Namespace not supported")
 		}
