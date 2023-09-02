@@ -8,13 +8,12 @@ import (
 	"os/exec"
 )
 
-func Immich(client *kubernetes.Clientset) {
+func Finance(client *kubernetes.Clientset) {
 	// IMPORTANT: new postgresPassword must match old deployment's postgresPassword!
 
-	const namespace = "immich"
-	const postgresPod = "immich-postgresql-0"
-	const sqlDumpPath = "/immich-postgresql.sql"
-	const dataPath = "/data/immich-data"
+	const namespace = "finance"
+	const postgresPod = "finance-postgresql-0"
+	const sqlDumpPath = "/finance-postgresql.sql"
 	const tmpDir = "./tmp"
 
 	// Input: snapshot ids => download postgres dump
@@ -22,7 +21,6 @@ func Immich(client *kubernetes.Clientset) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	dataSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, dataPath)
 	psqlSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, sqlDumpPath)
 	if err := RestoreResticSnapshot(namespace, sqlDumpPath, psqlSnapshot, tmpDir); err != nil {
 		log.Fatal(err)
@@ -43,15 +41,9 @@ func Immich(client *kubernetes.Clientset) {
 		log.Fatal(err)
 	}
 
-	// 3. Create and restore NFS PVC using k8up Restore CRD
-	fmt.Println("Restoring immich-data PVC...")
-	if err := RestorePvc(client, namespace, dataSnapshot); err != nil {
-		log.Fatal(err)
-	}
-
 	// 4. (Argo-)Sync Postgres and run psql Restore
-	fmt.Println("Syncing ArgoCD immich postgres STS...")
-	if err := ArgoSyncResource("immich", "apps:StatefulSet:immich-postgresql"); err != nil {
+	fmt.Println("Syncing ArgoCD finance postgres STS...")
+	if err := ArgoSyncResource("finance", "apps:StatefulSet:finance-postgresql"); err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("Waiting for " + postgresPod + " to be ready...")
@@ -59,37 +51,20 @@ func Immich(client *kubernetes.Clientset) {
 		log.Fatal(err)
 	}
 
-	if err := RestorePostgresDatabase(namespace, postgresPod, tmpDir+sqlDumpPath); err != nil {
+	if err := RestoreFinancePostgresDatabase(namespace, postgresPod, tmpDir+sqlDumpPath); err != nil {
 		fmt.Println("Error restoring postgres DB:")
 		log.Fatal(err)
 	}
 
 	// 5. Full Argo Sync
-	fmt.Println("Syncing ArgoCD immich Application...")
-	if err := ArgoSyncApplication("immich"); err != nil {
+	fmt.Println("Syncing ArgoCD finance Application...")
+	if err := ArgoSyncApplication("finance"); err != nil {
 		log.Fatal(err)
 	}
 }
 
-func RestorePostgresDatabase(namespace string, postgresPod string, sqlDumpPath string) error {
+func RestoreFinancePostgresDatabase(namespace string, postgresPod string, sqlDumpPath string) error {
 	cmdStr := "cat " + sqlDumpPath + " | kubectl exec -i " + postgresPod + " -n " + namespace +
-		" -- sh -c 'PGPASSWORD=\"$POSTGRES_POSTGRES_PASSWORD\" psql -U postgres -d immich'"
+		" -- sh -c 'PGPASSWORD=\"$POSTGRES_PASSWORD\" psql -U postgres -d finance'"
 	return exec.Command("sh", "-c", cmdStr).Run()
-}
-
-func RestorePvc(client *kubernetes.Clientset, namespace string, snapshot string) error {
-	pvcName := "immich-data"
-	pvcStorage := "50Gi"
-	storageClass := "truenas-nfs"
-	restoreName := "restore-immich"
-
-	if err := CreatePvc(client, namespace, pvcName, pvcStorage, storageClass); err != nil {
-		return err
-	}
-
-	if err := CreateRestore(client, namespace, restoreName, pvcName, snapshot); err != nil {
-		log.Fatal(err)
-	}
-
-	return nil
 }
