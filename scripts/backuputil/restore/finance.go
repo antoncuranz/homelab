@@ -12,7 +12,7 @@ func Finance(client *kubernetes.Clientset) {
 	// IMPORTANT: new postgresPassword must match old deployment's postgresPassword!
 
 	const namespace = "finance"
-	const postgresPod = "finance-postgresql-0"
+	const postgresPod = "finance-postgres-0"
 	const sqlDumpPath = "/finance-postgresql.sql"
 	const tmpDir = "./tmp"
 
@@ -43,7 +43,7 @@ func Finance(client *kubernetes.Clientset) {
 
 	// 4. (Argo-)Sync Postgres and run psql Restore
 	fmt.Println("Syncing ArgoCD finance postgres STS...")
-	if err := ArgoSyncResource("finance", "apps:StatefulSet:finance-postgresql"); err != nil {
+	if err := ArgoSyncResource("finance", "apps:StatefulSet:finance-postgres"); err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("Waiting for " + postgresPod + " to be ready...")
