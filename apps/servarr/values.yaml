@@ -377,7 +377,7 @@ transmission:
     strategy: RollingUpdate
   image:
     repository: haugene/transmission-openvpn
-    tag: 5.1.1@sha256:c5a66e4c9df0b326310b81cfcd7fa1c0cd61ebeaf60b4651188c94b8afde3aca
+    tag: 5.2.0@sha256:1092f879761da07bf24f208aa7a16cb2da5735c293e633f762d4ed0c51bc2658
   env:
     TZ: Europe/Berlin
     LOCAL_NETWORK: 10.42.0.0/16
