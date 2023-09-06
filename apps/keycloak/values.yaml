@@ -12,14 +12,13 @@ keycloak:
     hostname: "keycloak.cloudton.de"
     tls: true
   postgresql:
-    enabled: true
-    auth:
-      existingSecret: keycloak-secrets
-    primary:
-      persistence:
-        storageClass: truenas-iscsi
-        annotations:
-          k8up.io/backup: 'false'
+    enabled: false
+  externalDatabase:
+    existingSecret: database-keycloak-user
+    existingSecretHostKey: HOST
+    existingSecretUserKey: LOGIN
+    existingSecretPasswordKey: PASSWORD
+    existingSecretDatabaseKey: DATABASE_NAME
   podAnnotations:
     k8up.io/backupcommand: sh -c '/opt/bitnami/keycloak/bin/kc.sh export --file /opt/bitnami/keycloak/data/finance-realm.json --realm finance --users realm_file > /dev/null && cat /opt/bitnami/keycloak/data/finance-realm.json'
     k8up.io/file-extension: .json
