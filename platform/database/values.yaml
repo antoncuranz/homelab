@@ -1,3 +1,3 @@
 
 ext-postgres-operator:
-  existingSecret: postgres-secrets
+  existingSecret: ext-postgres-secrets
