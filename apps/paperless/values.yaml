@@ -33,6 +33,7 @@ app-template:
     data:
       enabled: true
       storageClass: truenas-nfs
+      accessMode: ReadWriteOnce
       size: 5Gi # TODO
       mountPath: /usr/src/paperless
       annotations:
