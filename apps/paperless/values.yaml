@@ -76,4 +76,4 @@ app-template:
   sidecars:
     redis:
       name: redis
-      image: docker.io/library/redis:7
+      image: docker.io/library/redis:7.0.12
