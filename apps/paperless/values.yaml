@@ -30,14 +30,34 @@ app-template:
     PAPERLESS_OCR_LANGUAGE: deu
     PAPERLESS_REDIS: redis://localhost:6379
   persistence:
+#    data:
+#      enabled: true
+#      storageClass: truenas-nfs
+#      accessMode: ReadWriteOnce
+#      size: 5Gi # TODO
+#      mountPath: /usr/src/paperless
+#      annotations:
+#        'k8up.io/backup': 'false'
     data:
       enabled: true
       storageClass: truenas-nfs
       accessMode: ReadWriteOnce
-      size: 5Gi # TODO
-      mountPath: /usr/src/paperless
-      annotations:
-        'k8up.io/backup': 'false'
+      mountPath: /usr/src/paperless/data
+    media:
+      enabled: true
+      mountPath: /usr/src/paperless/media
+      accessMode: ReadWriteOnce
+      storageClass: truenas-nfs
+    consume:
+      enabled: true
+      mountPath: /usr/src/paperless/consume
+      accessMode: ReadWriteOnce
+      storageClass: truenas-nfs
+    export:
+      enabled: true
+      mountPath: /usr/src/paperless/export
+      accessMode: ReadWriteOnce
+      storageClass: truenas-nfs
   service:
     main:
       ports:
