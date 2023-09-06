@@ -4,7 +4,7 @@ version: 0.0.0
 dependencies:
   - name: app-template
     version: 0.1.1
-    repository: https://charts.bitnami.com/bitnami
+    repository: https://bjw-s.github.io/helm-charts
   - name: redis
     version: 17.17.1
     repository: https://charts.bitnami.com/bitnami
