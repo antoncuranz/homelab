@@ -13,5 +13,5 @@ metadata:
 spec:
   role: immich
   database: immich-db
-  secretName: testsecret
+  secretName: database
   privileges: OWNER
