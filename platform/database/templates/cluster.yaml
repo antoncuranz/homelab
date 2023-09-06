@@ -13,14 +13,14 @@ spec:
     name: postgres-secrets
   backup:
     barmanObjectStore:
-      destinationPath: s3://AntonsHomelab/
+      destinationPath: s3://homelab-db/
       endpointURL: https://s3.us-east-005.backblazeb2.com
       s3Credentials:
         accessKeyId:
-          name: backblaze-secrets
+          name: backblaze-db
           key: ACCESS_KEY_ID
         secretAccessKey:
-          name: backblaze-secrets
+          name: backblaze-db
           key: ACCESS_SECRET_KEY
       wal:
         compression: gzip
