@@ -234,6 +234,11 @@ radarr:
         secretKeyRef:
           name: database-radarr-user
           key: DATABASE_NAME
+    RADARR__POSTGRES_LOG_DB:
+      valueFrom:
+        secretKeyRef:
+          name: database-radarr-user
+          key: DATABASE_NAME
     RADARR__POSTGRES_USER:
       valueFrom:
         secretKeyRef:
