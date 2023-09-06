@@ -6,5 +6,5 @@ dependencies:
     version: 0.2.2
     repository: https://bjw-s.github.io/helm-charts
   - name: redis
-    version: 17.17.1
+    version: 18.0.2
     repository: https://charts.bitnami.com/bitnami
