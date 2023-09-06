@@ -220,42 +220,12 @@ radarr:
   controller:
     strategy: RollingUpdate
   image:
-    repository: ghcr.io/onedr0p/radarr
-    tag: 4.7.5.7809
+    repository: ghcr.io/linuxserver/radarr
+    tag: version-4.7.5.7809
   env:
     TZ: Europe/Berlin
-    RADARR__POSTGRES_HOST:
-      valueFrom:
-        secretKeyRef:
-          name: database-radarr-user
-          key: HOST
-    RADARR__POSTGRES_MAIN_DB:
-      valueFrom:
-        secretKeyRef:
-          name: database-radarr-user
-          key: DATABASE_NAME
-    RADARR__POSTGRES_LOG_DB:
-      valueFrom:
-        secretKeyRef:
-          name: database-radarr-user
-          key: DATABASE_NAME
-    RADARR__POSTGRES_USER:
-      valueFrom:
-        secretKeyRef:
-          name: database-radarr-user
-          key: LOGIN
-    RADARR__POSTGRES_PASSWORD:
-      valueFrom:
-        secretKeyRef:
-          name: database-radarr-user
-          key: PASSWORD
-  podSecurityContext:
-    runAsUser: 568
-    runAsGroup: 568
-    fsGroup: 568
-    fsGroupChangePolicy: "OnRootMismatch"
-    supplementalGroups:
-      - 100
+    PUID: 1000
+    PGID: 1000
   persistence:
     config:
       enabled: true
