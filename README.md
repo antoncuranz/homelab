@@ -25,7 +25,7 @@ The Git repository contains the following directories under `kubernetes` and are
 - replaced vault with onepassword connect
 - changed external-dns labels to target (cname) a single a record
 - removed nix-shell stuff
-- removed longhorn in favor of local-path-provisioner
+- removed longhorn
 - ...
 - added my own apps
 
