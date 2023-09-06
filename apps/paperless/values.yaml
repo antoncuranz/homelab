@@ -29,6 +29,7 @@ app-template:
     PAPERLESS_TIME_ZONE: "Europe/Berlin"
     PAPERLESS_OCR_LANGUAGE: deu
     PAPERLESS_REDIS: redis://localhost:6379
+    PAPERLESS_PORT: &port 8000
   persistence:
     data:
       enabled: true
@@ -66,7 +67,7 @@ app-template:
     main:
       ports:
         http:
-          port: &port 8000
+          port: *port
 #  probes:
 #    liveness: &probes
 #      enabled: true
