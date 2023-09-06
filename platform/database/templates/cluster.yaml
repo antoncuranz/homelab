@@ -1,0 +1,33 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: database-cluster
+spec:
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:15.4
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 10Gi
+    storageClass: truenas-iscsi
+  superuserSecret:
+    name: cnpg-secrets
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://AntonsHomelab/
+      endpointURL: https://s3.us-east-005.backblazeb2.com
+      s3Credentials:
+        accessKeyId:
+          name: backblaze-secrets
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: backblaze-secrets
+          key: ACCESS_SECRET_KEY
+      wal:
+        compression: gzip
+        encryption: AES256
+      data:
+        compression: gzip
+        encryption: AES256
+        immediateCheckpoint: false
+        jobs: 2
+    retentionPolicy: "30d"
