@@ -1,0 +1,17 @@
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
+metadata:
+  name: keycloak-db
+spec:
+  database: keycloak
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: keycloak-user
+spec:
+  role: keycloak
+  database: keycloak-db
+  secretName: database
+  privileges: OWNER
