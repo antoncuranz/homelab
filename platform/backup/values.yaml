@@ -5,35 +5,22 @@ k8up:
         value: "http://monitoring-system-prometheus-pushgateway.monitoring-system:9091/"
       - name: BACKUP_GLOBAL_OPERATOR_NAMESPACE
         value: "backup"
+      - name: BACKUP_GLOBALRESTORES3ENDPOINT
+        value: "https://s3.us-east-005.backblazeb2.com"
+      - name: BACKUP_GLOBALRESTORES3BUCKET
+        value: "homelab-k8up"
+      - name: BACKUP_GLOBALRESTORES3ACCESKEYID
+        valueFrom:
+          secretKeyRef:
+            name: backblaze-k8up
+            key: ACCESS_KEY_ID
+      - name: BACKUP_GLOBALRESTORES3SECRETACCESSKEY
+        valueFrom:
+          secretKeyRef:
+            name: backblaze-k8up
+            key: ACCESS_SECRET_KEY
       - name: BACKUP_GLOBALREPOPASSWORD
         valueFrom:
           secretKeyRef:
             name: k8up-secrets
             key: repo-password
-
-rclone:
-  image:
-    repository: rclone/rclone
-    tag: "1.63.1"
-  init: |
-    rclone rcd \
-      --rc-no-auth \
-      --rc-addr=:5572 &
-    
-    rclone serve restic koofr:k8up \
-      --addr=:50001 &
-
-    wait -n
-    exit $?
-  service:
-    main:
-      ports:
-        restic:
-          enabled: true
-          port: 50001
-          protocol: TCP
-  probes:
-    liveness:
-      enabled: false
-    readiness:
-      enabled: false
