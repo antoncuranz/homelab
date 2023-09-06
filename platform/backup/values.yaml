@@ -5,11 +5,15 @@ k8up:
         value: "http://monitoring-system-prometheus-pushgateway.monitoring-system:9091/"
       - name: BACKUP_GLOBAL_OPERATOR_NAMESPACE
         value: "backup"
-      - name: BACKUP_GLOBALRESTORES3ENDPOINT
+      - name: BACKUP_GLOBAL_FAILED_JOBS_HISTORY_LIMIT
+        value: 1
+      - name: BACKUP_GLOBAL_SUCCESSFUL_JOBS_HISTORY_LIMIT
+        value: 0
+      - name: BACKUP_GLOBALS3ENDPOINT
         value: "https://s3.us-east-005.backblazeb2.com"
-      - name: BACKUP_GLOBALRESTORES3BUCKET
+      - name: BACKUP_GLOBALS3BUCKET
         value: "homelab-k8up"
-      - name: BACKUP_GLOBALRESTORES3ACCESKEYID
+      - name: BACKUP_GLOBALS3ACCESKEYID
         valueFrom:
           secretKeyRef:
             name: backblaze-k8up
