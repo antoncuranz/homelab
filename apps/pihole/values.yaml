@@ -19,7 +19,7 @@ pihole:
           - "pihole.cloudton.de"
   persistentVolumeClaim:
     enabled: true
-    storageClass: local-path
+    storageClass: truenas-iscsi
     annotations:
       'k8up.io/backup': 'true'
   podAnnotations:
