@@ -1,0 +1,10 @@
+apiVersion: v2
+name: database
+version: 0.0.0
+dependencies:
+  - name: cloudnative-pg
+    version: 0.18.2
+    repository: https://cloudnative-pg.github.io/charts
+  - name: ext-postgres-operator
+    version: 1.2.2
+    repository: https://movetokube.github.io/postgres-operator/

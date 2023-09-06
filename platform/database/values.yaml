@@ -1,0 +1,5 @@
+cloudnative-pg:
+  # nothing here
+
+ext-postgres-operator:
+  existingSecret: postgres-secrets
