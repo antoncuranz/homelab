@@ -10,7 +10,7 @@ spec:
     size: 10Gi
     storageClass: truenas-iscsi
   superuserSecret:
-    name: cnpg-secrets
+    name: postgres-secrets
   backup:
     barmanObjectStore:
       destinationPath: s3://AntonsHomelab/
