@@ -10,6 +10,3 @@ dependencies:
     alias: finance-frontend
     version: 1.5.1
     repository: https://bjw-s.github.io/helm-charts
-  - name: postgresql
-    repository: https://charts.bitnami.com/bitnami
-    version: 12.10.0
