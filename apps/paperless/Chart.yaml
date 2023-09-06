@@ -1,0 +1,10 @@
+apiVersion: v2
+name: keycloak
+version: 0.0.0
+dependencies:
+  - name: app-template
+    version: 0.1.1
+    repository: https://charts.bitnami.com/bitnami
+  - name: redis
+    version: 17.14.5
+    repository: https://charts.bitnami.com/bitnami

@@ -1,0 +1,79 @@
+app-template:
+  controller:
+    strategy: RollingUpdate
+  image:
+    repository: ghcr.io/paperless-ngx/paperless-ngx
+    tag: 1.17
+  env:
+    PAPERLESS_DBHOST:
+      valueFrom:
+        secretKeyRef:
+          name: database-paperless-user
+          key: HOST
+    PAPERLESS_DBNAME:
+      valueFrom:
+        secretKeyRef:
+          name: database-paperless-user
+          key: DATABASE_NAME
+    PAPERLESS_DBUSER:
+      valueFrom:
+        secretKeyRef:
+          name: database-paperless-user
+          key: LOGIN
+    PAPERLESS_DBPASS:
+      valueFrom:
+        secretKeyRef:
+          name: database-paperless-user
+          key: PASSWORD
+    PAPERLESS_URL: https://paperless.cloudton.de
+    PAPERLESS_TIME_ZONE: "Europe/Berlin"
+    PAPERLESS_OCR_LANGUAGE: deu
+    PAPERLESS_REDIS: redis://localhost:6379
+  persistence:
+    data:
+      enabled: true
+      storageClass: truenas-nfs
+      size: 5Gi # TODO
+      mountPath: /usr/src/paperless
+      annotations:
+        'k8up.io/backup': 'false'
+  service:
+    main:
+      ports:
+        http:
+          port: &port 8000
+#  probes:
+#    liveness: &probes
+#      enabled: true
+#      custom: true
+#      spec:
+#        httpGet:
+#          path: /health
+#          port: *port
+#        initialDelaySeconds: 0
+#        periodSeconds: 10
+#        timeoutSeconds: 1
+#        failureThreshold: 3
+#    readiness: *probes
+#    startup:
+#      enabled: false
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: &host "paperless.cloudton.de"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: paperless-tls-certificate
+          hosts:
+            - *host
+  sidecars:
+    redis:
+      name: redis
+      image: docker.io/library/redis:7
