@@ -24,7 +24,7 @@ finance-backend:
         secretKeyRef:
           name: database-finance-user
           key: LOGIN
-    POSTGRES_PASSWORD:
+    POSTGRES_PASSWD:
       valueFrom:
         secretKeyRef:
           name: database-finance-user
