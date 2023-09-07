@@ -11,12 +11,14 @@ k8up:
         value: "0"
       - name: BACKUP_GLOBALS3ENDPOINT
         value: "https://s3.us-east-005.backblazeb2.com"
-      - name: BACKUP_GLOBALS3ACCESKEYID
+      - name: BACKUP_GLOBALS3BUCKET
+        value: "homelab-k8up"
+      - name: BACKUP_GLOBALACCESSKEYID
         valueFrom:
           secretKeyRef:
             name: backblaze-k8up
             key: ACCESS_KEY_ID
-      - name: BACKUP_GLOBALRESTORES3SECRETACCESSKEY
+      - name: BACKUP_GLOBALSECRETACCESSKEY
         valueFrom:
           secretKeyRef:
             name: backblaze-k8up
