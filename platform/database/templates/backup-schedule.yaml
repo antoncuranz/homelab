@@ -1,0 +1,9 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: backup-schedule
+spec:
+  schedule: "0 0 0 * * 0"
+  backupOwnerReference: self
+  cluster:
+    name: database-cluster
