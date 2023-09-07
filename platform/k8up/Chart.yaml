@@ -1,5 +1,5 @@
 apiVersion: v2
-name: notifications
+name: k8up
 version: 0.0.0
 dependencies:
   - name: k8up
