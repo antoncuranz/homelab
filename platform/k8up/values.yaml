@@ -4,7 +4,7 @@ k8up:
       - name: BACKUP_PROMURL
         value: "http://monitoring-system-prometheus-pushgateway.monitoring-system:9091/"
       - name: BACKUP_GLOBAL_OPERATOR_NAMESPACE
-        value: "backup"
+        value: "k8up"
       - name: BACKUP_GLOBAL_FAILED_JOBS_HISTORY_LIMIT
         value: "1"
       - name: BACKUP_GLOBAL_SUCCESSFUL_JOBS_HISTORY_LIMIT
