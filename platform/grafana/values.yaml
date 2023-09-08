@@ -32,6 +32,7 @@ grafana:
       datasources:
         - name: InfluxDB
           type: influxdb
+          uid: influxdb
           database: graphite
           url: http://monitoring-system-influxdb.monitoring-system.svc.cluster.local:8086
   dashboardProviders:

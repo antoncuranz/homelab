@@ -35,7 +35,7 @@ data:
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+            "uid": "influxdb"
           },
           "description": "",
           "gridPos": {
@@ -76,7 +76,7 @@ data:
             {
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -119,7 +119,7 @@ data:
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+            "uid": "influxdb"
           },
           "fieldConfig": {
             "defaults": {
@@ -163,7 +163,7 @@ data:
             {
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -206,7 +206,7 @@ data:
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+            "uid": "influxdb"
           },
           "description": "",
           "fieldConfig": {
@@ -264,7 +264,7 @@ data:
               "alias": "sda",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -311,7 +311,7 @@ data:
               "alias": "sdb",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -358,7 +358,7 @@ data:
               "alias": "sdc",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -405,7 +405,7 @@ data:
               "alias": "sdd",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -465,7 +465,7 @@ data:
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+            "uid": "influxdb"
           },
           "description": "",
           "fieldConfig": {
@@ -514,7 +514,7 @@ data:
               "alias": "nvme2",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -557,7 +557,7 @@ data:
               "alias": "Personal",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -600,7 +600,7 @@ data:
               "alias": "Personal Pool",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -646,7 +646,7 @@ data:
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+            "uid": "influxdb"
           },
           "description": "",
           "fieldConfig": {
@@ -706,7 +706,7 @@ data:
               "alias": "Idle",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -747,7 +747,7 @@ data:
               "alias": "Usage",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -821,7 +821,7 @@ data:
           "dashes": false,
           "datasource": {
             "type": "influxdb",
-            "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+            "uid": "influxdb"
           },
           "fill": 1,
           "fillGradient": 9,
@@ -866,7 +866,7 @@ data:
               "alias": "Longterm",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -910,7 +910,7 @@ data:
               "alias": "Midterm",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -953,7 +953,7 @@ data:
               "alias": "Shortterm",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1032,7 +1032,7 @@ data:
           },
           "datasource": {
             "type": "influxdb",
-            "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+            "uid": "influxdb"
           },
           "decimals": 1,
           "description": "",
@@ -1062,7 +1062,7 @@ data:
               "alias": "Free",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1111,7 +1111,7 @@ data:
               "alias": "ZFS Cache",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1160,7 +1160,7 @@ data:
               "alias": "Services",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1217,7 +1217,7 @@ data:
           "dashes": false,
           "datasource": {
             "type": "influxdb",
-            "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+            "uid": "influxdb"
           },
           "description": "",
           "fill": 1,
@@ -1266,7 +1266,7 @@ data:
               "alias": "sda",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1315,7 +1315,7 @@ data:
               "alias": "sdb",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1364,7 +1364,7 @@ data:
               "alias": "sdc",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1413,7 +1413,7 @@ data:
               "alias": "sdd",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1507,7 +1507,7 @@ data:
           "dashes": false,
           "datasource": {
             "type": "influxdb",
-            "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+            "uid": "influxdb"
           },
           "fill": 2,
           "fillGradient": 10,
@@ -1548,7 +1548,7 @@ data:
               "alias": "da1",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1589,7 +1589,7 @@ data:
               "alias": "da2",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1630,7 +1630,7 @@ data:
               "alias": "da3",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1671,7 +1671,7 @@ data:
               "alias": "da4",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1712,7 +1712,7 @@ data:
               "alias": "da5",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1753,7 +1753,7 @@ data:
               "alias": "da6",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1830,7 +1830,7 @@ data:
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+            "uid": "influxdb"
           },
           "description": "",
           "fieldConfig": {
@@ -1882,7 +1882,7 @@ data:
               "alias": "Free",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1925,7 +1925,7 @@ data:
               "alias": "Used",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -1989,7 +1989,7 @@ data:
           "dashes": false,
           "datasource": {
             "type": "influxdb",
-            "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+            "uid": "influxdb"
           },
           "fill": 2,
           "fillGradient": 4,
@@ -2033,7 +2033,7 @@ data:
               "alias": "Rx",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
@@ -2076,7 +2076,7 @@ data:
               "alias": "Tx",
               "datasource": {
                 "type": "influxdb",
-                "uid": "b599c7b7-bb99-44fa-a72c-702de65f611f"
+                "uid": "influxdb"
               },
               "groupBy": [
                 {
