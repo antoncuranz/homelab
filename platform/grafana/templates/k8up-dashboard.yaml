@@ -118,7 +118,7 @@ data:
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{` {{instance}} `}}",
               "range": true,
               "refId": "A",
               "useBackend": false
@@ -216,7 +216,7 @@ data:
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{` {{instance}} `}}",
               "range": true,
               "refId": "A",
               "useBackend": false
@@ -314,7 +314,7 @@ data:
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{` {{instance}} `}}",
               "range": true,
               "refId": "A",
               "useBackend": false
@@ -412,7 +412,7 @@ data:
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{` {{instance}} `}}",
               "range": true,
               "refId": "A",
               "useBackend": false
@@ -510,7 +510,7 @@ data:
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{` {{instance}} `}}",
               "range": true,
               "refId": "A",
               "useBackend": false
@@ -608,7 +608,7 @@ data:
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{` {{instance}} `}}",
               "range": true,
               "refId": "A",
               "useBackend": false
