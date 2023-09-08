@@ -29,5 +29,5 @@ spec:
         compression: gzip
         encryption: AES256
     retentionPolicy: "90d"
-    monitoring:
-      enablePodMonitor: true
+  monitoring:
+    enablePodMonitor: true
