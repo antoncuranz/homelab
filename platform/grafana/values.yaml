@@ -20,13 +20,18 @@ grafana:
   sidecar:
     dashboards:
       enabled: true
-      searchNamespace: monitoring-system
-    datasources:
-      enabled: true
-      searchNamespace: monitoring-system
+#      searchNamespace: monitoring-system
   grafana.ini:
     server:
       root_url: https://grafana.cloudton.de
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: InfluxDB
+          type: influxdb
+          database: graphite
+          url: http://monitoring-system-influxdb.monitoring-system.svc.cluster.local:8086
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
