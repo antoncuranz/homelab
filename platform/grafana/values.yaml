@@ -20,12 +20,11 @@ grafana:
   sidecar:
     dashboards:
       enabled: true
-#      searchNamespace: monitoring-system
   grafana.ini:
     server:
       root_url: https://grafana.cloudton.de
   datasources:
-    datasources.yaml:
+    influx.yaml:
       apiVersion: 1
       datasources:
         - name: InfluxDB
