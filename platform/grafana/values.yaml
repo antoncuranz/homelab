@@ -26,6 +26,9 @@ grafana:
   grafana.ini:
     server:
       root_url: https://grafana.cloudton.de
+  plugins:
+    - grafana-clock-panel
+    - grafana-piechart-panel
   datasources:
     datasources.yaml:
       apiVersion: 1
