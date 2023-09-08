@@ -21,7 +21,7 @@ metadata:
   labels:
     grafana_dashboard: "1"
 data:
-  cnp.json: |-
+  cnpg.json: |-
     {
       "annotations": {
         "list": [
