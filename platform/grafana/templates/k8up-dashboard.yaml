@@ -95,7 +95,7 @@ data:
               "expr": "time() - max_over_time(timestamp(changes(k8up_backup_restic_available_snapshots[5m]) > 0)[24h:1m])",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{` {{instance}} `}}",
               "range": true,
               "refId": "A"
             }
@@ -167,7 +167,7 @@ data:
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{` {{instance}} `}}",
               "range": true,
               "refId": "A",
               "useBackend": false
@@ -237,7 +237,7 @@ data:
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
-              "legendFormat": " {{instance}} ",
+              "legendFormat": " {{` {{instance}} `}} ",
               "range": true,
               "refId": "A",
               "useBackend": false
@@ -314,7 +314,7 @@ data:
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{` {{instance}} `}}",
               "range": true,
               "refId": "A",
               "useBackend": false
@@ -412,7 +412,7 @@ data:
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
-              "legendFormat": " {{instance}} ",
+              "legendFormat": " {{` {{instance}} `}} ",
               "range": true,
               "refId": "A",
               "useBackend": false
@@ -510,7 +510,7 @@ data:
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
-              "legendFormat": " {{instance}} ",
+              "legendFormat": " {{` {{instance}} `}} ",
               "range": true,
               "refId": "A",
               "useBackend": false
@@ -608,7 +608,7 @@ data:
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
-              "legendFormat": " {{instance}} ",
+              "legendFormat": " {{` {{instance}} `}} ",
               "range": true,
               "refId": "A",
               "useBackend": false
@@ -706,7 +706,7 @@ data:
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
-              "legendFormat": " {{instance}} ",
+              "legendFormat": " {{` {{instance}} `}} ",
               "range": true,
               "refId": "A",
               "useBackend": false
