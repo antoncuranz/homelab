@@ -3,6 +3,7 @@ package common
 import (
 	"context"
 	"encoding/json"
+	cnpgv1 "github.com/cloudnative-pg/cloudnative-pg/api/v1"
 	k8upv1a1 "github.com/vshn/k8up/api/v1alpha1"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -51,10 +52,7 @@ func CreateRestore(client *kubernetes.Clientset, namespace string, restoreName s
 }
 
 func CreateBackup(client *kubernetes.Clientset, namespace string, backupName string) error {
-	failedJobsHistoryLimit := 1
-	successfulJobHistoryLimit := 0
-
-	restore := k8upv1a1.Backup{
+	backup := k8upv1a1.Backup{
 		TypeMeta: metav1.TypeMeta{
 			Kind:       "Backup",
 			APIVersion: "k8up.io/v1",
@@ -63,25 +61,41 @@ func CreateBackup(client *kubernetes.Clientset, namespace string, backupName str
 			Name:      backupName,
 			Namespace: namespace,
 		},
-		Spec: k8upv1a1.BackupSpec{
-			FailedJobsHistoryLimit:     &failedJobsHistoryLimit,
-			SuccessfulJobsHistoryLimit: &successfulJobHistoryLimit,
-			RunnableSpec: k8upv1a1.RunnableSpec{
-				Backend: &k8upv1a1.Backend{
-					Rest: &k8upv1a1.RestServerSpec{
-						URL: backendUrl + namespace,
-					},
-				},
+	}
+
+	body, err := json.Marshal(backup)
+	if err != nil {
+		return err
+	}
+
+	rsp := k8upv1a1.Backup{}
+	absPath := "/apis/k8up.io/v1/namespaces/" + namespace + "/backups"
+	return client.RESTClient().Post().AbsPath(absPath).Body(body).Do(context.Background()).Into(&rsp)
+}
+
+func CreateDatabaseBackup(client *kubernetes.Clientset, backupName string) error {
+	backup := cnpgv1.Backup{
+		TypeMeta: metav1.TypeMeta{
+			Kind:       "Backup",
+			APIVersion: "postgresql.cnpg.io/v1",
+		},
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      backupName,
+			Namespace: "database",
+		},
+		Spec: cnpgv1.BackupSpec{
+			Cluster: cnpgv1.LocalObjectReference{
+				Name: "database-cluster",
 			},
 		},
 	}
 
-	body, err := json.Marshal(restore)
+	body, err := json.Marshal(backup)
 	if err != nil {
 		return err
 	}
 
 	rsp := k8upv1a1.Restore{}
-	absPath := "/apis/k8up.io/v1/namespaces/" + namespace + "/backups"
+	absPath := "/apis/postgresql.cnpg.io/v1/namespaces/database/backups"
 	return client.RESTClient().Post().AbsPath(absPath).Body(body).Do(context.Background()).Into(&rsp)
 }
