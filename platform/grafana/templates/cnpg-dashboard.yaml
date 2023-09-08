@@ -1285,7 +1285,7 @@ data:
               "expr": "max(cnpg_collector_first_recoverability_point{namespace=~\"$namespace\",pod=~\"$instances\"})*1000",
               "format": "time_series",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": "{{` {{pod}} `}}",
               "range": true,
               "refId": "A"
             }
