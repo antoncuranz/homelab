@@ -141,7 +141,7 @@ data:
           "options": {
             "colorMode": "background",
             "graphMode": "none",
-            "justifyMode": "auto",
+            "justifyMode": "center",
             "orientation": "auto",
             "reduceOptions": {
               "calcs": [
