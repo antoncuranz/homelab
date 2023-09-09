@@ -13,25 +13,32 @@ type ResticSnapshot struct {
 	date string
 	time string
 }
+type NamespacedSnapshotMap = map[string][]ResticSnapshot
+type ResticSnapshotMap = map[string]NamespacedSnapshotMap
 
-func CreateResticSnapshotMap(namespace string) (map[string][]ResticSnapshot, error) {
-	out, err := exec.Command("restic", "-r", "rclone:koofr:k8up/"+namespace, "snapshots").Output()
+func CreateResticSnapshotMap() (ResticSnapshotMap, error) {
+	out, err := exec.Command("restic", "-r", "s3:"+S3Endpoint+"/"+S3BucketK8up, "snapshots").Output()
 	if err != nil {
 		return nil, err
 	}
 
-	snapshotMap := map[string][]ResticSnapshot{}
+	snapshotMap := map[string]map[string][]ResticSnapshot{}
 	for _, line := range strings.Split(string(out), "\n") {
-		if strings.Contains(line, namespace) {
-			fields := strings.Fields(line)
-			snap := ResticSnapshot{
-				id:   fields[0],
-				date: fields[1],
-				time: fields[2],
-			}
-			path := fields[4]
-			snapshotMap[path] = append(snapshotMap[path], snap)
+		fields := strings.Fields(line)
+		if len(fields) < 5 {
+			continue
 		}
+		snap := ResticSnapshot{
+			id:   fields[0],
+			date: fields[1],
+			time: fields[2],
+		}
+		namespace := fields[3]
+		path := fields[4]
+		if snapshotMap[namespace] == nil {
+			snapshotMap[namespace] = map[string][]ResticSnapshot{}
+		}
+		snapshotMap[namespace][path] = append(snapshotMap[namespace][path], snap)
 	}
 
 	return snapshotMap, nil
@@ -62,5 +69,5 @@ func ResticSnapshotSelectionPrompt(snapshotMap map[string][]ResticSnapshot, path
 }
 
 func RestoreResticSnapshot(namespace string, path string, snapshot string, target string) error {
-	return exec.Command("restic", "-r", "rclone:koofr:k8up/"+namespace, "restore", snapshot, "--path", path, "--target", target).Run()
+	return exec.Command("restic", "-r", "s3:"+S3Endpoint+"/"+S3BucketK8up, "restore", snapshot, "--path", path, "--target", target).Run()
 }
