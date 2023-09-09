@@ -10,6 +10,7 @@ import (
 )
 
 func WaitUntilPvcsAreDeleted(client *kubernetes.Clientset, namespace string) error {
+	// TODO: race condition?
 	pvcList, err := client.CoreV1().PersistentVolumeClaims(namespace).List(context.Background(), metav1.ListOptions{})
 	if err != nil {
 		return err

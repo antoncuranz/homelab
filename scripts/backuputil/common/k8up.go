@@ -8,9 +8,8 @@ import (
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
+	"log"
 )
-
-const backendUrl = "http://backup.backup.svc.cluster.local:50001/"
 
 func CreateRestore(client *kubernetes.Clientset, namespace string, restoreName string, pvcName string, snapshot string) error {
 	restore := k8upv1a1.Restore{
@@ -31,13 +30,6 @@ func CreateRestore(client *kubernetes.Clientset, namespace string, restoreName s
 				},
 			},
 			Snapshot: snapshot,
-			RunnableSpec: k8upv1a1.RunnableSpec{
-				Backend: &k8upv1a1.Backend{
-					Rest: &k8upv1a1.RestServerSpec{
-						URL: backendUrl + namespace,
-					},
-				},
-			},
 		},
 	}
 
@@ -95,7 +87,20 @@ func CreateDatabaseBackup(client *kubernetes.Clientset, backupName string) error
 		return err
 	}
 
-	rsp := k8upv1a1.Restore{}
+	rsp := cnpgv1.Backup{}
 	absPath := "/apis/postgresql.cnpg.io/v1/namespaces/database/backups"
 	return client.RESTClient().Post().AbsPath(absPath).Body(body).Do(context.Background()).Into(&rsp)
+}
+
+func RestorePvc(client *kubernetes.Clientset, namespace string, snapshot string, pvcName string, pvcStorage string, storageClass string) error {
+	if err := CreatePvc(client, namespace, pvcName, pvcStorage, storageClass); err != nil {
+		return err
+	}
+
+	restoreName := "restore-" + pvcName
+	if err := CreateRestore(client, namespace, restoreName, pvcName, snapshot); err != nil {
+		log.Fatal(err)
+	}
+
+	return nil
 }
