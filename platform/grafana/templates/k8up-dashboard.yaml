@@ -133,7 +133,7 @@ data:
           },
           "gridPos": {
             "h": 8,
-            "w": 12,
+            "w": 9,
             "x": 12,
             "y": 0
           },
@@ -205,9 +205,9 @@ data:
           },
           "gridPos": {
             "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 8
+            "w": 3,
+            "x": 21,
+            "y": 0
           },
           "id": 1,
           "options": {
@@ -244,83 +244,6 @@ data:
             }
           ],
           "title": "Available Snapshots",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "red",
-                    "value": null
-                  },
-                  {
-                    "color": "yellow",
-                    "value": 1
-                  },
-                  {
-                    "color": "green",
-                    "value": 5
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 8
-          },
-          "id": 10,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "10.1.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheus"
-              },
-              "disableTextWrap": false,
-              "editorMode": "builder",
-              "exemplar": false,
-              "expr": "avg by(instance) (k8up_backup_restic_available_snapshots)",
-              "format": "time_series",
-              "fullMetaSearch": false,
-              "includeNullMetadata": true,
-              "instant": false,
-              "legendFormat": "{{` {{instance}} `}}",
-              "range": true,
-              "refId": "A",
-              "useBackend": false
-            }
-          ],
-          "title": "Number of Snapshots (wrong!)",
           "type": "stat"
         },
         {
@@ -385,7 +308,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 16
+            "y": 8
           },
           "id": 2,
           "options": {
@@ -483,7 +406,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 16
+            "y": 8
           },
           "id": 5,
           "options": {
@@ -581,7 +504,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 24
+            "y": 16
           },
           "id": 3,
           "options": {
@@ -679,7 +602,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 24
+            "y": 16
           },
           "id": 4,
           "options": {
