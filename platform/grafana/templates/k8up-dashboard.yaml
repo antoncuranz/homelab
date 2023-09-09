@@ -70,7 +70,7 @@ data:
           "id": 7,
           "maxDataPoints": 100000,
           "options": {
-            "colorMode": "value",
+            "colorMode": "background",
             "graphMode": "area",
             "justifyMode": "auto",
             "orientation": "auto",
@@ -112,9 +112,6 @@ data:
           },
           "fieldConfig": {
             "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -129,7 +126,7 @@ data:
                   }
                 ]
               },
-              "unit": "none"
+              "unit": "short"
             },
             "overrides": []
           },
@@ -142,8 +139,8 @@ data:
           "id": 9,
           "maxDataPoints": 100000,
           "options": {
-            "colorMode": "value",
-            "graphMode": "area",
+            "colorMode": "background",
+            "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
             "reduceOptions": {
@@ -198,10 +195,6 @@ data:
                   {
                     "color": "green",
                     "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
                   }
                 ]
               }
@@ -217,8 +210,8 @@ data:
           "id": 1,
           "maxDataPoints": 100000,
           "options": {
-            "colorMode": "value",
-            "graphMode": "area",
+            "colorMode": "none",
+            "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
             "reduceOptions": {
