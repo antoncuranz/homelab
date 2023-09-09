@@ -68,6 +68,7 @@ data:
             "y": 0
           },
           "id": 7,
+          "maxDataPoints": 100000,
           "options": {
             "colorMode": "value",
             "graphMode": "area",
@@ -100,6 +101,7 @@ data:
               "refId": "A"
             }
           ],
+          "timeFrom": "30d",
           "title": "Duration Since Last Backup",
           "type": "stat"
         },
@@ -138,6 +140,7 @@ data:
             "y": 0
           },
           "id": 9,
+          "maxDataPoints": 100000,
           "options": {
             "colorMode": "value",
             "graphMode": "area",
@@ -173,6 +176,7 @@ data:
               "useBackend": false
             }
           ],
+          "timeFrom": "30d",
           "title": "Errors in Last Backup",
           "type": "stat"
         },
@@ -186,6 +190,7 @@ data:
               "color": {
                 "mode": "thresholds"
               },
+              "displayName": "Total Snapshots",
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -210,6 +215,7 @@ data:
             "y": 0
           },
           "id": 1,
+          "maxDataPoints": 100000,
           "options": {
             "colorMode": "value",
             "graphMode": "area",
@@ -243,7 +249,7 @@ data:
               "useBackend": false
             }
           ],
-          "title": "Available Snapshots",
+          "timeFrom": "30d",
           "type": "stat"
         },
         {
@@ -647,7 +653,7 @@ data:
         "list": []
       },
       "time": {
-        "from": "now-30d",
+        "from": "now-7d",
         "to": "now"
       },
       "timepicker": {},
