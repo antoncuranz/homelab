@@ -16,3 +16,4 @@ Chart.lock
 .idea/vcs.xml
 .gitignore
 .vscode/launch.json
+/scripts/backuputil/.envrc

@@ -45,7 +45,7 @@ func CreateResticSnapshotMap() (ResticSnapshotMap, error) {
 }
 
 func ResticSnapshotSelectionPrompt(snapshotMap map[string][]ResticSnapshot, path string) string {
-	snapshots := snapshotMap[path]
+	snapshots := funk.Reverse(snapshotMap[path]).([]ResticSnapshot)
 
 	snapshotDisplays := funk.Map(snapshots, func(snapshot ResticSnapshot) string {
 		return snapshot.id
