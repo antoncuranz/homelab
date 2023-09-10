@@ -47,6 +47,7 @@ app-template:
           npm install --save homebridge-tuya-platform@latest
   podSecurityContext:
     runAsNonRoot: true
+    runAsUser: 65532
   probes:
     liveness:
       enabled: true
