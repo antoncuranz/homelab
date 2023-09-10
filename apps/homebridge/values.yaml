@@ -47,11 +47,11 @@ app-template:
           npm install --save homebridge-tuya-platform@latest
   podSecurityContext:
     fsGroupChangePolicy: OnRootMismatch
-    fsGroup: 110
-    runAsNonRoot: true
-    runAsUser: 106
-#  securityContext:
-#    readOnlyRootFilesystem: true
+    fsGroup: 0
+#    runAsNonRoot: true
+#    runAsUser: 106
+  securityContext:
+    readOnlyRootFilesystem: true
   probes:
     liveness:
       enabled: true
