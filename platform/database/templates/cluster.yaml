@@ -14,7 +14,7 @@ spec:
   backup:
     barmanObjectStore:
       destinationPath: s3://homelab-db/
-      endpointURL: https://s3.us-east-005.backblazeb2.com
+      endpointURL: https://s3.eu-central-003.backblazeb2.com
       s3Credentials:
         accessKeyId:
           name: backblaze-db
