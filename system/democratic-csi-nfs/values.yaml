@@ -19,9 +19,3 @@ democratic-csi:
       mountOptions:
         - noatime
         - nfsvers=4
-  
-  volumeSnapshotClasses:
-    - name: truenas-nfs
-      deletionPolicy: Retain
-      parameters:
-        detachedSnapshots: false
