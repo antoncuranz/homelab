@@ -48,7 +48,7 @@ app-template:
   podSecurityContext:
     fsGroupChangePolicy: OnRootMismatch
     runAsNonRoot: true
-    runAsUser: 568
+    runAsUser: 106
 #  securityContext:
 #    readOnlyRootFilesystem: true
   probes:
