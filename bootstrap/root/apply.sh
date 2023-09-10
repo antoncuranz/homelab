@@ -2,7 +2,7 @@
 
 VALUES="values.yaml"
 
-kubectl get ingress gitea --namespace gitea \
+kubectl get ingress immich-proxy --namespace immich \
     || VALUES="values-seed.yaml"
 
 helm template \
