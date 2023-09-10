@@ -17,3 +17,4 @@ Chart.lock
 .gitignore
 .vscode/launch.json
 /scripts/backuputil/.envrc
+/scripts/pvcleanup/.envrc
