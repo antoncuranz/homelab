@@ -10,7 +10,7 @@ k8up:
       - name: BACKUP_GLOBAL_SUCCESSFUL_JOBS_HISTORY_LIMIT
         value: "1"
       - name: BACKUP_GLOBALS3ENDPOINT
-        value: "https://s3.us-east-005.backblazeb2.com"
+        value: "https://s3.eu-central-003.backblazeb2.com"
       - name: BACKUP_GLOBALS3BUCKET
         value: "homelab-k8up"
       - name: BACKUP_GLOBALACCESSKEYID
