@@ -45,6 +45,8 @@ app-template:
           #!/bin/sh
           npm install --save homebridge-shelly@latest
           npm install --save homebridge-tuya-platform@latest
+  podSecurityContext:
+    runAsNonRoot: true
   probes:
     liveness:
       enabled: true
