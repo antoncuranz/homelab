@@ -45,9 +45,6 @@ app-template:
           #!/bin/sh
           npm install --save homebridge-shelly@latest
           npm install --save homebridge-tuya-platform@latest
-  podSecurityContext:
-    fsGroupChangePolicy: OnRootMismatch
-    fsGroup: 0
   probes:
     liveness:
       enabled: true
