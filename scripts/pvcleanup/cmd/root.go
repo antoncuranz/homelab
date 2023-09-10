@@ -106,6 +106,10 @@ func TrueNasDeleteDataset(datasetId string) (string, error) {
 }
 
 func PvSelectionPrompt(pvs []v1.PersistentVolume, message string) []string {
+	if len(pvs) == 0 {
+		return []string{}
+	}
+
 	pvNames := funk.Map(pvs, func(pv v1.PersistentVolume) string {
 		return pv.Name
 	}).([]string)
