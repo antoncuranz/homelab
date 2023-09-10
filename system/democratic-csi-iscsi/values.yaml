@@ -17,11 +17,3 @@ democratic-csi:
       parameters:
         fsType: xfs
       mountOptions: []
-  
-  volumeSnapshotClasses:
-    - name: truenas-iscsi
-      annotations:
-        snapshot.storage.kubernetes.io/is-default-class: "true"
-      deletionPolicy: Retain
-      parameters:
-        detachedSnapshots: false
