@@ -89,7 +89,7 @@ jellyseerr:
     strategy: RollingUpdate
   image:
     repository: fallenbagel/jellyseerr
-    tag: 1.6.0
+    tag: 1.7.0
   env:
     TZ: Europe/Berlin
     PUID: 1000
