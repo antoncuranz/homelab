@@ -41,7 +41,12 @@ var backupCmd = &cobra.Command{
 		}
 
 		namespace := strings.ToLower(args[0])
-		if slices.Contains(k8upNamespaces, namespace) {
+		if slices.Contains([]string{"db", "database"}, namespace) {
+			fmt.Println("Backing up database...")
+			if err := common.CreateDatabaseBackup(client, "manual-"+timestamp); err != nil {
+				log.Fatal(err)
+			}
+		} else if slices.Contains(k8upNamespaces, namespace) {
 			if slices.Contains(dbNamespaces, namespace) {
 				fmt.Println("Backing up database...")
 				if err := common.CreateDatabaseBackup(client, "manual-"+timestamp); err != nil {
