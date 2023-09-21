@@ -25,7 +25,7 @@ app-template:
         secretKeyRef:
           name: database-paperless-user
           key: PASSWORD
-    PAPERLESS_URL: https://paperless.cloudton.de
+    PAPERLESS_URL: https://paperless.serverton.de
     PAPERLESS_TIME_ZONE: "Europe/Berlin"
     PAPERLESS_OCR_LANGUAGE: deu
     PAPERLESS_REDIS: redis://localhost:6379
@@ -88,11 +88,11 @@ app-template:
       enabled: true
       ingressClassName: nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
         nginx.ingress.kubernetes.io/proxy-body-size: 4G
       hosts:
-        - host: &host "paperless.cloudton.de"
+        - host: &host "paperless.serverton.de"
           paths:
             - path: /
               pathType: Prefix
