@@ -60,10 +60,10 @@ jellyfin:
       enabled: true
       ingressClassName: nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: &host "jellyfin.cloudton.de"
+        - host: &host "jellyfin.serverton.de"
           paths:
             - path: /
               pathType: Prefix
@@ -127,10 +127,10 @@ jellyseerr:
       enabled: true
       ingressClassName: nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: &host "jellyseerr.cloudton.de"
+        - host: &host "jellyseerr.serverton.de"
           paths:
             - path: /
               pathType: Prefix
@@ -197,10 +197,10 @@ prowlarr:
       enabled: true
       ingressClassName: nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: &host "prowlarr.cloudton.de"
+        - host: &host "prowlarr.serverton.de"
           paths:
             - path: /
               pathType: Prefix
@@ -275,10 +275,10 @@ radarr:
       enabled: true
       ingressClassName: nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: &host "radarr.cloudton.de"
+        - host: &host "radarr.serverton.de"
           paths:
             - path: /
               pathType: Prefix
@@ -353,10 +353,10 @@ sonarr:
       enabled: true
       ingressClassName: nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: &host "sonarr.cloudton.de"
+        - host: &host "sonarr.serverton.de"
           paths:
             - path: /
               pathType: Prefix
@@ -426,10 +426,10 @@ transmission:
       enabled: true
       ingressClassName: nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: &host "transmission.cloudton.de"
+        - host: &host "transmission.serverton.de"
           paths:
             - path: /
               pathType: Prefix

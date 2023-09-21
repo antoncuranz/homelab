@@ -15,7 +15,7 @@ from rich.prompt import Confirm, Prompt
 
 upstream_config = {
     "seed_repo": "https://github.com/ant0ncuranz/homelab",
-    "domain": "cloudton.de",
+    "domain": "serverton.de",
     "timezone": "Europe/Berlin",
     "loadbalancer_ip_range": "192.168.0.150-192.168.0.160",
 }
@@ -92,10 +92,10 @@ def main() -> None:
 
     if Confirm.ask("Update server list?", default=True):
         subprocess.run(
-            [editor, 'ansible/inventory/hosts.yml']
+            [editor, 'metal/inventory/hosts.yml']
         )
         subprocess.run(
-            [editor, 'ansible/inventory/group_vars/kubernetes/supplemental.yml']
+            [editor, 'metal/inventory/group_vars/kubernetes/supplemental.yml']
         )
 
 if __name__ == '__main__':
