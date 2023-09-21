@@ -22,11 +22,11 @@ argo-cd:
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
-        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         hajimari.io/appName: ArgoCD
         hajimari.io/icon: robot
       hosts:
-        - &host argocd.cloudton.de
+        - &host argocd.serverton.de
       tls:
         - secretName: argocd-tls-certificate
           hosts:
