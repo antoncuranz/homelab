@@ -9,9 +9,9 @@ finance-backend:
   imagePullSecrets:
     - name: gitlab-token
   env:
-    KEYCLOAK_REALM_URL: "https://keycloak.cloudton.de/realms/finance"
+    KEYCLOAK_REALM_URL: "https://keycloak.serverton.de/realms/finance"
     KEYCLOAK_CLIENT_ID: "finance-backend"
-    CORS_ALLOW_ORIGINS: "https://finance.cloudton.de"
+    CORS_ALLOW_ORIGINS: "https://finance.serverton.de"
     CRON_ALERT_DELIVERY: "0 */15 * * * ?"
     CRON_TRANSACTION_VALIDATION: "0 0 */1 * * ?"
     POSTGRES_URL:
@@ -42,10 +42,10 @@ finance-backend:
       enabled: true
       ingressClassName: nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: &host "financeq.cloudton.de"
+        - host: &host "financeq.serverton.de"
           paths:
             - path: /
               pathType: Prefix
@@ -65,10 +65,10 @@ finance-frontend:
   imagePullSecrets:
     - name: gitlab-token
   env:
-    KEYCLOAK_URL: "https://keycloak.cloudton.de"
+    KEYCLOAK_URL: "https://keycloak.serverton.de"
     KEYCLOAK_REALM: "finance"
     KEYCLOAK_CLIENT_ID: "finance-frontend"
-    BACKEND_URL: "https://financeq.cloudton.de"
+    BACKEND_URL: "https://financeq.serverton.de"
   service:
     main:
       ports:
@@ -79,10 +79,10 @@ finance-frontend:
       enabled: true
       ingressClassName: nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: &host "finance.cloudton.de"
+        - host: &host "finance.serverton.de"
           paths:
             - path: /
               pathType: Prefix
