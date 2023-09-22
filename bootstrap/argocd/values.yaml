@@ -38,6 +38,9 @@ argo-cd:
   dex:
     enabled: false
   controller:
+    resources:
+      limits:
+        cpu: 400m
     metrics: *metrics
   repoServer:
     metrics: *metrics
