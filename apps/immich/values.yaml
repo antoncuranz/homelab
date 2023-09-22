@@ -48,10 +48,10 @@ immich:
         enabled: true
         ingressClassName: nginx
         annotations:
-          external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+          external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
           cert-manager.io/cluster-issuer: letsencrypt-prod
         hosts:
-          - host: &host "immich.cloudton.de"
+          - host: &host "immich.serverton.de"
             paths:
               - path: /
                 pathType: Prefix

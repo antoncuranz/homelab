@@ -1,5 +1,5 @@
 data "cloudflare_zone" "zone" {
-  name = "cloudton.de"
+  name = "serverton.de"
 }
 
 data "cloudflare_api_token_permission_groups" "all" {}
