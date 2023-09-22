@@ -41,6 +41,3 @@ keycloak:
   extraVolumes:
     - name: theme
       emptyDir: {}
-  resources:
-    limits:
-      cpu: 200m

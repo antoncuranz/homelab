@@ -82,7 +82,7 @@ func CreateDatabaseFromBackup(client *kubernetes.Clientset, namespace string, da
 					BarmanObjectStore: &cnpgv1.BarmanObjectStoreConfiguration{
 						ServerName:      backupFolder,
 						DestinationPath: "s3://" + s3bucket + "/",
-						EndpointURL:     s3endpoint,
+						EndpointURL:     "https://" + s3endpoint,
 						BarmanCredentials: cnpgv1.BarmanCredentials{
 							AWS: &cnpgv1.S3Credentials{
 								AccessKeyIDReference: &cnpgv1.SecretKeySelector{
