@@ -4,11 +4,11 @@ grafana:
     ingressClassName: nginx
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
-      external-dns.alpha.kubernetes.io/target: "ipv4.cloudton.de"
+      external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
       hajimari.io/appName: Grafana
       hajimari.io/icon: chart-bar
     hosts:
-      - &host grafana.cloudton.de
+      - &host grafana.serverton.de
     tls:
       - secretName: grafana-general-tls
         hosts:
@@ -25,7 +25,7 @@ grafana:
       enabled: true
   grafana.ini:
     server:
-      root_url: https://grafana.cloudton.de
+      root_url: https://grafana.serverton.de
   plugins:
     - grafana-clock-panel
     - grafana-piechart-panel
