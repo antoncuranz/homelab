@@ -28,7 +28,6 @@ data:
       "fiscalYearStartMonth": 0,
       "gnetId": 12921,
       "graphTooltip": 0,
-      "id": 8,
       "links": [],
       "liveNow": false,
       "panels": [
@@ -47,23 +46,30 @@ data:
           "id": 21,
           "options": {
             "bgColor": "dark-purple",
-            "clockType": "12 hour",
+            "clockType": "24 hour",
             "countdownSettings": {
               "endCountdownTime": "2020-08-29T01:16:48-04:00",
               "endText": "00:00:00"
             },
+            "countupSettings": {
+              "beginCountupTime": "2023-09-23T01:11:45+02:00",
+              "beginText": "00:00:00"
+            },
             "dateSettings": {
-              "dateFormat": "MMMM DD, YYYY",
+              "dateFormat": "DD. MMMM YYYY",
               "fontSize": "18px",
               "fontWeight": "normal",
+              "locale": "",
               "showDate": true
             },
+            "fontMono": false,
             "mode": "time",
+            "refresh": "sec",
             "timeSettings": {
               "fontSize": "24px",
               "fontWeight": "normal"
             },
-            "timezone": "America/Toronto",
+            "timezone": "Europe/Berlin",
             "timezoneSettings": {
               "fontSize": "12px",
               "fontWeight": "normal",
@@ -71,7 +77,7 @@ data:
               "zoneFormat": "offsetAbbv"
             }
           },
-          "pluginVersion": "7.1.4",
+          "pluginVersion": "2.1.3",
           "targets": [
             {
               "datasource": {
@@ -113,7 +119,7 @@ data:
               "tags": []
             }
           ],
-          "title": "Toronto",
+          "title": "Berlin",
           "type": "grafana-clock-panel"
         },
         {
@@ -158,7 +164,7 @@ data:
             },
             "textMode": "value"
           },
-          "pluginVersion": "10.0.3",
+          "pluginVersion": "10.1.2",
           "targets": [
             {
               "datasource": {
@@ -258,10 +264,10 @@ data:
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "10.0.3",
+          "pluginVersion": "10.1.2",
           "targets": [
             {
-              "alias": "sda",
+              "alias": "ssd",
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb"
@@ -308,7 +314,7 @@ data:
               ]
             },
             {
-              "alias": "sdb",
+              "alias": "nvme1",
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb"
@@ -327,7 +333,7 @@ data:
                   "type": "fill"
                 }
               ],
-              "measurement": "sdb",
+              "measurement": "nvme0n1",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "B",
@@ -355,7 +361,7 @@ data:
               ]
             },
             {
-              "alias": "sdc",
+              "alias": "nvme2",
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb"
@@ -374,7 +380,7 @@ data:
                   "type": "fill"
                 }
               ],
-              "measurement": "sdc",
+              "measurement": "nvme1n1",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "C",
@@ -473,11 +479,23 @@ data:
               "decimals": 2,
               "mappings": [],
               "thresholds": {
-                "mode": "percentage",
+                "mode": "absolute",
                 "steps": [
                   {
                     "color": "semi-dark-red",
                     "value": null
+                  },
+                  {
+                    "color": "orange",
+                    "value": 53687091200
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 107374182400
+                  },
+                  {
+                    "color": "green",
+                    "value": 536870912000
                   }
                 ]
               },
@@ -508,10 +526,10 @@ data:
             },
             "textMode": "auto"
           },
-          "pluginVersion": "10.0.3",
+          "pluginVersion": "10.1.2",
           "targets": [
             {
-              "alias": "nvme2",
+              "alias": "SSD",
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb"
@@ -530,7 +548,7 @@ data:
                   "type": "fill"
                 }
               ],
-              "measurement": "mnt-nvme2",
+              "measurement": "mnt-SSD",
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT last(\"value\") FROM \"mnt-MediaPool_df_complex_used\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
@@ -554,7 +572,7 @@ data:
               "tags": []
             },
             {
-              "alias": "Personal",
+              "alias": "Samba",
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb"
@@ -573,7 +591,7 @@ data:
                   "type": "fill"
                 }
               ],
-              "measurement": "mnt-Personal",
+              "measurement": "mnt-Samba",
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT last(\"value\") FROM \"mnt-MediaPool_df_complex_used\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
@@ -597,7 +615,7 @@ data:
               "tags": []
             },
             {
-              "alias": "Personal Pool",
+              "alias": "Backup",
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb"
@@ -616,7 +634,7 @@ data:
                   "type": "fill"
                 }
               ],
-              "measurement": "mnt-PersonalPool",
+              "measurement": "mnt-Backup",
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT last(\"value\") FROM \"mnt-MediaPool_df_complex_used\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
@@ -700,7 +718,7 @@ data:
             "showUnfilled": false,
             "valueMode": "color"
           },
-          "pluginVersion": "10.0.3",
+          "pluginVersion": "10.1.2",
           "targets": [
             {
               "alias": "Idle",
@@ -853,7 +871,7 @@ data:
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "10.0.3",
+          "pluginVersion": "10.1.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1253,7 +1271,7 @@ data:
             "alertThreshold": true
           },
           "percentage": true,
-          "pluginVersion": "10.0.3",
+          "pluginVersion": "10.1.2",
           "pointradius": 0.5,
           "points": false,
           "renderer": "flot",
@@ -1285,8 +1303,8 @@ data:
               "measurement": "sda",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT * FROM \"da1.temperature\"",
-              "rawQuery": false,
+              "query": "SELECT last(\"temperature\") FROM \"sda\" WHERE (\"resource\" = 'disktemp') AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1312,7 +1330,7 @@ data:
               ]
             },
             {
-              "alias": "sdb",
+              "alias": "ssd",
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb"
@@ -1331,7 +1349,7 @@ data:
                   "type": "fill"
                 }
               ],
-              "measurement": "sdb",
+              "measurement": "sda",
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT * FROM \"da1.temperature\"",
@@ -1361,7 +1379,7 @@ data:
               ]
             },
             {
-              "alias": "sdc",
+              "alias": "nvme1",
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb"
@@ -1380,7 +1398,7 @@ data:
                   "type": "fill"
                 }
               ],
-              "measurement": "sdc",
+              "measurement": "nvme0n1",
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT * FROM \"da1.temperature\"",
@@ -1410,7 +1428,7 @@ data:
               ]
             },
             {
-              "alias": "sdd",
+              "alias": "nvme2",
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb"
@@ -1429,7 +1447,7 @@ data:
                   "type": "fill"
                 }
               ],
-              "measurement": "sdd",
+              "measurement": "nvme1n1",
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT * FROM \"da1.temperature\"",
@@ -1535,7 +1553,7 @@ data:
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "10.0.3",
+          "pluginVersion": "10.1.2",
           "pointradius": 0.5,
           "points": true,
           "renderer": "flot",
@@ -1876,7 +1894,7 @@ data:
             "showUnfilled": true,
             "valueMode": "color"
           },
-          "pluginVersion": "10.0.3",
+          "pluginVersion": "10.1.2",
           "targets": [
             {
               "alias": "Free",
@@ -2020,7 +2038,7 @@ data:
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "10.0.3",
+          "pluginVersion": "10.1.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2049,7 +2067,7 @@ data:
                   "type": "fill"
                 }
               ],
-              "measurement": "vmx0",
+              "measurement": "br0",
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT * FROM \"vmx0_if_octets_rx\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
@@ -2092,7 +2110,7 @@ data:
                   "type": "fill"
                 }
               ],
-              "measurement": "vmx0",
+              "measurement": "br0",
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT * FROM \"vmx0_if_octets_rx\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
@@ -2161,7 +2179,7 @@ data:
         "list": []
       },
       "time": {
-        "from": "now-12h",
+        "from": "now-30m",
         "to": "now"
       },
       "timepicker": {
@@ -2181,6 +2199,6 @@ data:
       "timezone": "",
       "title": "TrueNAS dashboard",
       "uid": "ruU9VdNMk",
-      "version": 4,
+      "version": 1,
       "weekStart": ""
     }
