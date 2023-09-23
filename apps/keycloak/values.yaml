@@ -15,8 +15,10 @@ keycloak:
         path: /
     extraTls:
       - hosts:
+        - "keycloak.serverton.de"
         - "keycloak2.serverton.de"
-    tls: true
+        secretName: keycloak.serverton.de-tls
+#    tls: true # TODO: uncomment and remove extra*
   postgresql:
     enabled: false
   externalDatabase:
