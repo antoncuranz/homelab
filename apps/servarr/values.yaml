@@ -23,7 +23,7 @@ jellyfin:
       enabled: true
       storageClass: truenas-nfs
       accessMode: ReadWriteMany
-      size: 5Gi # TODO
+      size: 2Ti
       mountPath: /filme
       annotations:
         'k8up.io/backup': 'false'
@@ -31,7 +31,7 @@ jellyfin:
       enabled: true
       storageClass: truenas-nfs
       accessMode: ReadWriteMany
-      size: 5Gi # TODO
+      size: 2Ti
       mountPath: /serien
       annotations:
         'k8up.io/backup': 'false'
