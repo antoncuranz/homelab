@@ -13,6 +13,9 @@ keycloak:
     extraHosts:
       - name: "keycloak2.serverton.de"
         path: /
+    extraTls:
+      - hosts:
+        - "keycloak2.serverton.de"
     tls: true
   postgresql:
     enabled: false
