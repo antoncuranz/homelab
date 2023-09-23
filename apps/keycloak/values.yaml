@@ -10,6 +10,9 @@ keycloak:
       external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
       cert-manager.io/cluster-issuer: letsencrypt-prod
     hostname: "keycloak.serverton.de"
+    extraHosts:
+      - name: "keycloak2.serverton.de"
+        path: /
     tls: true
   postgresql:
     enabled: false
