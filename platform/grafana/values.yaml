@@ -23,7 +23,7 @@ grafana:
       searchNamespace: monitoring-system
     dashboards:
       enabled: true
-      labelValue: "1"
+      labelValue: '1'
   grafana.ini:
     server:
       root_url: https://grafana.serverton.de
