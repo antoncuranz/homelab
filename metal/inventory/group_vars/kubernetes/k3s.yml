@@ -23,9 +23,6 @@ k3s_server_manifests_urls:
     filename: custom-prometheus-prometheusrules.yaml
   - url: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.65.1/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
     filename: custom-prometheus-servicemonitors.yaml
-# /var/lib/rancher/k3s/server/manifests
-k3s_server_manifests_templates:
-  - custom-cilium-helmchart.yaml.j2
 # /var/lib/rancher/k3s/agent/pod-manifests
 k3s_server_pod_manifests_templates:
   - kube-vip-static-pod.yaml.j2

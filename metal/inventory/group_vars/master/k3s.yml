@@ -8,16 +8,12 @@ k3s_server:
   tls-san:
     - "{{ kubevip_address }}"
   docker: false
-  flannel-backend: "none"             # This needs to be in quotes
   disable:
-    - flannel                         # Disable flannel                 - replaced with Cilium
-    - local-storage                   # Disable local-path-provisioner  - installed with Flux
+    - local-storage                   # Disable local-path-provisioner
     - metrics-server                  # Disable metrics-server          - installed with Flux
     - servicelb                       # Disable servicelb               - replaced with metallb and installed with Flux
     - traefik                         # Disable traefik                 - replaced with ingress-nginx and installed with Flux
-  disable-network-policy: true
   disable-cloud-controller: true
-  disable-kube-proxy: true            # Cilium uses eBPF
   write-kubeconfig-mode: "644"
   cluster-cidr: "{{ cluster_cidr }}"
   service-cidr: "{{ service_cidr }}"
