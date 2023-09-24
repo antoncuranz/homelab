@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: truanas-dashboard
   labels:
-    grafana_dashboard: "1"
+    grafana_dashboard: "default"
 data:
   truanas.json: |-
     {
