@@ -19,7 +19,7 @@ kind: ConfigMap
 metadata:
   name: cnpg-dashboard
   labels:
-    grafana_dashboard: "1"
+    grafana_dashboard: "default"
 data:
   cnpg.json: |-
     {

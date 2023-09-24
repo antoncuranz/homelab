@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: argocd-dashboard
   labels:
-    grafana_dashboard: "1"
+    grafana_dashboard: "default"
 data:
   argocd.json: |-
     {

@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: k8up-dashboard
   labels:
-    grafana_dashboard: "1"
+    grafana_dashboard: "default"
 data:
   k8up.json: |-
     {
