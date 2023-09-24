@@ -23,7 +23,7 @@ jellyfin:
       enabled: true
       storageClass: truenas-nfs
       accessMode: ReadWriteMany
-      size: 2Ti
+      size: 1Ti
       mountPath: /filme
       annotations:
         'k8up.io/backup': 'false'
@@ -31,7 +31,7 @@ jellyfin:
       enabled: true
       storageClass: truenas-nfs
       accessMode: ReadWriteMany
-      size: 2Ti
+      size: 1Ti
       mountPath: /serien
       annotations:
         'k8up.io/backup': 'false'
@@ -67,15 +67,10 @@ jellyfin:
           paths:
             - path: /
               pathType: Prefix
-        - host: &host2 "jellyfin2.serverton.de"
-          paths:
-            - path: /
-              pathType: Prefix
       tls:
         - secretName: jellyfin-tls-certificate
           hosts:
             - *host
-            - *host2
   resources:
     requests: 
       gpu.intel.com/i915: "1" 
