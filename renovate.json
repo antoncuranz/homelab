@@ -29,7 +29,10 @@
     }
   ],
   "kubernetes": {
-    "fileMatch": ["\\.yaml$"]
+    "fileMatch": [
+      "\\.yaml$",
+      "\\.ya?ml.j2$"
+    ]
   },
   "gomod": {
     "enabled": false
