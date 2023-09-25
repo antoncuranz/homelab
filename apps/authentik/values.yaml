@@ -1,19 +1,5 @@
 authentik:
-#  authentik:
-#    postgresql:
-#      host: ""
-#      name: ""
-#      user: ""
-#      password: ""
   envValueFrom:
-    AUTHENTIK_BOOTSTRAP_EMAIL:
-      secretKeyRef:
-        name: authentik-secrets
-        key: username
-    AUTHENTIK_BOOTSTRAP_PASSWORD:
-      secretKeyRef:
-        name: authentik-secrets
-        key: password
     AUTHENTIK_SECRET_KEY:
       secretKeyRef:
         name: authentik-secrets
