@@ -21,6 +21,15 @@ authentik:
         name: database-authentik-user
         key: PASSWORD
 
+  volumeMounts:
+    - name: tls-certs
+      mountPath: /certs
+
+  volumes:
+    - name: tls-certs
+      secret:
+        secretName: authentik-tls-certificate
+
   ingress:
     enabled: true
     ingressClassName: nginx
