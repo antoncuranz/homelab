@@ -67,10 +67,15 @@ jellyfin:
           paths:
             - path: /
               pathType: Prefix
+        - host: &host2 "jellyfin2.serverton.de"
+          paths:
+            - path: /
+              pathType: Prefix
       tls:
         - secretName: jellyfin-tls-certificate
           hosts:
             - *host
+            - *host2
   resources:
     requests: 
       gpu.intel.com/i915: "1" 
