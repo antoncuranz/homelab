@@ -2,7 +2,6 @@ kube-prometheus-stack:
   grafana:
     enabled: false
     forceDeployDatasources: true
-    # forceDeployDashboards: true
     additionalDataSources:
       - name: Loki
         type: loki
@@ -23,6 +22,8 @@ influxdb:
   persistence:
     storageClass: truenas-iscsi
     size: 2Gi
+  service:
+    type: LoadBalancer
   config:
     graphite:
       enabled: true
