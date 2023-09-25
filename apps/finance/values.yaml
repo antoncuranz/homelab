@@ -49,10 +49,15 @@ finance-backend:
           paths:
             - path: /
               pathType: Prefix
+        - host: &host2 "financeq2.serverton.de"
+          paths:
+            - path: /
+              pathType: Prefix
       tls:
         - secretName: financeq-tls-certificate
           hosts:
             - *host
+            - *host2
 
 finance-frontend:
   global:
@@ -86,7 +91,12 @@ finance-frontend:
           paths:
             - path: /
               pathType: Prefix
+        - host: &host2 "finance2.serverton.de"
+          paths:
+            - path: /
+              pathType: Prefix
       tls:
         - secretName: finance-tls-certificate
           hosts:
             - *host
+            - *host2
