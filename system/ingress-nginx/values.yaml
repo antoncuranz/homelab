@@ -1,5 +1,8 @@
 ingress-nginx:
   controller:
+    service:
+      annotations:
+        metallb.universe.tf/allow-shared-ip: default
     admissionWebhooks:
       timeoutSeconds: 30
     metrics:

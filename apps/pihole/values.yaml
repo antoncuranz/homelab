@@ -2,7 +2,7 @@ pihole:
   serviceDns:
     type: LoadBalancer
     annotations:
-      metallb.universe.tf/allow-shared-ip: pihole-svc
+      metallb.universe.tf/allow-shared-ip: default
   serviceDhcp:
     enabled: false
   ingress:
