@@ -24,6 +24,8 @@ influxdb:
     size: 2Gi
   service:
     type: LoadBalancer
+    annotations:
+      metallb.universe.tf/allow-shared-ip: default
   config:
     graphite:
       enabled: true
