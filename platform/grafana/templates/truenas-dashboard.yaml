@@ -230,11 +230,11 @@ data:
                   },
                   {
                     "color": "dark-yellow",
-                    "value": 40
+                    "value": 50
                   },
                   {
                     "color": "dark-red",
-                    "value": 50
+                    "value": 70
                   }
                 ]
               },
@@ -384,53 +384,6 @@ data:
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "C",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "temperature"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "resource",
-                  "operator": "=",
-                  "value": "disktemp"
-                }
-              ]
-            },
-            {
-              "alias": "sdd",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "influxdb"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "none"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "measurement": "sdd",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "D",
               "resultFormat": "time_series",
               "select": [
                 [
@@ -1239,7 +1192,7 @@ data:
           },
           "description": "",
           "fill": 1,
-          "fillGradient": 2,
+          "fillGradient": 1,
           "gridPos": {
             "h": 7,
             "w": 9,
@@ -1263,7 +1216,7 @@ data:
             "values": false
           },
           "lines": true,
-          "linewidth": 2,
+          "linewidth": 1,
           "links": [],
           "maxDataPoints": 70,
           "nullPointMode": "connected",
@@ -1477,7 +1430,17 @@ data:
               ]
             }
           ],
-          "thresholds": [],
+          "thresholds": [
+            {
+              "$$hashKey": "object:612",
+              "colorMode": "critical",
+              "fill": true,
+              "line": true,
+              "op": "gt",
+              "value": 70,
+              "yaxis": "left"
+            }
+          ],
           "timeRegions": [],
           "title": "Disk Temperature",
           "tooltip": {
@@ -1503,12 +1466,16 @@ data:
           },
           "yaxes": [
             {
+              "$$hashKey": "object:598",
               "format": "celsius",
               "label": "Temperature (°C)",
               "logBase": 1,
+              "max": "80",
+              "min": "30",
               "show": true
             },
             {
+              "$$hashKey": "object:599",
               "format": "short",
               "logBase": 1,
               "show": false
@@ -1527,8 +1494,15 @@ data:
             "type": "influxdb",
             "uid": "influxdb"
           },
-          "fill": 2,
-          "fillGradient": 10,
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "unit": "celsius"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 1,
           "gridPos": {
             "h": 11,
             "w": 8,
@@ -1538,15 +1512,17 @@ data:
           "hiddenSeries": false,
           "id": 25,
           "legend": {
+            "alignAsTable": false,
             "avg": false,
             "current": false,
             "max": false,
             "min": false,
-            "show": true,
+            "rightSide": false,
+            "show": false,
             "total": false,
             "values": false
           },
-          "lines": false,
+          "lines": true,
           "linewidth": 1,
           "nullPointMode": "null",
           "options": {
@@ -1555,7 +1531,7 @@ data:
           "percentage": false,
           "pluginVersion": "10.1.2",
           "pointradius": 0.5,
-          "points": true,
+          "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
@@ -1563,7 +1539,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "alias": "da1",
+              "alias": "0",
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb"
@@ -1577,34 +1553,42 @@ data:
                 },
                 {
                   "params": [
-                    "null"
+                    "none"
                   ],
                   "type": "fill"
                 }
               ],
-              "measurement": "geom_busy_percent",
+              "measurement": "0",
               "orderByTime": "ASC",
               "policy": "default",
+              "query": "SELECT (last(\"temperature\")-2731)/10 FROM \"0\" WHERE $timeFilter GROUP BY time($__interval) fill(none)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
                 [
                   {
                     "params": [
-                      "da1"
+                      "temperature"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
                     "type": "last"
+                  },
+                  {
+                    "params": [
+                      "/10-273"
+                    ],
+                    "type": "math"
                   }
                 ]
               ],
               "tags": []
             },
             {
-              "alias": "da2",
+              "alias": "1",
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb"
@@ -1618,12 +1602,12 @@ data:
                 },
                 {
                   "params": [
-                    "null"
+                    "none"
                   ],
                   "type": "fill"
                 }
               ],
-              "measurement": "geom_busy_percent",
+              "measurement": "1",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "B",
@@ -1632,20 +1616,26 @@ data:
                 [
                   {
                     "params": [
-                      "da2"
+                      "temperature"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
                     "type": "last"
+                  },
+                  {
+                    "params": [
+                      "/10-273"
+                    ],
+                    "type": "math"
                   }
                 ]
               ],
               "tags": []
             },
             {
-              "alias": "da3",
+              "alias": "2",
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb"
@@ -1659,12 +1649,12 @@ data:
                 },
                 {
                   "params": [
-                    "null"
+                    "none"
                   ],
                   "type": "fill"
                 }
               ],
-              "measurement": "geom_busy_percent",
+              "measurement": "2",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "C",
@@ -1673,20 +1663,26 @@ data:
                 [
                   {
                     "params": [
-                      "da3"
+                      "temperature"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
                     "type": "last"
+                  },
+                  {
+                    "params": [
+                      "/10-273"
+                    ],
+                    "type": "math"
                   }
                 ]
               ],
               "tags": []
             },
             {
-              "alias": "da4",
+              "alias": "3",
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb"
@@ -1700,12 +1696,12 @@ data:
                 },
                 {
                   "params": [
-                    "null"
+                    "none"
                   ],
                   "type": "fill"
                 }
               ],
-              "measurement": "geom_busy_percent",
+              "measurement": "3",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "D",
@@ -1714,104 +1710,38 @@ data:
                 [
                   {
                     "params": [
-                      "da4"
+                      "temperature"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
                     "type": "last"
-                  }
-                ]
-              ],
-              "tags": []
-            },
-            {
-              "alias": "da5",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "influxdb"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "measurement": "geom_busy_percent",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "E",
-              "resultFormat": "time_series",
-              "select": [
-                [
+                  },
                   {
                     "params": [
-                      "da5"
+                      "/10-273"
                     ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "tags": []
-            },
-            {
-              "alias": "da6",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "influxdb"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "measurement": "geom_busy_percent",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "F",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "da6"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
+                    "type": "math"
                   }
                 ]
               ],
               "tags": []
             }
           ],
-          "thresholds": [],
+          "thresholds": [
+            {
+              "$$hashKey": "object:550",
+              "colorMode": "critical",
+              "fill": true,
+              "line": true,
+              "op": "gt",
+              "value": 80,
+              "yaxis": "left"
+            }
+          ],
           "timeRegions": [],
-          "title": "Disk Busy (%)",
+          "title": "CPU Temperature",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1831,11 +1761,16 @@ data:
           },
           "yaxes": [
             {
-              "format": "short",
+              "$$hashKey": "object:339",
+              "format": "celsius",
+              "label": "",
               "logBase": 1,
+              "max": "90",
+              "min": "30",
               "show": true
             },
             {
+              "$$hashKey": "object:340",
               "format": "short",
               "logBase": 1,
               "show": true
@@ -2150,12 +2085,14 @@ data:
           },
           "yaxes": [
             {
+              "$$hashKey": "object:757",
               "format": "bps",
               "label": "",
               "logBase": 2,
               "show": true
             },
             {
+              "$$hashKey": "object:758",
               "format": "short",
               "logBase": 1,
               "show": true
@@ -2179,7 +2116,7 @@ data:
         "list": []
       },
       "time": {
-        "from": "now-30m",
+        "from": "now-6h",
         "to": "now"
       },
       "timepicker": {
