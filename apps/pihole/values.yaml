@@ -1,6 +1,7 @@
 pihole:
   serviceDns:
     type: LoadBalancer
+    externalTrafficPolicy: "Cluster"
     annotations:
       metallb.universe.tf/allow-shared-ip: default
   serviceDhcp:
