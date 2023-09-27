@@ -44,6 +44,7 @@ openldap-stack-ha:
     fsGroup: 65532
 
   containerSecurityContext:
+    enabled: true
     runAsUser: 65532
 
   customLdifFiles:
