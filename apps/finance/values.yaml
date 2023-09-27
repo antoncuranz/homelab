@@ -66,7 +66,7 @@ finance-frontend:
     - name: gitlab-token
   env:
     KEYCLOAK_URL: "https://keycloak.serverton.de"
-    KEYCLOAK_REALM: "finance"
+    KEYCLOAK_REALM: "serverton"
     KEYCLOAK_CLIENT_ID: "finance-frontend"
     BACKEND_URL: "https://financeq.serverton.de"
   service:
