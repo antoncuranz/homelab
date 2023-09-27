@@ -8,9 +8,9 @@ openldap-stack-ha:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - &host "phpldapadmin.serverton.de"
+        - &host "ldap.serverton.de"
       tls:
-        - secretName: phpldapadmin-tls-certificate
+        - secretName: ldap-tls-certificate
           hosts:
             - *host
 
@@ -19,6 +19,7 @@ openldap-stack-ha:
 
   global:
     ldapDomain: serverton.de
+    existingSecret: ldap-secrets
 
   replicaCount: 1
   replication:
@@ -31,6 +32,10 @@ openldap-stack-ha:
 
   persistence:
     enabled: false
+
+  customTLS:
+    enabled: true
+    secret: "ldap-tls-certificate"
 
   #  volumeMounts:
   #    - name: tls-certs
