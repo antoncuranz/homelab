@@ -1,8 +1,11 @@
 keycloak:
   production: true
   proxy: edge
-  cache:
-    enabled: false # fixes errors on import/export: https://github.com/keycloak/keycloak/issues/14733
+#  cache:
+#    enabled: false # fixes errors on import/export: https://github.com/keycloak/keycloak/issues/14733
+  extraEnvVars:
+    - name: "QUARKUS_TRANSACTION_MANAGER_ENABLE_RECOVERY"
+      value: "true"
   ingress:
     enabled: true
     ingressClassName: nginx
