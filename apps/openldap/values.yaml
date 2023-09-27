@@ -31,7 +31,9 @@ openldap-stack-ha:
       metallb.universe.tf/allow-shared-ip: default
 
   persistence:
-    enabled: false
+    storageClass: "truenas-iscsi"
+    annotations:
+      'k8up.io/backup': 'true'
 
   customTLS:
     enabled: true
