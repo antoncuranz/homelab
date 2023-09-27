@@ -3,7 +3,19 @@ kind: ConfigMap
 metadata:
   name: ldap-schemas
 data:
-  samba.ldif: |-
+  00-root.ldif: |-
+    # Root creation
+    dn: dc=serverton,dc=de
+    objectClass: dcObject
+    objectClass: organization
+    o: Example, Inc
+  01-default-group.ldif: |-
+    dn: cn=users,dc=serverton,dc=de
+    cn: users
+    gidnumber: 500
+    objectclass: posixGroup
+    objectclass: top
+  03-samba.ldif: |-
     dn: cn=samba,cn=schema,cn=config
     objectClass: olcSchemaConfig
     cn: samba
