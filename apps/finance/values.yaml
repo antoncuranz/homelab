@@ -9,7 +9,7 @@ finance-backend:
   imagePullSecrets:
     - name: gitlab-token
   env:
-    KEYCLOAK_REALM_URL: "https://keycloak.serverton.de/realms/finance"
+    KEYCLOAK_REALM_URL: "https://keycloak.serverton.de/realms/serverton"
     KEYCLOAK_CLIENT_ID: "finance-backend"
     CORS_ALLOW_ORIGINS: "https://finance.serverton.de"
     CRON_ALERT_DELIVERY: "0 */15 * * * ?"
