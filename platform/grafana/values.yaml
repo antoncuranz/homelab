@@ -13,10 +13,6 @@ grafana:
       - secretName: grafana-general-tls
         hosts:
           - *host
-  admin:
-    existingSecret: "grafana-secrets"
-    userKey: username
-    passwordKey: password
   sidecar:
     datasources:
       enabled: true
@@ -27,6 +23,14 @@ grafana:
   grafana.ini:
     server:
       root_url: https://grafana.serverton.de
+    auth.generic_oauth:
+      enabled: true
+      name: keycloak
+      scopes: "openid profile email"
+      auth_url: "https://keycloak.serverton.de/realms/serverton/protocol/openid-connect/auth"
+      token_url: "https://keycloak.serverton.de/realms/serverton/protocol/openid-connect/token"
+      api_url: "https://keycloak.serverton.de/realms/serverton/protocol/openid-connect/userinfo"
+  envFromSecret: grafana-secrets
   plugins:
     - grafana-clock-panel
     - grafana-piechart-panel
