@@ -40,6 +40,12 @@ openldap-stack-ha:
   env:
     LDAP_TLS_CA_FILE: opt/bitnami/openldap/certs/tls.crt
 
+  podSecurityContext:
+    fsGroup: 65532
+
+  containerSecurityContext:
+    runAsUser: 65532
+
   customLdifFiles:
     00-root.ldif: |-
       dn: dc=serverton,dc=de

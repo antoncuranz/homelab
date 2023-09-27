@@ -21,7 +21,7 @@ var backupCmd = &cobra.Command{
 		}
 
 		timestamp := time.Now().Format("200601021504")
-		k8upNamespaces := []string{"immich", "homebridge", "pihole", "servarr", "notifications", "paperless"}
+		k8upNamespaces := []string{"immich", "homebridge", "pihole", "servarr", "notifications", "paperless", "openldap"}
 		dbNamespaces := []string{"immich", "finance", "keycloak", "paperless"}
 
 		if len(args) == 0 {
