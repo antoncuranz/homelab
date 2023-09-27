@@ -67,7 +67,7 @@ data:
     olcAttributeTypes: {40}( 1.3.6.1.4.1.7165.2.1.63 NAME 'sambaLockoutDuration' DESC 'Lockout duration in minutes (default: 30, -1 => forever)' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
     olcAttributeTypes: {41}( 1.3.6.1.4.1.7165.2.1.64 NAME 'sambaLockoutObservationWindow' DESC 'Reset time after lockout in minutes (default: 30)' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
     olcAttributeTypes: {42}( 1.3.6.1.4.1.7165.2.1.65 NAME 'sambaLockoutThreshold'DESC 'Lockout users after bad logon attempts (default: 0 => off)' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
-    olcAttributeTypes: {43}( 1.3.6.1.4.1.7165.2.1.66 NAME 'sambaForceLogoff' DESC'Disconnect Users outside logon hours (default: -1 => off, 0 => on)' EQUALITYintegerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
+    olcAttributeTypes: {43}( 1.3.6.1.4.1.7165.2.1.66 NAME 'sambaForceLogoff' DESC'Disconnect Users outside logon hours (default: -1 => off, 0 => on)' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
     olcAttributeTypes: {44}( 1.3.6.1.4.1.7165.2.1.67 NAME 'sambaRefuseMachinePwdChange' DESC 'Allow Machine Password changes (default: 0 => off)' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
     olcAttributeTypes: {45}( 1.3.6.1.4.1.7165.2.1.68 NAME 'sambaClearTextPassword'DESC 'Clear text password (used for trusted domain passwords)' EQUALITY octetStringMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.40 )
     olcAttributeTypes: {46}( 1.3.6.1.4.1.7165.2.1.69 NAME 'sambaPreviousClearTextPassword' DESC 'Previous clear text password (used for trusted domain passwords)' EQUALITY octetStringMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.40 )
