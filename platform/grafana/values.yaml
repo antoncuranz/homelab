@@ -23,6 +23,9 @@ grafana:
   grafana.ini:
     server:
       root_url: https://grafana.serverton.de
+    auth:
+      oauth_auto_login: true
+      disable_login_form: true
     auth.generic_oauth:
       enabled: true
       name: keycloak
@@ -30,6 +33,7 @@ grafana:
       auth_url: "https://keycloak.serverton.de/realms/serverton/protocol/openid-connect/auth"
       token_url: "https://keycloak.serverton.de/realms/serverton/protocol/openid-connect/token"
       api_url: "https://keycloak.serverton.de/realms/serverton/protocol/openid-connect/userinfo"
+      role_attribute_path: "Admin"
   envFromSecret: grafana-secrets
   plugins:
     - grafana-clock-panel
