@@ -33,7 +33,7 @@ openldap-stack-ha:
   persistence:
     storageClass: "truenas-iscsi"
     annotations:
-      'k8up.io/backup': true
+      'k8up.io/backup': test
 
   customTLS:
     enabled: true
