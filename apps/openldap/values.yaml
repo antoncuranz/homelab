@@ -20,6 +20,8 @@ openldap-stack-ha:
   global:
     ldapDomain: serverton.de
 
+  customLdifCm: ldap-schemas
+
   service:
     type: LoadBalancer
     annotations:
