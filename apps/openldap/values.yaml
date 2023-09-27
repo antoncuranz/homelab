@@ -8,10 +8,7 @@ openldap-stack-ha:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: &host "phpldapadmin.serverton.de"
-          paths:
-            - path: /
-              pathType: Prefix
+        - &host "phpldapadmin.serverton.de"
       tls:
         - secretName: phpldapadmin-tls-certificate
           hosts:
