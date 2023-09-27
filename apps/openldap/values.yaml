@@ -37,14 +37,8 @@ openldap-stack-ha:
     enabled: true
     secret: "ldap-tls-certificate"
 
-  #  volumeMounts:
-  #    - name: tls-certs
-  #      mountPath: /certs
-
-  #  volumes:
-  #    - name: tls-certs
-  #      secret:
-  #        secretName: authentik-tls-certificate
+  env:
+    LDAP_TLS_CA_FILE: opt/bitnami/openldap/certs/tls.crt
 
   customLdifFiles:
     00-root.ldif: |-
