@@ -28,8 +28,7 @@ openldap-stack-ha:
   persistence:
     enabled: false
 
-  replication:
-    enabled: false
+  replicaCount: 1
 
 #  volumeMounts:
 #    - name: tls-certs
