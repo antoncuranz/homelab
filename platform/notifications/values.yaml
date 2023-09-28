@@ -5,7 +5,7 @@ signal-cli:
     strategy: RollingUpdate
   image:
     repository: bbernhard/signal-cli-rest-api
-    tag: 0.67@sha256:70871b504478a74e5ab30b6d94130d355d32300893ab2254e9aea63264121d31
+    tag: 0.68@sha256:c85dcdbe63aa35f50c60274ccb3df19b051137f7063e908af63b57eb7001b2de
   env:
     TZ: "Europe/Berlin"
     MODE: "native"
