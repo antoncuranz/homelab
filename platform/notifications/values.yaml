@@ -5,10 +5,10 @@ signal-cli:
     strategy: RollingUpdate
   image:
     repository: bbernhard/signal-cli-rest-api
-    tag: 0.68@sha256:c85dcdbe63aa35f50c60274ccb3df19b051137f7063e908af63b57eb7001b2de
+    tag: 0.68
   env:
     TZ: "Europe/Berlin"
-    MODE: "native"
+#    MODE: "native" # does not work in 0.68
     AUTO_RECEIVE_SCHEDULE: "0 22 * * *"
   persistence:
     config:
