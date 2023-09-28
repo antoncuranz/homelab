@@ -15,7 +15,7 @@
       "versionScheme": "regex:^(?<compatibility>.*?)-(?<major>v?\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)[\\.-]*(?<build>r?\\d+)*$"
     },
     {
-      "matchPackageNames": ["signal-cli-rest-api"],
+      "matchPackageNames": ["bbernhard/signal-cli-rest-api"],
       "enabled": false
     }
   ],
