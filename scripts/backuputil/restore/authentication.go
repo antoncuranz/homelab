@@ -7,8 +7,8 @@ import (
 	"log"
 )
 
-func OpenLdap(client *kubernetes.Clientset, snapshotMap NamespacedSnapshotMap) {
-	const namespace = "openldap"
+func Authentication(client *kubernetes.Clientset, snapshotMap NamespacedSnapshotMap) {
+	const namespace = "authentication"
 	const dataPath = "/data/openldap-data"
 
 	// Input: snapshot ids
