@@ -69,8 +69,6 @@ oauth2-proxy:
 openldap-stack-ha:
   phpldapadmin:
     enabled: true
-    env:
-      PHPLDAPADMIN_LDAP_HOSTS: "#PYTHON2BASH:[{ 'ldap.serverton.de' : [{'server': [{'tls': True},{'port':389}]},{'login': [{'bind_id': 'cn=admin,dc=serverton,dc=de' }]}]}]"
     ingress:
       enabled: true
       ingressClassName: nginx
@@ -83,8 +81,6 @@ openldap-stack-ha:
         - secretName: ldap-tls-certificate
           hosts:
             - *host
-
-  nameOverride: openldap
 
   ltb-passwd:
     enabled: false
