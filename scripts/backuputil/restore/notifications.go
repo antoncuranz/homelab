@@ -10,11 +10,9 @@ import (
 func Notifications(client *kubernetes.Clientset, snapshotMap NamespacedSnapshotMap) {
 	const namespace = "notifications"
 	const signalPath = "/data/notifications-signal-cli-config"
-	const apprisePath = "/data/notifications-apprise-api-config"
 
 	// Input: snapshot ids => download postgres dump
 	signalSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, signalPath)
-	appriseSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, apprisePath)
 
 	// 1. Scale down Deployments and Statefulsets
 	fmt.Println("Scaling down Deployments and StatefulSets...")
@@ -32,13 +30,8 @@ func Notifications(client *kubernetes.Clientset, snapshotMap NamespacedSnapshotM
 	}
 
 	// 3. Create and restore NFS PVC using k8up Restore CRD
-	fmt.Println("Restoring signal PV...")
+	fmt.Println("Restoring PV...")
 	if err := RestorePvc(client, namespace, signalSnapshot, "notifications-signal-cli-config", "250Mi", "truenas-iscsi"); err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("Restoring apprise PV...")
-	if err := RestorePvc(client, namespace, appriseSnapshot, "notifications-apprise-api-config", "250Mi", "truenas-iscsi"); err != nil {
 		log.Fatal(err)
 	}
 
