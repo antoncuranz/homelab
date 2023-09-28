@@ -14,6 +14,7 @@ pihole:
       cert-manager.io/cluster-issuer: letsencrypt-prod
       nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
       nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+      nginx.ingress.kubernetes.io/app-root: /admin
     hosts:
       - "pihole.serverton.de"
     tls:
