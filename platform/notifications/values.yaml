@@ -5,10 +5,10 @@ signal-cli:
     strategy: RollingUpdate
   image:
     repository: bbernhard/signal-cli-rest-api
-    tag: 0.68
+    tag: 0.67 # update disabled because of bug in 0.68
   env:
     TZ: "Europe/Berlin"
-#    MODE: "native" # does not work in 0.68
+    MODE: "native"
     AUTO_RECEIVE_SCHEDULE: "0 22 * * *"
   persistence:
     config:
