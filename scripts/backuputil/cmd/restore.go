@@ -43,8 +43,8 @@ var restoreCmd = &cobra.Command{
 			restore.Paperless(client, namespacedSnapshotMap)
 		case "servarr":
 			restore.Servarr(client, namespacedSnapshotMap)
-		case "openldap":
-			restore.OpenLdap(client, namespacedSnapshotMap)
+		case "authentication":
+			restore.Authentication(client, namespacedSnapshotMap)
 		default:
 			log.Fatal("Error: Namespace not supported")
 		}
