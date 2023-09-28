@@ -50,7 +50,7 @@ oauth2-proxy:
     existingSecret: oauth2-secrets
   extraArgs:
     provider: keycloak-oidc
-    oidc-issuer-url: https://keycloak.serverton.de/auth/realms/serverton
+    oidc-issuer-url: https://keycloak.serverton.de/realms/serverton
     redirect-url: https://oauth2.serverton.de/oauth2/callback
   ingress:
     enabled: true
