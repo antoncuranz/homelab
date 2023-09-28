@@ -385,12 +385,12 @@ transmission:
     OPENVPN_USERNAME: user
     OPENVPN_PASSWORD: pass
     TRANSMISSION_WEB_UI: combustion
-  persistence: # TODO: backup configuration?
+  persistence:
     data:
       enabled: true
       storageClass: truenas-nfs
       accessMode: ReadWriteMany
-      size: 5Gi # TODO
+      size: 100Gi
       mountPath: /data
       annotations:
         'k8up.io/backup': 'false'
