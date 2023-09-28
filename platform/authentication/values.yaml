@@ -52,6 +52,7 @@ oauth2-proxy:
     provider: keycloak-oidc
     oidc-issuer-url: https://keycloak.serverton.de/realms/serverton
     redirect-url: https://oauth2.serverton.de/oauth2/callback
+    whitelist-domain: .serverton.de
   ingress:
     enabled: true
     className: nginx
