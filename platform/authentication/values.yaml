@@ -82,6 +82,8 @@ openldap-stack-ha:
           hosts:
             - *host
 
+  nameOverride: openldap
+
   ltb-passwd:
     enabled: false
 
