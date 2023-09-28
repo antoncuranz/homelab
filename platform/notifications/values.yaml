@@ -38,22 +38,6 @@ signal-cli:
     readiness: *probes
     startup:
       enabled: false
-  ingress:
-    main:
-      enabled: true
-      ingressClassName: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-      hosts:
-        - host: &host "signal-cli.serverton.de"
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - secretName: signal-tls-certificate
-          hosts:
-            - *host
 
 apprise-api:
   global:
@@ -69,34 +53,17 @@ apprise-api:
   persistence:
     config:
       enabled: true
-      accessMode: ReadWriteOnce
-      size: 250Mi
-      annotations:
-        'k8up.io/backup': 'true'
-    attach:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 250Mi
-      annotations:
-        'k8up.io/backup': 'false'
+      type: secret
+      name: apprise-config
+#  volumeMounts:
+#    - name: config
+#      mountPath: /config
+#  volumes:
+#    - name: config
+#      secret:
+#        secretName: apprise-config
   service:
     main:
       ports:
         http:
-          port: &port 8000
-  ingress:
-    main:
-      enabled: true
-      ingressClassName: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-      hosts:
-        - host: &host "apprise.serverton.de"
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - secretName: apprise-tls-certificate
-          hosts:
-            - *host
+          port: 8000
