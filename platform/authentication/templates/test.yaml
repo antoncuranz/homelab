@@ -10,3 +10,5 @@ metadata:
 data:
   PHPLDAPADMIN_LDAP_HOSTS: "#PYTHON2BASH:[{ 'ldap.serverton.de'  : [{'server': [{'tls': True},{'port':389}]},{'login': [{'bind_id': 'cn=admin,dc=serverton,dc=de'  }]}]}]"
   PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT: "never"
+  PHPLDAPADMIN_HTTPS: "false"
+  PHPLDAPADMIN_TRUST_PROXY_SSL: "true"
