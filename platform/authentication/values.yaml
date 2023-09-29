@@ -84,7 +84,8 @@ openldap-stack-ha:
   nameOverride: openldap
 
   image:
-    tag: 2.6.6
+    repository: registry.gitlab.com/bitspur/rock8s/docker-openldap
+    tag: latest
 
   ltb-passwd:
     enabled: false
@@ -113,12 +114,12 @@ openldap-stack-ha:
   env:
     LDAP_TLS_CA_FILE: opt/bitnami/openldap/certs/tls.crt
 
-  podSecurityContext:
-    fsGroup: 65532
-
-  containerSecurityContext:
-    enabled: true
-    runAsUser: 65532
+#  podSecurityContext:
+#    fsGroup: 65532
+#
+#  containerSecurityContext:
+#    enabled: true
+#    runAsUser: 65532
 
   customLdifFiles:
     00-root.ldif: |-
