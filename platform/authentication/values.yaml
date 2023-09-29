@@ -104,7 +104,7 @@ openldap-stack-ha:
       metallb.universe.tf/allow-shared-ip: default
 
   persistence:
-    enabled: false
+    enabled: true
     existingClaim: "openldap-data"
 
   extraVolumes:
