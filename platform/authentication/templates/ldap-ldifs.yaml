@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ldap-schemas
+  name: ldap-ldifs
 data:
   00-root.ldif: |-
     dn: dc=serverton,dc=de
