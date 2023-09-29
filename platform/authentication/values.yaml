@@ -85,8 +85,8 @@ openldap-stack-ha:
 
   image:
     # TODO: switch back to bitnami image once smbk4pwd is included (2.6.7?)
-#    repository: registry.gitlab.com/bitspur/rock8s/docker-openldap
-#    tag: latest
+    repository: registry.gitlab.com/bitspur/rock8s/docker-openldap
+    tag: latest
 
   ltb-passwd:
     enabled: false
