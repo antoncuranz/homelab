@@ -84,7 +84,10 @@ openldap-stack-ha:
   nameOverride: openldap
 
   image:
-    tag: 2.6.6
+    repository: registry.gitlab.com/bitspur/rock8s/docker-openldap
+    tag: latest
+#  image:
+#    tag: 2.6.6
 
   ltb-passwd:
     enabled: false
