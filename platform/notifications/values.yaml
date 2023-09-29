@@ -55,13 +55,6 @@ apprise-api:
       enabled: true
       type: secret
       name: apprise-config
-#  volumeMounts:
-#    - name: config
-#      mountPath: /config
-#  volumes:
-#    - name: config
-#      secret:
-#        secretName: apprise-config
   service:
     main:
       ports:
