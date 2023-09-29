@@ -106,6 +106,7 @@ openldap-stack-ha:
       metallb.universe.tf/allow-shared-ip: default
 
   persistence:
+    enabled: false
     existingClaim: "openldap-data"
 
   customTLS:
