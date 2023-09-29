@@ -108,14 +108,6 @@ openldap-stack-ha:
     enabled: true
     existingClaim: "openldap-data"
 
-  extraVolumes:
-    - name: migrations
-      configMap:
-        name: ldap-migrations
-  extraVolumeMounts:
-    - name: migrations
-      mountPath: /migrations
-
   customTLS:
     enabled: true
     secret: "ldap-tls-certificate"
@@ -123,13 +115,13 @@ openldap-stack-ha:
   env:
     LDAP_TLS_CA_FILE: opt/bitnami/openldap/certs/tls.crt
 
-#  podSecurityContext:
-#    fsGroup: 65532
-#
-#  containerSecurityContext:
-#    enabled: true
-#    runAsUser: 0
-#    runAsNonRoot: false
+  podSecurityContext:
+    fsGroup: 0
+
+  containerSecurityContext:
+    enabled: true
+    runAsUser: 0
+    runAsNonRoot: false
 
   customAcls: |-
     dn: cn=samba,cn=schema,cn=config
