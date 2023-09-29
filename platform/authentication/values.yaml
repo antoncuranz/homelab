@@ -114,6 +114,8 @@ openldap-stack-ha:
 
   env:
     LDAP_TLS_CA_FILE: opt/bitnami/openldap/certs/tls.crt
+    LDAP_HASH_PASSWORD: "MD5"
+    LDAP_SKIP_DEFAULT_TREE: "yes"
 
   podSecurityContext:
     fsGroup: 65532
