@@ -1,0 +1,4 @@
+dn: cn=module,cn=config
+cn: module
+objectClass: olcModuleList
+olcModuleLoad: {1}smbk5pwd.la
