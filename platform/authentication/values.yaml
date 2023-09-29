@@ -108,6 +108,15 @@ openldap-stack-ha:
     enabled: true
     existingClaim: "openldap-data"
 
+  # TODO: remove when possible (https://github.com/clayrisser/docker-openldap/issues/1)
+  extraVolumes:
+    - name: migrations
+      configMap:
+        name: ldap-migrations
+  extraVolumeMounts:
+    - name: migrations
+      mountPath: /migrations
+
   customTLS:
     enabled: true
     secret: "ldap-tls-certificate"

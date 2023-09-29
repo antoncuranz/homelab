@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ldap-migrations
+data: # https://github.com/clayrisser/docker-openldap/issues/1
+  auth.ldif: |-
+    dn: olcDatabase={2}mdb,cn=config
+    changetype: modify
+    add: olcAccess
+    olcAccess: to attrs=userPassword
+      by self write
+      by dn="cn=admin,dc=serverton,dc=de" write
+      by anonymous auth
+      by * none
