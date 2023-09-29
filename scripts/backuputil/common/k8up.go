@@ -53,7 +53,17 @@ func CreateRestore(client *kubernetes.Clientset, namespace string, restoreName s
 	return client.RESTClient().Post().AbsPath(absPath).Body(body).Do(context.Background()).Into(&rsp)
 }
 
-func CreateBackup(client *kubernetes.Clientset, namespace string, backupName string) error {
+func CreateBackup(client *kubernetes.Clientset, namespace string, backupName string, runAsUser int64) error {
+	runnableSpec := k8upv1.RunnableSpec{}
+
+	if runAsUser != -1 {
+		runnableSpec = k8upv1.RunnableSpec{
+			PodSecurityContext: &v1.PodSecurityContext{
+				RunAsUser: &runAsUser,
+			},
+		}
+	}
+
 	backup := k8upv1.Backup{
 		TypeMeta: metav1.TypeMeta{
 			Kind:       "Backup",
@@ -62,6 +72,9 @@ func CreateBackup(client *kubernetes.Clientset, namespace string, backupName str
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      backupName,
 			Namespace: namespace,
+		},
+		Spec: k8upv1.BackupSpec{
+			RunnableSpec: runnableSpec,
 		},
 	}
 

@@ -1,0 +1,17 @@
+sudo smbldap-config
+# mostly default values
+# get netbios and workgroup from TrueNAS smb settings
+# tls=1, port=389
+# comment out defaultMaxPassword age in .conf
+
+sudo smbldap-populate -g 10000 -u 10000 -r 10000
+
+# enable smbk5pwd module
+ldapadd -x -H ldap://ldap.serverton.de -D "cn=admin,cn=config" -w "<CONFIG_ADMIN_PASSWD>" -f smbk5pwd-module.ldif
+ldapadd -x -H ldap://ldap.serverton.de -D "cn=admin,cn=config" -w "<CONFIG_ADMIN_PASSWD>" -f smbk5pwd-overlay.ldif
+
+# add user using
+sudo smbldap-useradd -a -P -B 0 ant0n
+
+# change password using
+ldappasswd -x -H ldap://ldap.serverton.de -D 'cn=admin,DC=serverton,DC=de' -w '<ADMIN_PASSWD>' 'uid=ant0n,ou=users,dc=serverton,dc=de' -S
