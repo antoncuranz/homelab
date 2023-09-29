@@ -114,31 +114,32 @@ openldap-stack-ha:
   env:
     LDAP_TLS_CA_FILE: opt/bitnami/openldap/certs/tls.crt
 
-#  podSecurityContext:
-#    fsGroup: 65532
+  podSecurityContext:
+    fsGroup: 65532
+
+  containerSecurityContext:
+    enabled: true
+    runAsUser: 0
+    runAsNonRoot: false
+
+#  customLdifFiles:
+#    00-root.ldif: |-
+#      dn: dc=serverton,dc=de
+#      objectClass: dcObject
+#      objectClass: organization
+#      o: Serverton
+#    01-default-ous.ldif: |-
+#      dn: ou=users,dc=serverton,dc=de
+#      objectClass: organizationalUnit
+#      ou: users
 #
-#  containerSecurityContext:
-#    enabled: true
-#    runAsUser: 65532
-
-  customLdifFiles:
-    00-root.ldif: |-
-      dn: dc=serverton,dc=de
-      objectClass: dcObject
-      objectClass: organization
-      o: Serverton
-    01-default-ous.ldif: |-
-      dn: ou=users,dc=serverton,dc=de
-      objectClass: organizationalUnit
-      ou: users
-
-      dn: ou=groups,dc=serverton,dc=de
-      objectClass: organizationalUnit
-      ou: groups
-
-      dn: ou=machines,dc=serverton,dc=de
-      objectClass: organizationalUnit
-      ou: machines
+#      dn: ou=groups,dc=serverton,dc=de
+#      objectClass: organizationalUnit
+#      ou: groups
+#
+#      dn: ou=machines,dc=serverton,dc=de
+#      objectClass: organizationalUnit
+#      ou: machines
 
   customAcls: |-
     dn: cn=samba,cn=schema,cn=config
