@@ -85,8 +85,8 @@ openldap-stack-ha:
 
   image:
     # TODO: switch back to bitnami image once smbk4pwd is included (2.6.7?)
-#    repository: registry.gitlab.com/bitspur/rock8s/docker-openldap
-#    tag: latest
+    repository: registry.gitlab.com/bitspur/rock8s/docker-openldap
+    tag: latest
 
   ltb-passwd:
     enabled: false
@@ -119,25 +119,6 @@ openldap-stack-ha:
 
   podSecurityContext:
     fsGroup: 65532
-
-  customLdifFiles:
-    00-root.ldif: |-
-      dn: dc=serverton,dc=de
-      objectClass: dcObject
-      objectClass: organization
-      o: Serverton
-    01-default-ous.ldif: |-
-      dn: ou=users,dc=serverton,dc=de
-      objectClass: organizationalUnit
-      ou: users
-
-      dn: ou=groups,dc=serverton,dc=de
-      objectClass: organizationalUnit
-      ou: groups
-
-      dn: ou=machines,dc=serverton,dc=de
-      objectClass: organizationalUnit
-      ou: machines
 
   customAcls: |-
     dn: cn=samba,cn=schema,cn=config
