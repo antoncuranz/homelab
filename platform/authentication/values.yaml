@@ -110,6 +110,9 @@ openldap-stack-ha:
   extraVolumes:
     - name: ldifs
       configMap:
+        name: ldap-ldifs
+    - name: schemas
+      configMap:
         name: ldap-schemas
     - name: migrations
       configMap:
@@ -117,6 +120,8 @@ openldap-stack-ha:
   extraVolumeMounts:
     - name: ldifs
       mountPath: /ldifs
+    - name: schemas
+      mountPath: /schemas
     - name: migrations
       mountPath: /migrations
 
