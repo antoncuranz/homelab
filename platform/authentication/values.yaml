@@ -108,15 +108,15 @@ openldap-stack-ha:
     existingClaim: "openldap-data"
 
   extraVolumes:
-    - name: schemas
+    - name: ldifs
       configMap:
         name: ldap-schemas
     - name: migrations
       configMap:
         name: ldap-migrations
   extraVolumeMounts:
-    - name: schemas
-      mountPath: /schemas
+    - name: ldifs
+      mountPath: /ldifs
     - name: migrations
       mountPath: /migrations
 
