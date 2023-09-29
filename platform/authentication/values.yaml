@@ -86,8 +86,6 @@ openldap-stack-ha:
   image:
     repository: registry.gitlab.com/bitspur/rock8s/docker-openldap
     tag: latest
-#  image:
-#    tag: 2.6.6
 
   ltb-passwd:
     enabled: false
@@ -108,6 +106,14 @@ openldap-stack-ha:
   persistence:
     enabled: false
     existingClaim: "openldap-data"
+
+  extraVolumes:
+    - name: migrations
+      configMap:
+        name: ldap-migrations
+  extraVolumeMounts:
+    - name: migrations
+      mountPath: /migrations
 
   customTLS:
     enabled: true
