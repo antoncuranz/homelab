@@ -83,6 +83,9 @@ openldap-stack-ha:
 
   nameOverride: openldap
 
+  image:
+    tag: 2.6.6
+
   ltb-passwd:
     enabled: false
 
