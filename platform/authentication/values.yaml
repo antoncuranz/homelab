@@ -123,13 +123,13 @@ openldap-stack-ha:
   env:
     LDAP_TLS_CA_FILE: opt/bitnami/openldap/certs/tls.crt
 
-  podSecurityContext:
-    fsGroup: 65532
-
-  containerSecurityContext:
-    enabled: true
-    runAsUser: 0
-    runAsNonRoot: false
+#  podSecurityContext:
+#    fsGroup: 65532
+#
+#  containerSecurityContext:
+#    enabled: true
+#    runAsUser: 0
+#    runAsNonRoot: false
 
   customAcls: |-
     dn: cn=samba,cn=schema,cn=config
