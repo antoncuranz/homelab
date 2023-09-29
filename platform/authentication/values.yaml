@@ -85,9 +85,8 @@ openldap-stack-ha:
 
   image:
     # TODO: switch back to bitnami image once smbk4pwd is included (2.6.7?)
-  tag: 2.5.15
-#    repository: registry.gitlab.com/bitspur/rock8s/docker-openldap
-#    tag: latest
+    repository: registry.gitlab.com/bitspur/rock8s/docker-openldap
+    tag: latest
 
   ltb-passwd:
     enabled: false
@@ -118,6 +117,7 @@ openldap-stack-ha:
     LDAP_HASH_PASSWORD: "SSHA"
     LDAP_SKIP_DEFAULT_TREE: "yes"
     LDAP_LOGLEVEL: "ACL"
+    LDAP_EXTRA_SCHEMAS: "cosine,inetorgperson,nis,acls"
 
   podSecurityContext:
     fsGroup: 65532
