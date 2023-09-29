@@ -4,12 +4,12 @@ metadata:
   name: ldap-migrations
 data:
   smbk5pwd.ldif: |-
-    dn: cn=module{0},cn=config
-    changetype: modify
-    add: olcModuleLoad
+    dn: cn=module,cn=config
+    cn: module
+    objectClass: olcModuleList
     olcModuleLoad: {1}smbk5pwd.la
 
-    dn: olcOverlay={0}smbk5pwd,olcDatabase={1}mdb,cn=config
+    dn: olcOverlay={0}smbk5pwd,olcDatabase={2}mdb,cn=config
     changetype: add
     objectClass: olcOverlayConfig
     objectClass: olcSmbK5PwdConfig
