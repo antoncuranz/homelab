@@ -118,11 +118,6 @@ openldap-stack-ha:
   podSecurityContext:
     fsGroup: 65532
 
-#  containerSecurityContext:
-#    enabled: true
-#    runAsUser: 0
-#    runAsNonRoot: false
-
   customAcls: |-
     dn: cn=samba,cn=schema,cn=config
     objectClass: olcSchemaConfig

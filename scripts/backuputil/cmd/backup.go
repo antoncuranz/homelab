@@ -21,7 +21,16 @@ var backupCmd = &cobra.Command{
 		}
 
 		timestamp := time.Now().Format("200601021504")
-		k8upNamespaces := []string{"immich", "homebridge", "pihole", "servarr", "notifications", "paperless", "authentication"}
+		pvcNamespaceToUid := map[string]int64{
+			"immich":         -1,
+			"homebridge":     -1,
+			"pihole":         -1,
+			"servarr":        -1,
+			"notifications":  -1,
+			"paperless":      -1,
+			"authentication": 1001,
+		}
+
 		dbNamespaces := []string{"immich", "finance", "keycloak", "paperless"}
 
 		if len(args) == 0 {
@@ -31,8 +40,8 @@ var backupCmd = &cobra.Command{
 			}
 
 			fmt.Println("Backing up pvs...")
-			for _, namespace := range k8upNamespaces {
-				if err := common.CreateBackup(client, namespace, "manual-"+namespace+"-"+timestamp); err != nil {
+			for namespace, runAsUser := range pvcNamespaceToUid {
+				if err := common.CreateBackup(client, namespace, "manual-"+namespace+"-"+timestamp, runAsUser); err != nil {
 					log.Fatal(err)
 				}
 			}
@@ -46,7 +55,10 @@ var backupCmd = &cobra.Command{
 			if err := common.CreateDatabaseBackup(client, "manual-"+timestamp); err != nil {
 				log.Fatal(err)
 			}
-		} else if slices.Contains(k8upNamespaces, namespace) {
+		}
+
+		uid, isPvcNamespace := pvcNamespaceToUid[namespace]
+		if isPvcNamespace {
 			if slices.Contains(dbNamespaces, namespace) {
 				fmt.Println("Backing up database...")
 				if err := common.CreateDatabaseBackup(client, "manual-"+timestamp); err != nil {
@@ -55,7 +67,7 @@ var backupCmd = &cobra.Command{
 			}
 
 			fmt.Println("Backing up pv...")
-			if err := common.CreateBackup(client, namespace, "manual-"+namespace+"-"+timestamp); err != nil {
+			if err := common.CreateBackup(client, namespace, "manual-"+namespace+"-"+timestamp, uid); err != nil {
 				log.Fatal(err)
 			}
 		} else {
