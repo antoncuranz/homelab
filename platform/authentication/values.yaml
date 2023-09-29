@@ -120,6 +120,25 @@ openldap-stack-ha:
   podSecurityContext:
     fsGroup: 65532
 
+  customLdifFiles:
+    00-root.ldif: |-
+      dn: dc=serverton,dc=de
+      objectClass: dcObject
+      objectClass: organization
+      o: Serverton
+    01-default-ous.ldif: |-
+      dn: ou=users,dc=serverton,dc=de
+      objectClass: organizationalUnit
+      ou: users
+
+      dn: ou=groups,dc=serverton,dc=de
+      objectClass: organizationalUnit
+      ou: groups
+
+      dn: ou=machines,dc=serverton,dc=de
+      objectClass: organizationalUnit
+      ou: machines
+
   customAcls: |-
     dn: cn=samba,cn=schema,cn=config
     objectClass: olcSchemaConfig
