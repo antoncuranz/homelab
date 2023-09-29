@@ -84,8 +84,7 @@ openldap-stack-ha:
   nameOverride: openldap
 
   image:
-    repository: registry.gitlab.com/bitspur/rock8s/docker-openldap
-    tag: latest
+    tag: 2.6.6
 
   ltb-passwd:
     enabled: false
@@ -107,24 +106,6 @@ openldap-stack-ha:
     enabled: true
     existingClaim: "openldap-data"
 
-  extraVolumes:
-    - name: ldifs
-      configMap:
-        name: ldap-ldifs
-    - name: schemas
-      configMap:
-        name: ldap-schemas
-    - name: migrations
-      configMap:
-        name: ldap-migrations
-  extraVolumeMounts:
-    - name: ldifs
-      mountPath: /ldifs
-#    - name: schemas
-#      mountPath: /schemas
-    - name: migrations
-      mountPath: /migrations
-
   customTLS:
     enabled: true
     secret: "ldap-tls-certificate"
@@ -133,11 +114,30 @@ openldap-stack-ha:
     LDAP_TLS_CA_FILE: opt/bitnami/openldap/certs/tls.crt
 
   podSecurityContext:
-    fsGroup: 1001
+    fsGroup: 65532
 
   containerSecurityContext:
     enabled: true
-    runAsUser: 1001
+    runAsUser: 65532
+
+  customLdifFiles:
+    00-root.ldif: |-
+      dn: dc=serverton,dc=de
+      objectClass: dcObject
+      objectClass: organization
+      o: Serverton
+    01-default-ous.ldif: |-
+      dn: ou=users,dc=serverton,dc=de
+      objectClass: organizationalUnit
+      ou: users
+
+      dn: ou=groups,dc=serverton,dc=de
+      objectClass: organizationalUnit
+      ou: groups
+
+      dn: ou=machines,dc=serverton,dc=de
+      objectClass: organizationalUnit
+      ou: machines
 
   customAcls: |-
     dn: cn=samba,cn=schema,cn=config
@@ -214,12 +214,12 @@ openldap-stack-ha:
     olcObjectClasses: {10}( 1.3.6.1.4.1.7165.2.2.12 NAME 'sambaConfigOption' DESC'Samba Configuration Option' SUP top STRUCTURAL MUST sambaOptionName MAY ( sambaBoolOption $ sambaIntegerOption $ sambaStringOption $ sambaStringListoption $ description ) )
     olcObjectClasses: {11}( 1.3.6.1.4.1.7165.2.2.16 NAME 'sambaTrustedDomain' DESC'Samba Trusted Domain Object' SUP top STRUCTURAL MUST cn MAY ( sambaTrustType $ sambaTrustAttributes $ sambaTrustDirection $ sambaTrustPartner $ sambaFlatName $ sambaTrustAuthOutgoing $ sambaTrustAuthIncoming $ sambaSecurityIdentifier $ sambaTrustForestTrustInfo $ sambaTrustPosixOffset $ sambaSupportedEncryptionTypes) )
 
-    dn: cn=module{0},cn=config
-    changetype: modify
+    dn: cn=module,cn=config
+    cn: module
     add: olcModuleLoad
     olcModuleLoad: {1}smbk5pwd.la
     
-    dn: olcOverlay={0}smbk5pwd,olcDatabase={1}mdb,cn=config
+    dn: olcOverlay={0}smbk5pwd,olcDatabase={2}mdb,cn=config
     changetype: add
     objectClass: olcOverlayConfig
     objectClass: olcSmbK5PwdConfig
