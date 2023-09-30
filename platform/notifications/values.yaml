@@ -8,7 +8,7 @@ signal-cli:
     tag: 0.67 # update disabled because of bug in 0.68
   env:
     TZ: "Europe/Berlin"
-    MODE: "native"
+#    MODE: "native"
     AUTO_RECEIVE_SCHEDULE: "0 22 * * *"
   persistence:
     config:
