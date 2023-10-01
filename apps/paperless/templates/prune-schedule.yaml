@@ -1,0 +1,11 @@
+apiVersion: k8up.io/v1
+kind: Schedule
+metadata:
+  name: prune-schedule
+spec:
+  prune:
+    schedule: '@weekly-random'
+    retention:
+      keepLast: 5
+      keepWeekly: 5
+      keepMonthly: 12

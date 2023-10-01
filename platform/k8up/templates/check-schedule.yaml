@@ -1,0 +1,7 @@
+apiVersion: k8up.io/v1
+kind: Schedule
+metadata:
+  name: check-schedule
+spec:
+  check:
+    schedule: '@weekly-random'
