@@ -49,22 +49,6 @@ app-template:
       storageClass: truenas-nfs
       annotations:
         'k8up.io/backup': 'true'
-    consume:
-      enabled: true
-      mountPath: /usr/src/paperless/consume
-      accessMode: ReadWriteOnce
-      size: 5Gi # TODO
-      storageClass: truenas-nfs
-      annotations:
-        'k8up.io/backup': 'false'
-    export:
-      enabled: true
-      mountPath: /usr/src/paperless/export
-      accessMode: ReadWriteOnce
-      size: 5Gi # TODO
-      storageClass: truenas-nfs
-      annotations:
-        'k8up.io/backup': 'false'
     paperless-ldap-config:
       enabled: true
       type: secret
