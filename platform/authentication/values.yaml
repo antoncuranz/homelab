@@ -125,11 +125,7 @@ openldap-stack-ha:
     LDAP_TLS_CA_FILE: opt/bitnami/openldap/certs/tls.crt
     LDAP_HASH_PASSWORD: "SSHA"
     LDAP_SKIP_DEFAULT_TREE: "yes"
-    LDAP_LOGLEVEL: "ACL"
     LDAP_EXTRA_SCHEMAS: "cosine,inetorgperson,nis,acls"
-
-  podSecurityContext:
-    fsGroup: 65532
 
   customAcls: |-
     dn: cn=samba,cn=schema,cn=config
