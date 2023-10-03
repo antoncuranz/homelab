@@ -16,7 +16,7 @@ jellyfin:
     config:
       enabled: true
       accessMode: ReadWriteOnce
-      size: 5Gi
+      size: 50Gi
       annotations:
         'k8up.io/backup': 'true'
     filme:
