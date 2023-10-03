@@ -1,0 +1,9 @@
+gitlab-runner:
+  gitlabUrl: "https://gitlab.com/"
+  concurrent: 2
+  rbac:
+    create: true
+  runners:
+    secret: gitlab-runner-secret
+    imagePullSecrets:
+      - gitlab-token
