@@ -6,6 +6,7 @@ finance-backend:
   image:
     repository: registry.gitlab.com/antoncuranz/financeq
     tag: dev
+    pullPolicy: Always
   imagePullSecrets:
     - name: gitlab-token
   env:
@@ -62,6 +63,7 @@ finance-frontend:
   image:
     repository: registry.gitlab.com/antoncuranz/financeionic
     tag: dev
+    pullPolicy: Always
   imagePullSecrets:
     - name: gitlab-token
   env:
