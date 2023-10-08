@@ -18,7 +18,7 @@ import (
 	"os"
 )
 
-const truenasApiUrl = "https://192.168.0.70/api/v2.0/pool/dataset/id/"
+const truenasApiUrl = "https://192.168.1.2/api/v2.0/pool/dataset/id/"
 const nfsPathPrefix = "SSD/k8s/nfs"
 const iscsiPathPrefix = "SSD/k8s/iscsi"
 
