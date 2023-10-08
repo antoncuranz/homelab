@@ -5,4 +5,4 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   addresses:
-    - 192.168.0.150-192.168.0.160
+    - 192.168.1.10-192.168.1.15

@@ -4,6 +4,6 @@ kubernetes:
     master:
       hosts:
         k8s-0:
-          ansible_host: 192.168.0.102
+          ansible_host: 192.168.1.3
           ansible_user: replace_me
           ansible_become_pass: replace_me
