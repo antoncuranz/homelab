@@ -303,7 +303,7 @@ sonarr:
     strategy: RollingUpdate
   image:
     repository: ghcr.io/linuxserver/sonarr
-    tag: develop-version-4.0.0.694 # TODO: switch to stable after v4 release
+    tag: develop-version-4.0.0.695 # TODO: switch to stable after v4 release
   env:
     TZ: Europe/Berlin
     PUID: 1000
