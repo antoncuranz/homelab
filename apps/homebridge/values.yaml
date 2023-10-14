@@ -64,6 +64,8 @@ app-template:
       memory: 750Mi
 
 homebridge2:
+  global:
+    nameOverride: homebridge2
   controller:
     strategy: RollingUpdate
   image:
