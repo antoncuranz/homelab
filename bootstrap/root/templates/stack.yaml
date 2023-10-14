@@ -47,7 +47,7 @@ spec:
           kind: CSIDriver
           jqPathExpressions:
             - '.spec.seLinuxMount'
-        - group: deviceplugin.intel.com/v1
+        - group: deviceplugin.intel.com
           kind: GpuDevicePlugin
           jqPathExpressions:
             - '.metadata.annotations'
