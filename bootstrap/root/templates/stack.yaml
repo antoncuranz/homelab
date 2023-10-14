@@ -40,10 +40,9 @@ spec:
           - ServerSideApply=true
       ignoreDifferences:
         - group: storage.k8s.io
-          jsonPointers:
-            - /spec/seLinuxMount
           kind: CSIDriver
-          name: nfs.csi.k8s.io
+          jqPathExpressions:
+            - '.spec.seLinuxMount'
         - group: apps
           kind: StatefulSet
           jqPathExpressions:
