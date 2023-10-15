@@ -45,7 +45,7 @@ apprise-api:
     strategy: RollingUpdate
   image:
     repository: caronc/apprise
-    tag: v0.9.4
+    tag: v0.9.5
   env:
     APPRISE_STATEFUL_MODE: simple
     APPRISE_CONFIG_LOCK: yes
