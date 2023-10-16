@@ -5,3 +5,5 @@ metadata:
 spec:
   backup:
     schedule: '30 1 * * 0'
+  securityContext:
+    runAsUser: 1001
