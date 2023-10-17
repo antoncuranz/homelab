@@ -397,6 +397,12 @@ transmission:
     TRANSMISSION_IDLE_SEEDING_LIMIT: 600
     TRANSMISSION_PEER_PORT: 9453
   persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      annotations:
+        'k8up.io/backup': 'true'
     data:
       enabled: true
       storageClass: truenas-nfs
