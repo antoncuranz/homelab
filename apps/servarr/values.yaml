@@ -391,13 +391,12 @@ transmission:
     OPENVPN_USERNAME: user
     OPENVPN_PASSWORD: pass
     TRANSMISSION_WEB_UI: combustion
+    TRANSMISSION_RATIO_LIMIT_ENABLED: true
+    TRANSMISSION_RATIO_LIMIT: 1.5
+    TRANSMISSION_IDLE_SEEDING_LIMIT_ENABLED: true
+    TRANSMISSION_IDLE_SEEDING_LIMIT: 600
+    TRANSMISSION_PEER_PORT: 9453
   persistence:
-    config:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 250Mi
-      annotations:
-        'k8up.io/backup': 'true'
     data:
       enabled: true
       storageClass: truenas-nfs
