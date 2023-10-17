@@ -392,6 +392,12 @@ transmission:
     OPENVPN_PASSWORD: pass
     TRANSMISSION_WEB_UI: combustion
   persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      annotations:
+        'k8up.io/backup': 'true'
     data:
       enabled: true
       storageClass: truenas-nfs
