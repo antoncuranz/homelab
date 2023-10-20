@@ -31,7 +31,7 @@ jellyfin:
       enabled: true
       storageClass: truenas-nfs
       accessMode: ReadWriteMany
-      size: 1Ti
+      size: 1.5Ti
       mountPath: /serien
       annotations:
         'k8up.io/backup': 'false'
@@ -407,7 +407,7 @@ transmission:
       enabled: true
       storageClass: truenas-nfs
       accessMode: ReadWriteMany
-      size: 100Gi
+      size: 200Gi
       mountPath: /data
       annotations:
         'k8up.io/backup': 'false'
