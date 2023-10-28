@@ -1,4 +1,4 @@
-pod-gateway:
+vpn-gateway:
   image:
     repository: ghcr.io/angelnu/pod-gateway
     tag: v1.8.1
