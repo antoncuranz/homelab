@@ -1,0 +1,46 @@
+pod-gateway:
+  image:
+    repository: ghcr.io/angelnu/pod-gateway
+    tag: 1.8.1
+  routed_namespaces:
+    - vpn
+  addons:
+    vpn:
+      enabled: true
+      type: wireguard
+      # VPN settings stored in secret `vpnConfig`. The secret mus have a key
+      # a key called `vpnConfigfile` with the openvpn/wireguard config files in them
+      configFileSecret: wireguard-config
+
+      livenessProbe:
+        exec:
+          # In the example bellow the VPN output is in Belgic (BE) - change appropiatly
+          command:
+            - sh
+            - -c
+            - if [ $(wget -q -O- https://ipinfo.io/country) == 'NL' ]; then exit 0; else exit $?; fi
+        initialDelaySeconds: 30
+        periodSeconds: 60
+        failureThreshold: 1
+
+      networkPolicy:
+        enabled: true
+
+        egress:
+          - to:
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+            ports:
+              # VPN traffic port - change if your provider uses a different port
+              - port: 1637
+                protocol: UDP
+              # TODO: only allow traffic in vpn namespace itself?
+#          - to:
+#              # Allow traffic within K8S - change if your K8S cluster uses a different CIDR
+#              - ipBlock:
+#                  cidr: 10.0.0.0/8
+    settings:
+      VPN_INTERFACE: wg0
+      VPN_BLOCK_OTHER_TRAFFIC: true
+      VPN_TRAFFIC_PORT: 1637
+      VPN_LOCAL_CIDRS: "10.0.0.0/8 192.168.0.0/16"
