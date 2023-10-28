@@ -1,7 +1,7 @@
 pod-gateway:
   image:
     repository: ghcr.io/angelnu/pod-gateway
-    tag: 1.8.1
+    tag: v1.8.1
   routed_namespaces:
     - vpn
   addons:
