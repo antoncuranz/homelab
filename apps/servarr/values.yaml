@@ -386,20 +386,12 @@ transmission:
   controller:
     strategy: RollingUpdate
   image:
-    repository: haugene/transmission-openvpn
-    tag: 5.2.0@sha256:1092f879761da07bf24f208aa7a16cb2da5735c293e633f762d4ed0c51bc2658
+    repository: ghcr.io/linuxserver/transmission
+    tag: version-4.0.4-r0
   env:
     TZ: Europe/Berlin
-    LOCAL_NETWORK: 10.42.0.0/16
-    OPENVPN_PROVIDER: custom
-    OPENVPN_USERNAME: user
-    OPENVPN_PASSWORD: pass
-    TRANSMISSION_WEB_UI: combustion
-    TRANSMISSION_RATIO_LIMIT_ENABLED: true
-    TRANSMISSION_RATIO_LIMIT: 1.5
-    TRANSMISSION_IDLE_SEEDING_LIMIT_ENABLED: true
-    TRANSMISSION_IDLE_SEEDING_LIMIT: 14400
-    TRANSMISSION_PEER_PORT: 9453
+    PEERPORT: 9453
+    TRANSMISSION_WEB_HOME: "/opt/transmission-ui/transmissionic"
   persistence:
     config:
       enabled: true
@@ -407,36 +399,34 @@ transmission:
       size: 250Mi
       annotations:
         'k8up.io/backup': 'true'
-    data:
+    downloads:
       enabled: true
       storageClass: truenas-nfs
       accessMode: ReadWriteMany
       size: 200Gi
-      mountPath: /data
+      mountPath: /downloads
       annotations:
         'k8up.io/backup': 'false'
-    openvpn-config:
-      enabled: true
-      type: secret
-      name: openvpn-config
-      annotations:
-        'k8up.io/backup': 'false'
-    custom:
+    themes:
       enabled: true
       type: emptyDir
-      mountPath: /etc/openvpn/custom
+      mountPath: /opt/transmission-ui
       annotations:
         'k8up.io/backup': 'false'
   initContainers:
-    config-provider:
-      name: config-provider
-      image: busybox:1.36
-      command: ['/bin/sh', '-c', 'cp /openvpn-config/* /custom']
+    theme-provider:
+      name: theme-provider
+      image: registry.gitlab.com/antoncuranz/transmission-themes:latest
+      command:
+        - sh
+      args:
+        - -c
+        - |
+          echo "Copying themes..."
+          cp -R /opt/transmission-ui/* /themes
       volumeMounts:
-        - name: openvpn-config
-          mountPath: /openvpn-config
-        - name: custom
-          mountPath: /custom
+        - name: themes
+          mountPath: /themes
   service:
     main:
       ports:
@@ -460,23 +450,3 @@ transmission:
         - secretName: transmission-tls-certificate
           hosts:
             - *host
-  securityContext:
-    allowPrivilegeEscalation: true
-    capabilities:
-      add:
-        - NET_ADMIN
-    privileged: true
-  probes:
-    liveness: &probes
-      enabled: true
-      custom: true
-      spec:
-        exec:
-          command: ["ping", "-I", "tun0", "-c", "1", "google.com"]
-        failureThreshold: 3
-        initialDelaySeconds: 10
-        periodSeconds: 10
-        successThreshold: 1
-    readiness: *probes
-    startup:
-      enabled: false
