@@ -2,6 +2,6 @@ apiVersion: v2
 name: vpn-gateway
 version: 0.0.0
 dependencies:
-  - name: vpn-gateway
+  - name: pod-gateway
     version: 6.5.1
     repository: https://angelnu.github.io/helm-charts
