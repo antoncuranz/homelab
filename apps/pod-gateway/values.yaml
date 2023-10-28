@@ -4,6 +4,12 @@ pod-gateway:
     tag: v1.8.1
   routed_namespaces:
     - vpn
+  settings:
+    VPN_INTERFACE: wg0
+    VPN_BLOCK_OTHER_TRAFFIC: true
+    VPN_TRAFFIC_PORT: 1637
+    NOT_ROUTED_TO_GATEWAY_CIDRS: "10.0.0.0/8 172.16.0.0/12 192.168.0.0/16"
+    VPN_LOCAL_CIDRS: "10.0.0.0/8 172.16.0.0/12 192.168.0.0/16"
   addons:
     vpn:
       enabled: true
@@ -11,14 +17,23 @@ pod-gateway:
       image:
         repository: docker.io/qmcgaw/gluetun
         tag: v3.35.0
-
       envFrom:
         - secretRef:
             name: wireguard-config
       securityContext:
         capabilities:
           add: [ "NET_ADMIN" ]
-
+      networkPolicy:
+        enabled: true
+        egress:
+          - to:
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+            ports:
+              - port: 1637
+                protocol: UDP
+          - to:
+              - namespaceSelector: {}
       livenessProbe:
         exec:
           command:
@@ -28,25 +43,3 @@ pod-gateway:
         initialDelaySeconds: 30
         periodSeconds: 60
         failureThreshold: 1
-
-      networkPolicy:
-        enabled: true
-        egress:
-          - to:
-              - ipBlock:
-                  cidr: 0.0.0.0/0
-            ports:
-              # VPN traffic port - change if your provider uses a different port
-              - port: 1637
-                protocol: UDP
-              # TODO: only allow traffic in vpn namespace itself?
-#          - to:
-#              # Allow traffic within K8S - change if your K8S cluster uses a different CIDR
-#              - ipBlock:
-#                  cidr: 10.0.0.0/8
-  settings:
-    VPN_INTERFACE: wg0
-    VPN_BLOCK_OTHER_TRAFFIC: true
-    VPN_TRAFFIC_PORT: 1637
-    VPN_LOCAL_CIDRS: "10.0.0.0/8 192.168.0.0/16"
-    NOT_ROUTED_TO_GATEWAY_CIDRS: "10.42.0.0/16 10.43.0.0/16"
