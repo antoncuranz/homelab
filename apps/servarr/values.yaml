@@ -243,10 +243,10 @@ radarr:
       enabled: true
       existingClaim: servarr-jellyfin-filme
       mountPath: /filme
-    data:
+    downloads:
       enabled: true
       existingClaim: servarr-transmission-downloads
-      mountPath: /data
+      mountPath: /downloads
   podAnnotations:
     k8up.io/backupcommand: >
       sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
@@ -323,10 +323,10 @@ sonarr:
       enabled: true
       existingClaim: servarr-jellyfin-serien
       mountPath: /serien
-    data:
+    downloads:
       enabled: true
       existingClaim: servarr-transmission-downloads
-      mountPath: /data
+      mountPath: /downloads
   podAnnotations:
     k8up.io/backupcommand: >
       sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
