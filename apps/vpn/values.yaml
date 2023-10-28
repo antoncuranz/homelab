@@ -43,14 +43,14 @@ transmission:
 #      size: 250Mi
 #      annotations:
 #        'k8up.io/backup': 'true'
-#    data:
-#      enabled: true
-#      storageClass: truenas-nfs
-#      accessMode: ReadWriteMany
-#      size: 200Gi
-#      mountPath: /data
-#      annotations:
-#        'k8up.io/backup': 'false'
+    downloads:
+      enabled: true
+      storageClass: truenas-nfs
+      accessMode: ReadWriteMany
+      size: 10Gi
+      mountPath: /downloads
+      annotations:
+        'k8up.io/backup': 'false'
   service:
     main:
       ports:
