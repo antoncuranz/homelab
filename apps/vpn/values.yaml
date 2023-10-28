@@ -17,7 +17,8 @@ transmission:
     TRANSMISSION__PEER_PORT: 9453
     TRANSMISSION_WEB_HOME: "/opt/transmission-ui/transmissionic"
   initContainers:
-    - name: theme-provider
+    theme-provider:
+      name: theme-provider
       image: registry.gitlab.com/antoncuranz/transmission-themes:latest
       command:
         - sh
