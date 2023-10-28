@@ -9,8 +9,8 @@ transmission:
   controller:
     strategy: RollingUpdate
   image:
-    repository: ghcr.io/onedr0p/transmission
-    tag: 4.0.4
+    repository: linuxserver/transmission
+    tag: version-4.0.4-r0
   env:
     TRANSMISSION__IDLE_SEEDING_LIMIT_ENABLED: true
     TRANSMISSION__IDLE_SEEDING_LIMIT: 14400
@@ -76,10 +76,10 @@ transmission:
         - secretName: test-tls-certificate
           hosts:
             - *host
-  podSecurityContext:
-    runAsUser: 568
-    runAsGroup: 568
-    fsGroup: 568
-    fsGroupChangePolicy: "OnRootMismatch"
-    supplementalGroups:
-      - 100
+#  podSecurityContext:
+#    runAsUser: 568
+#    runAsGroup: 568
+#    fsGroup: 568
+#    fsGroupChangePolicy: "OnRootMismatch"
+#    supplementalGroups:
+#      - 100
