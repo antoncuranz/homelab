@@ -15,7 +15,7 @@ transmission:
     TRANSMISSION__IDLE_SEEDING_LIMIT_ENABLED: true
     TRANSMISSION__IDLE_SEEDING_LIMIT: 14400
     TRANSMISSION__PEER_PORT: 9453
-    TRANSMISSION_WEB_HOME: "/opt/transmission-ui/transmissionic"
+    TRANSMISSION_WEB_HOME: "/opt/transmission-ui/combustion-release"
   initContainers:
     theme-provider:
       name: theme-provider
