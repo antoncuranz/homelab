@@ -399,7 +399,7 @@ transmission:
       size: 250Mi
       annotations:
         'k8up.io/backup': 'true'
-    downloads:
+    data:
       enabled: true
       storageClass: truenas-nfs
       accessMode: ReadWriteMany
