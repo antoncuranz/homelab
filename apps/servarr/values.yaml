@@ -245,7 +245,7 @@ radarr:
       mountPath: /filme
     data:
       enabled: true
-      existingClaim: servarr-transmission-data
+      existingClaim: servarr-transmission-downloads
       mountPath: /data
   podAnnotations:
     k8up.io/backupcommand: >
@@ -325,7 +325,7 @@ sonarr:
       mountPath: /serien
     data:
       enabled: true
-      existingClaim: servarr-transmission-data
+      existingClaim: servarr-transmission-downloads
       mountPath: /data
   podAnnotations:
     k8up.io/backupcommand: >
@@ -399,7 +399,7 @@ transmission:
       size: 250Mi
       annotations:
         'k8up.io/backup': 'true'
-    data:
+    downloads:
       enabled: true
       storageClass: truenas-nfs
       accessMode: ReadWriteMany
