@@ -1,0 +1,35 @@
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: default-restricted
+spec:
+  podSelector: {}
+  ingress:
+    - from:
+      # Only allow ingress from K8S
+      - ipBlock:
+          cidr: 10.0.0.0/8
+  egress:
+    - to:
+      # Only allow egress to K8S
+      - ipBlock:
+          cidr: 10.0.0.0/8
+  policyTypes:
+    - Ingress
+    - Egress
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-jelly-egress
+spec:
+  podSelector:
+    matchExpressions:
+      - key: app.kubernetes.io/name
+        operator: In
+        values: ["jellyfin", "jellyseerr"]
+  egress:
+    - {}
+  policyTypes:
+    - Egress
