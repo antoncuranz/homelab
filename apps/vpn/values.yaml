@@ -5,7 +5,6 @@
 transmission:
   global:
     nameOverride: transmission
-  hostname: transmission
   controller:
     strategy: RollingUpdate
   image:
