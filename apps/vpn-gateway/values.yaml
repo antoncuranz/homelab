@@ -3,7 +3,7 @@ pod-gateway:
     repository: ghcr.io/angelnu/pod-gateway
     tag: v1.8.1
   routed_namespaces:
-    - vpn
+    - servarr
   settings:
     VPN_INTERFACE: wg0
     VPN_BLOCK_OTHER_TRAFFIC: true
