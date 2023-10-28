@@ -1,0 +1,54 @@
+######################
+# Transmission       #
+######################
+
+transmission:
+  global:
+    nameOverride: transmission
+  controller:
+    strategy: RollingUpdate
+  image:
+    repository: ghcr.io/onedr0p/transmission
+    tag: 4.0.4
+  env:
+    TRANSMISSION__IDLE_SEEDING_LIMIT_ENABLED: true
+    TRANSMISSION__IDLE_SEEDING_LIMIT: 14400
+    TRANSMISSION__PEER_PORT: 9453
+#  persistence:
+#    config:
+#      enabled: true
+#      accessMode: ReadWriteOnce
+#      size: 250Mi
+#      annotations:
+#        'k8up.io/backup': 'true'
+#    data:
+#      enabled: true
+#      storageClass: truenas-nfs
+#      accessMode: ReadWriteMany
+#      size: 200Gi
+#      mountPath: /data
+#      annotations:
+#        'k8up.io/backup': 'false'
+  service:
+    main:
+      ports:
+        http:
+          port: 9091
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+      hosts:
+        - host: &host "test.serverton.de"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: test-tls-certificate
+          hosts:
+            - *host
