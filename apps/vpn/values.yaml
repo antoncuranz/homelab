@@ -16,8 +16,8 @@ transmission:
     TRANSMISSION__IDLE_SEEDING_LIMIT: 14400
     TRANSMISSION__PEER_PORT: 9453
     TRANSMISSION_WEB_HOME: "/opt/transmission-ui/combustion-release"
-  podAnnotations:
-    setGateway: "false"
+#  podAnnotations:
+#    setGateway: "false"
   initContainers:
     theme-provider:
       name: theme-provider
