@@ -7,14 +7,20 @@ pod-gateway:
   addons:
     vpn:
       enabled: true
-      type: wireguard
-      # VPN settings stored in secret `vpnConfig`. The secret mus have a key
-      # a key called `vpnConfigfile` with the openvpn/wireguard config files in them
-      configFileSecret: wireguard-config
+      type: gluetun
+      image:
+        repository: docker.io/qmcgaw/gluetun
+        tag: v3.33.0
+
+      envFrom:
+        - secretRef:
+            name: wireguard-config
+      securityContext:
+        capabilities:
+          add: [ "NET_ADMIN" ]
 
       livenessProbe:
         exec:
-          # In the example bellow the VPN output is in Belgic (BE) - change appropiatly
           command:
             - sh
             - -c
@@ -25,7 +31,6 @@ pod-gateway:
 
       networkPolicy:
         enabled: true
-
         egress:
           - to:
               - ipBlock:
@@ -35,10 +40,10 @@ pod-gateway:
               - port: 1637
                 protocol: UDP
               # TODO: only allow traffic in vpn namespace itself?
-          - to:
-              # Allow traffic within K8S - change if your K8S cluster uses a different CIDR
-              - ipBlock:
-                  cidr: 10.0.0.0/8
+#          - to:
+#              # Allow traffic within K8S - change if your K8S cluster uses a different CIDR
+#              - ipBlock:
+#                  cidr: 10.0.0.0/8
     settings:
       VPN_INTERFACE: wg0
       VPN_BLOCK_OTHER_TRAFFIC: true
