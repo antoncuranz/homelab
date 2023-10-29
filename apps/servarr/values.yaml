@@ -375,6 +375,76 @@ sonarr:
           hosts:
             - *host
 
+######################
+# Bazarr             #
+######################
+
+bazarr:
+  global:
+    nameOverride: bazarr
+  controller:
+    strategy: RollingUpdate
+  image:
+    repository: ghcr.io/linuxserver/bazarr
+    tag: version-v1.3.1
+  env:
+    TZ: Europe/Berlin
+    PUID: 1000
+    PGID: 1000
+  persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      annotations:
+        'k8up.io/backup': 'true'
+    filme:
+      enabled: true
+      existingClaim: servarr-jellyfin-filme
+      mountPath: /filme
+    serien:
+      enabled: true
+      existingClaim: servarr-jellyfin-serien
+      mountPath: /serien
+  service:
+    main:
+      ports:
+        http:
+          port: &port 6767
+  probes:
+    liveness: &probes
+      enabled: true
+      custom: true
+      spec:
+        httpGet:
+          path: /ping
+          port: *port
+        initialDelaySeconds: 0
+        periodSeconds: 10
+        timeoutSeconds: 2
+        failureThreshold: 3
+    readiness: *probes
+    startup:
+      enabled: false
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+      hosts:
+        - host: &host "bazarr.serverton.de"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: bazarr-tls-certificate
+          hosts:
+            - *host
+
 
 ######################
 # Transmission       #
