@@ -12,8 +12,6 @@ jellyfin:
     tag: version-10.8.10-1
   env:
     TZ: "Europe/Berlin"
-  podAnnotations:
-    setGateway: "false"
   persistence:
     config:
       enabled: true
@@ -96,8 +94,6 @@ jellyseerr:
     TZ: Europe/Berlin
     PUID: 1000
     PGID: 1000
-  podAnnotations:
-    setGateway: "false"
   persistence:
     config:
       enabled: true
@@ -168,6 +164,7 @@ prowlarr:
       annotations:
         'k8up.io/backup': 'false'
   podAnnotations:
+    setGateway: "true"
     k8up.io/backupcommand: >
       sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
       OLD_ID=$(curl -s "http://localhost:9696/api/v1/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
@@ -248,6 +245,7 @@ radarr:
       existingClaim: servarr-transmission-downloads
       mountPath: /downloads
   podAnnotations:
+    setGateway: "true"
     k8up.io/backupcommand: >
       sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
       OLD_ID=$(curl -s "http://localhost:7878/api/v3/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
@@ -328,6 +326,7 @@ sonarr:
       existingClaim: servarr-transmission-downloads
       mountPath: /downloads
   podAnnotations:
+    setGateway: "true"
     k8up.io/backupcommand: >
       sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
       OLD_ID=$(curl -s "http://localhost:8989/api/v3/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
@@ -407,6 +406,7 @@ bazarr:
       existingClaim: servarr-jellyfin-serien
       mountPath: /serien
   podAnnotations:
+    setGateway: "true"
     k8up.io/backupcommand: >
       sh -c 'APIKEY=$(grep -m 1 "apikey" /config/config/config.ini | cut -d "=" -f 2 | awk '{$1=$1;print}');
       OLD_ID=$(curl -s "http://localhost:6767/api/system/backups?apikey=$APIKEY" | jq -r ".data|last.filename");
@@ -472,6 +472,8 @@ transmission:
     TZ: Europe/Berlin
     PEERPORT: 9453
     TRANSMISSION_WEB_HOME: "/opt/transmission-ui/transmissionic"
+  podAnnotations:
+    setGateway: "true"
   persistence:
     config:
       enabled: true
