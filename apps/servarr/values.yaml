@@ -483,7 +483,7 @@ transmission:
       enabled: true
       storageClass: truenas-nfs
       accessMode: ReadWriteMany
-      size: 200Gi
+      size: 250Gi
       mountPath: /downloads
       annotations:
         'k8up.io/backup': 'false'
