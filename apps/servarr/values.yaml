@@ -6,7 +6,7 @@ jellyfin:
   global:
     nameOverride: jellyfin
   controller:
-    strategy: RollingUpdate
+    strategy: Recreate
   image:
     repository: ghcr.io/linuxserver/jellyfin
     tag: version-10.8.10-1
