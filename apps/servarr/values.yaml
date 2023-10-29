@@ -397,7 +397,7 @@ bazarr:
       accessMode: ReadWriteOnce
       size: 250Mi
       annotations:
-        'k8up.io/backup': 'true'
+        'k8up.io/backup': 'false'
     filme:
       enabled: true
       existingClaim: servarr-jellyfin-filme
@@ -406,6 +406,15 @@ bazarr:
       enabled: true
       existingClaim: servarr-jellyfin-serien
       mountPath: /serien
+  podAnnotations:
+    k8up.io/backupcommand: >
+      sh -c 'APIKEY=$(grep -m 1 "apikey" /config/config/config.ini | cut -d "=" -f 2 | awk '{$1=$1;print}');
+      OLD_ID=$(curl -s "http://localhost:6767/api/system/backups?apikey=$APIKEY" | jq -r ".data|last.filename");
+      curl -s -X DELETE "http://localhost:6767/api/system/backups?filename=$OLD_ID&apikey=$APIKEY";
+      curl -s -X POST "http://localhost:6767/api/system/backups?apikey=$APIKEY";
+      FILENAME=$(curl -s "http://localhost:6767/api/system/backups?apikey=$APIKEY" | jq -r ".data[0].filename");
+      curl "http://localhost:6767/system/backup/download/$FILENAME?apikey=$APIKEY"'
+    k8up.io/file-extension: .zip
   service:
     main:
       ports:
