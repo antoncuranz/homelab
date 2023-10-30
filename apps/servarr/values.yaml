@@ -467,6 +467,7 @@ autobrr:
     tag: v1.32.0
   env:
     TZ: Europe/Berlin
+    AUTOBRR__HOST: 0.0.0.0
   podAnnotations:
     setGateway: "true"
   persistence:
