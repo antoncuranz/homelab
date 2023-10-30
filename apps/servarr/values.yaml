@@ -480,7 +480,7 @@ autobrr:
     main:
       ports:
         http:
-          port: 7474
+          port: &port 7474
   probes:
     liveness: &probes
       enabled: true
