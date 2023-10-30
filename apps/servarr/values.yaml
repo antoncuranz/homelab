@@ -481,6 +481,21 @@ autobrr:
       ports:
         http:
           port: 7474
+  probes:
+    liveness: &probes
+      enabled: true
+      custom: true
+      spec:
+        httpGet:
+          path: /api/healthz/liveness
+          port: *port
+        initialDelaySeconds: 0
+        periodSeconds: 10
+        timeoutSeconds: 2
+        failureThreshold: 3
+    readiness: *probes
+    startup:
+      enabled: false
   ingress:
     main:
       enabled: true
