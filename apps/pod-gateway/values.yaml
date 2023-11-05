@@ -1,6 +1,7 @@
 pod-gateway:
   image:
     repository: ghcr.io/ant0ncuranz/pod-gateway
+    imagePullPolicy: Always
     tag: dev
   routed_namespaces:
     - vpn
