@@ -1,3 +1,8 @@
 apiVersion: v2
 name: vpn
 version: 0.0.0
+dependencies:
+  - name: app-template
+    alias: transmission
+    version: 1.5.1
+    repository: https://bjw-s.github.io/helm-charts
