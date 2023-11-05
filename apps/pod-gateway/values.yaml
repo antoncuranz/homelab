@@ -12,7 +12,6 @@ pod-gateway:
     VPN_LOCAL_CIDRS: "10.42.0.0/16 10.43.0.0/16"
     IPTABLES_NFT: yes
   webhook:
-    gatewayDefault: false
     namespaceSelector:
       label: "routed-gateway2"
     image:
