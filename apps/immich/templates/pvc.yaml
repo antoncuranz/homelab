@@ -33,3 +33,6 @@ spec:
   storageClassName: nfs-immich
   accessModes:
     - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
