@@ -5,7 +5,7 @@ metadata:
   name: nfs-immich
 spec:
   capacity:
-    storage: 10Gi
+    storage: 50Gi
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
@@ -33,6 +33,3 @@ spec:
   storageClassName: nfs-immich
   accessModes:
     - ReadWriteOnce
-  resources:
-    requests:
-      storage: 50Gi
