@@ -35,7 +35,7 @@ app-template:
   persistence:
     data:
       enabled: true
-      storageClass: truenas-nfs
+      storageClass: nfs-paperless
       accessMode: ReadWriteOnce
       size: 5Gi # TODO
       mountPath: /usr/src/paperless/data
@@ -46,7 +46,7 @@ app-template:
       mountPath: /usr/src/paperless/media
       accessMode: ReadWriteOnce
       size: 5Gi # TODO
-      storageClass: truenas-nfs
+      storageClass: nfs-paperless
       annotations:
         'k8up.io/backup': 'true'
     paperless-ldap-config:
