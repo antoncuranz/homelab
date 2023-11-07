@@ -19,20 +19,12 @@ jellyfin:
         'k8up.io/backup': 'true'
     filme:
       enabled: true
-      storageClass: truenas-nfs
-      accessMode: ReadWriteMany
-      size: 1Ti
-      mountPath: /filme
-      annotations:
-        'k8up.io/backup': 'false'
+      existingClaim: mediarr
+      subPath: /filme
     serien:
       enabled: true
-      storageClass: truenas-nfs
-      accessMode: ReadWriteMany
-      size: 1.5Ti
-      mountPath: /serien
-      annotations:
-        'k8up.io/backup': 'false'
+      existingClaim: mediarr
+      subPath: /serien
   service:
     main:
       ports:
@@ -236,12 +228,13 @@ radarr:
         'k8up.io/backup': 'false'
     filme:
       enabled: true
-      existingClaim: servarr-jellyfin-filme
-      mountPath: /filme
+      existingClaim: mediarr
+      subPath: /filme
     downloads:
       enabled: true
-      existingClaim: servarr-transmission-downloads
-      mountPath: /downloads
+      existingClaim: mediarr
+      subPath: /downloads
+      mountPath: /downloads/mediarr
   podAnnotations:
     setGateway: "true"
     k8up.io/backupcommand: >
@@ -317,12 +310,13 @@ sonarr:
         'k8up.io/backup': 'false'
     serien:
       enabled: true
-      existingClaim: servarr-jellyfin-serien
-      mountPath: /serien
+      existingClaim: mediarr
+      subPath: /serien
     downloads:
       enabled: true
-      existingClaim: servarr-transmission-downloads
-      mountPath: /downloads
+      existingClaim: mediarr
+      subPath: /downloads
+      mountPath: /downloads/mediarr
   podAnnotations:
     setGateway: "true"
     k8up.io/backupcommand: >
@@ -397,12 +391,12 @@ bazarr:
         'k8up.io/backup': 'false'
     filme:
       enabled: true
-      existingClaim: servarr-jellyfin-filme
-      mountPath: /filme
+      existingClaim: mediarr
+      subPath: /filme
     serien:
       enabled: true
-      existingClaim: servarr-jellyfin-serien
-      mountPath: /serien
+      existingClaim: mediarr
+      subPath: /serien
   podAnnotations:
     setGateway: "true"
     k8up.io/backupcommand: >
@@ -543,14 +537,15 @@ transmission:
       size: 250Mi
       annotations:
         'k8up.io/backup': 'true'
-    downloads:
+    mediarr:
       enabled: true
-      storageClass: truenas-nfs
-      accessMode: ReadWriteMany
-      size: 400Gi
-      mountPath: /downloads
-      annotations:
-        'k8up.io/backup': 'false'
+      existingClaim: mediarr
+      subPath: /downloads
+      mountPath: /downloads/mediarr
+    autobrr:
+      enabled: true
+      existingClaim: autobrr
+      mountPath: /downloads/autobrr
     themes:
       enabled: true
       type: emptyDir
