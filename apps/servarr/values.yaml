@@ -9,7 +9,9 @@ jellyfin:
     repository: ghcr.io/linuxserver/jellyfin
     tag: version-10.8.10-1
   env:
-    TZ: "Europe/Berlin"
+    TZ: Europe/Berlin
+    PUID: 1000
+    PGID: 1000
   persistence:
     config:
       enabled: true
@@ -524,6 +526,8 @@ transmission:
     tag: version-4.0.4-r0
   env:
     TZ: Europe/Berlin
+    PUID: 1000
+    PGID: 1000
     PEERPORT: 9453
     TRANSMISSION_WEB_HOME: "/opt/transmission-ui/transmissionic"
   podAnnotations:
