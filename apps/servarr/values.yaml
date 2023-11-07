@@ -17,14 +17,14 @@ jellyfin:
       size: 50Gi
       annotations:
         'k8up.io/backup': 'true'
-    filme:
+    mediarr:
       enabled: true
       existingClaim: mediarr
-      subPath: filme
-    serien:
-      enabled: true
-      existingClaim: mediarr
-      subPath: serien
+      subPath:
+        - path: filme
+          mountPath: /filme
+        - path: serien
+          mountPath: /serien
   service:
     main:
       ports:
@@ -226,15 +226,14 @@ radarr:
       size: 250Mi
       annotations:
         'k8up.io/backup': 'false'
-    filme:
+    mediarr:
       enabled: true
       existingClaim: mediarr
-      subPath: filme
-    downloads:
-      enabled: true
-      existingClaim: mediarr
-      subPath: downloads
-      mountPath: /downloads/mediarr
+      subPath:
+        - path: filme
+          mountPath: /filme
+        - path: downloads
+          mountPath: /downloads/mediarr
   podAnnotations:
     setGateway: "true"
     k8up.io/backupcommand: >
@@ -308,15 +307,14 @@ sonarr:
       size: 250Mi
       annotations:
         'k8up.io/backup': 'false'
-    serien:
+    mediarr:
       enabled: true
       existingClaim: mediarr
-      subPath: serien
-    downloads:
-      enabled: true
-      existingClaim: mediarr
-      subPath: downloads
-      mountPath: /downloads/mediarr
+      subPath:
+        - path: serien
+          mountPath: /serien
+        - path: downloads
+          mountPath: /downloads/mediarr
   podAnnotations:
     setGateway: "true"
     k8up.io/backupcommand: >
@@ -389,14 +387,14 @@ bazarr:
       size: 250Mi
       annotations:
         'k8up.io/backup': 'false'
-    filme:
+    mediarr:
       enabled: true
       existingClaim: mediarr
-      subPath: filme
-    serien:
-      enabled: true
-      existingClaim: mediarr
-      subPath: serien
+      subPath:
+        - path: filme
+          mountPath: /filme
+        - path: serien
+          mountPath: /serien
   podAnnotations:
     setGateway: "true"
     k8up.io/backupcommand: >
