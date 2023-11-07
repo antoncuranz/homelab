@@ -6,7 +6,7 @@ dependencies:
     version: 16.1.7
     repository: https://charts.bitnami.com/bitnami
   - name: openldap-stack-ha
-    version: 4.1.1
+    version: 4.1.2
     repository: https://jp-gouin.github.io/helm-openldap/
   - name: oauth2-proxy
     version: 6.18.0
