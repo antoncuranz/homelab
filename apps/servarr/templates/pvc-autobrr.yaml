@@ -2,36 +2,36 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nfs-immich
+  name: nfs-autobrr
 spec:
   capacity:
-    storage: 50Gi
+    storage: 500Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs-immich
+  storageClassName: nfs
   mountOptions:
     - nfsvers=4
     - noatime
   csi:
     driver: nfs.csi.k8s.io
     readOnly: false
-    volumeHandle: nfs-immich
+    volumeHandle: nfs-autobrr
     volumeAttributes:
       server: 192.168.1.2
-      share: /mnt/SSD/k8s/nfs/immich
+      share: /mnt/SSD/k8s/nfs/autobrr
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: immich-data
+  name: autobrr
   annotations:
-    k8up.io/backup: 'true'
+    'k8up.io/backup': 'false'
 spec:
-  volumeName: nfs-immich
-  storageClassName: nfs-immich
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 50Gi
+      storage: 500Gi
+  volumeName: nfs-autobrr
+  storageClassName: nfs
