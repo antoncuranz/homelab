@@ -20,11 +20,11 @@ jellyfin:
     filme:
       enabled: true
       existingClaim: mediarr
-      subPath: /filme
+      subPath: filme
     serien:
       enabled: true
       existingClaim: mediarr
-      subPath: /serien
+      subPath: serien
   service:
     main:
       ports:
@@ -229,11 +229,11 @@ radarr:
     filme:
       enabled: true
       existingClaim: mediarr
-      subPath: /filme
+      subPath: filme
     downloads:
       enabled: true
       existingClaim: mediarr
-      subPath: /downloads
+      subPath: downloads
       mountPath: /downloads/mediarr
   podAnnotations:
     setGateway: "true"
@@ -311,11 +311,11 @@ sonarr:
     serien:
       enabled: true
       existingClaim: mediarr
-      subPath: /serien
+      subPath: serien
     downloads:
       enabled: true
       existingClaim: mediarr
-      subPath: /downloads
+      subPath: downloads
       mountPath: /downloads/mediarr
   podAnnotations:
     setGateway: "true"
@@ -392,11 +392,11 @@ bazarr:
     filme:
       enabled: true
       existingClaim: mediarr
-      subPath: /filme
+      subPath: filme
     serien:
       enabled: true
       existingClaim: mediarr
-      subPath: /serien
+      subPath: serien
   podAnnotations:
     setGateway: "true"
     k8up.io/backupcommand: >
@@ -540,7 +540,7 @@ transmission:
     mediarr:
       enabled: true
       existingClaim: mediarr
-      subPath: /downloads
+      subPath: downloads
       mountPath: /downloads/mediarr
     autobrr:
       enabled: true
