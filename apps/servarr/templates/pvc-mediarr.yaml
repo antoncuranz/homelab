@@ -34,4 +34,4 @@ spec:
     requests:
       storage: 2Ti
   volumeName: nfs-mediarr
-  storageClassName: nfs
+  storageClassName: nfs-mediarr
