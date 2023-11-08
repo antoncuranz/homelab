@@ -472,11 +472,9 @@ bazarr:
       strategy: RollingUpdate
 
       pod:
-      #        securityContext:
-      #          runAsUser: 568
-      #          runAsGroup: 568
-      #          fsGroup: 568
-      #          fsGroupChangePolicy: OnRootMismatch
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
         annotations:
           setGateway: "true"
           k8up.io/backupcommand: >
@@ -491,8 +489,8 @@ bazarr:
       containers:
         main:
           image:
-            repository: ghcr.io/linuxserver/bazarr
-            tag: version-v1.3.1
+            repository: ghcr.io/onedr0p/bazarr
+            tag: 1.3.1
           env:
             TZ: Europe/Berlin
             PUID: 1000
