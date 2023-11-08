@@ -111,12 +111,12 @@ jellyseerr:
     main:
       strategy: RollingUpdate
 
-      #      pod:
-      #        securityContext:
-      #          runAsUser: 568
-      #          runAsGroup: 568
-      #          fsGroup: 568
-      #          fsGroupChangePolicy: OnRootMismatch
+      pod:
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
 
       containers:
         main:
@@ -303,8 +303,8 @@ radarr:
             tag: version-4.7.5.7809
           env:
             TZ: Europe/Berlin
-            PUID: 1000
-            PGID: 1000
+            PUID: 568
+            PGID: 568
           probes:
             liveness: &probes
               enabled: true
@@ -380,11 +380,11 @@ sonarr:
       strategy: RollingUpdate
 
       pod:
-      #        securityContext:
-      #          runAsUser: 568
-      #          runAsGroup: 568
-      #          fsGroup: 568
-      #          fsGroupChangePolicy: OnRootMismatch
+#        securityContext:
+#          runAsUser: 568
+#          runAsGroup: 568
+#          fsGroup: 568
+#          fsGroupChangePolicy: OnRootMismatch
         annotations:
           setGateway: "true"
           k8up.io/backupcommand: >
@@ -577,11 +577,11 @@ autobrr:
       strategy: RollingUpdate
 
       pod:
-      #        securityContext:
-      #          runAsUser: 568
-      #          runAsGroup: 568
-      #          fsGroup: 568
-      #          fsGroupChangePolicy: OnRootMismatch
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
         annotations:
           setGateway: "true"
 
@@ -664,8 +664,8 @@ transmission:
         securityContext:
           runAsUser: 568
           runAsGroup: 568
-#          fsGroup: 568
-#          fsGroupChangePolicy: OnRootMismatch
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
 
       initContainers:
         01-init-themes:
