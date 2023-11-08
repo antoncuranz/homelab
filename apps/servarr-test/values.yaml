@@ -29,7 +29,7 @@ transmission:
           name: theme-provider
           image:
             repository: registry.gitlab.com/antoncuranz/transmission-themes
-            tag: latest
+            tag: latest@sha256:bf53ac7ef22cf9f1c89c025fd4ba23fbc52ab2acadc1d152a28ae41f5f0d263b
           command:
             - sh
           args:
