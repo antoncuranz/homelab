@@ -20,6 +20,9 @@ transmission:
           runAsGroup: 568
           fsGroup: 568
           fsGroupChangePolicy: OnRootMismatch
+          supplementalGroups:
+            - 65539
+            - 10000
 
       initContainers:
         01-init-themes:
