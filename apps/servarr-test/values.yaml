@@ -76,7 +76,10 @@ transmission:
     themes:
       enabled: true
       type: emptyDir
-      mountPath: /opt/transmission-ui
+      advancedMounts:
+        main:
+          main:
+            - path: /opt/transmission-ui
 
   service:
     main:
