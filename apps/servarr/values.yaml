@@ -139,7 +139,8 @@ jellyseerr:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
-      mountPath: /app/config
+      globalMounts:
+        - path: /app/config
       annotations:
         'k8up.io/backup': 'true'
 
