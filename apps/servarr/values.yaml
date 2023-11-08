@@ -52,13 +52,13 @@ jellyfin:
     config:
       enabled: true
       accessMode: ReadWriteOnce
-      size: 1Gi
+      size: 50Gi
       annotations:
         'k8up.io/backup': 'true'
     cache:
       enabled: true
       accessMode: ReadWriteOnce
-      size: 50Gi
+      size: 50Gi # TODO: is this necessary?
       annotations:
         'k8up.io/backup': 'false'
     mediarr:
