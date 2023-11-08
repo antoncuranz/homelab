@@ -19,7 +19,9 @@ transmission:
       initContainers:
         01-init-themes:
           name: theme-provider
-          image: registry.gitlab.com/antoncuranz/transmission-themes:latest
+          image:
+            repository: registry.gitlab.com/antoncuranz/transmission-themes
+            tag: latest
           command:
             - sh
           args:
