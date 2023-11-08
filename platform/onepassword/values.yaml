@@ -9,3 +9,4 @@ connect:
       name: onepassword-secret
 
 external-secrets:
+  installCRDs: true
