@@ -187,16 +187,16 @@ prowlarr:
 #          runAsGroup: 568
 #          fsGroup: 568
 #          fsGroupChangePolicy: OnRootMismatch
-      annotations:
-        setGateway: "true"
-        k8up.io/backupcommand: >
-          sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
-          OLD_ID=$(curl -s "http://localhost:9696/api/v1/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
-          curl -s -X DELETE "http://localhost:9696/api/v1/system/backup/$OLD_ID?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}";
-          curl -s -X POST "http://localhost:9696/api/v1/command?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}"; sleep 5;
-          BACKUP_URL=$(curl -s "http://localhost:9696/api/v1/system/backup?apikey=$APIKEY" | jq -r ".[0].path");
-          curl -s "http://localhost:9696$BACKUP_URL?apikey=$APIKEY"'
-        k8up.io/file-extension: .zip
+        annotations:
+          setGateway: "true"
+          k8up.io/backupcommand: >
+            sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
+            OLD_ID=$(curl -s "http://localhost:9696/api/v1/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
+            curl -s -X DELETE "http://localhost:9696/api/v1/system/backup/$OLD_ID?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}";
+            curl -s -X POST "http://localhost:9696/api/v1/command?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}"; sleep 5;
+            BACKUP_URL=$(curl -s "http://localhost:9696/api/v1/system/backup?apikey=$APIKEY" | jq -r ".[0].path");
+            curl -s "http://localhost:9696$BACKUP_URL?apikey=$APIKEY"'
+          k8up.io/file-extension: .zip
 
       containers:
         main:
@@ -277,16 +277,16 @@ radarr:
 #          runAsGroup: 568
 #          fsGroup: 568
 #          fsGroupChangePolicy: OnRootMismatch
-      annotations:
-        setGateway: "true"
-        k8up.io/backupcommand: >
-          sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
-          OLD_ID=$(curl -s "http://localhost:7878/api/v3/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
-          curl -s -X DELETE "http://localhost:7878/api/v3/system/backup/$OLD_ID?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}";
-          curl -s -X POST "http://localhost:7878/api/v3/command?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}"; sleep 5;
-          BACKUP_URL=$(curl -s "http://localhost:7878/api/v3/system/backup?apikey=$APIKEY" | jq -r ".[0].path");
-          curl -s "http://localhost:7878$BACKUP_URL?apikey=$APIKEY"'
-        k8up.io/file-extension: .zip
+        annotations:
+          setGateway: "true"
+          k8up.io/backupcommand: >
+            sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
+            OLD_ID=$(curl -s "http://localhost:7878/api/v3/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
+            curl -s -X DELETE "http://localhost:7878/api/v3/system/backup/$OLD_ID?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}";
+            curl -s -X POST "http://localhost:7878/api/v3/command?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}"; sleep 5;
+            BACKUP_URL=$(curl -s "http://localhost:7878/api/v3/system/backup?apikey=$APIKEY" | jq -r ".[0].path");
+            curl -s "http://localhost:7878$BACKUP_URL?apikey=$APIKEY"'
+          k8up.io/file-extension: .zip
 
       containers:
         main:
@@ -377,16 +377,16 @@ sonarr:
       #          runAsGroup: 568
       #          fsGroup: 568
       #          fsGroupChangePolicy: OnRootMismatch
-      annotations:
-        setGateway: "true"
-        k8up.io/backupcommand: >
-          sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
-          OLD_ID=$(curl -s "http://localhost:8989/api/v3/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
-          curl -s -X DELETE "http://localhost:8989/api/v3/system/backup/$OLD_ID?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}";
-          curl -s -X POST "http://localhost:8989/api/v3/command?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}"; sleep 5;
-          BACKUP_URL=$(curl -s "http://localhost:8989/api/v3/system/backup?apikey=$APIKEY" | jq -r ".[0].path");
-          curl -s "http://localhost:8989$BACKUP_URL?apikey=$APIKEY"'
-        k8up.io/file-extension: .zip
+        annotations:
+          setGateway: "true"
+          k8up.io/backupcommand: >
+            sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
+            OLD_ID=$(curl -s "http://localhost:8989/api/v3/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
+            curl -s -X DELETE "http://localhost:8989/api/v3/system/backup/$OLD_ID?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}";
+            curl -s -X POST "http://localhost:8989/api/v3/command?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}"; sleep 5;
+            BACKUP_URL=$(curl -s "http://localhost:8989/api/v3/system/backup?apikey=$APIKEY" | jq -r ".[0].path");
+            curl -s "http://localhost:8989$BACKUP_URL?apikey=$APIKEY"'
+          k8up.io/file-extension: .zip
 
       containers:
         main:
@@ -476,16 +476,16 @@ bazarr:
       #          runAsGroup: 568
       #          fsGroup: 568
       #          fsGroupChangePolicy: OnRootMismatch
-      annotations:
-        setGateway: "true"
-        k8up.io/backupcommand: >
-          sh -c 'APIKEY=$(grep -m 1 "apikey" /config/config/config.ini | cut -d "=" -f 2 | xargs);
-          OLD_ID=$(curl -s "http://localhost:6767/api/system/backups?apikey=$APIKEY" | jq -r ".data|last.filename");
-          curl -s -X DELETE "http://localhost:6767/api/system/backups?filename=$OLD_ID&apikey=$APIKEY";
-          curl -s -X POST "http://localhost:6767/api/system/backups?apikey=$APIKEY"; sleep 5;
-          FILENAME=$(curl -s "http://localhost:6767/api/system/backups?apikey=$APIKEY" | jq -r ".data[0].filename");
-          curl -s "http://localhost:6767/system/backup/download/$FILENAME?apikey=$APIKEY"'
-        k8up.io/file-extension: .zip
+        annotations:
+          setGateway: "true"
+          k8up.io/backupcommand: >
+            sh -c 'APIKEY=$(grep -m 1 "apikey" /config/config/config.ini | cut -d "=" -f 2 | xargs);
+            OLD_ID=$(curl -s "http://localhost:6767/api/system/backups?apikey=$APIKEY" | jq -r ".data|last.filename");
+            curl -s -X DELETE "http://localhost:6767/api/system/backups?filename=$OLD_ID&apikey=$APIKEY";
+            curl -s -X POST "http://localhost:6767/api/system/backups?apikey=$APIKEY"; sleep 5;
+            FILENAME=$(curl -s "http://localhost:6767/api/system/backups?apikey=$APIKEY" | jq -r ".data[0].filename");
+            curl -s "http://localhost:6767/system/backup/download/$FILENAME?apikey=$APIKEY"'
+          k8up.io/file-extension: .zip
 
       containers:
         main:
@@ -576,8 +576,8 @@ autobrr:
       #          runAsGroup: 568
       #          fsGroup: 568
       #          fsGroupChangePolicy: OnRootMismatch
-      annotations:
-        setGateway: "true"
+        annotations:
+          setGateway: "true"
 
       containers:
         main:
