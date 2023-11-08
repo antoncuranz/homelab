@@ -7,3 +7,5 @@ connect:
     create: true
     token:
       name: onepassword-secret
+
+external-secrets:
