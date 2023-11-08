@@ -60,10 +60,10 @@ jellyfin:
       advancedMounts:
         main:
           main:
-            - path: filme
-              subPath: /filme
-            - path: serien
-              subPath: /serien
+            - path: /filme
+              subPath: filme
+            - path: /serien
+              subPath: serien
 
   service:
     main:
@@ -326,10 +326,10 @@ radarr:
       advancedMounts:
         main:
           main:
-            - path: filme
-              subPath: /filme
-            - path: downloads
-              subPath: /downloads/mediarr
+            - path: /filme
+              subPath: filme
+            - path: /downloads/mediarr
+              subPath: downloads
 
   service:
     main:
@@ -426,10 +426,10 @@ sonarr:
       advancedMounts:
         main:
           main:
-            - path: serien
-              subPath: /serien
-            - path: downloads
-              subPath: /downloads/mediarr
+            - path: /serien
+              subPath: serien
+            - path: /downloads/mediarr
+              subPath: downloads
 
   service:
     main:
@@ -525,10 +525,10 @@ bazarr:
       advancedMounts:
         main:
           main:
-            - path: filme
-              subPath: /filme
-            - path: serien
-              subPath: /serien
+            - path: /filme
+              subPath: filme
+            - path: /serien
+              subPath: serien
 
   service:
     main:
@@ -700,12 +700,18 @@ transmission:
     mediarr:
       enabled: true
       existingClaim: mediarr
-      subPath: downloads
-      mountPath: /downloads/mediarr
+      advancedMounts:
+        main:
+          main:
+            - path: /downloads/mediarr
+              subPath: downloads
     autobrr:
       enabled: true
       existingClaim: autobrr
-      mountPath: /downloads/autobrr
+      advancedMounts:
+        main:
+          main:
+            - path: /downloads/autobrr
     themes:
       enabled: true
       type: emptyDir
