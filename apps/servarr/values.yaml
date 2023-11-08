@@ -213,8 +213,8 @@ prowlarr:
             tag: version-1.7.4.3769
           env:
             TZ: Europe/Berlin
-            PUID: 1000
-            PGID: 1000
+            PUID: 568
+            PGID: 568
           probes:
             liveness: &probes
               enabled: true
@@ -403,8 +403,8 @@ sonarr:
             tag: develop-version-4.0.0.710 # TODO: switch to stable after v4 release
           env:
             TZ: Europe/Berlin
-            PUID: 1000
-            PGID: 1000
+            PUID: 568
+            PGID: 568
           probes:
             liveness: &probes
               enabled: true
