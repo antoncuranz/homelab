@@ -1,0 +1,94 @@
+
+######################
+# Transmission       #
+######################
+
+transmission:
+  global:
+    nameOverride: transmission
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      pod:
+        hostname: transmission
+#        annotations:
+#          setGateway: "true"
+
+      initContainers:
+        01-init-themes:
+          name: theme-provider
+          image: registry.gitlab.com/antoncuranz/transmission-themes:latest
+          command:
+            - sh
+          args:
+            - -c
+            - |
+              echo "Copying themes..."
+              cp -R /opt/transmission-ui/* /themes
+          volumeMounts:
+            - name: themes
+              mountPath: /themes
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/onedr0p/transmission
+            tag: 4.0.4
+          env:
+            TZ: Europe/Berlin
+            TRANSMISSION__BLOCKLIST_URL: "https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz"
+            TRANSMISSION__DOWNLOAD_DIR: "/downloads/mediarr"
+            TRANSMISSION__INCOMPLETE_DIR_ENABLED: false
+            TRANSMISSION__RPC_PORT: &port 9091
+            TRANSMISSION__PEER_PORT: 9453
+            TRANSMISSION_WEB_HOME: "/opt/transmission-ui/transmissionic"
+#            TRANSMISSION__UMASK: 7
+
+  persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      annotations:
+        'k8up.io/backup': 'true'
+#    mediarr:
+#      enabled: true
+#      existingClaim: mediarr
+#      subPath: downloads
+#      mountPath: /downloads/mediarr
+#    autobrr:
+#      enabled: true
+#      existingClaim: autobrr
+#      mountPath: /downloads/autobrr
+    themes:
+      enabled: true
+      type: emptyDir
+      mountPath: /opt/transmission-ui
+
+  service:
+    main:
+      ports:
+        http:
+          port: *port
+
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+      hosts:
+        - host: &host "test.serverton.de"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: test-tls-certificate
+          hosts:
+            - *host
+
