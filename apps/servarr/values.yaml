@@ -518,50 +518,20 @@ autobrr:
 transmission:
   global:
     nameOverride: transmission
-
-  controllers:
-    main:
-      strategy: RollingUpdate
-
-      pod:
-        hostname: transmission
-        annotations:
-          setGateway: "true"
-        securityContext:
-          runAsUser: 568
-          runAsGroup: 568
-          fsGroup: 568
-          fsGroupChangePolicy: OnRootMismatch
-
-      initContainers:
-        01-init-themes:
-          name: theme-provider
-          image:
-            repository: registry.gitlab.com/antoncuranz/transmission-themes
-            tag: latest
-          command:
-            - sh
-          args:
-            - -c
-            - |
-              echo "Copying themes..."
-              cp -R /opt/transmission-ui/* /themes
-
-      containers:
-        main:
-          image:
-            repository: ghcr.io/onedr0p/transmission
-            tag: 4.0.4
-          env:
-            TZ: Europe/Berlin
-            TRANSMISSION__BLOCKLIST_URL: "https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz"
-            TRANSMISSION__DOWNLOAD_DIR: "/downloads/mediarr"
-            TRANSMISSION__INCOMPLETE_DIR_ENABLED: false
-            TRANSMISSION__RPC_PORT: &port 9091
-            TRANSMISSION__PEER_PORT: 9453
-            TRANSMISSION_WEB_HOME: "/opt/transmission-ui/transmissionic"
-            TRANSMISSION__MESSAGE_LEVEL: 3
-
+  hostname: transmission
+  controller:
+    strategy: RollingUpdate
+  image:
+    repository: ghcr.io/linuxserver/transmission
+    tag: version-4.0.4-r0
+  env:
+    TZ: Europe/Berlin
+    PUID: 1000
+    PGID: 1000
+    PEERPORT: 9453
+    TRANSMISSION_WEB_HOME: "/opt/transmission-ui/transmissionic"
+  podAnnotations:
+    setGateway: "true"
   persistence:
     config:
       enabled: true
@@ -581,23 +551,32 @@ transmission:
     themes:
       enabled: true
       type: emptyDir
-      advancedMounts:
-        main:
-          01-init-themes:
-            - path: /themes
-          main:
-            - path: /opt/transmission-ui
-
+      mountPath: /opt/transmission-ui
+      annotations:
+        'k8up.io/backup': 'false'
+  initContainers:
+    theme-provider:
+      name: theme-provider
+      image: registry.gitlab.com/antoncuranz/transmission-themes:latest
+      command:
+        - sh
+      args:
+        - -c
+        - |
+          echo "Copying themes..."
+          cp -R /opt/transmission-ui/* /themes
+      volumeMounts:
+        - name: themes
+          mountPath: /themes
   service:
     main:
       ports:
         http:
-          port: *port
-
+          port: 9091
   ingress:
     main:
       enabled: true
-      className: nginx
+      ingressClassName: nginx
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -607,9 +586,7 @@ transmission:
         - host: &host "transmission.serverton.de"
           paths:
             - path: /
-              service:
-                name: main
-                port: http
+              pathType: Prefix
       tls:
         - secretName: transmission-tls-certificate
           hosts:
