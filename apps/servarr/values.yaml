@@ -10,22 +10,20 @@ jellyfin:
     main:
       strategy: RollingUpdate
 
-#      pod:
-#        securityContext:
-#          runAsUser: 568
-#          runAsGroup: 568
-#          fsGroup: 568
-#          fsGroupChangePolicy: OnRootMismatch
+      pod:
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
 
       containers:
         main:
           image:
-            repository: ghcr.io/linuxserver/jellyfin
-            tag: version-10.8.10-1
+            repository: jellyfin/jellyfin
+            tag: 10.8.12
           env:
             TZ: Europe/Berlin
-            PUID: 1000
-            PGID: 1000
           resources:
             requests:
               gpu.intel.com/i915: "1"
