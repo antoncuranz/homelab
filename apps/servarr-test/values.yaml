@@ -1,90 +1,60 @@
-
 ######################
-# Transmission       #
+# Jellyseerr         #
 ######################
 
-transmission:
+jellyseerr:
   global:
-    nameOverride: transmission
+    nameOverride: jellyseerr
 
   controllers:
     main:
       strategy: RollingUpdate
 
       pod:
-        hostname: transmission
-#        annotations:
-#          setGateway: "true"
         securityContext:
           runAsUser: 568
           runAsGroup: 568
           fsGroup: 568
           fsGroupChangePolicy: OnRootMismatch
-          supplementalGroups:
-            - 65539
-            - 10000
-
-      initContainers:
-        01-init-themes:
-          name: theme-provider
-          image:
-            repository: registry.gitlab.com/antoncuranz/transmission-themes
-            tag: latest@sha256:f5e74d7fc5b1f3b2c644e4178341cbc938149e7a95e0454581310ec447b9e72d
-          command:
-            - sh
-          args:
-            - -c
-            - |
-              echo "Copying themes..."
-              cp -R /opt/transmission-ui/* /themes
 
       containers:
         main:
           image:
-            repository: ghcr.io/onedr0p/transmission
-            tag: 4.0.4
+            repository: fallenbagel/jellyseerr
+            tag: 1.7.0
           env:
             TZ: Europe/Berlin
-            TRANSMISSION__BLOCKLIST_URL: "https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz"
-            TRANSMISSION__DOWNLOAD_DIR: "/downloads/mediarr"
-            TRANSMISSION__INCOMPLETE_DIR_ENABLED: false
-            TRANSMISSION__RPC_PORT: &port 9091
-            TRANSMISSION__PEER_PORT: 9453
-            TRANSMISSION_WEB_HOME: "/opt/transmission-ui/transmissionic"
-            TRANSMISSION__MESSAGE_LEVEL: 3
-#            TRANSMISSION__UMASK: 7
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: 5055
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 1
+                failureThreshold: 3
+            readiness: *probes
+            startup:
+              enabled: false
 
   persistence:
     config:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
+      globalMounts:
+        - path: /app/config
       annotations:
         'k8up.io/backup': 'true'
-#    mediarr:
-#      enabled: true
-#      existingClaim: mediarr
-#      subPath: downloads
-#      mountPath: /downloads/mediarr
-#    autobrr:
-#      enabled: true
-#      existingClaim: autobrr
-#      mountPath: /downloads/autobrr
-    themes:
-      enabled: true
-      type: emptyDir
-      advancedMounts:
-        main:
-          01-init-themes:
-            - path: /themes
-          main:
-            - path: /opt/transmission-ui
 
   service:
     main:
       ports:
         http:
-          port: *port
+          port: 5055
 
   ingress:
     main:
@@ -93,8 +63,6 @@ transmission:
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
-        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
       hosts:
         - host: &host "test.serverton.de"
           paths:
@@ -106,4 +74,3 @@ transmission:
         - secretName: test-tls-certificate
           hosts:
             - *host
-
