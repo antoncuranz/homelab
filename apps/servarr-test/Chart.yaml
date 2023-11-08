@@ -1,8 +1,3 @@
 apiVersion: v2
 name: servarr
 version: 0.0.0
-dependencies:
-  - name: app-template
-    alias: jellyseerr
-    version: 2.0.3
-    repository: https://bjw-s.github.io/helm-charts
