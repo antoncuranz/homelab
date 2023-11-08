@@ -5,13 +5,48 @@
 jellyfin:
   global:
     nameOverride: jellyfin
-  image:
-    repository: ghcr.io/linuxserver/jellyfin
-    tag: version-10.8.10-1
-  env:
-    TZ: Europe/Berlin
-    PUID: 1000
-    PGID: 1000
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+#      pod:
+#        securityContext:
+#          runAsUser: 568
+#          runAsGroup: 568
+#          fsGroup: 568
+#          fsGroupChangePolicy: OnRootMismatch
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/linuxserver/jellyfin
+            tag: version-10.8.10-1
+          env:
+            TZ: Europe/Berlin
+            PUID: 1000
+            PGID: 1000
+          resources:
+            requests:
+              gpu.intel.com/i915: "1"
+            limits:
+              gpu.intel.com/i915: "1"
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /health
+                  port: 8096
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 1
+                failureThreshold: 3
+            readiness: *probes
+            startup:
+              enabled: false
+
   persistence:
     config:
       enabled: true
@@ -22,35 +57,25 @@ jellyfin:
     mediarr:
       enabled: true
       existingClaim: mediarr
-      subPath:
-        - path: filme
-          mountPath: /filme
-        - path: serien
-          mountPath: /serien
+      advancedMounts:
+        main:
+          main:
+            - path: filme
+              subPath: /filme
+            - path: serien
+              subPath: /serien
+
   service:
     main:
       ports:
         http:
-          port: &port 8096
-  probes:
-    liveness: &probes
-      enabled: true
-      custom: true
-      spec:
-        httpGet:
-          path: /health
-          port: *port
-        initialDelaySeconds: 0
-        periodSeconds: 10
-        timeoutSeconds: 1
-        failureThreshold: 3
-    readiness: *probes
-    startup:
-      enabled: false
+          port: 8096
+
+
   ingress:
     main:
       enabled: true
-      ingressClassName: nginx
+      className: nginx
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -58,16 +83,13 @@ jellyfin:
         - host: &host "jellyfin.serverton.de"
           paths:
             - path: /
-              pathType: Prefix
+              service:
+                name: main
+                port: http
       tls:
         - secretName: jellyfin-tls-certificate
           hosts:
             - *host
-  resources:
-    requests: 
-      gpu.intel.com/i915: "1" 
-    limits: 
-      gpu.intel.com/i915: "1"
 
 
 ######################
@@ -77,15 +99,41 @@ jellyfin:
 jellyseerr:
   global:
     nameOverride: jellyseerr
-  controller:
-    strategy: RollingUpdate
-  image:
-    repository: fallenbagel/jellyseerr
-    tag: 1.7.0
-  env:
-    TZ: Europe/Berlin
-    PUID: 1000
-    PGID: 1000
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      #      pod:
+      #        securityContext:
+      #          runAsUser: 568
+      #          runAsGroup: 568
+      #          fsGroup: 568
+      #          fsGroupChangePolicy: OnRootMismatch
+
+      containers:
+        main:
+          image:
+            repository: fallenbagel/jellyseerr
+            tag: 1.7.0
+          env:
+            TZ: Europe/Berlin
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: 5055
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 1
+                failureThreshold: 3
+            readiness: *probes
+            startup:
+              enabled: false
+
   persistence:
     config:
       enabled: true
@@ -94,30 +142,17 @@ jellyseerr:
       mountPath: /app/config
       annotations:
         'k8up.io/backup': 'true'
+
   service:
     main:
       ports:
         http:
-          port: &port 5055
-  probes:
-    liveness: &probes
-      enabled: true
-      custom: true
-      spec:
-        httpGet:
-          path: /ping
-          port: *port
-        initialDelaySeconds: 0
-        periodSeconds: 10
-        timeoutSeconds: 1
-        failureThreshold: 3
-    readiness: *probes
-    startup:
-      enabled: false
+          port: 5055
+
   ingress:
     main:
       enabled: true
-      ingressClassName: nginx
+      className: nginx
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -125,7 +160,9 @@ jellyseerr:
         - host: &host "jellyseerr.serverton.de"
           paths:
             - path: /
-              pathType: Prefix
+              service:
+                name: main
+                port: http
       tls:
         - secretName: jellyseerr-tls-certificate
           hosts:
@@ -139,15 +176,53 @@ jellyseerr:
 prowlarr:
   global:
     nameOverride: prowlarr
-  controller:
-    strategy: RollingUpdate
-  image:
-    repository: ghcr.io/linuxserver/prowlarr
-    tag: version-1.7.4.3769
-  env:
-    TZ: Europe/Berlin
-    PUID: 1000
-    PGID: 1000
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      pod:
+#        securityContext:
+#          runAsUser: 568
+#          runAsGroup: 568
+#          fsGroup: 568
+#          fsGroupChangePolicy: OnRootMismatch
+      annotations:
+        setGateway: "true"
+        k8up.io/backupcommand: >
+          sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
+          OLD_ID=$(curl -s "http://localhost:9696/api/v1/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
+          curl -s -X DELETE "http://localhost:9696/api/v1/system/backup/$OLD_ID?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}";
+          curl -s -X POST "http://localhost:9696/api/v1/command?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}"; sleep 5;
+          BACKUP_URL=$(curl -s "http://localhost:9696/api/v1/system/backup?apikey=$APIKEY" | jq -r ".[0].path");
+          curl -s "http://localhost:9696$BACKUP_URL?apikey=$APIKEY"'
+        k8up.io/file-extension: .zip
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/linuxserver/prowlarr
+            tag: version-1.7.4.3769
+          env:
+            TZ: Europe/Berlin
+            PUID: 1000
+            PGID: 1000
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: 9696
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 2
+                failureThreshold: 3
+            readiness: *probes
+            startup:
+              enabled: false
+
   persistence:
     config:
       enabled: true
@@ -155,40 +230,17 @@ prowlarr:
       size: 250Mi
       annotations:
         'k8up.io/backup': 'false'
-  podAnnotations:
-    setGateway: "true"
-    k8up.io/backupcommand: >
-      sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
-      OLD_ID=$(curl -s "http://localhost:9696/api/v1/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
-      curl -s -X DELETE "http://localhost:9696/api/v1/system/backup/$OLD_ID?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}";
-      curl -s -X POST "http://localhost:9696/api/v1/command?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}"; sleep 5;
-      BACKUP_URL=$(curl -s "http://localhost:9696/api/v1/system/backup?apikey=$APIKEY" | jq -r ".[0].path");
-      curl -s "http://localhost:9696$BACKUP_URL?apikey=$APIKEY"'
-    k8up.io/file-extension: .zip
+
   service:
     main:
       ports:
         http:
-          port: &port 9696
-  probes:
-    liveness: &probes
-      enabled: true
-      custom: true
-      spec:
-        httpGet:
-          path: /ping
-          port: *port
-        initialDelaySeconds: 0
-        periodSeconds: 10
-        timeoutSeconds: 2
-        failureThreshold: 3
-    readiness: *probes
-    startup:
-      enabled: false
+          port: 9696
+
   ingress:
     main:
       enabled: true
-      ingressClassName: nginx
+      className: nginx
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -198,7 +250,9 @@ prowlarr:
         - host: &host "prowlarr.serverton.de"
           paths:
             - path: /
-              pathType: Prefix
+              service:
+                name: main
+                port: http
       tls:
         - secretName: prowlarr-tls-certificate
           hosts:
@@ -212,15 +266,53 @@ prowlarr:
 radarr:
   global:
     nameOverride: radarr
-  controller:
-    strategy: RollingUpdate
-  image:
-    repository: ghcr.io/linuxserver/radarr
-    tag: version-4.7.5.7809
-  env:
-    TZ: Europe/Berlin
-    PUID: 1000
-    PGID: 1000
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      pod:
+#        securityContext:
+#          runAsUser: 568
+#          runAsGroup: 568
+#          fsGroup: 568
+#          fsGroupChangePolicy: OnRootMismatch
+      annotations:
+        setGateway: "true"
+        k8up.io/backupcommand: >
+          sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
+          OLD_ID=$(curl -s "http://localhost:7878/api/v3/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
+          curl -s -X DELETE "http://localhost:7878/api/v3/system/backup/$OLD_ID?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}";
+          curl -s -X POST "http://localhost:7878/api/v3/command?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}"; sleep 5;
+          BACKUP_URL=$(curl -s "http://localhost:7878/api/v3/system/backup?apikey=$APIKEY" | jq -r ".[0].path");
+          curl -s "http://localhost:7878$BACKUP_URL?apikey=$APIKEY"'
+        k8up.io/file-extension: .zip
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/linuxserver/radarr
+            tag: version-4.7.5.7809
+          env:
+            TZ: Europe/Berlin
+            PUID: 1000
+            PGID: 1000
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: 7878
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 2
+                failureThreshold: 3
+            readiness: *probes
+            startup:
+              enabled: false
+
   persistence:
     config:
       enabled: true
@@ -231,45 +323,24 @@ radarr:
     mediarr:
       enabled: true
       existingClaim: mediarr
-      subPath:
-        - path: filme
-          mountPath: /filme
-        - path: downloads
-          mountPath: /downloads/mediarr
-  podAnnotations:
-    setGateway: "true"
-    k8up.io/backupcommand: >
-      sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
-      OLD_ID=$(curl -s "http://localhost:7878/api/v3/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
-      curl -s -X DELETE "http://localhost:7878/api/v3/system/backup/$OLD_ID?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}";
-      curl -s -X POST "http://localhost:7878/api/v3/command?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}"; sleep 5;
-      BACKUP_URL=$(curl -s "http://localhost:7878/api/v3/system/backup?apikey=$APIKEY" | jq -r ".[0].path");
-      curl -s "http://localhost:7878$BACKUP_URL?apikey=$APIKEY"'
-    k8up.io/file-extension: .zip
+      advancedMounts:
+        main:
+          main:
+            - path: filme
+              subPath: /filme
+            - path: downloads
+              subPath: /downloads/mediarr
+
   service:
     main:
       ports:
         http:
-          port: &port 7878
-  probes:
-    liveness: &probes
-      enabled: true
-      custom: true
-      spec:
-        httpGet:
-          path: /ping
-          port: *port
-        initialDelaySeconds: 0
-        periodSeconds: 10
-        timeoutSeconds: 2
-        failureThreshold: 3
-    readiness: *probes
-    startup:
-      enabled: false
+          port: 7878
+
   ingress:
     main:
       enabled: true
-      ingressClassName: nginx
+      className: nginx
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -279,7 +350,9 @@ radarr:
         - host: &host "radarr.serverton.de"
           paths:
             - path: /
-              pathType: Prefix
+              service:
+                name: main
+                port: http
       tls:
         - secretName: radarr-tls-certificate
           hosts:
@@ -293,15 +366,53 @@ radarr:
 sonarr:
   global:
     nameOverride: sonarr
-  controller:
-    strategy: RollingUpdate
-  image:
-    repository: ghcr.io/linuxserver/sonarr
-    tag: develop-version-4.0.0.710 # TODO: switch to stable after v4 release
-  env:
-    TZ: Europe/Berlin
-    PUID: 1000
-    PGID: 1000
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      pod:
+      #        securityContext:
+      #          runAsUser: 568
+      #          runAsGroup: 568
+      #          fsGroup: 568
+      #          fsGroupChangePolicy: OnRootMismatch
+      annotations:
+        setGateway: "true"
+        k8up.io/backupcommand: >
+          sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
+          OLD_ID=$(curl -s "http://localhost:8989/api/v3/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
+          curl -s -X DELETE "http://localhost:8989/api/v3/system/backup/$OLD_ID?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}";
+          curl -s -X POST "http://localhost:8989/api/v3/command?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}"; sleep 5;
+          BACKUP_URL=$(curl -s "http://localhost:8989/api/v3/system/backup?apikey=$APIKEY" | jq -r ".[0].path");
+          curl -s "http://localhost:8989$BACKUP_URL?apikey=$APIKEY"'
+        k8up.io/file-extension: .zip
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/linuxserver/sonarr
+            tag: develop-version-4.0.0.710 # TODO: switch to stable after v4 release
+          env:
+            TZ: Europe/Berlin
+            PUID: 1000
+            PGID: 1000
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: 8989
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 2
+                failureThreshold: 3
+            readiness: *probes
+            startup:
+              enabled: false
+
   persistence:
     config:
       enabled: true
@@ -312,45 +423,24 @@ sonarr:
     mediarr:
       enabled: true
       existingClaim: mediarr
-      subPath:
-        - path: serien
-          mountPath: /serien
-        - path: downloads
-          mountPath: /downloads/mediarr
-  podAnnotations:
-    setGateway: "true"
-    k8up.io/backupcommand: >
-      sh -c 'APIKEY=$(xmlstarlet sel -t -v //ApiKey /config/config.xml);
-      OLD_ID=$(curl -s "http://localhost:8989/api/v3/system/backup?apikey=$APIKEY" | jq -r ".|last.id");
-      curl -s -X DELETE "http://localhost:8989/api/v3/system/backup/$OLD_ID?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}";
-      curl -s -X POST "http://localhost:8989/api/v3/command?apikey=$APIKEY" -H "Content-Type: application/json" -d "{\"name\":\"Backup\"}"; sleep 5;
-      BACKUP_URL=$(curl -s "http://localhost:8989/api/v3/system/backup?apikey=$APIKEY" | jq -r ".[0].path");
-      curl -s "http://localhost:8989$BACKUP_URL?apikey=$APIKEY"'
-    k8up.io/file-extension: .zip
+      advancedMounts:
+        main:
+          main:
+            - path: serien
+              subPath: /serien
+            - path: downloads
+              subPath: /downloads/mediarr
+
   service:
     main:
       ports:
         http:
-          port: &port 8989
-  probes:
-    liveness: &probes
-      enabled: true
-      custom: true
-      spec:
-        httpGet:
-          path: /ping
-          port: *port
-        initialDelaySeconds: 0
-        periodSeconds: 10
-        timeoutSeconds: 2
-        failureThreshold: 3
-    readiness: *probes
-    startup:
-      enabled: false
+          port: 8989
+
   ingress:
     main:
       enabled: true
-      ingressClassName: nginx
+      className: nginx
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -360,7 +450,9 @@ sonarr:
         - host: &host "sonarr.serverton.de"
           paths:
             - path: /
-              pathType: Prefix
+              service:
+                name: main
+                port: http
       tls:
         - secretName: sonarr-tls-certificate
           hosts:
@@ -373,15 +465,53 @@ sonarr:
 bazarr:
   global:
     nameOverride: bazarr
-  controller:
-    strategy: RollingUpdate
-  image:
-    repository: ghcr.io/linuxserver/bazarr
-    tag: version-v1.3.1
-  env:
-    TZ: Europe/Berlin
-    PUID: 1000
-    PGID: 1000
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      pod:
+      #        securityContext:
+      #          runAsUser: 568
+      #          runAsGroup: 568
+      #          fsGroup: 568
+      #          fsGroupChangePolicy: OnRootMismatch
+      annotations:
+        setGateway: "true"
+        k8up.io/backupcommand: >
+          sh -c 'APIKEY=$(grep -m 1 "apikey" /config/config/config.ini | cut -d "=" -f 2 | xargs);
+          OLD_ID=$(curl -s "http://localhost:6767/api/system/backups?apikey=$APIKEY" | jq -r ".data|last.filename");
+          curl -s -X DELETE "http://localhost:6767/api/system/backups?filename=$OLD_ID&apikey=$APIKEY";
+          curl -s -X POST "http://localhost:6767/api/system/backups?apikey=$APIKEY"; sleep 5;
+          FILENAME=$(curl -s "http://localhost:6767/api/system/backups?apikey=$APIKEY" | jq -r ".data[0].filename");
+          curl -s "http://localhost:6767/system/backup/download/$FILENAME?apikey=$APIKEY"'
+        k8up.io/file-extension: .zip
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/linuxserver/bazarr
+            tag: version-v1.3.1
+          env:
+            TZ: Europe/Berlin
+            PUID: 1000
+            PGID: 1000
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: 6767
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 2
+                failureThreshold: 3
+            readiness: *probes
+            startup:
+              enabled: false
+
   persistence:
     config:
       enabled: true
@@ -392,45 +522,24 @@ bazarr:
     mediarr:
       enabled: true
       existingClaim: mediarr
-      subPath:
-        - path: filme
-          mountPath: /filme
-        - path: serien
-          mountPath: /serien
-  podAnnotations:
-    setGateway: "true"
-    k8up.io/backupcommand: >
-      sh -c 'APIKEY=$(grep -m 1 "apikey" /config/config/config.ini | cut -d "=" -f 2 | xargs);
-      OLD_ID=$(curl -s "http://localhost:6767/api/system/backups?apikey=$APIKEY" | jq -r ".data|last.filename");
-      curl -s -X DELETE "http://localhost:6767/api/system/backups?filename=$OLD_ID&apikey=$APIKEY";
-      curl -s -X POST "http://localhost:6767/api/system/backups?apikey=$APIKEY"; sleep 5;
-      FILENAME=$(curl -s "http://localhost:6767/api/system/backups?apikey=$APIKEY" | jq -r ".data[0].filename");
-      curl -s "http://localhost:6767/system/backup/download/$FILENAME?apikey=$APIKEY"'
-    k8up.io/file-extension: .zip
+      advancedMounts:
+        main:
+          main:
+            - path: filme
+              subPath: /filme
+            - path: serien
+              subPath: /serien
+
   service:
     main:
       ports:
         http:
-          port: &port 6767
-  probes:
-    liveness: &probes
-      enabled: true
-      custom: true
-      spec:
-        httpGet:
-          path: /ping
-          port: *port
-        initialDelaySeconds: 0
-        periodSeconds: 10
-        timeoutSeconds: 2
-        failureThreshold: 3
-    readiness: *probes
-    startup:
-      enabled: false
+          port: 6767
+
   ingress:
     main:
       enabled: true
-      ingressClassName: nginx
+      className: nginx
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -440,7 +549,9 @@ bazarr:
         - host: &host "bazarr.serverton.de"
           paths:
             - path: /
-              pathType: Prefix
+              service:
+                name: main
+                port: http
       tls:
         - secretName: bazarr-tls-certificate
           hosts:
@@ -454,16 +565,44 @@ bazarr:
 autobrr:
   global:
     nameOverride: autobrr
-  controller:
-    strategy: RollingUpdate
-  image:
-    repository: ghcr.io/autobrr/autobrr
-    tag: v1.33.0
-  env:
-    TZ: Europe/Berlin
-    AUTOBRR__HOST: 0.0.0.0
-  podAnnotations:
-    setGateway: "true"
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      pod:
+      #        securityContext:
+      #          runAsUser: 568
+      #          runAsGroup: 568
+      #          fsGroup: 568
+      #          fsGroupChangePolicy: OnRootMismatch
+      annotations:
+        setGateway: "true"
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/autobrr/autobrr
+            tag: v1.33.0
+          env:
+            TZ: Europe/Berlin
+            AUTOBRR__HOST: 0.0.0.0
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /api/healthz/liveness
+                  port: 7474
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 2
+                failureThreshold: 3
+            readiness: *probes
+            startup:
+              enabled: false
+
   persistence:
     config:
       enabled: true
@@ -471,30 +610,17 @@ autobrr:
       size: 250Mi
       annotations:
         'k8up.io/backup': 'true'
+
   service:
     main:
       ports:
         http:
-          port: &port 7474
-  probes:
-    liveness: &probes
-      enabled: true
-      custom: true
-      spec:
-        httpGet:
-          path: /api/healthz/liveness
-          port: *port
-        initialDelaySeconds: 0
-        periodSeconds: 10
-        timeoutSeconds: 2
-        failureThreshold: 3
-    readiness: *probes
-    startup:
-      enabled: false
+          port: 7474
+
   ingress:
     main:
       enabled: true
-      ingressClassName: nginx
+      className: nginx
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -504,7 +630,9 @@ autobrr:
         - host: &host "autobrr.serverton.de"
           paths:
             - path: /
-              pathType: Prefix
+              service:
+                name: main
+                port: http
       tls:
         - secretName: autobrr-tls-certificate
           hosts:
