@@ -37,25 +37,3 @@ signal-cli:
     readiness: *probes
     startup:
       enabled: false
-
-apprise-api:
-  global:
-    nameOverride: apprise-api
-  controller:
-    strategy: RollingUpdate
-  image:
-    repository: caronc/apprise
-    tag: v0.9.5
-  env:
-    APPRISE_STATEFUL_MODE: simple
-    APPRISE_CONFIG_LOCK: yes
-  persistence:
-    config:
-      enabled: true
-      type: secret
-      name: apprise-config
-  service:
-    main:
-      ports:
-        http:
-          port: 8000
