@@ -54,6 +54,7 @@ transmission:
             TRANSMISSION__RPC_PORT: &port 9091
             TRANSMISSION__PEER_PORT: 9453
             TRANSMISSION_WEB_HOME: "/opt/transmission-ui/transmissionic"
+            TRANSMISSION__MESSAGE_LEVEL: 3
 #            TRANSMISSION__UMASK: 7
 
   persistence:
