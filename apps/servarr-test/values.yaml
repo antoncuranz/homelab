@@ -37,9 +37,6 @@ transmission:
             - |
               echo "Copying themes..."
               cp -R /opt/transmission-ui/* /themes
-          volumeMounts:
-            - name: themes
-              mountPath: /themes
 
       containers:
         main:
@@ -78,6 +75,8 @@ transmission:
       type: emptyDir
       advancedMounts:
         main:
+          01-init-themes:
+            - path: /themes
           main:
             - path: /opt/transmission-ui
 
