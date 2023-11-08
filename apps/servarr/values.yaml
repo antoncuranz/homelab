@@ -475,6 +475,8 @@ bazarr:
         securityContext:
           runAsUser: 568
           runAsGroup: 568
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
         annotations:
           setGateway: "true"
           k8up.io/backupcommand: >
@@ -493,8 +495,6 @@ bazarr:
             tag: 1.3.1
           env:
             TZ: Europe/Berlin
-            PUID: 1000
-            PGID: 1000
           probes:
             liveness: &probes
               enabled: true
