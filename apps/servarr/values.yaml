@@ -57,10 +57,7 @@ jellyfin:
         'k8up.io/backup': 'true'
     cache:
       enabled: true
-      accessMode: ReadWriteOnce
-      size: 50Gi # TODO: is this necessary?
-      annotations:
-        'k8up.io/backup': 'false'
+      type: emptyDir
     mediarr:
       enabled: true
       existingClaim: mediarr
