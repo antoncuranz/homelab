@@ -693,8 +693,10 @@ transmission:
             TRANSMISSION__INCOMPLETE_DIR_ENABLED: false
             TRANSMISSION__RPC_PORT: &port 9091
             TRANSMISSION__PEER_PORT: 9453
-            TRANSMISSION_WEB_HOME: "/opt/transmission-ui/transmissionic"
             TRANSMISSION__MESSAGE_LEVEL: 3
+            TRANSMISSION__SPEED_LIMIT_DOWN_ENABLED: true
+            TRANSMISSION__SPEED_LIMIT_DOWN: 20000
+            TRANSMISSION_WEB_HOME: "/opt/transmission-ui/transmissionic"
 
   persistence:
     config:
