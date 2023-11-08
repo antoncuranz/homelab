@@ -88,7 +88,9 @@ transmission:
         - host: &host "test.serverton.de"
           paths:
             - path: /
-              pathType: Prefix
+              service:
+                name: main
+                port: http
       tls:
         - secretName: test-tls-certificate
           hosts:
