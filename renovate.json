@@ -15,7 +15,7 @@
       "versionScheme": "regex:^(?<compatibility>.*?)-(?<major>v?\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)[\\.-]*(?<build>r?\\d+)*$"
     },
     {
-      "matchPackageNames": [],
+      "matchPackageNames": ["csi-driver-nfs"],
       "enabled": false
     }
   ],
