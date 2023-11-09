@@ -203,7 +203,7 @@ prowlarr2:
             pullPolicy: IfNotPresent
           envFrom: &envFrom
             - secretRef:
-                name: sonarr-secret
+                name: prowlarr-secret
 
       containers:
         main:
