@@ -178,6 +178,93 @@ jellyseerr:
 # Prowlarr           #
 ######################
 
+prowlarr2:
+  global:
+    nameOverride: prowlarr2
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      pod:
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
+        annotations:
+          setGateway: "true"
+
+      initContainers:
+        01-init-db:
+          image:
+            repository: ghcr.io/onedr0p/postgres-init
+            tag: 14.9
+            pullPolicy: IfNotPresent
+          envFrom: &envFrom
+            - secretRef:
+                name: sonarr-secret
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/onedr0p/prowlarr
+            tag: 1.9.4.4039
+          env:
+            TZ: Europe/Berlin
+            PROWLARR__PORT: &port 9696
+            PROWLARR__AUTHENTICATION_METHOD: External
+            PROWLARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+          envFrom: *envFrom
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: *port
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 2
+                failureThreshold: 3
+            readiness: *probes
+            startup:
+              enabled: false
+
+  persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+
+  service:
+    main:
+      ports:
+        http:
+          port: *port
+
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+      hosts:
+        - host: &host "prowlarr2.serverton.de"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - secretName: prowlarr2-tls-certificate
+          hosts:
+            - *host
+
 prowlarr:
   global:
     nameOverride: prowlarr
@@ -267,6 +354,103 @@ prowlarr:
 ######################
 # Radarr             #
 ######################
+
+radarr2:
+  global:
+    nameOverride: radarr2
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      pod:
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
+        annotations:
+          setGateway: "true"
+
+      initContainers:
+        01-init-db:
+          image:
+            repository: ghcr.io/onedr0p/postgres-init
+            tag: 14.9
+            pullPolicy: IfNotPresent
+          envFrom: &envFrom
+            - secretRef:
+                name: radarr-secret
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/onedr0p/radarr
+            tag: 5.0.3.8127
+          env:
+            TZ: Europe/Berlin
+            RADARR__PORT: &port 7878
+            RADARR__AUTHENTICATION_METHOD: External
+            RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+          envFrom: *envFrom
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: *port
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 2
+                failureThreshold: 3
+            readiness: *probes
+            startup:
+              enabled: false
+
+  persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+    mediarr:
+      enabled: true
+      existingClaim: mediarr
+      advancedMounts:
+        main:
+          main:
+            - path: /filme
+              subPath: filme
+            - path: /downloads/mediarr
+              subPath: downloads
+
+  service:
+    main:
+      ports:
+        http:
+          port: *port
+
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+      hosts:
+        - host: &host "radarr2.serverton.de"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - secretName: radarr2-tls-certificate
+          hosts:
+            - *host
 
 radarr:
   global:
@@ -367,6 +551,102 @@ radarr:
 ######################
 # Sonarr             #
 ######################
+
+sonarr2:
+  global:
+    nameOverride: sonarr2
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      pod:
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
+        annotations:
+          setGateway: "true"
+
+      initContainers:
+        01-init-db:
+          image:
+            repository: ghcr.io/onedr0p/postgres-init
+            tag: 14.9
+            pullPolicy: IfNotPresent
+          envFrom: &envFrom
+            - secretRef:
+                name: sonarr-secret
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/onedr0p/sonarr-develop
+            tag: 4.0.0.710 # TODO: switch to stable after v4 release
+          env:
+            SONARR__PORT: &port 8989
+            SONARR__AUTHENTICATION_METHOD: External
+            SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+          envFrom: *envFrom
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: *port
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 2
+                failureThreshold: 3
+            readiness: *probes
+            startup:
+              enabled: false
+
+  persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+    mediarr:
+      enabled: true
+      existingClaim: mediarr
+      advancedMounts:
+        main:
+          main:
+            - path: /serien
+              subPath: serien
+            - path: /downloads/mediarr
+              subPath: downloads
+
+  service:
+    main:
+      ports:
+        http:
+          port: *port
+
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+      hosts:
+        - host: &host "sonarr2.serverton.de"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - secretName: sonarr2-tls-certificate
+          hosts:
+            - *host
 
 sonarr:
   global:
