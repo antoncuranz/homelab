@@ -10,7 +10,7 @@ spec:
     size: 10Gi
     storageClass: truenas-iscsi
   superuserSecret:
-    name: postgres-secrets
+    name: postgres-secret
   backup:
     barmanObjectStore:
       destinationPath: s3://homelab-db/
