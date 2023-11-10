@@ -332,13 +332,6 @@ radarr:
     mediarr:
       enabled: true
       existingClaim: mediarr
-      advancedMounts:
-        main:
-          main:
-            - path: /filme
-              subPath: filme
-            - path: /downloads/mediarr
-              subPath: downloads
 
   service:
     main:
