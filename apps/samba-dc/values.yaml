@@ -3,7 +3,7 @@ app-template:
     main:
       pod:
 #        hostname: samba.ad.serverton.de
-        hostNetwork: true
+#        hostNetwork: true
         dnsConfig:
           nameservers: [ 192.168.1.3 ]
 #          runAsUser: 568
@@ -21,7 +21,7 @@ app-template:
               add: [ "SYS_ADMIN" ]
           env:
 #            DOMAIN_ACTION: join
-            INTERFACES: lo ens3
+            INTERFACES: lo
             NETBIOS_NAME: samba
             REALM: ad.serverton.de
             SERVER_STRING: Samba Domain Controller
@@ -59,10 +59,58 @@ app-template:
 
   service:
     main:
-      enabled: false
-#      ports:
-#        http:
-#          port: 8096
+      type: LoadBalancer
+      ports:
+        http:
+          enabled: false
+        dns:
+          port: 53
+          protocol: TCP
+        udns:
+          port: 53
+          protocol: UDP
+        kerberos:
+          port: 88
+          protocol: TCP
+        kerberos2:
+          port: 464
+          protocol: TCP
+        ukerberos2:
+          port: 464
+          protocol: UDP
+        ukerberos:
+          port: 88
+          protocol: UDP
+        epm:
+          port: 135
+          protocol: TCP
+        netbios-ns:
+          port: 137
+          protocol: UDP
+        netbios-dgram:
+          port: 138
+          protocol: UDP
+        netbios-session:
+          port: 139
+          protocol: TCP
+        ldap:
+          port: 389
+          protocol: TCP
+        uldap:
+          port: 389
+          protocol: UDP
+        ldaps:
+          port: 636
+          protocol: TCP
+        smb:
+          port: 445
+          protocol: TCP
+        gc:
+          port: 3268
+          protocol: TCP
+        gc-ssl:
+          port: 3269
+          protocol: TCP
 
 #  ingress:
 #    main:
