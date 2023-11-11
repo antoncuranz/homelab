@@ -1,0 +1,72 @@
+app-template:
+  controllers:
+    main:
+      pod:
+        hostname: samba.ad.serverton.de
+        hostNetwork: true
+        dnsConfig:
+          nameservers: [ 192.168.1.3 ]
+#        securityContext:
+#          runAsUser: 568
+#          runAsGroup: 568
+#          fsGroup: 568
+#          fsGroupChangePolicy: OnRootMismatch
+
+      containers:
+        main:
+          image:
+            repository: instantlinux/samba-dc
+            tag: 4.18.8-r0
+          env:
+#            domain_action: join
+#            interfaces: lo eth0
+            netbios_name: samba
+            realm: ad.serverton.de
+            server_string: Samba Domain Controller
+            tz: Europe/Berlin
+            workgroup: WORKGROUP
+
+  persistence:
+    etc:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 500Mi
+      globalMounts:
+        - path: /etc/samba
+#      annotations:
+#        'k8up.io/backup': 'true'
+
+    lib:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 500Mi
+      globalMounts:
+        - path: /var/lib/samba
+#      annotations:
+#        'k8up.io/backup': 'true'
+
+  service:
+    main:
+      enabled: false
+#      ports:
+#        http:
+#          port: 8096
+
+#  ingress:
+#    main:
+#      enabled: true
+#      className: nginx
+#      annotations:
+#        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+#        cert-manager.io/cluster-issuer: letsencrypt-prod
+#      hosts:
+#        - host: &host "jellyfin.serverton.de"
+#          paths:
+#            - path: /
+#              service:
+#                name: main
+#                port: http
+#      tls:
+#        - secretName: jellyfin-tls-certificate
+#          hosts:
+#            - *host
