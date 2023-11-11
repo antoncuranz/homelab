@@ -45,6 +45,16 @@ app-template:
 #      annotations:
 #        'k8up.io/backup': 'true'
 
+    samba-admin-password:
+      enabled: true
+      type: secret
+      name: samba-dc-secret
+      advancedMounts:
+        main:
+          main:
+            - path: /run/secrets/samba-admin-password
+              subPath: samba-admin-password
+
   service:
     main:
       enabled: false
