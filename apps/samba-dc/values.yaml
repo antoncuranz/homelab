@@ -6,9 +6,6 @@ app-template:
         hostNetwork: true
         dnsConfig:
           nameservers: [ 192.168.1.3 ]
-        securityContext:
-          capabilities:
-            add: [ "SYS_ADMIN" ]
 #          runAsUser: 568
 #          runAsGroup: 568
 #          fsGroup: 568
@@ -19,6 +16,9 @@ app-template:
           image:
             repository: instantlinux/samba-dc
             tag: 4.18.8-r0
+          securityContext:
+            capabilities:
+              add: [ "SYS_ADMIN" ]
           env:
 #            DOMAIN_ACTION: join
             INTERFACES: lo ens3
