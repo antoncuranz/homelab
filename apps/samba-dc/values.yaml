@@ -6,7 +6,9 @@ app-template:
         hostNetwork: true
         dnsConfig:
           nameservers: [ 192.168.1.3 ]
-#        securityContext:
+        securityContext:
+          capabilities:
+            add: [ "SYS_ADMIN" ]
 #          runAsUser: 568
 #          runAsGroup: 568
 #          fsGroup: 568
@@ -18,13 +20,13 @@ app-template:
             repository: instantlinux/samba-dc
             tag: 4.18.8-r0
           env:
-#            domain_action: join
-#            interfaces: lo eth0
-            netbios_name: samba
-            realm: ad.serverton.de
-            server_string: Samba Domain Controller
-            tz: Europe/Berlin
-            workgroup: WORKGROUP
+#            DOMAIN_ACTION: join
+            INTERFACES: lo ens3
+            NETBIOS_NAME: samba
+            REALM: ad.serverton.de
+            SERVER_STRING: Samba Domain Controller
+            TZ: Europe/Berlin
+            WORKGROUP: WORKGROUP
 
   persistence:
     etc:
