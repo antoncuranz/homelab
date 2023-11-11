@@ -2,7 +2,7 @@ app-template:
   controllers:
     main:
       pod:
-        hostname: samba.ad.serverton.de
+#        hostname: samba.ad.serverton.de
         hostNetwork: true
         dnsConfig:
           nameservers: [ 192.168.1.3 ]
