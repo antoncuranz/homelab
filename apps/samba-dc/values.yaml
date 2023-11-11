@@ -21,7 +21,7 @@ app-template:
               add: [ "SYS_ADMIN" ]
           env:
 #            DOMAIN_ACTION: join
-            INTERFACES: lo
+            INTERFACES: lo eth0
             NETBIOS_NAME: samba
             REALM: ad.serverton.de
             SERVER_STRING: Samba Domain Controller
