@@ -1,16 +1,30 @@
 kubernetes-dashboard:
-  env:
-    TZ: Europe/Berlin
-  extraArgs:
-    - --enable-skip-login
-    - --disable-settings-authorizer
-    - --enable-insecure-login
-    - --token-ttl=43200
-  ingress:
+  app:
+    env:
+      TZ: Europe/Berlin
+    extraArgs:
+      - --enable-skip-login
+      - --disable-settings-authorizer
+      - --enable-insecure-login
+      - --token-ttl=43200
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - &host kubernetes.serverton.de
+      tls:
+        - hosts:
+            - *host
+  api:
+    containers:
+      args:
+        - --enable-skip-login
+        - --disable-settings-authorizer
+  metricsScraper:
     enabled: true
-    className: nginx
-    hosts:
-      - &host kubernetes.serverton.de
-    tls:
-      - hosts:
-          - *host
+  nginx:
+    enabled: false
+  cert-manager:
+    enabled: false
+  metrics-server:
+    enabled: false
