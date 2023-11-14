@@ -27,7 +27,7 @@ kubernetes-dashboard:
         - --enable-skip-login
         - --disable-settings-authorizer
   metricsScraper:
-    enabled: true
+    enabled: false
   nginx:
     enabled: false
   cert-manager:
