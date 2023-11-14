@@ -1,0 +1,16 @@
+kubernetes-dashboard:
+  env:
+    TZ: Europe/Berlin
+  extraArgs:
+    - --enable-skip-login
+    - --disable-settings-authorizer
+    - --enable-insecure-login
+    - --token-ttl=43200
+  ingress:
+    enabled: true
+    className: nginx
+    hosts:
+      - &host kubernetes.serverton.de
+    tls:
+      - hosts:
+          - *host
