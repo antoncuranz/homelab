@@ -1,0 +1,88 @@
+app-template:
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: jacobalberty/unifi
+            tag: v7.5.176
+          env:
+            TZ: "Europe/Berlin"
+            RUNAS_UID0: "false"
+            UNIFI_UID: "999"
+            UNIFI_GID: "999"
+            UNIFI_STDOUT: "true"
+            JVM_INIT_HEAP_SIZE:
+            JVM_MAX_HEAP_SIZE: 1024M
+          resources:
+            requests:
+              memory: 2Gi
+              cpu: 50m
+
+  persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 10Gi
+      globalMounts:
+        - path: /unifi
+      annotations:
+        'k8up.io/backup': 'true'
+
+  service:
+    main:
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+      annotations:
+        metallb.universe.tf/allow-shared-ip: default
+      ports:
+        http:
+          port: 8443
+          protocol: HTTPS
+        controller:
+          enabled: true
+          port: 8080
+          protocol: TCP
+        portal-http:
+          enabled: false
+          port: 8880
+          protocol: HTTP
+        portal-https:
+          enabled: false
+          port: 8843
+          protocol: HTTPS
+        speedtest:
+          enabled: true
+          port: 6789
+          protocol: TCP
+        stun:
+          enabled: true
+          port: 3478
+          protocol: UDP
+        syslog:
+          enabled: true
+          port: 5514
+          protocol: UDP
+        discovery:
+          enabled: true
+          port: 10001
+          protocol: UDP
+
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: &host "unifi.serverton.de"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - secretName: unifi-tls-certificate
+          hosts:
+            - *host
