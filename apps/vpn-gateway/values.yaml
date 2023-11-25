@@ -1,7 +1,7 @@
 pod-gateway:
   image:
     repository: ghcr.io/ant0ncuranz/pod-gateway
-    tag: dev@sha256:276defaac9e4071073ab1ffe2f04895c2b2b803830878e6131dab2a599db1dc6
+    tag: dev@sha256:150f301a39e101153180fdb2d1246497e5fee35dea932a614b95620f37e8d53c
   routed_namespaces:
     - servarr
   settings:
