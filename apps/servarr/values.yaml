@@ -209,7 +209,7 @@ prowlarr:
         main:
           image:
             repository: ghcr.io/onedr0p/prowlarr
-            tag: 1.9.4.4039
+            tag: 1.10.5.4116
           env:
             TZ: Europe/Berlin
             PROWLARR__PORT: &port 9696
