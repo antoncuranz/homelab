@@ -199,7 +199,7 @@ prowlarr:
         01-init-db:
           image:
             repository: ghcr.io/onedr0p/postgres-init
-            tag: 14.9
+            tag: 15.5
             pullPolicy: IfNotPresent
           envFrom: &envFrom
             - secretRef:
@@ -291,7 +291,7 @@ radarr:
         01-init-db:
           image:
             repository: ghcr.io/onedr0p/postgres-init
-            tag: 14.9
+            tag: 15.5
             pullPolicy: IfNotPresent
           envFrom: &envFrom
             - secretRef:
@@ -386,7 +386,7 @@ sonarr:
         01-init-db:
           image:
             repository: ghcr.io/onedr0p/postgres-init
-            tag: 14.9
+            tag: 15.5
             pullPolicy: IfNotPresent
           envFrom: &envFrom
             - secretRef:
