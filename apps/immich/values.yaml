@@ -42,7 +42,7 @@ immich:
         storageClass: truenas-iscsi
         annotations:
           k8up.io/backup: 'false'
-  proxy:
+  server:
     ingress:
       main:
         enabled: true
