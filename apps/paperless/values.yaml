@@ -3,7 +3,7 @@ app-template:
     strategy: RollingUpdate
   image:
     repository: ghcr.io/paperless-ngx/paperless-ngx
-    tag: 1.17
+    tag: 2.01
   env:
     PAPERLESS_DBHOST:
       valueFrom:
