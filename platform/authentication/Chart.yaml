@@ -9,5 +9,5 @@ dependencies:
     version: 4.1.2
     repository: https://jp-gouin.github.io/helm-openldap/
   - name: oauth2-proxy
-    version: 6.20.0
+    version: 6.20.1
     repository: https://oauth2-proxy.github.io/manifests
