@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    serviceMonitorSelector: prometheus
+  name: shelly-monitor
+spec:
+  endpoints:
+    - interval: 15s
+      port: http
+  selector:
+    matchLabels:
+      service: "iot-shelly-exporter"
