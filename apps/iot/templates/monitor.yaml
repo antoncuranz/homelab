@@ -10,4 +10,4 @@ spec:
       port: http
   selector:
     matchLabels:
-      service: "iot-shelly-exporter"
+      app.kubernetes.io/name: "shelly-exporter"
