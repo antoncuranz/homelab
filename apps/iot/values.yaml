@@ -1,0 +1,28 @@
+shelly-exporter:
+  global:
+    nameOverride: shelly-exporter
+
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: php
+            tag: 8-apache
+          env:
+            SHELLY_HOSTNAME: 192.168.4.31
+
+  persistence:
+    script:
+      enabled: true
+      type: secret
+      name: shelly-exporter
+      globalMounts:
+        - path: /var/www/html/metrics
+          subPath: metrics
+
+  service:
+    main:
+      ports:
+        http:
+          port: 80
