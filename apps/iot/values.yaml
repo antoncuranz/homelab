@@ -19,7 +19,6 @@ shelly-exporter:
       name: shelly-exporter
       globalMounts:
         - path: /var/www/html/metrics
-          subPath: metrics
 
   service:
     main:
