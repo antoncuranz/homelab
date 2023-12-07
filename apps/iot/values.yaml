@@ -10,12 +10,12 @@ shelly-exporter:
             repository: php
             tag: 8-apache
           env:
-          SHELLY_HOSTNAME: 192.168.4.31
-          SHELLY_HTTP_PASSWORD:
-            valueFrom:
-              secretKeyRef:
-                name: shelly-exporter
-                key: HTTP_PASSWORD
+            SHELLY_HOSTNAME: 192.168.4.31
+            SHELLY_HTTP_PASSWORD:
+              valueFrom:
+                secretKeyRef:
+                  name: shelly-exporter
+                  key: HTTP_PASSWORD
 
   persistence:
     script:
