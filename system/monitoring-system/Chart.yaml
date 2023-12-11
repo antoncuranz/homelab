@@ -3,7 +3,7 @@ name: kube-prometheus-stack
 version: 0.0.0
 dependencies:
   - name: kube-prometheus-stack
-    version: 55.1.0
+    version: 55.2.0
     repository: https://prometheus-community.github.io/helm-charts
   - name: prometheus-pushgateway
     version: 2.4.2
