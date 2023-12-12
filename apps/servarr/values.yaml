@@ -396,7 +396,7 @@ sonarr:
         main:
           image:
             repository: ghcr.io/onedr0p/sonarr-develop
-            tag: 4.0.0.733 # TODO: switch to stable after v4 release
+            tag: 4.0.0.734 # TODO: switch to stable after v4 release
           env:
             SONARR__PORT: &port 8989
             SONARR__AUTHENTICATION_METHOD: External
