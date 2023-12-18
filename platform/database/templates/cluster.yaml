@@ -4,7 +4,7 @@ metadata:
   name: database-cluster
 spec:
   instances: 1
-  imageName: ghcr.io/bo0tzz/cnpgvecto.rs:15
+  imageName: ghcr.io/bo0tzz/cnpgvecto.rs:15.5-v0.1.11
   postgresql:
     shared_preload_libraries:
       - "vectors.so"
