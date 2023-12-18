@@ -63,6 +63,7 @@ func CreateDatabaseFromBackup(client *kubernetes.Clientset, namespace string, da
 		},
 		Spec: cnpgv1.ClusterSpec{
 			Instances:             1,
+			ImageName:             "ghcr.io/bo0tzz/cnpgvecto.rs:15.5-v0.1.11",
 			PrimaryUpdateStrategy: "unsupervised",
 			StorageConfiguration: cnpgv1.StorageConfiguration{
 				Size:         "10Gi",
@@ -74,6 +75,9 @@ func CreateDatabaseFromBackup(client *kubernetes.Clientset, namespace string, da
 			Bootstrap: &cnpgv1.BootstrapConfiguration{
 				Recovery: &cnpgv1.BootstrapRecovery{
 					Source: "clusterBackup",
+					//RecoveryTarget: &cnpgv1.RecoveryTarget{
+					//	TargetTime: "2023-12-18 15:00:00.00000+02",
+					//},
 				},
 			},
 			ExternalClusters: []cnpgv1.ExternalCluster{
