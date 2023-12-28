@@ -6,7 +6,7 @@ app-template:
       containers:
         main:
           image:
-            repository: lscr.io/linuxserver/daapd
+            repository: alexbabel/owntone
             tag: latest
 
 #  persistence:
