@@ -9,13 +9,11 @@ app-template:
             repository: alexbabel/owntone
             tag: latest
 
-#  persistence:
-#    script:
-#      enabled: true
-#      type: secret
-#      name: shelly-exporter
-#      globalMounts:
-#        - path: /var/www/html
+  persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
 
   service:
     main:
