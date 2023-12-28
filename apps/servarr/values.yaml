@@ -781,9 +781,6 @@ sabnzbd:
               sabnzbd.default.svc.cluster,
               sabnzbd.default.svc.cluster.local,
               sabnzbd.serverton.de
-          envFrom:
-            - secretRef:
-                name: sabnzbd-secret
           probes:
             liveness: &probes
               enabled: true
