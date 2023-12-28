@@ -1,0 +1,24 @@
+app-template:
+  defaultPodOptions:
+    hostNetwork: true
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: alexbabel/owntone
+            tag: latest
+
+#  persistence:
+#    script:
+#      enabled: true
+#      type: secret
+#      name: shelly-exporter
+#      globalMounts:
+#        - path: /var/www/html
+#
+#  service:
+#    main:
+#      ports:
+#        http:
+#          port: 80
