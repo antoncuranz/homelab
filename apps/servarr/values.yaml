@@ -800,36 +800,36 @@ sabnzbd:
             startup:
               enabled: false
 
-    persistence:
-      config:
-        enabled: true
-        accessMode: ReadWriteOnce
-        size: 250Mi
-      tmp:
-        type: emptyDir
-      media:
-        enabled: true
-        accessMode: ReadWriteOnce
-        size: 50Gi
+  persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+    tmp:
+      type: emptyDir
+    media:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 50Gi
 
-    service:
-      main:
-        ports:
-          http:
-            port: 80
+  service:
+    main:
+      ports:
+        http:
+          port: 80
 
-    ingress:
-      main:
-        enabled: true
-        className: nginx
-        hosts:
-          - host: &host "sabnzbd.serverton.de"
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-        tls:
-          - secretName: sabnzbd-tls-certificate
-            hosts:
-              - *host
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      hosts:
+        - host: &host "sabnzbd.serverton.de"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - secretName: sabnzbd-tls-certificate
+          hosts:
+            - *host
