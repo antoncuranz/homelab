@@ -16,9 +16,10 @@ app-template:
 #      name: shelly-exporter
 #      globalMounts:
 #        - path: /var/www/html
-#
-#  service:
-#    main:
+
+  service:
+    main:
+      enabled: false
 #      ports:
 #        http:
 #          port: 80
