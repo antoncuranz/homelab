@@ -812,10 +812,6 @@ sabnzbd:
           main:
             - path: /mediarr
               subPath: sabnzbd
-    media:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 50Gi
 
   service:
     main:
