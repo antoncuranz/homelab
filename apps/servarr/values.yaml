@@ -804,6 +804,14 @@ sabnzbd:
       size: 250Mi
     tmp:
       type: emptyDir
+    mediarr:
+      enabled: true
+      existingClaim: mediarr
+      advancedMounts:
+        main:
+          main:
+            - path: /mediarr
+              subPath: sabnzbd
     media:
       enabled: true
       accessMode: ReadWriteOnce
