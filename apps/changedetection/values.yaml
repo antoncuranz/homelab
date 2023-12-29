@@ -1,0 +1,41 @@
+app-template:
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: ghcr.io/dgtlmoon/changedetection.io
+            tag: 0.45.9
+
+  persistence:
+    datastore:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+
+  service:
+    main:
+      ports:
+        http:
+          port: 5000
+
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+      hosts:
+        - host: &host "changedetection.serverton.de"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - secretName: changedetection-tls-certificate
+          hosts:
+            - *host
