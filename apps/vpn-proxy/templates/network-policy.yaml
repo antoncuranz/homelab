@@ -6,9 +6,13 @@ spec:
   podSelector: {}
   ingress:
     - from:
-      # Only allow ingress from K8S
+      # Only allow local ingress
       - ipBlock:
           cidr: 10.0.0.0/8
+      - ipBlock:
+          cidr: 172.16.0.0/12
+      - ipBlock:
+          cidr: 192.168.0.0/16
   egress:
     - to:
       # Only allow egress to K8S
