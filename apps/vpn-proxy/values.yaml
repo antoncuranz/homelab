@@ -1,0 +1,31 @@
+app-template:
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: serjs/go-socks5-proxy
+            tag: latest@sha256:d19b9977ebf01739d204efe3c4b1e3b4fa995db3e3b88f5801adfb6c41b1ac2e
+      pod:
+        annotations:
+          setGateway: "true"
+
+  service:
+    main:
+      ports:
+        http:
+          port: 1080
+
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+      hosts:
+        - host: "vpn-proxy.serverton.de"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
