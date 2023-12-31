@@ -4,6 +4,7 @@ pod-gateway:
     tag: v1.10.0
   routed_namespaces:
     - servarr
+    - vpn-proxy
   settings:
     VPN_INTERFACE: wg0
     VPN_BLOCK_OTHER_TRAFFIC: true
