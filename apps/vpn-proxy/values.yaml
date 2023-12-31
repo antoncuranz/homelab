@@ -12,20 +12,9 @@ app-template:
 
   service:
     main:
+      type: LoadBalancer
+      annotations:
+        metallb.universe.tf/allow-shared-ip: default
       ports:
         http:
           port: 1080
-
-  ingress:
-    main:
-      enabled: true
-      className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
-      hosts:
-        - host: "vpn-proxy.serverton.de"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
