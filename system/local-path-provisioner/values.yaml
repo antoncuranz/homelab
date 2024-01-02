@@ -4,6 +4,7 @@ local-path-provisioner:
     tag: latest
   storageClass:
     defaultClass: false
+    reclaimPolicy: Retain
   nodePathMap:
     - node: DEFAULT_PATH_FOR_NON_LISTED_NODES
       paths: ["/mnt/SSD/k8s/local-path"]
