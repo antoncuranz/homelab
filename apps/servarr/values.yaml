@@ -618,14 +618,14 @@ transmission:
         main:
           main:
             - path: /downloads/mediarr
-              subPath: downloads
-    autobrr:
-      enabled: true
-      existingClaim: autobrr
-      advancedMounts:
-        main:
-          main:
-            - path: /downloads/autobrr
+              subPath: transmission
+#    autobrr:
+#      enabled: true
+#      existingClaim: autobrr
+#      advancedMounts:
+#        main:
+#          main:
+#            - path: /downloads/autobrr
     themes:
       enabled: true
       type: emptyDir
