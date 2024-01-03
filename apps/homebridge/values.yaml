@@ -1,6 +1,4 @@
 app-template:
-  controller:
-    strategy: RollingUpdate
   image:
     repository: ghcr.io/oznu/homebridge
     tag: "2023-12-30"
