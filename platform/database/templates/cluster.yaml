@@ -18,7 +18,7 @@ spec:
     barmanObjectStore:
       destinationPath: s3://homelab-db/
       endpointURL: https://s3.eu-central-003.backblazeb2.com
-      serverName: database-cluster-b
+      serverName: database-cluster-a
       s3Credentials:
         accessKeyId:
           name: backblaze-db
