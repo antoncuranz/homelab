@@ -3,7 +3,7 @@ app-template:
     strategy: RollingUpdate
   image:
     repository: ghcr.io/oznu/homebridge
-    tag: "2023-01-08"
+    tag: "2023-12-30"
   service:
     main:
       ports:
