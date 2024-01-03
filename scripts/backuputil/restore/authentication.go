@@ -31,7 +31,7 @@ func Authentication(client *kubernetes.Clientset, snapshotMap NamespacedSnapshot
 
 	// 3. Create and restore NFS PVC using k8up Restore CRD
 	fmt.Println("Restoring openldap PV...")
-	if err := RestorePvc(client, namespace, dataSnapshot, "openldap-data", "1Gi", "truenas-iscsi"); err != nil {
+	if err := RestorePvc(client, namespace, dataSnapshot, "openldap-data", "1Gi", "local-path"); err != nil {
 		log.Fatal(err)
 	}
 

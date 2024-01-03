@@ -53,6 +53,49 @@ func CreateRestore(client *kubernetes.Clientset, namespace string, restoreName s
 	return client.RESTClient().Post().AbsPath(absPath).Body(body).Do(context.Background()).Into(&rsp)
 }
 
+func CreateRestoreKah(client *kubernetes.Clientset, namespace string, restoreName string, pvcName string, snapshot string) error {
+	uid := int64(568)
+	fsGroupChangePolicy := v1.FSGroupChangeOnRootMismatch
+	podSecurityContext := &v1.PodSecurityContext{
+		RunAsUser:           &uid,
+		FSGroup:             &uid,
+		FSGroupChangePolicy: &fsGroupChangePolicy,
+	}
+
+	restore := k8upv1.Restore{
+		TypeMeta: metav1.TypeMeta{
+			Kind:       "Restore",
+			APIVersion: "k8up.io/v1",
+		},
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      restoreName,
+			Namespace: namespace,
+		},
+		Spec: k8upv1.RestoreSpec{
+			RestoreMethod: &k8upv1.RestoreMethod{
+				Folder: &k8upv1.FolderRestore{
+					&v1.PersistentVolumeClaimVolumeSource{
+						ClaimName: pvcName,
+					},
+				},
+			},
+			Snapshot: snapshot,
+			RunnableSpec: k8upv1.RunnableSpec{
+				PodSecurityContext: podSecurityContext,
+			},
+		},
+	}
+
+	body, err := json.Marshal(restore)
+	if err != nil {
+		return err
+	}
+
+	rsp := k8upv1.Restore{}
+	absPath := "/apis/k8up.io/v1/namespaces/" + namespace + "/restores"
+	return client.RESTClient().Post().AbsPath(absPath).Body(body).Do(context.Background()).Into(&rsp)
+}
+
 func CreateBackup(client *kubernetes.Clientset, namespace string, backupName string, runAsUser int64) error {
 	runnableSpec := k8upv1.RunnableSpec{}
 
@@ -122,6 +165,19 @@ func RestorePvc(client *kubernetes.Clientset, namespace string, snapshot string,
 
 	restoreName := "restore-" + pvcName
 	if err := CreateRestore(client, namespace, restoreName, pvcName, snapshot); err != nil {
+		log.Fatal(err)
+	}
+
+	return nil
+}
+
+func RestorePvcKah(client *kubernetes.Clientset, namespace string, snapshot string, pvcName string, pvcStorage string, storageClass string) error {
+	if err := CreatePvc(client, namespace, pvcName, pvcStorage, storageClass); err != nil {
+		return err
+	}
+
+	restoreName := "restore-" + pvcName
+	if err := CreateRestoreKah(client, namespace, restoreName, pvcName, snapshot); err != nil {
 		log.Fatal(err)
 	}
 

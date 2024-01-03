@@ -7,12 +7,12 @@ import (
 	"log"
 )
 
-func Immich(client *kubernetes.Clientset, snapshotMap NamespacedSnapshotMap) {
-	const namespace = "immich"
-	const dataPath = "/data/immich-data"
+func Changedetection(client *kubernetes.Clientset, snapshotMap NamespacedSnapshotMap) {
+	const namespace = "changedetection"
+	const signalPath = "/data/changedetection-datastore"
 
-	// Input: snapshot ids
-	dataSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, dataPath)
+	// Input: snapshot ids => download postgres dump
+	signalSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, signalPath)
 
 	// 1. Scale down Deployments and Statefulsets
 	fmt.Println("Scaling down Deployments and StatefulSets...")
@@ -30,8 +30,8 @@ func Immich(client *kubernetes.Clientset, snapshotMap NamespacedSnapshotMap) {
 	}
 
 	// 3. Create and restore NFS PVC using k8up Restore CRD
-	fmt.Println("Restoring immich-data PV...")
-	if err := RestorePvc(client, namespace, dataSnapshot, "immich-data", "50Gi", "nfs-immich"); err != nil {
+	fmt.Println("Restoring PV...")
+	if err := RestorePvc(client, namespace, signalSnapshot, "changedetection-datastore", "250Mi", "local-path"); err != nil {
 		log.Fatal(err)
 	}
 

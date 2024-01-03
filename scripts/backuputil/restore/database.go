@@ -51,7 +51,7 @@ func Database(client *kubernetes.Clientset) {
 }
 
 func CreateDatabaseFromBackup(client *kubernetes.Clientset, namespace string, databaseName string, backupFolder string, s3endpoint string, s3bucket string) error {
-	storageClass := "truenas-iscsi"
+	storageClass := "local-path"
 	cluster := cnpgv1.Cluster{
 		TypeMeta: metav1.TypeMeta{
 			Kind:       "Cluster",

@@ -11,22 +11,18 @@ func Servarr(client *kubernetes.Clientset, snapshotMap NamespacedSnapshotMap) {
 	const namespace = "servarr"
 	const jellyfinPath = "/data/servarr-jellyfin-config"
 	const jellyseerrPath = "/data/servarr-jellyseerr-config"
-	const radarrExportPath = "/servarr-servarr-radarr.zip"
-	const sonarrExportPath = "/servarr-servarr-sonarr.zip"
-	const prowlarrExportPath = "/servarr-servarr-prowlarr.zip"
-	exportPaths := []string{radarrExportPath, sonarrExportPath, prowlarrExportPath}
-	const tmpDir = "./tmp"
+	const sonarrPath = "/data/servarr-sonarr-config"
+	const radarrPath = "/data/servarr-radarr-config"
+	const prowlarrPath = "/data/servarr-prowlarr-config"
+	const sabnzbdPath = "/data/servarr-sabnzbd-config"
 
 	// Input: snapshot id => download realm dump
 	jellyfinSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, jellyfinPath)
 	jellyseerrSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, jellyseerrPath)
-
-	for _, exportPath := range exportPaths {
-		snapshot := ResticSnapshotSelectionPrompt(snapshotMap, exportPath)
-		if err := RestoreResticSnapshot(namespace, exportPath, snapshot, tmpDir); err != nil {
-			log.Fatal(err)
-		}
-	}
+	sonarrSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, sonarrPath)
+	radarrSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, radarrPath)
+	prowlarrSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, prowlarrPath)
+	sabnzbdSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, sabnzbdPath)
 
 	// 1. Scale down Deployments and Statefulsets
 	fmt.Println("Scaling down Deployments and StatefulSets...")
@@ -45,16 +41,36 @@ func Servarr(client *kubernetes.Clientset, snapshotMap NamespacedSnapshotMap) {
 
 	// 3. Restore Jellyfin and Jellyseerr PVs
 	fmt.Println("Restoring jellyfin PV...")
-	if err := RestorePvc(client, namespace, jellyfinSnapshot, "servarr-jellyfin-config", "250Mi", "truenas-iscsi"); err != nil {
+	if err := RestorePvcKah(client, namespace, jellyfinSnapshot, "servarr-jellyfin-config", "50Gi", "local-path"); err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Println("Restoring jellyseerr PV...")
-	if err := RestorePvc(client, namespace, jellyseerrSnapshot, "servarr-jellyseerr-config", "250Mi", "truenas-iscsi"); err != nil {
+	if err := RestorePvcKah(client, namespace, jellyseerrSnapshot, "servarr-jellyseerr-config", "250Mi", "local-path"); err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Restoring sonarr PV...")
+	if err := RestorePvcKah(client, namespace, sonarrSnapshot, "servarr-sonarr-config", "250Mi", "local-path"); err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Restoring radarr PV...")
+	if err := RestorePvcKah(client, namespace, radarrSnapshot, "servarr-radarr-config", "250Mi", "local-path"); err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Restoring prowlarr PV...")
+	if err := RestorePvcKah(client, namespace, prowlarrSnapshot, "servarr-prowlarr-config", "250Mi", "local-path"); err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Restoring sabnzbd PV...")
+	if err := RestorePvcKah(client, namespace, sabnzbdSnapshot, "servarr-sabnzbd-config", "250Mi", "local-path"); err != nil {
 		log.Fatal(err)
 	}
 
 	// 4. Manual steps
 	fmt.Println("Please perform an ArgoCD sync of the application once restored.")
-	fmt.Println("Please restore radarr, sonarr and prowlarr yourself by uploading the exports in the GUI.")
+	fmt.Println("Please restore bazarr yourself by uploading the exports in the GUI.")
 }

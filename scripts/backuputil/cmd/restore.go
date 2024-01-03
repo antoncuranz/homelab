@@ -45,6 +45,10 @@ var restoreCmd = &cobra.Command{
 			restore.Servarr(client, namespacedSnapshotMap)
 		case "authentication":
 			restore.Authentication(client, namespacedSnapshotMap)
+		case "unifi":
+			restore.Unifi(client, namespacedSnapshotMap)
+		case "changedetection":
+			restore.Changedetection(client, namespacedSnapshotMap)
 		default:
 			log.Fatal("Error: Namespace not supported")
 		}
