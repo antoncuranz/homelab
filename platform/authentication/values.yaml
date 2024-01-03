@@ -67,7 +67,7 @@ oauth2-proxy:
 
 openldap-stack-ha:
   phpldapadmin:
-    enabled: true
+    enabled: false
     ingress:
       enabled: true
       ingressClassName: nginx
