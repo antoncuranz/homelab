@@ -1,6 +1,6 @@
 app-template:
   image:
-    repository: ghcr.io/oznu/homebridge
+    repository: ghcr.io/homebridge/homebridge
     tag: "2023-12-30"
   service:
     main:
