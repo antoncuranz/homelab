@@ -15,7 +15,7 @@
       "versionScheme": "regex:^(?<compatibility>.*?)-(?<major>v?\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)[\\.-]*(?<build>r?\\d+)*$"
     },
     {
-      "matchPackageNames": ["csi-driver-nfs"],
+      "matchPackageNames": ["csi-driver-nfs", "openldap-stack-ha"],
       "enabled": false
     }
   ],
