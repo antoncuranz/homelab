@@ -31,7 +31,7 @@ func Homebridge(client *kubernetes.Clientset, snapshotMap NamespacedSnapshotMap)
 
 	// 3. Create and restore NFS PVC using k8up Restore CRD
 	fmt.Println("Restoring homebridge PV...")
-	if err := RestorePvc(client, namespace, dataSnapshot, "homebridge-homebridge", "250Mi", "truenas-iscsi"); err != nil {
+	if err := RestorePvc(client, namespace, dataSnapshot, "homebridge-homebridge", "250Mi", "local-path"); err != nil {
 		log.Fatal(err)
 	}
 

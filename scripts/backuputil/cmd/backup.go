@@ -22,13 +22,14 @@ var backupCmd = &cobra.Command{
 
 		timestamp := time.Now().Format("200601021504")
 		pvcNamespaceToUid := map[string]int64{
-			"immich":         -1,
-			"homebridge":     -1,
-			"pihole":         -1,
-			"servarr":        -1,
-			"notifications":  -1,
-			"paperless":      -1,
-			"authentication": 1001,
+			"immich":          -1,
+			"homebridge":      -1,
+			"servarr":         -1,
+			"notifications":   -1,
+			"paperless":       -1,
+			"authentication":  1001,
+			"unifi":           -1,
+			"changedetection": -1,
 		}
 
 		dbNamespaces := []string{"immich", "finance", "keycloak", "paperless"}

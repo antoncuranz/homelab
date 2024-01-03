@@ -31,7 +31,7 @@ func Notifications(client *kubernetes.Clientset, snapshotMap NamespacedSnapshotM
 
 	// 3. Create and restore NFS PVC using k8up Restore CRD
 	fmt.Println("Restoring PV...")
-	if err := RestorePvc(client, namespace, signalSnapshot, "notifications-signal-cli-config", "250Mi", "truenas-iscsi"); err != nil {
+	if err := RestorePvc(client, namespace, signalSnapshot, "notifications-signal-cli-config", "250Mi", "local-path"); err != nil {
 		log.Fatal(err)
 	}
 
