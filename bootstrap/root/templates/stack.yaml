@@ -65,4 +65,8 @@ spec:
           kind: Certificate
           jqPathExpressions:
             - '.spec.duration'
+        - group: core
+          kind: PersistentVolume
+          jqPathExpressions:
+            - '.status.lastPhaseTransitionTime'
 {{- end }}
