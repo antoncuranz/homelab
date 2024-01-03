@@ -68,5 +68,5 @@ spec:
         - group: core
           kind: PersistentVolume
           jqPathExpressions:
-            - '.status.lastPhaseTransitionTime'
+            - '.spec.status.lastPhaseTransitionTime'
 {{- end }}
