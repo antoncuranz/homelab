@@ -33,12 +33,12 @@ func Paperless(client *kubernetes.Clientset, snapshotMap NamespacedSnapshotMap) 
 
 	// 3. Create and restore NFS PVC using k8up Restore CRD
 	fmt.Println("Restoring paperless data PV...")
-	if err := RestorePvc(client, namespace, dataSnapshot, "paperless-data", "5Gi", "truenas-nfs"); err != nil {
+	if err := RestorePvc(client, namespace, dataSnapshot, "paperless-data", "5Gi", "nfs-paperless"); err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Println("Restoring paperless media PV...")
-	if err := RestorePvc(client, namespace, mediaSnapshot, "paperless-media", "5Gi", "truenas-nfs"); err != nil {
+	if err := RestorePvc(client, namespace, mediaSnapshot, "paperless-media", "5Gi", "nfs-paperless"); err != nil {
 		log.Fatal(err)
 	}
 
