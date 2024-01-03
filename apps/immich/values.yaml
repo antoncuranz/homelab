@@ -31,7 +31,6 @@ immich:
     enabled: true
     master:
       persistence:
-        storageClass: truenas-iscsi
         annotations:
           k8up.io/backup: 'false'
   typesense:
@@ -39,7 +38,6 @@ immich:
     persistence:
       tsdata:
         enabled: true
-        storageClass: truenas-iscsi
         annotations:
           k8up.io/backup: 'false'
   server:
