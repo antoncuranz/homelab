@@ -15,6 +15,7 @@ func Servarr(client *kubernetes.Clientset, snapshotMap NamespacedSnapshotMap) {
 	const radarrPath = "/data/servarr-radarr-config"
 	const prowlarrPath = "/data/servarr-prowlarr-config"
 	const sabnzbdPath = "/data/servarr-sabnzbd-config"
+	const transmissionPath = "/data/servarr-transmission-config"
 
 	// Input: snapshot id => download realm dump
 	jellyfinSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, jellyfinPath)
@@ -23,6 +24,7 @@ func Servarr(client *kubernetes.Clientset, snapshotMap NamespacedSnapshotMap) {
 	radarrSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, radarrPath)
 	prowlarrSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, prowlarrPath)
 	sabnzbdSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, sabnzbdPath)
+	transmissionSnapshot := ResticSnapshotSelectionPrompt(snapshotMap, transmissionPath)
 
 	// 1. Scale down Deployments and Statefulsets
 	fmt.Println("Scaling down Deployments and StatefulSets...")
@@ -70,7 +72,11 @@ func Servarr(client *kubernetes.Clientset, snapshotMap NamespacedSnapshotMap) {
 		log.Fatal(err)
 	}
 
+	fmt.Println("Restoring transmission PV...")
+	if err := RestorePvcKah(client, namespace, transmissionSnapshot, "servarr-transmission-config", "250Mi", "local-path"); err != nil {
+		log.Fatal(err)
+	}
+
 	// 4. Manual steps
 	fmt.Println("Please perform an ArgoCD sync of the application once restored.")
-	fmt.Println("Please restore bazarr yourself by uploading the exports in the GUI.")
 }
