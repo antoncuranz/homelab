@@ -5,5 +5,5 @@ metadata:
 spec:
   backup:
     schedule: '30 1 * * 0'
-  securityContext:
+  podSecurityContext:
     runAsUser: 1001
