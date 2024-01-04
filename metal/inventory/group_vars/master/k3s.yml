@@ -5,8 +5,8 @@
 k3s_control_node: true
 k3s_server:
   node-ip: "{{ ansible_host }}"
-  tls-san:
-    - "{{ kubevip_address }}"
+#  tls-san:
+#    - "{{ kubevip_address }}"
   docker: false
   disable:
     - local-storage                   # Disable local-path-provisioner
