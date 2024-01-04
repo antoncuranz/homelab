@@ -1,0 +1,50 @@
+bitcoind:
+  global:
+    nameOverride: bitcoind
+
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: lncm/bitcoind
+            tag: v26.0
+      pod:
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
+          fsGroupChangePolicy: OnRootMismatch
+
+  persistence:
+    bitcoin:
+      enabled: true
+      type: hostPath
+      hostPath: /home/ant0n/bitcoin
+      accessMode: ReadWriteOnce
+      size: 1Ti
+      globalMounts:
+        - path: /data/.bitcoin
+      annotations:
+        'k8up.io/backup': 'false'
+
+  service:
+    main:
+      type: LoadBalancer
+      annotations:
+        metallb.universe.tf/allow-shared-ip: default
+      ports:
+        http:
+          enabled: false
+        rpc:
+          enabled: true
+          port: 8333
+        p2p:
+          enabled: false
+          port: 8332
+        zmqblk:
+          enabled: false
+          port: 28332
+        zmqtx:
+          enabled: true
+          port: 28333
