@@ -13,9 +13,6 @@ k3s_etcd_datastore: true
 k3s_use_unsupported_config: true
 k3s_registration_address: "{{ kubeconfig_address }}"
 k3s_server_manifests_urls:
-  # Kube-vip RBAC
-  - url: https://raw.githubusercontent.com/kube-vip/kube-vip/main/docs/manifests/rbac.yaml
-    filename: custom-kube-vip-rbac.yaml
   # Essential Prometheus Operator CRDs
   - url: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.65.1/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
     filename: custom-prometheus-podmonitors.yaml
