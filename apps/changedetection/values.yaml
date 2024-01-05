@@ -5,7 +5,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/dgtlmoon/changedetection.io
-            tag: 0.45.9
+            tag: 0.45.10
 
   persistence:
     datastore:
