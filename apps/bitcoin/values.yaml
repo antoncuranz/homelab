@@ -147,16 +147,16 @@ lnd:
       type: secret
       name: lnd-secrets
       globalMounts:
-        - path: /data/lnd/lnd.conf
+        - path: /data/.lnd/lnd.conf
           subPath: lnd.conf
-        - path: /data/lnd/password.txt
+        - path: /data/.lnd/password.txt
           subPath: password.txt
     data:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
       globalMounts:
-        - path: /data/lnd
+        - path: /data/.lnd
 
   service:
     main:
