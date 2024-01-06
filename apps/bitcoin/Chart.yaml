@@ -6,3 +6,7 @@ dependencies:
     alias: bitcoind
     version: 2.0.3
     repository: https://bjw-s.github.io/helm-charts
+  - name: app-template
+    alias: tor
+    version: 2.0.3
+    repository: https://bjw-s.github.io/helm-charts
