@@ -12,6 +12,13 @@ bitcoind:
           resources:
             limits:
               cpu: 1200m
+          probes: # TODO
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
       pod:
         securityContext:
           runAsUser: 1000
@@ -63,6 +70,13 @@ tor:
           image:
             repository: lncm/tor
             tag: 0.4.7.13
+          probes: # TODO
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
       pod:
         securityContext:
           runAsUser: 1000
