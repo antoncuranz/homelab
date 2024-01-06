@@ -62,7 +62,7 @@ tor:
         main:
           image:
             repository: lncm/tor
-            tag: 0.4.7.9
+            tag: 0.4.7.13
       pod:
         securityContext:
           runAsUser: 1000
