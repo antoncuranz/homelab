@@ -87,6 +87,8 @@ tor:
         socks:
           enabled: true
           port: 9050
+          protocol: TCP
         control:
           enabled: true
           port: 9051
+          protocol: TCP
