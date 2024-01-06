@@ -43,11 +43,50 @@ bitcoind:
           enabled: true
           port: 8333
         p2p:
-          enabled: false
+          enabled: true
           port: 8332
         zmqblk:
-          enabled: false
+          enabled: true
           port: 28332
         zmqtx:
           enabled: true
           port: 28333
+
+tor:
+  global:
+    nameOverride: tor
+
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: lncm/tor
+            tag: 0.4.7.9
+      pod:
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
+          fsGroupChangePolicy: OnRootMismatch
+
+  persistence:
+    script:
+      enabled: true
+      type: secret
+      name: tor-secrets
+      globalMounts:
+        - path: /etc/tor/torrc
+          subPath: torrc
+
+  service:
+    main:
+      ports:
+        http:
+          enabled: false
+        socks:
+          enabled: true
+          port: 9050
+        control:
+          enabled: true
+          port: 9051
