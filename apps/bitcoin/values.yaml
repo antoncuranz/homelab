@@ -113,3 +113,60 @@ tor:
           enabled: true
           port: 9051
           protocol: TCP
+
+lnd:
+  global:
+    nameOverride: lnd
+
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: lightninglabs/lnd
+            tag: v0.17.3-beta
+          env:
+            HOME: "/data"
+          probes: # TODO
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
+      pod:
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
+          fsGroupChangePolicy: OnRootMismatch
+
+  persistence:
+    torrc:
+      enabled: true
+      type: secret
+      name: lnd-secrets
+      globalMounts:
+        - path: /data/lnd
+    data:
+      enabled: true
+      globalMounts:
+        - path: /data/lnd
+
+  service:
+    main:
+      ports:
+        http:
+          enabled: false
+        p2p:
+          enabled: true
+          port: 9735
+          protocol: TCP
+        grpc:
+          enabled: true
+          port: 10009
+          protocol: TCP
+        rest:
+          enabled: true
+          port: 8080
+          protocol: TCP
