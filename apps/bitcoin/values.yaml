@@ -11,7 +11,7 @@ bitcoind:
             tag: v26.0
           resources:
             limits:
-              cpu: 800m
+              cpu: 1200m
       pod:
         securityContext:
           runAsUser: 1000
