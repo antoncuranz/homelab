@@ -27,6 +27,13 @@ bitcoind:
           fsGroupChangePolicy: OnRootMismatch
 
   persistence:
+    config:
+      enabled: true
+      type: secret
+      name: bitcoind-secrets
+      globalMounts:
+        - path: /data/.bitcoin/bitcoin.conf
+          subPath: bitcoin.conf
     bitcoin:
       enabled: true
       type: hostPath
@@ -85,7 +92,7 @@ tor:
           fsGroupChangePolicy: OnRootMismatch
 
   persistence:
-    script:
+    torrc:
       enabled: true
       type: secret
       name: tor-secrets
