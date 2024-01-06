@@ -150,7 +150,7 @@ lnd:
         - path: /data/lnd
     data:
       enabled: true
-      accessMode: ReadWriteOnc
+      accessMode: ReadWriteOnce
       size: 250Mi
       globalMounts:
         - path: /data/lnd
