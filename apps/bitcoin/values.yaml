@@ -142,7 +142,7 @@ lnd:
           fsGroupChangePolicy: OnRootMismatch
 
   persistence:
-    torrc:
+    config:
       enabled: true
       type: secret
       name: lnd-secrets
@@ -150,7 +150,8 @@ lnd:
         - path: /data/lnd
     data:
       enabled: true
-      accessMode: ReadWriteOnce
+      accessMode: ReadWriteOnc
+      size: 250Mi
       globalMounts:
         - path: /data/lnd
 
