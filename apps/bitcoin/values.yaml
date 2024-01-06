@@ -150,6 +150,7 @@ lnd:
         - path: /data/lnd
     data:
       enabled: true
+      accessMode: ReadWriteOnce
       globalMounts:
         - path: /data/lnd
 
