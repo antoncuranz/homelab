@@ -9,6 +9,9 @@ bitcoind:
           image:
             repository: lncm/bitcoind
             tag: v26.0
+          resources:
+            limits:
+              cpu: 800m
       pod:
         securityContext:
           runAsUser: 1000
