@@ -120,6 +120,15 @@ lnd:
 
   controllers:
     main:
+      initContainers:
+        01-init-db:
+          image:
+            repository: ghcr.io/onedr0p/postgres-init
+            tag: 15.5
+            pullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: lnd-secrets
       containers:
         main:
           image:
