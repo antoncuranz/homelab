@@ -495,7 +495,7 @@ transmission:
         main:
           image:
             repository: ghcr.io/onedr0p/transmission
-            tag: 4.0.4
+            tag: 4.0.5
           env:
             TZ: Europe/Berlin
             TRANSMISSION__BLOCKLIST_URL: "https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz"
