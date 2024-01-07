@@ -9,9 +9,9 @@ bitcoind:
           image:
             repository: lncm/bitcoind
             tag: v26.0
-          resources:
-            limits:
-              cpu: 800m
+#          resources:
+#            limits:
+#              cpu: 800m
           probes: # TODO
             liveness:
               enabled: false
