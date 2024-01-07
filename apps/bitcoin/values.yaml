@@ -11,7 +11,7 @@ bitcoind:
             tag: v26.0
           resources:
             limits:
-              cpu: 1200m
+              cpu: 800m
           probes: # TODO
             liveness:
               enabled: false
