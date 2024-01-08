@@ -169,6 +169,8 @@ lnd:
           enabled: true
           port: 10009
           protocol: TCP
+    rest:
+      ports:
         rest: # zeus, rtl
           enabled: true
           port: 8080
