@@ -115,6 +115,13 @@ lnd:
             tag: v0.17.3-beta
           env:
             HOME: "/data"
+          probes: # TODO
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
       pod:
         securityContext:
           runAsUser: 1000
