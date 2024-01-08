@@ -188,7 +188,7 @@ lnd:
           paths:
             - path: /
               service:
-                name: main
+                name: rest
                 port: rest
       tls:
         - secretName: lnd-tls-certificate
