@@ -169,6 +169,9 @@ lnd:
           enabled: true
           port: 10009
           protocol: TCP
+        rest2: # zeus, rtl
+          enabled: true
+          port: 1337
     rest:
       controller: main
       ports:
