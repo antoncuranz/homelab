@@ -170,6 +170,7 @@ lnd:
           port: 10009
           protocol: TCP
     rest:
+      controller: main
       ports:
         rest: # zeus, rtl
           enabled: true
