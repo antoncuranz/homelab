@@ -164,6 +164,25 @@ lnd:
           enabled: true
           port: 8080
 
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: &host "lnd.serverton.de"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - secretName: lnd-tls-certificate
+          hosts:
+            - *host
+
 thunderhub:
   global:
     nameOverride: thunderhub
