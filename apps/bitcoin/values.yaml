@@ -183,6 +183,7 @@ lnd:
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       hosts:
         - host: &host "lnd.serverton.de"
           paths:
@@ -245,7 +246,6 @@ thunderhub:
         cert-manager.io/cluster-issuer: letsencrypt-prod
         nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
         nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
-        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       hosts:
         - host: &host "thunderhub.serverton.de"
           paths:
