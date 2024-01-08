@@ -11,14 +11,8 @@ bitcoind:
             tag: v26.0
 #          resources:
 #            limits:
-#              cpu: 800m
-          probes: # TODO
-            liveness:
-              enabled: false
-            readiness:
-              enabled: false
-            startup:
-              enabled: false
+#              cpu: 400m
+#              memory: 1Gi
       pod:
         securityContext:
           runAsUser: 1000
@@ -36,20 +30,12 @@ bitcoind:
           subPath: bitcoin.conf
     bitcoin:
       enabled: true
-      type: hostPath
-      hostPath: /home/ant0n/bitcoin
-      accessMode: ReadWriteOnce
-      size: 1Ti
+      existingClaim: bitcoind-data
       globalMounts:
         - path: /data/.bitcoin
-      annotations:
-        'k8up.io/backup': 'false'
 
   service:
     main:
-      type: LoadBalancer
-      annotations:
-        metallb.universe.tf/allow-shared-ip: default
       ports:
         http:
           enabled: false
@@ -77,13 +63,6 @@ tor:
           image:
             repository: lncm/tor
             tag: 0.4.7.13
-          probes: # TODO
-            liveness:
-              enabled: false
-            readiness:
-              enabled: false
-            startup:
-              enabled: false
       pod:
         securityContext:
           runAsUser: 1000
@@ -136,13 +115,6 @@ lnd:
             tag: v0.17.3-beta
           env:
             HOME: "/data"
-          probes: # TODO
-            liveness:
-              enabled: false
-            readiness:
-              enabled: false
-            startup:
-              enabled: false
       pod:
         securityContext:
           runAsUser: 1000
@@ -162,12 +134,14 @@ lnd:
           subPath: password.txt
     data:
       enabled: true
-      accessMode: ReadWriteOnce
-      size: 250Mi
+      existingClaim: lightning-data
       globalMounts:
         - path: /data/.lnd
 
   service:
+    type: LoadBalancer
+    annotations:
+      metallb.universe.tf/allow-shared-ip: default
     main:
       ports:
         http:
@@ -183,7 +157,6 @@ lnd:
         rest:
           enabled: true
           port: 8080
-          protocol: TCP
 
 thunderhub:
   global:
@@ -202,6 +175,13 @@ thunderhub:
           runAsGroup: 1000
           fsGroup: 1000
           fsGroupChangePolicy: OnRootMismatch
+
+  persistence:
+    lnd:
+      enabled: true
+      existingClaim: lightning-data
+      globalMounts:
+        - path: /data/.lnd
 
   service:
     main:
