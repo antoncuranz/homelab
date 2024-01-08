@@ -9,10 +9,10 @@ bitcoind:
           image:
             repository: lncm/bitcoind
             tag: v26.0
-          resources:
-            limits:
-              cpu: 400m
-              memory: 1Gi
+#          resources:
+#            limits:
+#              cpu: 400m
+#              memory: 1Gi
           probes:
             liveness: &probes
               spec:
