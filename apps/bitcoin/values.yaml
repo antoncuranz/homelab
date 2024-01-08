@@ -13,6 +13,11 @@ bitcoind:
             limits:
               cpu: 400m
               memory: 1Gi
+          probes:
+            liveness: &probes
+              initialDelaySeconds: 120
+            readiness: *probes
+            startup: *probes
       pod:
         securityContext:
           runAsUser: 1000
