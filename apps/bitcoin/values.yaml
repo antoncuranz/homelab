@@ -156,11 +156,11 @@ lnd:
           enabled: true
           port: 9735
           protocol: TCP
-        grpc:
+        grpc: # thunderhub
           enabled: true
           port: 10009
           protocol: TCP
-        rest:
+        rest: # zeus, rtl
           enabled: true
           port: 8080
 
@@ -197,6 +197,7 @@ thunderhub:
       existingClaim: lnd-data
       globalMounts:
         - path: /data/.lnd
+          readOnly: true
 
   service:
     main:
