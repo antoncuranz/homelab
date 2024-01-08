@@ -1,0 +1,56 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bitcoind-data-pv
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Ti
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/ant0n/bitcoin"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bitcoind-data
+  annotations:
+    k8up.io/backup: 'false'
+spec:
+  volumeName: bitcoind-data-pv
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Ti
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lnd-data-pv
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/home/ant0n/lightning"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lnd-data
+  annotations:
+    k8up.io/backup: 'true'
+spec:
+  volumeName: lnd-data-pv
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
