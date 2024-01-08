@@ -177,7 +177,7 @@ lnd:
             - path: /
               service:
                 name: main
-                port: http
+                port: rest
       tls:
         - secretName: lnd-tls-certificate
           hosts:
