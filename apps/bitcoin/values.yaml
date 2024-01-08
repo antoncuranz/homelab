@@ -143,8 +143,8 @@ lnd:
       type: secret
       name: lnd-tls-certificate
       globalMounts:
-        - path: /data/.lnd/tls.crt
-          subPath: tls.cert
+        - path: /data/.lnd/tls.cert
+          subPath: tls.crt
         - path: /data/.lnd/tls.key
           subPath: tls.key
     data:
