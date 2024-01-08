@@ -13,12 +13,6 @@ bitcoind:
 #            limits:
 #              cpu: 400m
 #              memory: 1Gi
-#          probes:
-#            liveness: &probes
-#              spec:
-#                initialDelaySeconds: 120
-#            readiness: *probes
-#            startup: *probes
       pod:
         securityContext:
           runAsUser: 1000
@@ -138,15 +132,6 @@ lnd:
           subPath: lnd.conf
         - path: /data/.lnd/password.txt
           subPath: password.txt
-    certs:
-      enabled: true
-      type: secret
-      name: lnd-tls-certificate
-      globalMounts:
-        - path: /data/.lnd/tls.cert
-          subPath: tls.crt
-        - path: /data/.lnd/tls.key
-          subPath: tls.key
     data:
       enabled: true
       existingClaim: lnd-data
@@ -173,32 +158,6 @@ lnd:
           enabled: true
           port: 1337
           targetPort: 8080
-#    rest:
-#      controller: main
-#      ports:
-#        rest: # zeus, rtl
-#          enabled: true
-#          port: 8080
-
-#  ingress:
-#    main:
-#      enabled: true
-#      className: nginx
-#      annotations:
-#        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
-#        cert-manager.io/cluster-issuer: letsencrypt-prod
-#        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-#      hosts:
-#        - host: &host "lnd.serverton.de"
-#          paths:
-#            - path: /
-#              service:
-#                name: rest
-#                port: rest
-#      tls:
-#        - secretName: lnd-tls-certificate
-#          hosts:
-#            - *host
 
 thunderhub:
   global:
