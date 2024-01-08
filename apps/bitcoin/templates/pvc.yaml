@@ -36,7 +36,7 @@ spec:
   capacity:
     storage: 2Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   hostPath:
     path: "/home/ant0n/lightning"
 ---
@@ -50,7 +50,7 @@ spec:
   volumeName: lnd-data-pv
   storageClassName: manual
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 2Gi
