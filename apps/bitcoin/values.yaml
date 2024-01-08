@@ -169,35 +169,36 @@ lnd:
           enabled: true
           port: 10009
           protocol: TCP
-        rest2: # zeus, rtl
-          enabled: true
-          port: 1337
-    rest:
-      controller: main
-      ports:
         rest: # zeus, rtl
           enabled: true
-          port: 8080
+          port: 1337
+          targetPort: 8080
+#    rest:
+#      controller: main
+#      ports:
+#        rest: # zeus, rtl
+#          enabled: true
+#          port: 8080
 
-  ingress:
-    main:
-      enabled: true
-      className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      hosts:
-        - host: &host "lnd.serverton.de"
-          paths:
-            - path: /
-              service:
-                name: rest
-                port: rest
-      tls:
-        - secretName: lnd-tls-certificate
-          hosts:
-            - *host
+#  ingress:
+#    main:
+#      enabled: true
+#      className: nginx
+#      annotations:
+#        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+#        cert-manager.io/cluster-issuer: letsencrypt-prod
+#        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+#      hosts:
+#        - host: &host "lnd.serverton.de"
+#          paths:
+#            - path: /
+#              service:
+#                name: rest
+#                port: rest
+#      tls:
+#        - secretName: lnd-tls-certificate
+#          hosts:
+#            - *host
 
 thunderhub:
   global:
