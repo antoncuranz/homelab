@@ -134,7 +134,7 @@ lnd:
           subPath: password.txt
     data:
       enabled: true
-      existingClaim: lightning-data
+      existingClaim: lnd-data
       globalMounts:
         - path: /data/.lnd
 
@@ -179,7 +179,7 @@ thunderhub:
   persistence:
     lnd:
       enabled: true
-      existingClaim: lightning-data
+      existingClaim: lnd-data
       globalMounts:
         - path: /data/.lnd
 
