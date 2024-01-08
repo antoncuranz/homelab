@@ -144,7 +144,7 @@ lnd:
       name: lnd-tls-certificate
       globalMounts:
         - path: /data/.lnd/tls.crt
-          subPath: tls.crt
+          subPath: tls.cert
         - path: /data/.lnd/tls.key
           subPath: tls.key
     data:
