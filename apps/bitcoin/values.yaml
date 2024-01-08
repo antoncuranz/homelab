@@ -184,6 +184,15 @@ thunderhub:
           fsGroupChangePolicy: OnRootMismatch
 
   persistence:
+    config:
+      enabled: true
+      type: secret
+      name: thunderhub-secrets
+      globalMounts:
+        - path: /app/.env.local
+          subPath: .env.local
+        - path: /app/thubConfig.yaml
+          subPath: thubConfig.yaml
     lnd:
       enabled: true
       existingClaim: lnd-data
