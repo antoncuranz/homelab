@@ -139,10 +139,10 @@ lnd:
         - path: /data/.lnd
 
   service:
-    type: LoadBalancer
-    annotations:
-      metallb.universe.tf/allow-shared-ip: default
     main:
+      type: LoadBalancer
+      annotations:
+        metallb.universe.tf/allow-shared-ip: default
       ports:
         http:
           enabled: false
