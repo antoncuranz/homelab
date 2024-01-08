@@ -9,10 +9,10 @@ bitcoind:
           image:
             repository: lncm/bitcoind
             tag: v26.0
-#          resources:
-#            limits:
-#              cpu: 400m
-#              memory: 1Gi
+          resources:
+            limits:
+              cpu: 400m
+              memory: 1Gi
       pod:
         securityContext:
           runAsUser: 1000
@@ -115,13 +115,6 @@ lnd:
             tag: v0.17.3-beta
           env:
             HOME: "/data"
-          probes: # TODO
-            liveness:
-              enabled: false
-            readiness:
-              enabled: false
-            startup:
-              enabled: false
       pod:
         securityContext:
           runAsUser: 1000
