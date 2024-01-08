@@ -190,7 +190,7 @@ thunderhub:
       name: thunderhub-secrets
       globalMounts:
         - path: /app/.env.local
-          subPath: .env.local
+          subPath: env
         - path: /app/thubConfig.yaml
           subPath: thubConfig.yaml
     lnd:
