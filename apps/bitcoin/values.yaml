@@ -239,12 +239,12 @@ rtl:
           image:
             repository: shahanafarooqui/rtl
             tag: 0.15.0
-      pod:
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
-          fsGroup: 1000
-          fsGroupChangePolicy: OnRootMismatch
+#      pod:
+#        securityContext:
+#          runAsUser: 1000
+#          runAsGroup: 1000
+#          fsGroup: 1000
+#          fsGroupChangePolicy: OnRootMismatch
 
   persistence:
     config:
@@ -252,7 +252,7 @@ rtl:
       type: secret
       name: rtl-secrets
       globalMounts:
-        - path: /RTL/RTL-config2.json
+        - path: /RTL/RTL-config.json
           subPath: RTL-config.json
     db:
       enabled: true
