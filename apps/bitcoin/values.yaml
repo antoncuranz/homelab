@@ -253,7 +253,7 @@ rtl:
       name: rtl-secrets
       globalMounts:
         - path: /RTL/RTL-Config.json
-          subPath: RTL-config.json
+          subPath: RTL-Config.json
     db:
       enabled: true
       accessMode: ReadWriteOnce
