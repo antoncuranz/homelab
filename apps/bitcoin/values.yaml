@@ -41,9 +41,6 @@ bitcoind:
           enabled: false
         rpc:
           enabled: true
-          port: 8333
-        p2p:
-          enabled: true
           port: 8332
         zmqblk:
           enabled: true
@@ -51,6 +48,15 @@ bitcoind:
         zmqtx:
           enabled: true
           port: 28333
+    lb:
+      controller: main
+      type: LoadBalancer
+      annotations:
+        metallb.universe.tf/allow-shared-ip: default
+      ports:
+        p2p:
+          enabled: true
+          port: 8333
 
 tor:
   global:
@@ -140,20 +146,21 @@ lnd:
 
   service:
     main:
+      ports:
+        http:
+          enabled: false
+        grpc: # thunderhub
+          enabled: true
+          port: 10009
+    lb:
+      controller: main
       type: LoadBalancer
       annotations:
         metallb.universe.tf/allow-shared-ip: default
       ports:
-        http:
-          enabled: false
         p2p:
           enabled: true
           port: 9735
-          protocol: TCP
-        grpc: # thunderhub
-          enabled: true
-          port: 10009
-          protocol: TCP
         rest: # zeus, rtl
           enabled: true
           port: 1337
