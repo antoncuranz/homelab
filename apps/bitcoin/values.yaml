@@ -239,12 +239,12 @@ rtl:
           image:
             repository: shahanafarooqui/rtl
             tag: 0.15.0
-#      pod:
-#        securityContext:
-#          runAsUser: 1000
-#          runAsGroup: 1000
-#          fsGroup: 1000
-#          fsGroupChangePolicy: OnRootMismatch
+      pod:
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
+          fsGroupChangePolicy: OnRootMismatch
 
   persistence:
     config:
@@ -262,6 +262,14 @@ rtl:
         'k8up.io/backup': 'true'
       globalMounts:
         - path: /RTL/database
+    backups:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      annotations:
+        'k8up.io/backup': 'true'
+      globalMounts:
+        - path: /RTL/backups
     lnd:
       enabled: true
       existingClaim: lnd-data
