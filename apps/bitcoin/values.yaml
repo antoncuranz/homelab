@@ -240,7 +240,7 @@ rtl:
             repository: shahanafarooqui/rtl
             tag: 0.15.0
           env:
-            RTL_CONFIG_PATH: "/data"
+            RTL_CONFIG_PATH: "/data/RTL"
       pod:
         securityContext:
           runAsUser: 1000
