@@ -165,9 +165,6 @@ lnd:
           enabled: true
           port: 1337
           targetPort: 8080
-        le:
-          enabled: true
-          port: 8063
 
 thunderhub:
   global:
@@ -231,26 +228,49 @@ thunderhub:
           hosts:
             - *host
 
-#rtl:
-#  global:
-#    nameOverride: rtl
-#
-#  controllers:
-#    main:
-#      containers:
-#        main:
-#          image:
-#            repository: shahanafarooqui/rtl
-#            tag: 0.12.0
-#      pod:
-#        securityContext:
-#          runAsUser: 1000
-#          runAsGroup: 1000
-#          fsGroup: 1000
-#          fsGroupChangePolicy: OnRootMismatch
-#
-#  service:
-#    main:
-#      ports:
-#        http:
-#          port: 3000
+rtl:
+  global:
+    nameOverride: rtl
+
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: shahanafarooqui/rtl
+            tag: 0.15.0
+      pod:
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
+          fsGroupChangePolicy: OnRootMismatch
+
+  persistence:
+    config:
+      enabled: true
+      type: secret
+      name: rtl-secrets
+      globalMounts:
+        - path: /RTL/RTL-config.json
+          subPath: RTL-config.json
+    db:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      annotations:
+        'k8up.io/backup': 'true'
+      globalMounts:
+        - path: /RTL/database
+    lnd:
+      enabled: true
+      existingClaim: lnd-data
+      globalMounts:
+        - path: /data/.lnd
+          readOnly: true
+
+  service:
+    main:
+      ports:
+        http:
+          port: 3000
