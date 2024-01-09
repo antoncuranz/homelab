@@ -158,6 +158,9 @@ lnd:
           enabled: true
           port: 1337
           targetPort: 8080
+        le:
+          enabled: true
+          port: 80
 
 thunderhub:
   global:
