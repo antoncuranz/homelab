@@ -239,6 +239,8 @@ rtl:
           image:
             repository: shahanafarooqui/rtl
             tag: 0.15.0
+          env:
+            RTL_CONFIG_PATH: "/data"
       pod:
         securityContext:
           runAsUser: 1000
@@ -252,24 +254,16 @@ rtl:
       type: secret
       name: rtl-secrets
       globalMounts:
-        - path: /RTL/RTL-Config.json
+        - path: /data/RTL/RTL-Config.json
           subPath: RTL-Config.json
-    db:
+    data:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
       annotations:
         'k8up.io/backup': 'true'
       globalMounts:
-        - path: /RTL/database
-    backups:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 250Mi
-      annotations:
-        'k8up.io/backup': 'true'
-      globalMounts:
-        - path: /RTL/backups
+        - path: /data/RTL
     lnd:
       enabled: true
       existingClaim: lnd-data
