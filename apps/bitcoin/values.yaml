@@ -136,8 +136,6 @@ lnd:
       globalMounts:
         - path: /data/.lnd/lnd.conf
           subPath: lnd.conf
-        - path: /data/.lnd/password.txt
-          subPath: password.txt
     data:
       enabled: true
       existingClaim: lnd-data
