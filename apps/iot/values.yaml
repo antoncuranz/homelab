@@ -64,6 +64,9 @@ mosquitto:
         metallb.universe.tf/allow-shared-ip: default
       ports:
         http:
+          enabled: false
+        mqtt:
+          enabled: true
           port: 1883
   persistence:
     config:
