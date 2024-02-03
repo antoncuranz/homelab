@@ -67,13 +67,21 @@ mosquitto:
           port: 1883
   persistence:
     config:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 250Mi
-      annotations:
-        'k8up.io/backup': 'true'
-      globalMounts:
-        - path: /mosquitto/config
+      type: configMap
+      name: mosquitto-config
+      advancedMounts:
+        main:
+          main:
+            - path: /mosquitto/config/mosquitto.conf
+              subPath: mosquitto.conf
+#    config:
+#      enabled: true
+#      accessMode: ReadWriteOnce
+#      size: 250Mi
+#      annotations:
+#        'k8up.io/backup': 'true'
+#      globalMounts:
+#        - path: /mosquitto/config
     data:
       enabled: true
       accessMode: ReadWriteOnce
