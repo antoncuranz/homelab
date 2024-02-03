@@ -69,19 +69,15 @@ mosquitto:
     config:
       type: configMap
       name: mosquitto-config
-      advancedMounts:
-        main:
-          main:
-            - path: /mosquitto/config/mosquitto.conf
-              subPath: mosquitto.conf
-#    config:
-#      enabled: true
-#      accessMode: ReadWriteOnce
-#      size: 250Mi
-#      annotations:
-#        'k8up.io/backup': 'true'
-#      globalMounts:
-#        - path: /mosquitto/config
+      globalMounts:
+        - path: /mosquitto/config/mosquitto.conf
+          subPath: mosquitto.conf
+    secret:
+      type: secret
+      name: mqtt-secret
+      globalMounts:
+        - path: /mosquitto/mosquitto_pwd
+          subPath: mosquitto_pwd
     data:
       enabled: true
       accessMode: ReadWriteOnce
