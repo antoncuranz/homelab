@@ -86,6 +86,14 @@ mosquitto:
       name: mqtt-tls-certificate
       globalMounts:
         - path: /mosquitto/certs
+    tibber:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 20Mi
+      annotations:
+        'k8up.io/backup': 'true'
+      globalMounts:
+        - path: /mosquitto/tibber_certs
     data:
       enabled: true
       accessMode: ReadWriteOnce
