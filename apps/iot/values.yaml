@@ -69,7 +69,7 @@ mosquitto:
           enabled: true
           port: 1883
   persistence:
-    config:
+    mosquitto-conf:
       type: configMap
       name: mosquitto-config
       globalMounts:
