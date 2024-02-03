@@ -81,6 +81,11 @@ mosquitto:
       globalMounts:
         - path: /mosquitto/mosquitto_pwd
           subPath: mosquitto_pwd
+    certs:
+      type: secret
+      name: mqtt-tls-certificate
+      globalMounts:
+        - path: /mosquitto/certs
     data:
       enabled: true
       accessMode: ReadWriteOnce
@@ -132,14 +137,14 @@ node-red:
         nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
         nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
       hosts:
-        - host: &host "node-red.serverton.de"
+        - host: &host "mqtt.serverton.de"
           paths:
             - path: /
               service:
                 name: main
                 port: http
       tls:
-        - secretName: node-red-tls-certificate
+        - secretName: mqtt-tls-certificate
           hosts:
             - *host
   persistence:
