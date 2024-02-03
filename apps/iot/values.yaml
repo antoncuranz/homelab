@@ -127,7 +127,9 @@ node-red:
         - host: &host "node-red.serverton.de"
           paths:
             - path: /
-              pathType: Prefix
+              service:
+                name: main
+                port: http
       tls:
         - secretName: node-red-tls-certificate
           hosts:
