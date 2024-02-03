@@ -67,7 +67,7 @@ mosquitto:
           enabled: false
         mqtt:
           enabled: true
-          port: 1883
+          port: 8883
   persistence:
     mosquitto-conf:
       type: configMap
