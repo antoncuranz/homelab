@@ -4,6 +4,8 @@ metadata:
   name: mosquitto-config
 data:
   mosquitto.conf: |-
+    per_listener_settings false
+    listener 1883
     persistence true
     persistence_location /mosquitto/data/
     log_dest file /mosquitto/log/mosquitto.log
