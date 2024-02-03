@@ -32,6 +32,8 @@ shelly-exporter:
           port: 80
 
 mosquitto:
+  global:
+    nameOverride: mosquitto
   controllers:
     main:
       containers:
@@ -86,6 +88,8 @@ mosquitto:
         - path: /mosquitto/log
 
 node-red:
+  global:
+    nameOverride: node-red
   controllers:
     main:
       pod:
