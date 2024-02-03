@@ -5,10 +5,7 @@ metadata:
 data:
   mosquitto.conf: |-
     per_listener_settings false
-    listener 8883
-    cafile /etc/ssl/certs/ca-certificates.crt
-    keyfile /mosquitto/certs/tls.key
-    certfile /mosquitto/certs/tls.crt
+    listener 1883
     allow_anonymous false
     persistence true
     persistence_location /mosquitto/data/
