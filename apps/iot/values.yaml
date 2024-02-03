@@ -66,10 +66,18 @@ mosquitto:
   persistence:
     config:
       enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      annotations:
+        'k8up.io/backup': 'true'
       globalMounts:
         - path: /mosquitto/config
     data:
       enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      annotations:
+        'k8up.io/backup': 'true'
       globalMounts:
         - path: /mosquitto/data
     logs:
@@ -127,5 +135,9 @@ node-red:
   persistence:
     data:
       enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      annotations:
+        'k8up.io/backup': 'true'
       globalMounts:
         - path: /data
