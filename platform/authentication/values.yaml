@@ -75,7 +75,7 @@ openldap-stack-ha:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - &host "ldap.serverton.de"
+        - &host "dc.serverton.de"
       tls:
         - secretName: ldap-tls-certificate
           hosts:
