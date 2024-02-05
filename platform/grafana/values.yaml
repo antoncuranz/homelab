@@ -46,7 +46,7 @@ grafana:
         - name: InfluxDB
           type: influxdb
           uid: influxdb
-          database: graphite
+          database: serverton
           url: http://monitoring-system-influxdb.monitoring-system.svc.cluster.local:8086
   dashboardProviders:
     dashboardproviders.yaml:

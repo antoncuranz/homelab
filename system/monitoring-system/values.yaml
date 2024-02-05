@@ -25,13 +25,13 @@ influxdb:
     type: LoadBalancer
     annotations:
       metallb.universe.tf/allow-shared-ip: default
-  config:
-    graphite:
-      enabled: true
-      database: graphite
-      bind-address: ":2003"
-      protocol: tcp
-      consistency-lvel: one
-      templates:
-        - "*.app env.service.resource.measurement"
-        - "servers.* .host.resource.measurement.field*"
+#  config:
+#    graphite:
+#      enabled: true
+#      database: graphite
+#      bind-address: ":2003"
+#      protocol: tcp
+#      consistency-lvel: one
+#      templates:
+#        - "*.app env.service.resource.measurement"
+#        - "servers.* .host.resource.measurement.field*"
