@@ -10,22 +10,22 @@
       ansible.builtin.pause:
         seconds: 5
   tasks:
-#    - name: Locale
-#      block:
-#        - name: Locale | Set timezone
-#          community.general.timezone:
-#            name: "{{ timezone | default('Etc/UTC') }}"
-#
-#    - name: Networking
-#      block:
-#        - name: Networking | Set hostname to inventory hostname
-#          ansible.builtin.hostname:
-#            name: "{{ inventory_hostname }}"
-#        - name: Networking | Update hosts file to include inventory hostname
-#          ansible.builtin.blockinfile:
-#            path: /etc/hosts
-#            block: |
-#              127.0.1.1   {{ inventory_hostname }}
+    - name: Locale
+      block:
+        - name: Locale | Set timezone
+          community.general.timezone:
+            name: "{{ timezone | default('Etc/UTC') }}"
+
+    - name: Networking
+      block:
+        - name: Networking | Set hostname to inventory hostname
+          ansible.builtin.hostname:
+            name: "{{ inventory_hostname }}"
+        - name: Networking | Update hosts file to include inventory hostname
+          ansible.builtin.blockinfile:
+            path: /etc/hosts
+            block: |
+              127.0.1.1   {{ inventory_hostname }}
 
     - name: Packages
       block:
