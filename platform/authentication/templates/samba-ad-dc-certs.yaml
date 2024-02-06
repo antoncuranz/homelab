@@ -1,0 +1,16 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: samba-ad-dc-certs
+spec:
+  secretName: samba-ad-dc-certs
+  dnsNames:
+    - dc.serverton.de
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-prod
+  usages:
+    - digital signature
+    - key encipherment
