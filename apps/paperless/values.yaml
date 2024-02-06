@@ -1,84 +1,87 @@
 app-template:
-  controller:
-    strategy: RollingUpdate
-  image:
-    repository: ghcr.io/paperless-ngx/paperless-ngx
-    tag: 2.4.3
-  env:
-    PAPERLESS_DBHOST:
-      valueFrom:
-        secretKeyRef:
-          name: database-paperless-user
-          key: HOST
-    PAPERLESS_DBNAME:
-      valueFrom:
-        secretKeyRef:
-          name: database-paperless-user
-          key: DATABASE_NAME
-    PAPERLESS_DBUSER:
-      valueFrom:
-        secretKeyRef:
-          name: database-paperless-user
-          key: LOGIN
-    PAPERLESS_DBPASS:
-      valueFrom:
-        secretKeyRef:
-          name: database-paperless-user
-          key: PASSWORD
-    PAPERLESS_URL: https://paperless.serverton.de
-    PAPERLESS_TIME_ZONE: "Europe/Berlin"
-    PAPERLESS_OCR_LANGUAGE: deu
-    PAPERLESS_REDIS: redis://localhost:6379
-    PAPERLESS_PORT: &port 8000
-    DJANGO_SETTINGS_MODULE: "paperless.settings_ldap"
-    PAPERLESS_LDAP_PIP_INSTALL: "true"
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/paperless-ngx/paperless-ngx
+            tag: 2.4.3
+          env:
+            PAPERLESS_DBHOST:
+              valueFrom:
+                secretKeyRef:
+                  name: database-paperless-user
+                  key: HOST
+            PAPERLESS_DBNAME:
+              valueFrom:
+                secretKeyRef:
+                  name: database-paperless-user
+                  key: DATABASE_NAME
+            PAPERLESS_DBUSER:
+              valueFrom:
+                secretKeyRef:
+                  name: database-paperless-user
+                  key: LOGIN
+            PAPERLESS_DBPASS:
+              valueFrom:
+                secretKeyRef:
+                  name: database-paperless-user
+                  key: PASSWORD
+            PAPERLESS_URL: https://paperless.serverton.de
+            PAPERLESS_TIME_ZONE: "Europe/Berlin"
+            PAPERLESS_OCR_LANGUAGE: deu
+            PAPERLESS_REDIS: redis://localhost:6379
+            PAPERLESS_PORT: &port 8000
+            DJANGO_SETTINGS_MODULE: "paperless.settings_ldap"
+            PAPERLESS_LDAP_PIP_INSTALL: "true"
+
+      pod:
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
+          fsGroupChangePolicy: Always
+
   persistence:
     data:
       enabled: true
       storageClass: nfs-paperless
       accessMode: ReadWriteOnce
       size: 5Gi # TODO
-      mountPath: /usr/src/paperless/data
       annotations:
         'k8up.io/backup': 'true'
+      globalMounts:
+        - path: /usr/src/paperless/data
     media:
       enabled: true
-      mountPath: /usr/src/paperless/media
       accessMode: ReadWriteOnce
       size: 5Gi # TODO
       storageClass: nfs-paperless
       annotations:
         'k8up.io/backup': 'true'
+      globalMounts:
+        - path: /usr/src/paperless/media
     paperless-ldap-config:
       enabled: true
       type: secret
       name: paperless-ldap-config
-      subPath: settings_ldap.py
-      mountPath: /usr/src/paperless/src/paperless/settings_ldap.py
+      globalMounts:
+        - path: /usr/src/paperless/src/paperless/settings_ldap.py
+          subPath: settings_ldap.py
+
   service:
     main:
       ports:
         http:
           port: *port
-#  probes:
-#    liveness: &probes
-#      enabled: true
-#      custom: true
-#      spec:
-#        httpGet:
-#          path: /health
-#          port: *port
-#        initialDelaySeconds: 0
-#        periodSeconds: 10
-#        timeoutSeconds: 1
-#        failureThreshold: 3
-#    readiness: *probes
-#    startup:
-#      enabled: false
+
   ingress:
     main:
       enabled: true
-      ingressClassName: nginx
+      className: nginx
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -87,7 +90,9 @@ app-template:
         - host: &host "paperless.serverton.de"
           paths:
             - path: /
-              pathType: Prefix
+              service:
+                name: main
+                port: http
       tls:
         - secretName: paperless-tls-certificate
           hosts:
