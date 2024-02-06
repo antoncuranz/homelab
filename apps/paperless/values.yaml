@@ -37,6 +37,10 @@ app-template:
             PAPERLESS_PORT: &port 8000
             DJANGO_SETTINGS_MODULE: "paperless.settings_ldap"
             PAPERLESS_LDAP_PIP_INSTALL: "true"
+        redis:
+          image:
+            repository: public.ecr.aws/docker/library/redis
+            tag: 7.2.4
 
       pod:
         securityContext:
@@ -97,7 +101,3 @@ app-template:
         - secretName: paperless-tls-certificate
           hosts:
             - *host
-  sidecars:
-    redis:
-      name: redis
-      image: docker.io/library/redis:7.2.4
