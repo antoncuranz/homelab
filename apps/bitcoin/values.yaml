@@ -117,7 +117,7 @@ lnd:
         main:
           image:
             repository: lightninglabs/lnd
-            tag: v0.17.3-beta
+            tag: v0.17.4-beta
           resources:
             limits:
               cpu: 500m
