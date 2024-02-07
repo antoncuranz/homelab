@@ -52,20 +52,12 @@ app-template:
   persistence:
     data:
       enabled: true
-      storageClass: nfs-paperless
-      accessMode: ReadWriteOnce
-      size: 5Gi # TODO
-      annotations:
-        'k8up.io/backup': 'true'
+      existingClaim: paperless-data
       globalMounts:
         - path: /usr/src/paperless/data
     media:
       enabled: true
-      accessMode: ReadWriteOnce
-      size: 5Gi # TODO
-      storageClass: nfs-paperless
-      annotations:
-        'k8up.io/backup': 'true'
+      existingClaim: paperless-media
       globalMounts:
         - path: /usr/src/paperless/media
     paperless-ldap-config:
