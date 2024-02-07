@@ -3,10 +3,6 @@ name: iot
 version: 0.0.0
 dependencies:
   - name: app-template
-    alias: shelly-exporter
-    version: 2.5.0
-    repository: https://bjw-s.github.io/helm-charts
-  - name: app-template
     alias: mosquitto
     version: 2.5.0
     repository: https://bjw-s.github.io/helm-charts
