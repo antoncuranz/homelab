@@ -296,6 +296,8 @@ data:
                 "mode": "thresholds"
               },
               "mappings": [],
+              "max": 300,
+              "min": 0,
               "thresholds": {
                 "mode": "percentage",
                 "steps": [
@@ -316,7 +318,20 @@ data:
               "unit": "watt",
               "unitScale": false
             },
-            "overrides": []
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Router und Server"
+                },
+                "properties": [
+                  {
+                    "id": "max",
+                    "value": 100
+                  }
+                ]
+              }
+            ]
           },
           "gridPos": {
             "h": 10,
@@ -575,7 +590,7 @@ data:
         "list": []
       },
       "time": {
-        "from": "now-1h",
+        "from": "now-12h",
         "to": "now"
       },
       "timepicker": {},
