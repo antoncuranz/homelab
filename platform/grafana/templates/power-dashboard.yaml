@@ -88,7 +88,20 @@ data:
                 "type": "influxdb",
                 "uid": "influxdb"
               },
-              "groupBy": [],
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
               "measurement": "sml-energy",
               "orderByTime": "ASC",
               "policy": "default",
@@ -101,6 +114,10 @@ data:
                       "value"
                     ],
                     "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
                   }
                 ]
               ],
@@ -177,7 +194,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 24,
+            "h": 16,
             "w": 18,
             "x": 6,
             "y": 0
@@ -202,7 +219,20 @@ data:
                 "type": "influxdb",
                 "uid": "influxdb"
               },
-              "groupBy": [],
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
               "hide": false,
               "measurement": "sml-power",
               "orderByTime": "ASC",
@@ -216,6 +246,10 @@ data:
                       "value"
                     ],
                     "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
                   }
                 ]
               ],
@@ -285,7 +319,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 18,
+            "h": 10,
             "w": 6,
             "x": 0,
             "y": 6
@@ -392,18 +426,156 @@ data:
               "tags": []
             }
           ],
+          "timeFrom": "24h",
           "title": "Tagesdurchschnitt",
           "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 60,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "stepAfter",
+                "lineWidth": 3,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 2,
+              "displayName": "kWh",
+              "mappings": [],
+              "max": 0.5,
+              "min": 0.2,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 0.3
+                  },
+                  {
+                    "color": "orange",
+                    "value": 0.35
+                  },
+                  {
+                    "color": "red",
+                    "value": 0.45
+                  }
+                ]
+              },
+              "unit": "currencyEUR",
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 18,
+            "x": 6,
+            "y": 16
+          },
+          "id": 6,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": false
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "influxdb"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "tibber-price",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "title": "Stromkosten",
+          "type": "timeseries"
         }
       ],
-      "refresh": "",
+      "refresh": false,
       "schemaVersion": 39,
       "tags": [],
       "templating": {
         "list": []
       },
       "time": {
-        "from": "now-15m",
+        "from": "now-1h",
         "to": "now"
       },
       "timepicker": {},
