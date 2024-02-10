@@ -462,37 +462,25 @@ data:
                 "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 26,
-                "gradientMode": "scheme",
+                "axisSoftMax": 30,
+                "axisSoftMin": 25,
+                "fillOpacity": 48,
+                "gradientMode": "none",
                 "hideFrom": {
                   "legend": false,
                   "tooltip": false,
                   "viz": false
                 },
-                "insertNulls": false,
-                "lineInterpolation": "stepAfter",
-                "lineStyle": {
-                  "fill": "solid"
-                },
-                "lineWidth": 3,
-                "pointSize": 5,
+                "lineWidth": 2,
                 "scaleDistribution": {
                   "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
                 },
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "decimals": 2,
-              "displayName": "kWh",
+              "displayName": "cent / kWh",
+              "fieldMinMax": false,
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -503,16 +491,16 @@ data:
                   },
                   {
                     "color": "semi-dark-yellow",
-                    "value": 0.27
+                    "value": 27
                   },
                   {
                     "color": "red",
-                    "value": 0.35
+                    "value": 35
                   }
                 ]
               },
-              "unit": "currencyEUR",
-              "unitScale": true
+              "unit": "none",
+              "unitScale": false
             },
             "overrides": []
           },
@@ -524,16 +512,32 @@ data:
           },
           "id": 6,
           "options": {
+            "barRadius": 0,
+            "barWidth": 0.9,
+            "colorByField": "Value",
+            "fullHighlight": false,
+            "groupWidth": 0.7,
             "legend": {
-              "calcs": [],
+              "calcs": [
+                "mean"
+              ],
               "displayMode": "list",
               "placement": "bottom",
               "showLegend": false
             },
+            "orientation": "vertical",
+            "showValue": "auto",
+            "stacking": "none",
+            "text": {
+              "valueSize": 25
+            },
             "tooltip": {
               "mode": "multi",
               "sort": "none"
-            }
+            },
+            "xField": "Time",
+            "xTickLabelRotation": 0,
+            "xTickLabelSpacing": 0
           },
           "targets": [
             {
@@ -544,15 +548,9 @@ data:
               "groupBy": [
                 {
                   "params": [
-                    "$__interval"
+                    "1h"
                   ],
                   "type": "time"
-                },
-                {
-                  "params": [
-                    "previous"
-                  ],
-                  "type": "fill"
                 }
               ],
               "measurement": "tibber-price",
@@ -571,6 +569,12 @@ data:
                   {
                     "params": [],
                     "type": "mean"
+                  },
+                  {
+                    "params": [
+                      "*100"
+                    ],
+                    "type": "math"
                   }
                 ]
               ],
@@ -578,7 +582,7 @@ data:
             }
           ],
           "title": "Stromkosten",
-          "type": "timeseries"
+          "type": "barchart"
         }
       ],
       "refresh": false,
@@ -588,8 +592,8 @@ data:
         "list": []
       },
       "time": {
-        "from": "now-12h",
-        "to": "now"
+        "from": "2024-02-09T16:07:58.924Z",
+        "to": "2024-02-10T08:46:00.826Z"
       },
       "timepicker": {},
       "timezone": "",
