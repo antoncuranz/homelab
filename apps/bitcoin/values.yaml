@@ -9,9 +9,9 @@ bitcoind:
           image:
             repository: lncm/bitcoind
             tag: v26.0
-          resources:
-            limits:
-              cpu: 500m
+#          resources:
+#            limits:
+#              cpu: 500m
       pod:
         securityContext:
           runAsUser: 1000
@@ -118,9 +118,9 @@ lnd:
           image:
             repository: lightninglabs/lnd
             tag: v0.17.4-beta
-          resources:
-            limits:
-              cpu: 500m
+#          resources:
+#            limits:
+#              cpu: 500m
           env:
             HOME: "/data"
       pod:
