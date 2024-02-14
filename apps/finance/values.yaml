@@ -77,7 +77,7 @@ finance-frontend:
     main:
       ports:
         http:
-          port: 80
+          port: &port 80
   ingress:
     main:
       enabled: true
