@@ -43,7 +43,7 @@ spec:
           kind: StatefulSet
           jqPathExpressions:
             - '.spec.volumeClaimTemplates[]?'
-            - '.metadata.annotations.checksum/secrets' # keycloak fix
+            - '.metadata.annotations.["checksum/secrets"]' # keycloak fix
         - group: deviceplugin.intel.com
           kind: GpuDevicePlugin
           jqPathExpressions:
