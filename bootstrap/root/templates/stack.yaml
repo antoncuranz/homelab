@@ -44,6 +44,10 @@ spec:
           jqPathExpressions:
             - '.spec.volumeClaimTemplates[]?'
             - '.metadata.annotations.["checksum/secrets"]' # keycloak fix
+        - group: apps
+          kind: Deployment
+          jqPathExpressions:
+            - '.metadata.annotations.["checksum/secrets"]' # grafana fix
         - group: deviceplugin.intel.com
           kind: GpuDevicePlugin
           jqPathExpressions:
