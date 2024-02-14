@@ -9,9 +9,13 @@ bitcoind:
           image:
             repository: lncm/bitcoind
             tag: v26.0
-#          resources:
-#            limits:
-#              cpu: 500m
+          probes:
+            liveness:
+              port: rpc
+            readiness:
+              port: rpc
+            startup:
+              port: rpc
       pod:
         securityContext:
           runAsUser: 1000
@@ -68,6 +72,13 @@ tor:
           image:
             repository: lncm/tor
             tag: 0.4.7.13
+          probes:
+            liveness:
+              port: socks
+            readiness:
+              port: socks
+            startup:
+              port: socks
       pod:
         securityContext:
           runAsUser: 1000
@@ -118,9 +129,6 @@ lnd:
           image:
             repository: lightninglabs/lnd
             tag: v0.17.4-beta
-#          resources:
-#            limits:
-#              cpu: 500m
           env:
             HOME: "/data"
       pod:
