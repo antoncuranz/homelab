@@ -11,11 +11,11 @@ bitcoind:
             tag: v26.0
           probes:
             liveness:
-              port: rpc
+              port: 8332
             readiness:
-              port: rpc
+              port: 8332
             startup:
-              port: rpc
+              port: 8332
       pod:
         securityContext:
           runAsUser: 1000
@@ -74,11 +74,11 @@ tor:
             tag: 0.4.7.13
           probes:
             liveness:
-              port: socks
+              port: 9050
             readiness:
-              port: socks
+              port: 9050
             startup:
-              port: socks
+              port: 9050
       pod:
         securityContext:
           runAsUser: 1000
