@@ -37,7 +37,9 @@ finance-backend:
     main:
       ports:
         http:
-          port: &port 8080
+          port: 8080
+        debug:
+          port: 5005
   ingress:
     main:
       enabled: true
