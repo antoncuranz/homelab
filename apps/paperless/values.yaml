@@ -40,12 +40,15 @@ app-template:
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: Always
         redis:
           image:
             repository: public.ecr.aws/docker/library/redis
             tag: 7.2.4
+
+      pod:
+        securityContext:
+          fsGroup: 1000
+          fsGroupChangePolicy: Always
 
   persistence:
     data:
