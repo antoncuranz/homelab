@@ -40,6 +40,8 @@ keycloak:
   extraVolumes:
     - name: theme
       emptyDir: {}
+  auth:
+    adminPassword: "unused"
 
 oauth2-proxy:
   config:

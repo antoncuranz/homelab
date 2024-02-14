@@ -43,10 +43,7 @@ spec:
           kind: StatefulSet
           jqPathExpressions:
             - '.spec.volumeClaimTemplates[]?'
-        - group: storage.k8s.io
-          kind: CSIDriver
-          jqPathExpressions:
-            - '.spec.seLinuxMount'
+            - '.metadata.annotations.checksum/secrets' # keycloak fix
         - group: deviceplugin.intel.com
           kind: GpuDevicePlugin
           jqPathExpressions:
