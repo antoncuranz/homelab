@@ -1,5 +1,4 @@
 grafana:
-  adminPassword: "unused"
   ingress:
     enabled: true
     ingressClassName: nginx
