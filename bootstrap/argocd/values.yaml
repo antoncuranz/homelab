@@ -1,11 +1,9 @@
 argo-cd:
   configs:
+    params:
+      server.insecure: true
     cm:
       timeout.reconciliation: 600s
-  server:
-    extraArgs:
-      - --insecure
-    config:
       statusbadge.enabled: 'true'
       resource.customizations.health.argoproj.io_Application: |
         hs = {}
@@ -20,6 +18,7 @@ argo-cd:
           end
         end
         return hs
+  server:
     ingress:
       enabled: true
       ingressClassName: nginx
