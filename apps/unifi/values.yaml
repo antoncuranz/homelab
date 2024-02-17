@@ -5,7 +5,7 @@ app-template:
         main:
           image:
             repository: jacobalberty/unifi
-            tag: v7.5.176
+            tag: v8.0.28
           env:
             TZ: "Europe/Berlin"
             RUNAS_UID0: "false"
