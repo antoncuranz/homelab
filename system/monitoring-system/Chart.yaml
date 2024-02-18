@@ -12,5 +12,5 @@ dependencies:
     version: 4.12.5
     repository: https://helm.influxdata.com/
   - name: loki-stack
-    version: 2.9.11
+    version: 2.10.1
     repository: https://grafana.github.io/helm-charts
