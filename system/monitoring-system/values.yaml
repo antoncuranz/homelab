@@ -86,8 +86,3 @@ influxdb:
     type: LoadBalancer
     annotations:
       metallb.universe.tf/allow-shared-ip: default
-
-loki-stack:
-  loki:
-    serviceMonitor:
-      enabled: true
