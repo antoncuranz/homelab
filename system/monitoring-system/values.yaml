@@ -56,12 +56,6 @@ kube-prometheus-stack:
                   {{- else }}
                     <b>Description:</b> <i>N/A</i>
                   {{- end }}
-                  {{- if gt (len .Labels.SortedPairs) 0 }}
-                    <b>Details:</b>
-                    {{- range .Labels.SortedPairs }}
-                      • <b>{{ .Name }}:</b> <i>{{ .Value }}</i>
-                    {{- end }}
-                  {{- end }}
                 {{- end }}
       route:
         receiver: "pushover"
