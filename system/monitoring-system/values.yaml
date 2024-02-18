@@ -12,6 +12,12 @@ kube-prometheus-stack:
       serviceMonitorSelectorNilUsesHelmValues: false
       podMonitorSelectorNilUsesHelmValues: false
       probeSelectorNilUsesHelmValues: false
+  kubeControllerManager:
+    enabled: false
+  kubeScheduler:
+    enabled: false
+  kubeProxy:
+    enabled: false
   alertmanager:
     alertmanagerSpec:
       secrets:
@@ -62,7 +68,7 @@ kube-prometheus-stack:
         routes:
           - receiver: "null"
             matchers:
-              - alertname =~ "InfoInhibitor|Watchdog|RebootScheduled"
+              - alertname =~ "InfoInhibitor|Watchdog|RebootScheduled|NodeMemoryHighUtilization"
           - receiver: "pushover"
             matchers:
               - severity = "critical"
