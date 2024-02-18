@@ -21,58 +21,58 @@ kube-prometheus-stack:
         resolve_timeout: 5m
       receivers:
         - name: "null"
-#        - name: "pushover"
-#          pushover_configs:
-#            - user_key_file: TODO
-#              token_file: TODO
-#              send_resolved: true
-#              html: true
-#              priority: |-
-#                {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
-#              url_title: View in Alert Manager
-#              title: |-
-#                [{{ .Status | toUpper -}}
-#                {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
-#                ] {{ .CommonLabels.alertname }}
-#              message: |-
-#                {{- range .Alerts }}
-#                  {{- if ne .Labels.severity "" }}
-#                    <b>Severity:</b> <i>{{ .Labels.severity }}</i>
-#                  {{- else }}
-#                    <b>Severity:</b> <i>N/A</i>
-#                  {{- end }}
-#                  {{- if ne .Annotations.description "" }}
-#                    <b>Description:</b> <i>{{ .Annotations.description }}</i>
-#                  {{- else if ne .Annotations.summary "" }}
-#                    <b>Summary:</b> <i>{{ .Annotations.summary }}</i>
-#                  {{- else if ne .Annotations.message "" }}
-#                    <b>Message:</b> <i>{{ .Annotations.message }}</i>
-#                  {{- else }}
-#                    <b>Description:</b> <i>N/A</i>
-#                  {{- end }}
-#                  {{- if gt (len .Labels.SortedPairs) 0 }}
-#                    <b>Details:</b>
-#                    {{- range .Labels.SortedPairs }}
-#                      • <b>{{ .Name }}:</b> <i>{{ .Value }}</i>
-#                    {{- end }}
-#                  {{- end }}
-#                {{- end }}
-#      route:
-#        receiver: "pushover"
-#        routes:
-#          - receiver: "null"
-#            matchers:
-#              - alertname =~ "InfoInhibitor|Watchdog|RebootScheduled"
-#          - receiver: "pushover"
-#            matchers:
-#              - severity = "critical"
-#            continue: true
-#      inhibit_rules:
-#        - source_matchers:
-#            - severity = "critical"
-#          target_matchers:
-#            - severity = "warning"
-#          equal: [ "alertname", "namespace" ]
+        - name: "pushover"
+          pushover_configs:
+            - user_key_file: /etc/alertmanager/secrets/alertmanager-secrets/PUSHOVER_USER_KEY
+              token_file: /etc/alertmanager/secrets/alertmanager-secrets/PUSHOVER_TOKEN
+              send_resolved: true
+              html: true
+              priority: |-
+                {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
+              url_title: View in Alert Manager
+              title: |-
+                [{{ .Status | toUpper -}}
+                {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
+                ] {{ .CommonLabels.alertname }}
+              message: |-
+                {{- range .Alerts }}
+                  {{- if ne .Labels.severity "" }}
+                    <b>Severity:</b> <i>{{ .Labels.severity }}</i>
+                  {{- else }}
+                    <b>Severity:</b> <i>N/A</i>
+                  {{- end }}
+                  {{- if ne .Annotations.description "" }}
+                    <b>Description:</b> <i>{{ .Annotations.description }}</i>
+                  {{- else if ne .Annotations.summary "" }}
+                    <b>Summary:</b> <i>{{ .Annotations.summary }}</i>
+                  {{- else if ne .Annotations.message "" }}
+                    <b>Message:</b> <i>{{ .Annotations.message }}</i>
+                  {{- else }}
+                    <b>Description:</b> <i>N/A</i>
+                  {{- end }}
+                  {{- if gt (len .Labels.SortedPairs) 0 }}
+                    <b>Details:</b>
+                    {{- range .Labels.SortedPairs }}
+                      • <b>{{ .Name }}:</b> <i>{{ .Value }}</i>
+                    {{- end }}
+                  {{- end }}
+                {{- end }}
+      route:
+        receiver: "pushover"
+        routes:
+          - receiver: "null"
+            matchers:
+              - alertname =~ "InfoInhibitor|Watchdog|RebootScheduled"
+          - receiver: "pushover"
+            matchers:
+              - severity = "critical"
+            continue: true
+      inhibit_rules:
+        - source_matchers:
+            - severity = "critical"
+          target_matchers:
+            - severity = "warning"
+          equal: [ "alertname", "namespace" ]
 
 prometheus-pushgateway:
   serviceMonitor:
