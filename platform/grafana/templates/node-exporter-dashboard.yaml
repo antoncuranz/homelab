@@ -24338,8 +24338,8 @@ data:
         ]
       },
       "time": {
-        "from": "2024-02-11T09:00:42.348Z",
-        "to": "2024-02-11T14:20:42.348Z"
+        "from": "now-24h",
+        "to": "now"
       },
       "timepicker": {
         "refresh_intervals": [
