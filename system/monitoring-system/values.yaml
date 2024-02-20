@@ -27,6 +27,9 @@ kube-prometheus-stack:
         resolve_timeout: 5m
       receivers:
         - name: "null"
+        - name: "healthcheck"
+          webhook_configs:
+            url_file: /etc/alertmanager/secrets/alertmanager-secrets/HEALTHCHECK_URL
         - name: "pushover"
           pushover_configs:
             - user_key_file: /etc/alertmanager/secrets/alertmanager-secrets/PUSHOVER_USER_KEY
@@ -62,7 +65,10 @@ kube-prometheus-stack:
         routes:
           - receiver: "null"
             matchers:
-              - alertname =~ "InfoInhibitor|Watchdog|RebootScheduled|NodeMemoryHighUtilization|NodeMemoryMajorPagesFaults"
+              - alertname =~ "InfoInhibitor|RebootScheduled|NodeMemoryHighUtilization|NodeMemoryMajorPagesFaults"
+          - receiver: "deadman"
+            matchers:
+              - alertname = "Watchdog"
           - receiver: "pushover"
             matchers:
               - severity = "critical"
