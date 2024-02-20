@@ -29,7 +29,7 @@ kube-prometheus-stack:
         - name: "null"
         - name: "healthcheck"
           webhook_configs:
-            url_file: /etc/alertmanager/secrets/alertmanager-secrets/HEALTHCHECK_URL
+            - url_file: /etc/alertmanager/secrets/alertmanager-secrets/HEALTHCHECK_URL
         - name: "pushover"
           pushover_configs:
             - user_key_file: /etc/alertmanager/secrets/alertmanager-secrets/PUSHOVER_USER_KEY
