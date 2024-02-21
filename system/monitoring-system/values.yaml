@@ -71,7 +71,7 @@ kube-prometheus-stack:
               - alertname = "Watchdog"
             group_wait: 0s
             group_interval: 5m
-            repeat_interval: 5m
+            repeat_interval: 4m
           - receiver: "pushover"
             matchers:
               - severity = "critical"
