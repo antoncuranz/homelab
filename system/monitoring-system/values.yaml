@@ -68,7 +68,10 @@ kube-prometheus-stack:
               - alertname =~ "InfoInhibitor|RebootScheduled|NodeMemoryHighUtilization|NodeMemoryMajorPagesFaults"
           - receiver: "healthcheck"
             matchers:
-              - alertname =~ "Watchdog"
+              - alertname = "Watchdog"
+            group_wait: 0s
+            group_interval: 1m
+            repeat_interval: 50s
           - receiver: "pushover"
             matchers:
               - severity = "critical"
