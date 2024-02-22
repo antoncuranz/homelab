@@ -6,7 +6,7 @@ dependencies:
     version: 56.8.2
     repository: https://prometheus-community.github.io/helm-charts
   - name: prometheus-pushgateway
-    version: 2.7.0
+    version: 2.7.1
     repository: https://prometheus-community.github.io/helm-charts
   - name: influxdb
     version: 4.12.5
