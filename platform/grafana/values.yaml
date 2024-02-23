@@ -1,4 +1,6 @@
 grafana:
+  serviceAccount:
+    autoMount: true
   ingress:
     enabled: true
     ingressClassName: nginx
