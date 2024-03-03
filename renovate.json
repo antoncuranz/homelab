@@ -3,7 +3,7 @@
   "extends": [
     "config:recommended",
     ":disableRateLimiting",
-    ":automergeMinor",
+    ":automergePatch",
     ":automergeBranch"
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
