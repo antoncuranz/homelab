@@ -18,6 +18,10 @@
       "matchPackageNames": ["immich-app/immich", "immich-app", "immich"],
       "matchUpdateTypes": ["minor"],
       "automerge": false
+    },
+    {
+      "matchPackageNames": ["kubernetes-dashboard"],
+      "automerge": false
     }
   ],
   "regexManagers": [
