@@ -7,7 +7,7 @@ local-path-provisioner:
     reclaimPolicy: Retain
   nodePathMap:
     - node: DEFAULT_PATH_FOR_NON_LISTED_NODES
-      paths: ["/mnt/SSD/k8s/local-path"]
+      paths: ["/mnt/nvme/Kubernetes/local-path"]
   # Note: Do not enable Flux variable substitution on this HelmRelease
   configmap:
     setup: |-
