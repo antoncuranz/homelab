@@ -10,7 +10,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/SSD/k8s/paperless/data"
+    path: "/mnt/nvme/Kubernetes/paperless/data"
   persistentVolumeReclaimPolicy: Retain
 ---
 apiVersion: v1
@@ -39,7 +39,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/SSD/k8s/paperless/media"
+    path: "/mnt/nvme/Kubernetes/paperless/media"
   persistentVolumeReclaimPolicy: Retain
 ---
 apiVersion: v1
