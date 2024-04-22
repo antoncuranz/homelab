@@ -1,0 +1,7 @@
+apiVersion: v2
+name: minecraft
+version: 0.0.0
+dependencies:
+  - name: minecraft
+    version: 4.16.0
+    repository: https://itzg.github.io/minecraft-server-charts/
