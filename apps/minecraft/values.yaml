@@ -1,4 +1,7 @@
 minecraft:
+  image:
+    repository: "ghcr.io/jjgadgets/minecraft-server"
+    tag: "java17-graalvm"
   minecraftServer:
     eula: "TRUE"
     type: "PAPER"
@@ -14,6 +17,7 @@ minecraft:
     AUTOPAUSE_TIMEOUT_EST: 10
     AUTOPAUSE_TIMEOUT_INIT: 10
     AUTOPAUSE_TIMEOUT_KN: 10
+    AUTOPAUSE_SUDO: false
     JVM_DD_OPTS: "disable.watchdog:true"
   securityContext:
     allowPrivilegeEscalation: true
