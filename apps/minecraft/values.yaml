@@ -27,12 +27,21 @@ minecraft:
 #    runAsNonRoot: false
   serviceAnnotations:
     metallb.universe.tf/allow-shared-ip: default
+  persistence:
+    storageClass: "local-path"
+    data:
+      enabled: true
   extraVolumes:
     - volumeMounts:
-        - name: test
-          mountPath: /image/autopause-daemon.sh
-          subPath: autopause-daemon.sh
+#        - name: test
+#          mountPath: /image/autopause-daemon.sh
+#          subPath: autopause-daemon.sh
+        - name: test2
+          mountPath: /image2
       volumes:
-        - name: test
-          configMap:
-            name: test
+#        - name: test
+#          configMap:
+#            name: test
+        - name: test2
+          persistentVolumeClaim:
+            claimName: test2
