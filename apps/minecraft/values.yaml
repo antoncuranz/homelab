@@ -9,7 +9,8 @@ minecraft:
     maxTickTime: -1 # autopause
     rcon:
       enabled: true
-      withGeneratedPassword: true
+      existingSecret: minecraft-secret
+      secretKey: rcon
     serviceType: LoadBalancer
   extraEnv:
     TZ: "Europe/Berlin"
