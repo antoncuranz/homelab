@@ -1,7 +1,4 @@
 minecraft:
-  image: &image
-    repository: itzg/minecraft-server
-    tag: latest
   minecraftServer:
     eula: "TRUE"
     type: "PAPER"
@@ -33,7 +30,7 @@ minecraft:
       add: [ "NET_RAW" ]
   initContainers:
     - name: patch-autopause
-      image: *image
+      image: itzg/minecraft-server:latest
       command:
         - sh
       args:
