@@ -1,7 +1,7 @@
 minecraft:
-  image:
-    repository: "ghcr.io/jjgadgets/minecraft-server"
-    tag: "java17-graalvm"
+#  image:
+#    repository: "ghcr.io/jjgadgets/minecraft-server"
+#    tag: "java17-graalvm"
   minecraftServer:
     eula: "TRUE"
     type: "PAPER"
