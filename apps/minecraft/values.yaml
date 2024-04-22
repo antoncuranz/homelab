@@ -3,5 +3,8 @@ minecraft:
     eula: "TRUE"
     type: "PAPER"
     serviceType: LoadBalancer
+    rcon:
+      enabled: true
+      withGeneratedPassword: true
   serviceAnnotations:
     metallb.universe.tf/allow-shared-ip: default
