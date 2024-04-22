@@ -20,7 +20,7 @@ minecraft:
     AUTOPAUSE_SUDO: false
     JVM_DD_OPTS: "disable.watchdog:true"
   securityContext:
-#    allowPrivilegeEscalation: true
+    allowPrivilegeEscalation: true
     capabilities:
       add: [ "NET_RAW" ]
 #  podSecurityContext:
