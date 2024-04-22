@@ -27,3 +27,12 @@ minecraft:
 #    runAsNonRoot: false
   serviceAnnotations:
     metallb.universe.tf/allow-shared-ip: default
+  extraVolumes:
+    - volumeMounts:
+        - name: test
+          mountPath: /image/autopause-daemon.sh
+          subPath: autopause-daemon.sh
+      volumes:
+        - name: test
+          configMap:
+            name: test
