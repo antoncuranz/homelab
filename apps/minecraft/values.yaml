@@ -15,28 +15,37 @@ minecraft:
     AUTOPAUSE_TIMEOUT_INIT: 10
     AUTOPAUSE_TIMEOUT_KN: 10
     AUTOPAUSE_SUDO: false
-    JVM_DD_OPTS: "disable.watchdog:true"
-  securityContext:
-    allowPrivilegeEscalation: false
-    capabilities:
-      add: [ "NET_RAW" ]
-  serviceAnnotations:
-    metallb.universe.tf/allow-shared-ip: default
+    JVM_DD_OPTS: "disable.watchdog:true" # autopause
   persistence:
     storageClass: "local-path"
     data:
       enabled: true
+  serviceAnnotations:
+    metallb.universe.tf/allow-shared-ip: default
+
+  # autopause hacks
+  securityContext:
+    allowPrivilegeEscalation: true
+    capabilities:
+      add: [ "NET_RAW" ]
+  initContainers:
+    - name: patch-autopause
+      image: busybox
+      command:
+        - sh
+      args:
+        - -c
+        - |
+          cp /auto/autopause-daemon.sh /patch
+          sed -i 's/sudo //g' /patch/autopause-daemon.sh
+      volumesMounts:
+        - name: patch
+          mountPath: /patch
   extraVolumes:
     - volumeMounts:
-#        - name: test
-#          mountPath: /image/autopause-daemon.sh
-#          subPath: autopause-daemon.sh
-        - name: test2
-          mountPath: /auto
+        - name: patch
+          mountPath: /image/autopause-daemon.sh
+          subPath: autopause-daemon.sh
       volumes:
-#        - name: test
-#          configMap:
-#            name: test
-        - name: test2
-          persistentVolumeClaim:
-            claimName: test2
+        - name: patch
+          emptyDir: {}
