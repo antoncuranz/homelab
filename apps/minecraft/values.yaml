@@ -1,7 +1,4 @@
 minecraft:
-#  image:
-#    repository: "ghcr.io/jjgadgets/minecraft-server"
-#    tag: "java17-graalvm"
   minecraftServer:
     eula: "TRUE"
     type: "PAPER"
@@ -20,11 +17,9 @@ minecraft:
     AUTOPAUSE_SUDO: false
     JVM_DD_OPTS: "disable.watchdog:true"
   securityContext:
-    allowPrivilegeEscalation: true
+    allowPrivilegeEscalation: false
     capabilities:
       add: [ "NET_RAW" ]
-#  podSecurityContext:
-#    runAsNonRoot: false
   serviceAnnotations:
     metallb.universe.tf/allow-shared-ip: default
   persistence:
