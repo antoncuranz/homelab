@@ -4,12 +4,13 @@ minecraft:
   minecraftServer:
     eula: "TRUE"
     type: "PAPER"
-    serviceType: LoadBalancer
+    motd: "\u00A7aMir ist langweilig, bespa\u00DFe mich\!\u00A7r"
     memory: 6G
     maxTickTime: -1 # autopause
     rcon:
       enabled: true
       withGeneratedPassword: true
+    serviceType: LoadBalancer
   extraEnv:
     TZ: "Europe/Berlin"
     ENABLE_AUTOPAUSE: true
