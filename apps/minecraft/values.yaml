@@ -39,9 +39,9 @@ minecraft:
           ls /auto
           cp /auto/autopause-daemon.sh /patch
           ls /patch
-          cat /patch/autopause-daemon.sh | grep sudo
+          cat /patch/autopause-daemon.sh | grep sudo || true
           sed -i 's/sudo //g' /patch/autopause-daemon.sh
-          cat /patch/autopause-daemon.sh | grep sudo
+          cat /patch/autopause-daemon.sh | grep sudo || true
       volumeMounts:
         - name: patch
           mountPath: /patch
