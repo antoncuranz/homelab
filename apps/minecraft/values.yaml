@@ -4,6 +4,7 @@ minecraft:
     type: "PAPER"
     serviceType: LoadBalancer
     memory: 6G
+    maxTickTime: -1 # autopause
     rcon:
       enabled: true
       withGeneratedPassword: true
@@ -13,7 +14,6 @@ minecraft:
     AUTOPAUSE_TIMEOUT_EST: 10
     AUTOPAUSE_TIMEOUT_INIT: 10
     AUTOPAUSE_TIMEOUT_KN: 10
-    MAX_TICK_TIME: -1
     JVM_DD_OPTS: "disable.watchdog:true"
   serviceAnnotations:
     metallb.universe.tf/allow-shared-ip: default
