@@ -41,7 +41,7 @@ minecraft:
         - |
           cp /auto/autopause-daemon.sh /patch
           sed -i 's/sudo //g' /patch/autopause-daemon.sh
-      volumesMounts:
+      volumeMounts:
         - name: patch
           mountPath: /patch
   extraVolumes:
