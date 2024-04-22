@@ -4,7 +4,7 @@ minecraft:
   minecraftServer:
     eula: "TRUE"
     type: "PAPER"
-    motd: "\u00A7aMir ist langweilig, bespa\u00DFe mich\!\u00A7r"
+    motd: "\\u00A7aMir ist langweilig, bespa\\u00DFe mich\\!\\u00A7r"
     memory: 6G
     maxTickTime: -1 # autopause
     rcon:
