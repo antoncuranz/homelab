@@ -3,5 +3,5 @@ name: k8up
 version: 0.0.0
 dependencies:
   - name: k8up
-    version: 4.4.3
+    version: 4.5.0
     repository: https://k8up-io.github.io/k8up
