@@ -36,8 +36,12 @@ minecraft:
       args:
         - -c
         - |
+          ls /auto
           cp /auto/autopause-daemon.sh /patch
+          ls /patch
+          cat /patch/autopause-daemon.sh | grep sudo
           sed -i 's/sudo //g' /patch/autopause-daemon.sh
+          cat /patch/autopause-daemon.sh | grep sudo
       volumeMounts:
         - name: patch
           mountPath: /patch
