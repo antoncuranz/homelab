@@ -19,5 +19,7 @@ minecraft:
     allowPrivilegeEscalation: true
     capabilities:
       add: [ "NET_RAW" ]
+  podSecurityContext:
+    runAsNonRoot: false
   serviceAnnotations:
     metallb.universe.tf/allow-shared-ip: default
