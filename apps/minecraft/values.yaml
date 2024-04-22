@@ -1,0 +1,4 @@
+minecraft:
+  minecraftServer:
+    eula: "TRUE"
+    type: "PAPER"
