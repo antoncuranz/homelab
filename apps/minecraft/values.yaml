@@ -3,5 +3,5 @@ minecraft:
     eula: "TRUE"
     type: "PAPER"
     serviceType: LoadBalancer
-    serviceAnnotations:
-      metallb.universe.tf/allow-shared-ip: default
+  serviceAnnotations:
+    metallb.universe.tf/allow-shared-ip: default
