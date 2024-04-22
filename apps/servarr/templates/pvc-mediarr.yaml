@@ -10,7 +10,7 @@ spec:
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: "/mnt/SSD/k8s/mediarr"
+    path: "/home/ant0n/mediarr"
   persistentVolumeReclaimPolicy: Retain
 ---
 apiVersion: v1
