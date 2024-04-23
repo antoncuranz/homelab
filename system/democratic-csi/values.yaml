@@ -1,6 +1,5 @@
 democratic-csi:
   driver:
-    existingConfigSecret: democratic-csi-iscsi-secret
     config:
       driver: zfs-local-dataset
 
