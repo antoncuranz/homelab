@@ -1,0 +1,25 @@
+democratic-csi:
+  driver:
+    existingConfigSecret: democratic-csi-iscsi-secret
+    config:
+      driver: zfs-local-dataset
+
+      zfs:
+        datasetParentName: zroot/mediarr/v
+        detachedSnapshotsDatasetParentName: zroot/mediarr/s
+
+        datasetEnableQuotas: true
+        datasetEnableReservation: false
+
+  csiDriver:
+    # should be globally unique for a given cluster
+    name: "org.democratic-csi.zfs"
+  
+  storageClasses:
+    - name: zfs
+      defaultClass: true
+      reclaimPolicy: Retain
+      volumeBindingMode: Immediate
+      allowVolumeExpansion: true
+      parameters:
+        fsType: zfs
