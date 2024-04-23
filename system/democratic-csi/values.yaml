@@ -10,6 +10,17 @@ democratic-csi:
         datasetEnableQuotas: true
         datasetEnableReservation: false
 
+        # can be used to override defaults if necessary
+        # the example below is useful for TrueNAS 12
+        cli:
+        #  sudoEnabled: true
+        #  leave paths unset for auto-detection
+          paths:
+            zfs: /run/current-system/sw/bin/zfs
+            zpool: /run/current-system/sw/bin/zpool
+            sudo: /run/current-system/sw/bin/sudo
+            chroot: /run/current-system/sw/bin/chroot
+
   csiDriver:
     # should be globally unique for a given cluster
     name: "org.democratic-csi.zfs-local-dataset"
