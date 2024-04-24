@@ -27,19 +27,19 @@ metadata:
 spec:
   sourcePVC: minecraft-data
   trigger:
-    schedule: "0 * * * *"
+    schedule: "0 5 * * *"
   restic:
     copyMethod: Snapshot
-    pruneIntervalDays: 7
+    pruneIntervalDays: 14
     repository: minecraft-volsync
     moverSecurityContext:
       runAsUser: 1000
       runAsGroup: 3000
       fsGroup: 2000
     retain:
-      hourly: 24
       daily: 7
-      weekly: 5
+      weekly: 4
+      monthly: 3
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
