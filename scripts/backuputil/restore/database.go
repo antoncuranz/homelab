@@ -63,7 +63,7 @@ func CreateDatabaseFromBackup(client *kubernetes.Clientset, namespace string, da
 		},
 		Spec: cnpgv1.ClusterSpec{
 			Instances:             1,
-			ImageName:             "ghcr.io/bo0tzz/cnpgvecto.rs:15.5-v0.1.11",
+			ImageName:             "ghcr.io/tensorchord/cloudnative-pgvecto.rs:15.6-v0.2.0",
 			PrimaryUpdateStrategy: "unsupervised",
 			StorageConfiguration: cnpgv1.StorageConfiguration{
 				Size:         "10Gi",
