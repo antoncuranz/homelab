@@ -62,4 +62,4 @@ minecraft:
       volumes:
         - name: data
           persistentVolumeClaim:
-          claimName: minecraft-data
+            claimName: minecraft-data
