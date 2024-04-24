@@ -1,28 +1,54 @@
 app-template:
-  image:
-    repository: ghcr.io/homebridge/homebridge
-    tag: "2023-12-30"
-  service:
+  controllers:
     main:
-      ports:
-        http:
-          port: &port 8581
-        shelly:
-          port: 8181
-  hostNetwork: true
+      pod:
+        hostNetwork: true
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/homebridge/homebridge
+            tag: "2023-12-30"
+          resources:
+            requests:
+              cpu: 10m
+              memory: 100Mi
+            limits:
+              memory: 750Mi
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /login
+                  port: 8581
+                initialDelaySeconds: 30
+
   persistence:
-    homebridge:
+    config:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
+      globalMounts:
+        - path: /homebridge
       dataSourceRef:
         kind: ReplicationDestination
         apiGroup: volsync.backube
         name: homebridge-dst
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8581
+        shelly:
+          port: 8181
+
   ingress:
     main:
       enabled: true
-      ingressClassName: nginx
+      className: nginx
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -32,32 +58,10 @@ app-template:
         - host: &host "homebridge.serverton.de"
           paths:
             - path: /
-              pathType: Prefix
+              service:
+                name: main
+                port: http
       tls:
         - secretName: homebridge-tls-certificate
           hosts:
             - *host
-  configMaps:
-    config:
-      enabled: true
-      nameOverride: startup-sh
-      data:
-        startup.sh: |-
-          #!/bin/sh
-          npm install --save homebridge-shelly@latest
-          npm install --save homebridge-tuya-platform@latest
-  probes:
-    liveness:
-      enabled: true
-      custom: true
-      spec:
-        httpGet:
-          path: /login
-          port: *port
-        initialDelaySeconds: 30
-  resources:
-    requests:
-      cpu: 10m
-      memory: 100Mi
-    limits:
-      memory: 750Mi
