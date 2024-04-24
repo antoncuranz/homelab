@@ -15,9 +15,6 @@ app-template:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
-      dataSource:
-        kind: PersistentVolumeClaim
-        name: homebridge-homebridge-old
 #      dataSourceRef:
 #        kind: ReplicationDestination
 #        apiGroup: volsync.backube
