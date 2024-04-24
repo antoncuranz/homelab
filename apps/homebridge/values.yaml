@@ -15,8 +15,13 @@ app-template:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
-      annotations:
-        'k8up.io/backup': 'true'
+      dataSource:
+        kind: PersistentVolumeClaim
+        name: homebridge-homebridge-old
+#      dataSourceRef:
+#        kind: ReplicationDestination
+#        apiGroup: volsync.backube
+#        name: homebridge-dst
   ingress:
     main:
       enabled: true
