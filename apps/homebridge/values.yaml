@@ -9,6 +9,7 @@ app-template:
           image:
             repository: ghcr.io/homebridge/homebridge
             tag: "2023-12-30"
+#            tag: "2024-01-08"
           resources:
             requests:
               cpu: 10m
