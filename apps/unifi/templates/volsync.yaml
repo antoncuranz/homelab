@@ -2,20 +2,20 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: unifi-volsync
+  name: &name unifi-volsync
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: secret-store
   target:
-    name: unifi-volsync-secret
+    name: *name
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "s3:{{ .S3_ENDPOINT }}/unifi"
-        RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
-        AWS_ACCESS_KEY_ID: "{{ .ACCESS_KEY_ID }}"
-        AWS_SECRET_ACCESS_KEY: "{{ .ACCESS_SECRET_KEY }}"
+        RESTIC_REPOSITORY: "s3:{{ `{{ .S3_ENDPOINT }}` }}/unifi"
+        RESTIC_PASSWORD: "{{ `{{ .RESTIC_PASSWORD }}` }}"
+        AWS_ACCESS_KEY_ID: "{{ `{{ .ACCESS_KEY_ID }}` }}"
+        AWS_SECRET_ACCESS_KEY: "{{ `{{ .ACCESS_SECRET_KEY }}` }}"
   dataFrom:
     - extract:
         key: b2-volsync
@@ -31,7 +31,7 @@ spec:
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 7
-    repository: unifi-volsync-secret
+    repository: *name
     moverSecurityContext:
       runAsUser: 999
       runAsGroup: 999
@@ -49,7 +49,7 @@ spec:
 #  trigger:
 #    manual: restore-once
 #  restic:
-#    repository: unifi-volsync-secret
+#    repository: *name
 #    copyMethod: Snapshot # must be Snapshot
 #    accessModes: ["ReadWriteOnce"]
 #    capacity: "1Gi"
