@@ -30,6 +30,8 @@ jellyfin:
           resources:
             requests:
               gpu.intel.com/i915: "1"
+            limits:
+              gpu.intel.com/i915: "1"
           probes:
             liveness: &probes
               enabled: true
