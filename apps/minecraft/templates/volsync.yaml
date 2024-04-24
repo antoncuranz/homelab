@@ -1,0 +1,59 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: &name minecraft-volsync
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: secret-store
+  target:
+    name: *name
+    template:
+      engineVersion: v2
+      data:
+        RESTIC_REPOSITORY: "s3:{{ `{{ .S3_ENDPOINT }}` }}/minecraft"
+        RESTIC_PASSWORD: "{{ `{{ .RESTIC_PASSWORD }}` }}"
+        AWS_ACCESS_KEY_ID: "{{ `{{ .ACCESS_KEY_ID }}` }}"
+        AWS_SECRET_ACCESS_KEY: "{{ `{{ .ACCESS_SECRET_KEY }}` }}"
+  dataFrom:
+    - extract:
+        key: b2-volsync
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: minecraft
+spec:
+  sourcePVC: minecraft-minecraft-datadir
+  trigger:
+    schedule: "0 * * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: minecraft-volsync
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 3000
+      fsGroup: 2000
+    retain:
+      hourly: 24
+      daily: 7
+      weekly: 5
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: minecraft-dst
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: minecraft-volsync
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    capacity: 1Gi
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 3000
+      fsGroup: 2000
