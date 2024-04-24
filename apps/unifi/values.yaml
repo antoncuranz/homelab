@@ -1,6 +1,13 @@
 app-template:
   controllers:
     main:
+      pod:
+        securityContext:
+          runAsUser: 999
+          runAsGroup: 999
+          fsGroup: 999
+          fsGroupChangePolicy: OnRootMismatch
+
       containers:
         main:
           image:
@@ -14,11 +21,6 @@ app-template:
             UNIFI_STDOUT: "true"
             JVM_INIT_HEAP_SIZE:
             JVM_MAX_HEAP_SIZE: 1024M
-          securityContext:
-            runAsUser: 999
-            runAsGroup: 999
-            fsGroup: 999
-            fsGroupChangePolicy: OnRootMismatch
           resources:
             requests:
               memory: 2Gi
