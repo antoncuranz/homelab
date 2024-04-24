@@ -24,10 +24,10 @@ minecraft:
   persistence:
     dataDir:
       enabled: true
-#      dataSourceRef:
-#        kind: ReplicationDestination
-#        apiGroup: volsync.backube
-#        name: minecraft-dst
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: minecraft-dst
 
   serviceAnnotations:
     metallb.universe.tf/allow-shared-ip: default
