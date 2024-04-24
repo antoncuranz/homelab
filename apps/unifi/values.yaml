@@ -33,6 +33,10 @@ app-template:
       size: 10Gi
       globalMounts:
         - path: /unifi
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: unifi-dst
 
   service:
     main:
