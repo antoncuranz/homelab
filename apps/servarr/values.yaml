@@ -30,8 +30,6 @@ jellyfin:
           resources:
             requests:
               gpu.intel.com/i915: "1"
-            limits:
-              gpu.intel.com/i915: "1"
           probes:
             liveness: &probes
               enabled: true
@@ -53,8 +51,10 @@ jellyfin:
       enabled: true
       accessMode: ReadWriteOnce
       size: 50Gi
-      annotations:
-        'k8up.io/backup': 'true'
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: jellyfin-dst
     cache:
       enabled: true
       type: emptyDir
@@ -145,8 +145,10 @@ jellyseerr:
       size: 250Mi
       globalMounts:
         - path: /app/config
-      annotations:
-        'k8up.io/backup': 'true'
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: jellyseerr-dst
 
   service:
     main:
@@ -237,6 +239,10 @@ prowlarr:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: prowlarr-dst
 
   service:
     main:
@@ -329,6 +335,10 @@ radarr:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: radarr-dst
     mediarr:
       enabled: true
       existingClaim: mediarr
@@ -395,8 +405,8 @@ sonarr:
       containers:
         main:
           image:
-            repository: ghcr.io/onedr0p/sonarr-develop
-            tag: 4.0.4.1515 # TODO: switch to stable after v4 release
+            repository: ghcr.io/onedr0p/sonarr
+            tag: 4.0.4.1491
           env:
             SONARR__PORT: &port 8989
             SONARR__AUTHENTICATION_METHOD: External
@@ -423,6 +433,10 @@ sonarr:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: sonarr-dst
     mediarr:
       enabled: true
       existingClaim: mediarr
@@ -513,8 +527,10 @@ transmission:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
-      annotations:
-        'k8up.io/backup': 'true'
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: transmission-dst
     mediarr:
       enabled: true
       existingClaim: mediarr
@@ -523,13 +539,6 @@ transmission:
           main:
             - path: /downloads/mediarr
               subPath: transmission
-#    autobrr:
-#      enabled: true
-#      existingClaim: autobrr
-#      advancedMounts:
-#        main:
-#          main:
-#            - path: /downloads/autobrr
     themes:
       enabled: true
       type: emptyDir
@@ -625,6 +634,10 @@ sabnzbd:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: sabnzbd-dst
     tmp:
       type: emptyDir
     mediarr:
