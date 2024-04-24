@@ -40,20 +40,20 @@ spec:
       hourly: 24
       daily: 7
       weekly: 5
-#---
-#apiVersion: volsync.backube/v1alpha1
-#kind: ReplicationDestination
-#metadata:
-#  name: unifi-dst
-#spec:
-#  trigger:
-#    manual: restore-once
-#  restic:
-#    repository: unifi-volsync
-#    copyMethod: Snapshot # must be Snapshot
-#    accessModes: ["ReadWriteOnce"]
-#    capacity: "1Gi"
-#    moverSecurityContext:
-#      runAsUser: 999
-#      runAsGroup: 999
-#      fsGroup: 999
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: unifi-dst
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: unifi-volsync
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    capacity: "1Gi"
+    moverSecurityContext:
+      runAsUser: 999
+      runAsGroup: 999
+      fsGroup: 999
