@@ -21,14 +21,6 @@ minecraft:
     AUTOPAUSE_TIMEOUT_INIT: 300 # 5min
     JVM_DD_OPTS: "disable.watchdog:true" # autopause
 
-  persistence:
-    dataDir:
-      enabled: true
-      dataSourceRef:
-        kind: ReplicationDestination
-        apiGroup: volsync.backube
-        name: minecraft-dst
-
   serviceAnnotations:
     metallb.universe.tf/allow-shared-ip: default
 
@@ -63,3 +55,11 @@ minecraft:
       volumes:
         - name: patch
           emptyDir: {}
+
+    - volumeMounts:
+        - name: data
+          mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+          claimName: minecraft-data
