@@ -27,19 +27,19 @@ metadata:
 spec:
   sourcePVC: servarr-prowlarr-config
   trigger:
-    schedule: "0 * * * *"
+    schedule: "0 5 * * *"
   restic:
     copyMethod: Snapshot
-    pruneIntervalDays: 7
+    pruneIntervalDays: 14
     repository: prowlarr-volsync
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
       fsGroup: 568
     retain:
-      hourly: 24
       daily: 7
-      weekly: 5
+      weekly: 4
+      monthly: 3
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
