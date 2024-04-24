@@ -29,17 +29,8 @@ immich:
         existingClaim: immich-data
   redis:
     enabled: true
-    master:
-      persistence:
-        annotations:
-          k8up.io/backup: 'false'
   typesense:
     enabled: true
-    persistence:
-      tsdata:
-        enabled: true
-        annotations:
-          k8up.io/backup: 'false'
   server:
     ingress:
       main:
