@@ -24,6 +24,11 @@ minecraft:
   serviceAnnotations:
     metallb.universe.tf/allow-shared-ip: default
 
+  persistence:
+    dataDir:
+      enabled: true
+      existingClaim: minecraft-data
+
   podSecurityContext:
     runAsUser: 1000
     runAsGroup: 3000
@@ -55,11 +60,3 @@ minecraft:
       volumes:
         - name: patch
           emptyDir: {}
-
-    - volumeMounts:
-        - name: data
-          mountPath: /data
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: minecraft-data
