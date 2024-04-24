@@ -8,8 +8,8 @@ democratic-csi:
       driver: zfs-local-dataset
 
       zfs:
-        datasetParentName: zroot/mediarr/v
-        detachedSnapshotsDatasetParentName: zroot/mediarr/s
+        datasetParentName: zroot/k8s/vols
+        detachedSnapshotsDatasetParentName: zroot/k8s/snaps
 
         datasetEnableQuotas: true
         datasetEnableReservation: false
@@ -50,7 +50,7 @@ democratic-csi:
   storageClasses:
     - name: zfs
       defaultClass: true
-      reclaimPolicy: Retain
+      reclaimPolicy: Delete
       volumeBindingMode: WaitForFirstConsumer
       # distributed support is not yet ready for expansion
       allowVolumeExpansion: false
@@ -61,6 +61,6 @@ democratic-csi:
     - name: zfs
       annotations:
         snapshot.storage.kubernetes.io/is-default-class: "true"
-      deletionPolicy: Retain
+      deletionPolicy: Delete
       parameters:
         detachedSnapshots: false
