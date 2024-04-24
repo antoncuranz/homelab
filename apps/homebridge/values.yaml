@@ -15,10 +15,10 @@ app-template:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
-#      dataSourceRef:
-#        kind: ReplicationDestination
-#        apiGroup: volsync.backube
-#        name: homebridge-dst
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: homebridge-dst
   ingress:
     main:
       enabled: true
