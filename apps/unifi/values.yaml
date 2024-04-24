@@ -1,6 +1,13 @@
 app-template:
   controllers:
     main:
+      pod:
+        securityContext:
+          runAsUser: 999
+          runAsGroup: 999
+          fsGroup: 999
+          fsGroupChangePolicy: OnRootMismatch
+
       containers:
         main:
           image:
