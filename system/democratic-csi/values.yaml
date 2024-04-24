@@ -1,0 +1,66 @@
+democratic-csi:
+  node:
+    driver:
+      image: docker.io/antoncuranz/democratic-csi:v1.9.0
+
+  driver:
+    config:
+      driver: zfs-local-dataset
+
+      zfs:
+        datasetParentName: zroot/k8s/vols
+        detachedSnapshotsDatasetParentName: zroot/k8s/snaps
+
+        datasetEnableQuotas: true
+        datasetEnableReservation: false
+
+  csiDriver:
+    # should be globally unique for a given cluster
+    name: "org.democratic-csi.zfs-local-dataset"
+    attachRequired: false
+    storageCapacity: true
+    fsGroupPolicy: File
+
+  controller:
+    enabled: true
+    strategy: node
+    externalProvisioner:
+      extraArgs:
+        - --leader-election=false
+        - --node-deployment=true
+        - --node-deployment-immediate-binding=false
+        - --feature-gates=Topology=true
+        - --strict-topology=true
+        - --enable-capacity=true
+        - --capacity-ownerref-level=1
+
+    externalAttacher:
+      enabled: false
+
+    # distributed support is not yet ready
+    externalResizer:
+      enabled: false
+
+    externalSnapshotter:
+      enabled: true
+      extraArgs:
+        - --leader-election=false
+        - --node-deployment=true
+
+  storageClasses:
+    - name: zfs
+      defaultClass: true
+      reclaimPolicy: Delete
+      volumeBindingMode: WaitForFirstConsumer
+      # distributed support is not yet ready for expansion
+      allowVolumeExpansion: false
+      parameters:
+        fsType: zfs
+
+  volumeSnapshotClasses:
+    - name: zfs
+      annotations:
+        snapshot.storage.kubernetes.io/is-default-class: "true"
+      deletionPolicy: Delete
+      parameters:
+        detachedSnapshots: false
