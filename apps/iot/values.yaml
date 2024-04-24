@@ -50,10 +50,8 @@ mosquitto:
           subPath: mosquitto_pwd
     tibber:
       enabled: true
-      accessMode: ReadWriteOnce
-      size: 20Mi
-      annotations:
-        'k8up.io/backup': 'true'
+      type: secret
+      name: tibber-secret
       globalMounts:
         - path: /mosquitto/tibber_certs
     data:
