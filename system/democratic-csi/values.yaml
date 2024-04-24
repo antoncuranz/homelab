@@ -51,7 +51,7 @@ democratic-csi:
     - name: zfs
       defaultClass: true
       reclaimPolicy: Delete
-      volumeBindingMode: WaitForFirstConsumer
+      volumeBindingMode: Immediate
       # distributed support is not yet ready for expansion
       allowVolumeExpansion: false
       parameters:
