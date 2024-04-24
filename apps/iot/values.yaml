@@ -58,10 +58,12 @@ mosquitto:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
-      annotations:
-        'k8up.io/backup': 'true'
       globalMounts:
         - path: /mosquitto/data
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: mosquitto-dst
 
 node-red:
   global:
@@ -116,7 +118,9 @@ node-red:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
-      annotations:
-        'k8up.io/backup': 'true'
       globalMounts:
         - path: /data
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: node-red-dst
