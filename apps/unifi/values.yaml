@@ -33,8 +33,6 @@ app-template:
       size: 10Gi
       globalMounts:
         - path: /unifi
-      annotations:
-        'k8up.io/backup': 'true'
 
   service:
     main:
