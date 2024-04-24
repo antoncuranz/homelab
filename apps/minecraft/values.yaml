@@ -18,7 +18,7 @@ minecraft:
     TZ: "Europe/Berlin"
     ENABLE_AUTOPAUSE: true
     AUTOPAUSE_TIMEOUT_EST: 900 # 15min
-    AUTOPAUSE_TIMEOUT_INIT: 300 # 5min
+    AUTOPAUSE_TIMEOUT_INIT: 60 # 1min
     JVM_DD_OPTS: "disable.watchdog:true" # autopause
 
   serviceAnnotations:
