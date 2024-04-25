@@ -1,29 +1,15 @@
 ---
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: immich-data-pv
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 50Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/mnt/nvme/Kubernetes/immich"
-  persistentVolumeReclaimPolicy: Retain
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: immich-data
-  annotations:
-    k8up.io/backup: 'true'
 spec:
-  volumeName: immich-data-pv
-  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 50Gi
+  #dataSourceRef:
+  #  kind: ReplicationDestination
+  #  apiGroup: volsync.backube
+  #  name: immich-dst
