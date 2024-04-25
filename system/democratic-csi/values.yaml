@@ -1,8 +1,4 @@
 democratic-csi:
-  node:
-    driver:
-      image: docker.io/antoncuranz/democratic-csi:v1.9.0
-
   driver:
     config:
       driver: zfs-local-dataset
