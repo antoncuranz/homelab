@@ -38,27 +38,27 @@ minecraft:
 
   # autopause hacks
   securityContext:
-#    allowPrivilegeEscalation: true
+    allowPrivilegeEscalation: true
     capabilities:
       add: [ "NET_RAW" ]
-  initContainers:
-    - name: patch-autopause
-      image: itzg/minecraft-server:2024.4.1
-      command:
-        - sh
-      args:
-        - -c
-        - |
-          cp /auto/autopause-daemon.sh /patch
-          sed -i 's/sudo //g' /patch/autopause-daemon.sh
-      volumeMounts:
-        - name: patch
-          mountPath: /patch
-  extraVolumes:
-    - volumeMounts:
-        - name: patch
-          mountPath: /auto/autopause-daemon.sh
-          subPath: autopause-daemon.sh
-      volumes:
-        - name: patch
-          emptyDir: {}
+#  initContainers:
+#    - name: patch-autopause
+#      image: itzg/minecraft-server:2024.4.1
+#      command:
+#        - sh
+#      args:
+#        - -c
+#        - |
+#          cp /auto/autopause-daemon.sh /patch
+#          sed -i 's/sudo //g' /patch/autopause-daemon.sh
+#      volumeMounts:
+#        - name: patch
+#          mountPath: /patch
+#  extraVolumes:
+#    - volumeMounts:
+#        - name: patch
+#          mountPath: /auto/autopause-daemon.sh
+#          subPath: autopause-daemon.sh
+#      volumes:
+#        - name: patch
+#          emptyDir: {}
