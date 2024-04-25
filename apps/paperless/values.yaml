@@ -59,10 +59,10 @@ app-template:
         main:
           main:
             - path: /usr/src/paperless/data
-#      dataSourceRef:
-#        kind: ReplicationDestination
-#        apiGroup: volsync.backube
-#        name: paperless-data-dst
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: paperless-data-dst
     media:
       enabled: true
       accessMode: ReadWriteOnce
@@ -71,10 +71,10 @@ app-template:
         main:
           main:
             - path: /usr/src/paperless/media
-#      dataSourceRef:
-#        kind: ReplicationDestination
-#        apiGroup: volsync.backube
-#        name: paperless-media-dst
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: paperless-media-dst
     paperless-ldap-config:
       enabled: true
       type: secret
