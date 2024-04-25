@@ -53,28 +53,18 @@ app-template:
   persistence:
     data:
       enabled: true
-      accessMode: ReadWriteOnce
-      size: 5Gi
+      existingClaim: paperless-data
       advancedMounts:
         main:
           main:
             - path: /usr/src/paperless/data
-#      dataSourceRef:
-#        kind: ReplicationDestination
-#        apiGroup: volsync.backube
-#        name: paperless-data-dst
     media:
       enabled: true
-      accessMode: ReadWriteOnce
-      size: 5Gi
+      existingClaim: paperless-media
       advancedMounts:
         main:
           main:
             - path: /usr/src/paperless/media
-#      dataSourceRef:
-#        kind: ReplicationDestination
-#        apiGroup: volsync.backube
-#        name: paperless-media-dst
     paperless-ldap-config:
       enabled: true
       type: secret
