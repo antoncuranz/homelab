@@ -20,6 +20,7 @@ minecraft:
     AUTOPAUSE_TIMEOUT_EST: 900 # 15min
     AUTOPAUSE_TIMEOUT_INIT: 60 # 1min
     JVM_DD_OPTS: "disable.watchdog:true" # autopause
+    SKIP_SUDO: true
 
   serviceAnnotations:
     metallb.universe.tf/allow-shared-ip: default
@@ -37,7 +38,7 @@ minecraft:
 
   # autopause hacks
   securityContext:
-    allowPrivilegeEscalation: true
+#    allowPrivilegeEscalation: true
     capabilities:
       add: [ "NET_RAW" ]
   initContainers:
