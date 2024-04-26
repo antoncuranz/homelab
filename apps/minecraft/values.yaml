@@ -1,6 +1,7 @@
 minecraft:
   image:
-    tag: 2024.4.1 # keep in sync with initContainer!
+    repository: ghcr.io/antoncuranz/minecraft-server
+    tag: java21-graalvm
 
   minecraftServer:
     eula: "TRUE"
@@ -35,29 +36,8 @@ minecraft:
     fsGroup: 2000
     runAsNonRoot: true
 
-  # autopause hacks
+  # autopause
   securityContext:
     allowPrivilegeEscalation: true
     capabilities:
       add: [ "NET_RAW" ]
-  initContainers:
-    - name: patch-autopause
-      image: itzg/minecraft-server:2024.4.1
-      command:
-        - sh
-      args:
-        - -c
-        - |
-          cp /auto/autopause-daemon.sh /patch
-          sed -i 's/sudo //g' /patch/autopause-daemon.sh
-      volumeMounts:
-        - name: patch
-          mountPath: /patch
-  extraVolumes:
-    - volumeMounts:
-        - name: patch
-          mountPath: /auto/autopause-daemon.sh
-          subPath: autopause-daemon.sh
-      volumes:
-        - name: patch
-          emptyDir: {}
