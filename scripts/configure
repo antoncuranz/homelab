@@ -14,7 +14,7 @@ import sys
 from rich.prompt import Confirm, Prompt
 
 upstream_config = {
-    "seed_repo": "https://github.com/ant0ncuranz/homelab",
+    "seed_repo": "https://github.com/antoncuranz/homelab",
     "domain": "serverton.de",
     "timezone": "Europe/Berlin",
     "loadbalancer_ip_range": "192.168.1.10-192.168.1.15",
