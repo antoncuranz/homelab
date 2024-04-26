@@ -5,8 +5,7 @@ argo-cd:
     params:
       server.insecure: true
     cm:
-      timeout.reconciliation: 600s
-      statusbadge.enabled: 'true'
+      timeout.reconciliation: 3600s # 1h
       resource.customizations.health.argoproj.io_Application: |
         hs = {}
         hs.status = "Progressing"
@@ -27,8 +26,6 @@ argo-cd:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
-        hajimari.io/appName: ArgoCD
-        hajimari.io/icon: robot
       extraTls:
         - hosts:
           - argocd.serverton.de
@@ -40,9 +37,6 @@ argo-cd:
   dex:
     enabled: false
   controller:
-    resources:
-      limits:
-        cpu: 400m
     metrics: *metrics
   repoServer:
     metrics: *metrics
