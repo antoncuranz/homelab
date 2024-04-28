@@ -83,11 +83,6 @@ kube-prometheus-stack:
             - severity = "warning"
           equal: [ "alertname", "namespace" ]
 
-prometheus-pushgateway:
-  serviceMonitor:
-    enabled: true
-    namespace: monitoring-system
-
 influxdb:
   persistence:
     size: 2Gi
