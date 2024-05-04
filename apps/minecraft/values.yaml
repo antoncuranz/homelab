@@ -1,8 +1,4 @@
 minecraft:
-  image:
-    repository: ghcr.io/antoncuranz/minecraft-server
-    tag: java21-graalvm
-
   minecraftServer:
     eula: "TRUE"
     type: "PAPER"
