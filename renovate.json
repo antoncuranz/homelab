@@ -20,7 +20,7 @@
       "automerge": false
     },
     {
-      "matchPackageNames": ["kubernetes-dashboard"],
+      "matchPackageNames": ["keycloak"],
       "automerge": false
     }
   ],
