@@ -202,30 +202,30 @@ prowlarr:
       containers:
         main:
           image:
-            repository: ghcr.io/antoncuranz/containers/prowlarr
-            tag: latest
+            repository: ghcr.io/onedr0p/prowlarr
+            tag: 1.17.2.4511
           env:
             TZ: Europe/Berlin
-            PROWLARR__PORT: &port 9696
-            PROWLARR__POSTGRES_LOG_DB_ENABLED: False
-            PROWLARR__AUTHENTICATION_METHOD: External
-            PROWLARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-            PROWLARR__POSTGRES_HOST:
+            PROWLARR__SERVER__PORT: &port 9696
+            PROWLARR__LOG__DBENABLED: False
+            PROWLARR__AUTH__METHOD: External
+            PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
+            PROWLARR__POSTGRES__HOST:
               valueFrom:
                 secretKeyRef:
                   name: database-prowlarr-user
                   key: HOST
-            PROWLARR__POSTGRES_USER:
+            PROWLARR__POSTGRES__USER:
               valueFrom:
                 secretKeyRef:
                   name: database-prowlarr-user
                   key: LOGIN
-            PROWLARR__POSTGRES_PASSWORD:
+            PROWLARR__POSTGRES__PASSWORD:
               valueFrom:
                 secretKeyRef:
                   name: database-prowlarr-user
                   key: PASSWORD
-            PROWLARR__POSTGRES_MAIN_DB:
+            PROWLARR__POSTGRES__MAINDB:
               valueFrom:
                 secretKeyRef:
                   name: database-prowlarr-user
@@ -308,30 +308,30 @@ radarr:
       containers:
         main:
           image:
-            repository: ghcr.io/antoncuranz/containers/radarr
-            tag: latest
+            repository: ghcr.io/onedr0p/radarr
+            tag: 5.6.0.8846
           env:
             TZ: Europe/Berlin
-            RADARR__PORT: &port 7878
-            RADARR__POSTGRES_LOG_DB_ENABLED: False
-            RADARR__AUTHENTICATION_METHOD: External
-            RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-            RADARR__POSTGRES_HOST:
+            RADARR__SERVER__PORT: &port 7878
+            RADARR__LOG__DBENABLED: False
+            RADARR__AUTH__METHOD: External
+            RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
+            RADARR__POSTGRES__HOST:
               valueFrom:
                 secretKeyRef:
                   name: database-radarr-user
                   key: HOST
-            RADARR__POSTGRES_USER:
+            RADARR__POSTGRES__USER:
               valueFrom:
                 secretKeyRef:
                   name: database-radarr-user
                   key: LOGIN
-            RADARR__POSTGRES_PASSWORD:
+            RADARR__POSTGRES__PASSWORD:
               valueFrom:
                 secretKeyRef:
                   name: database-radarr-user
                   key: PASSWORD
-            RADARR__POSTGRES_MAIN_DB:
+            RADARR__POSTGRES__MAINDB:
               valueFrom:
                 secretKeyRef:
                   name: database-radarr-user
@@ -417,29 +417,29 @@ sonarr:
       containers:
         main:
           image:
-            repository: ghcr.io/antoncuranz/containers/sonarr
-            tag: latest
+            repository: ghcr.io/onedr0p/sonarr-develop
+            tag: 4.0.4.1668
           env:
-            SONARR__PORT: &port 8989
-            SONARR__POSTGRES_LOG_DB_ENABLED: False
-            SONARR__AUTHENTICATION_METHOD: External
-            SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-            SONARR__POSTGRES_HOST:
+            SONARR__SERVER__PORT: &port 8989
+            SONARR__LOG__DBENABLED: False
+            SONARR__AUTH__METHOD: External
+            SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+            SONARR__POSTGRES__HOST:
               valueFrom:
                 secretKeyRef:
                   name: database-sonarr-user
                   key: HOST
-            SONARR__POSTGRES_USER:
+            SONARR__POSTGRES__USER:
               valueFrom:
                 secretKeyRef:
                   name: database-sonarr-user
                   key: LOGIN
-            SONARR__POSTGRES_PASSWORD:
+            SONARR__POSTGRES__PASSWORD:
               valueFrom:
                 secretKeyRef:
                   name: database-sonarr-user
                   key: PASSWORD
-            SONARR__POSTGRES_MAIN_DB:
+            SONARR__POSTGRES__MAINDB:
               valueFrom:
                 secretKeyRef:
                   name: database-sonarr-user
