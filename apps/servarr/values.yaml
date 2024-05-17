@@ -405,16 +405,6 @@ sonarr:
         annotations:
           setGateway: "true"
 
-      initContainers:
-        01-init-db:
-          image:
-            repository: ghcr.io/onedr0p/postgres-init
-            tag: 16.3
-            pullPolicy: IfNotPresent
-          envFrom: &envFrom
-            - secretRef:
-                name: sonarr-secret
-
       containers:
         main:
           image:
@@ -422,10 +412,29 @@ sonarr:
             tag: latest
           env:
             SONARR__PORT: &port 8989
-            #SONARR__POSTGRES_LOG_DB_ENABLED: False
+            SONARR__POSTGRES_LOG_DB_ENABLED: False
             SONARR__AUTHENTICATION_METHOD: External
             SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-          envFrom: *envFrom
+            SONARR__POSTGRES_HOST:
+              valueFrom:
+                secretKeyRef:
+                  name: database-sonarr-user
+                  key: HOST
+            SONARR__POSTGRES_USER:
+              valueFrom:
+                secretKeyRef:
+                  name: database-sonarr-user
+                  key: LOGIN
+            SONARR__POSTGRES_PASSWORD:
+              valueFrom:
+                secretKeyRef:
+                  name: database-sonarr-user
+                  key: PASSWORD
+            SONARR__POSTGRES_MAIN_DB:
+              valueFrom:
+                secretKeyRef:
+                  name: database-sonarr-user
+                  key: DATABASE_NAME
           probes:
             liveness: &probes
               enabled: true
