@@ -296,16 +296,6 @@ radarr:
         annotations:
           setGateway: "true"
 
-      initContainers:
-        01-init-db:
-          image:
-            repository: ghcr.io/onedr0p/postgres-init
-            tag: 16.3
-            pullPolicy: IfNotPresent
-          envFrom: &envFrom
-            - secretRef:
-                name: radarr-secret
-
       containers:
         main:
           image:
