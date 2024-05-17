@@ -2,16 +2,16 @@
 apiVersion: db.movetokube.com/v1alpha1
 kind: Postgres
 metadata:
-  name: radarr-db
+  name: prowlarr-db
 spec:
-  database: radarr
+  database: prowlarr
 ---
 apiVersion: db.movetokube.com/v1alpha1
 kind: PostgresUser
 metadata:
-  name: radarr-user
+  name: prowlarr-user
 spec:
-  role: radarr
-  database: radarr-db
+  role: prowlarr
+  database: prowlarr-db
   secretName: database
   privileges: OWNER
