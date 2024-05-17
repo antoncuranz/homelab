@@ -16,9 +16,6 @@ app-template:
             - |
               echo "Copying www..."
               cp -R /www/* /volume
-          volumeMounts:
-            - name: www
-              mountPath: /volume
 
       containers:
         main:
@@ -47,6 +44,8 @@ app-template:
       type: emptyDir
       advancedMounts:
         main:
+          www-provider:
+            - path: /volume
           main:
             - path: /config/www
 
