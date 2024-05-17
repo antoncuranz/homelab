@@ -1,0 +1,17 @@
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
+metadata:
+  name: radarr-db
+spec:
+  database: radarr_main
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: radarr-user
+spec:
+  role: radarr
+  database: radarr-db
+  secretName: database
+  privileges: OWNER
