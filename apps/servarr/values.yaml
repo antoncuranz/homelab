@@ -212,11 +212,12 @@ prowlarr:
       containers:
         main:
           image:
-            repository: ghcr.io/onedr0p/prowlarr
-            tag: 1.17.2.4511
+            repository: ghcr.io/antoncuranz/containers/prowlarr
+            tag: latest
           env:
             TZ: Europe/Berlin
             PROWLARR__PORT: &port 9696
+            #PROWLARR__POSTGRES_LOG_DB_ENABLED: False
             PROWLARR__AUTHENTICATION_METHOD: External
             PROWLARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
           envFrom: *envFrom
@@ -308,14 +309,34 @@ radarr:
       containers:
         main:
           image:
-            repository: ghcr.io/onedr0p/radarr
-            tag: 5.6.0.8846
+            repository: ghcr.io/antoncuranz/containers/radarr
+            tag: latest
           env:
             TZ: Europe/Berlin
             RADARR__PORT: &port 7878
+            RADARR__POSTGRES_LOG_DB_ENABLED: False
             RADARR__AUTHENTICATION_METHOD: External
             RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-          envFrom: *envFrom
+            RADARR__POSTGRES_HOST:
+              valueFrom:
+                secretKeyRef:
+                  name: database-radarr-user
+                  key: HOST
+            RADARR__POSTGRES_USER:
+              valueFrom:
+                secretKeyRef:
+                  name: database-radarr-user
+                  key: LOGIN
+            RADARR__POSTGRES_PASSWORD:
+              valueFrom:
+                secretKeyRef:
+                  name: database-radarr-user
+                  key: PASSWORD
+            RADARR__POSTGRES_MAIN_DB:
+              valueFrom:
+                secretKeyRef:
+                  name: database-radarr-user
+                  key: DATABASE_NAME
           probes:
             liveness: &probes
               enabled: true
@@ -407,10 +428,11 @@ sonarr:
       containers:
         main:
           image:
-            repository: ghcr.io/onedr0p/sonarr
-            tag: 4.0.4.1491
+            repository: ghcr.io/antoncuranz/containers/sonarr
+            tag: latest
           env:
             SONARR__PORT: &port 8989
+            #SONARR__POSTGRES_LOG_DB_ENABLED: False
             SONARR__AUTHENTICATION_METHOD: External
             SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
           envFrom: *envFrom
