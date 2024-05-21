@@ -186,7 +186,7 @@ thunderhub:
         main:
           image:
             repository: apotdevin/thunderhub
-            tag: v0.13.30
+            tag: v0.13.31
       pod:
         securityContext:
           runAsUser: 1000
