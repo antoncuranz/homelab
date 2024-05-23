@@ -15,7 +15,7 @@ app-template:
             DATABASE_URL:
               valueFrom:
                 secretKeyRef:
-                  name: database-paperless-user
+                  name: database-outline-user
                   key: POSTGRES_URL
             PGSSLMODE: "disable"
           envFrom:
