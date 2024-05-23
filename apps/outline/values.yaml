@@ -1,0 +1,60 @@
+app-template:
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      containers:
+        main:
+          image:
+            repository: docker.getoutline.com/outlinewiki/outline
+            tag: latest
+          env:
+            URL: "https://outline.serverton.de"
+            REDIS_URL: "redis://localhost:6379"
+            DATABASE_URL:
+              valueFrom:
+                secretKeyRef:
+                  name: database-paperless-user
+                  key: POSTGRES_URL
+            PGSSLMODE: "disable"
+          envFrom:
+            - secretRef:
+                name: outline-secret
+#          securityContext:
+#            runAsUser: 1000
+#            runAsGroup: 1000
+        redis:
+          image:
+            repository: public.ecr.aws/docker/library/redis
+            tag: 7.2.4
+
+#      pod:
+#        securityContext:
+#          fsGroup: 1000
+#          fsGroupChangePolicy: Always
+
+  service:
+    main:
+      ports:
+        http:
+          port: 3000
+
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: &host "outline.serverton.de"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - secretName: outline-tls-certificate
+          hosts:
+            - *host
