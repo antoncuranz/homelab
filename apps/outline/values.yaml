@@ -64,6 +64,7 @@ app-template:
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/proxy-body-size: 4G
       hosts:
         - host: &host "outline.serverton.de"
           paths:
