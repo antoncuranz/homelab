@@ -21,18 +21,32 @@ app-template:
           envFrom:
             - secretRef:
                 name: outline-secret
-#          securityContext:
-#            runAsUser: 1000
-#            runAsGroup: 1000
+          securityContext:
+            runAsUser: 1001
+            runAsGroup: 65533
         redis:
           image:
             repository: public.ecr.aws/docker/library/redis
             tag: 7.2.5
 
-#      pod:
-#        securityContext:
-#          fsGroup: 1000
-#          fsGroupChangePolicy: Always
+      pod:
+        securityContext:
+          fsGroup: 65533
+          fsGroupChangePolicy: Always
+
+  persistence:
+    data:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 5Gi
+      advancedMounts:
+        main:
+          main:
+            - path: /var/lib/outline/data
+#      dataSourceRef:
+#        kind: ReplicationDestination
+#        apiGroup: volsync.backube
+#        name: outline-data-dst
 
   service:
     main:
