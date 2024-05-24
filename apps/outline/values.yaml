@@ -18,6 +18,8 @@ app-template:
                   name: database-outline-user
                   key: POSTGRES_URL
             PGSSLMODE: "disable"
+            FILE_STORAGE: "local"
+            FILE_STORAGE_LOCAL_ROOT_DIR: "/var/lib/outline/data"
           envFrom:
             - secretRef:
                 name: outline-secret
