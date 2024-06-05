@@ -46,10 +46,10 @@ app-template:
         main:
           main:
             - path: /var/lib/outline/data
-#      dataSourceRef:
-#        kind: ReplicationDestination
-#        apiGroup: volsync.backube
-#        name: outline-data-dst
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: outline-dst
 
   service:
     main:
