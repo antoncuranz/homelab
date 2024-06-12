@@ -18,6 +18,8 @@ app-template:
   service:
     main:
       ports:
+        http:
+          enabled: false
         live:
           port: 4003
         paper:
