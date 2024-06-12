@@ -1,0 +1,26 @@
+app-template:
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/gnzsnz/ib-gateway
+            tag: 10.29.1h
+          env:
+            TIME_ZONE: "Europe/Berlin"
+            TZ: "Europe/Berlin"
+          envFrom:
+            - secretRef:
+                name: ibkr-secrets
+
+  service:
+    main:
+      ports:
+        live:
+          port: 4003
+        paper:
+          port: 4004
+        vnc:
+          port: 5900
