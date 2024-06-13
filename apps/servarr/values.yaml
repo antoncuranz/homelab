@@ -121,7 +121,7 @@ jellyseerr:
         main:
           image:
             repository: fallenbagel/jellyseerr
-            tag: 1.9.1
+            tag: 1.9.2
           env:
             TZ: Europe/Berlin
           probes:
