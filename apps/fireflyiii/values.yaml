@@ -52,7 +52,7 @@ importer:
     tag: "version-1.5.2"
 
   fireflyiii:
-    url: "https://firefly.serverton.de"
+    url: "http://fireflyiii-firefly-iii.fireflyiii.svc.cluster.local:80"
 
     auth:
       existingSecret: "fireflyiii-importer-secret"
