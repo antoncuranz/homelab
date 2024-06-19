@@ -53,3 +53,6 @@ importer:
 
   fireflyiii:
     url: "http://fireflyiii-firefly-iii.fireflyiii.svc.cluster.local:80"
+
+  config:
+    existingSecret: "fireflyiii-importer-secret"
