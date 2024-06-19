@@ -54,6 +54,8 @@ importer:
   fireflyiii:
     url: "https://firefly.serverton.de"
 
+  auth:
+    existingSecret: "fireflyiii-importer-secret"
   config:
     existingSecret: "fireflyiii-importer-secret"
 
