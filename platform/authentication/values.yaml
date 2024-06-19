@@ -52,6 +52,7 @@ oauth2-proxy:
     redirect-url: https://oauth2.serverton.de/oauth2/callback
     cookie-domain: .serverton.de
     whitelist-domain: .serverton.de
+    set-xauthrequest: true
   ingress:
     enabled: true
     className: nginx
