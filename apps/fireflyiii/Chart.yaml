@@ -8,3 +8,6 @@ dependencies:
   - name: importer
     version: 1.3.1
     repository: https://firefly-iii.github.io/kubernetes/
+  - name: app-template
+    version: 2.6.0
+    repository: https://bjw-s.github.io/helm-charts
