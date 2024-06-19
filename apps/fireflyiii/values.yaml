@@ -60,18 +60,18 @@ importer:
   config:
     existingSecret: "fireflyiii-importer-secret"
 
-  ingress:
-    enabled: true
-    className: nginx
-    annotations:
-      external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-      nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
-      nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
-      nginx.ingress.kubernetes.io/auth-response-headers: "x-auth-request-user, x-auth-request-email"
-    hosts:
-      - &host "test.serverton.de"
-    tls:
-      - secretName: fireflyiii-importer-tls-certificate
-        hosts:
-          - *host
+#  ingress:
+#    enabled: true
+#    className: nginx
+#    annotations:
+#      external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+#      cert-manager.io/cluster-issuer: letsencrypt-prod
+#      nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+#      nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+#      nginx.ingress.kubernetes.io/auth-response-headers: "x-auth-request-user, x-auth-request-email"
+#    hosts:
+#      - &host "test.serverton.de"
+#    tls:
+#      - secretName: fireflyiii-importer-tls-certificate
+#        hosts:
+#          - *host
