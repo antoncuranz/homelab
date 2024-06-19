@@ -71,5 +71,5 @@ importer:
     repository: fireflyiii/data-importer
     tag: "version-1.5.0"
 
-#  fireflyiii:
-#    url: "http://firefly-firefly-iii:80"
+  fireflyiii:
+    url: "http://fireflyiii-firefly-iii.fireflyiii.svc.cluster.local:80"
