@@ -38,9 +38,7 @@ firefly-iii:
       - host: &host "firefly.serverton.de"
         paths:
           - path: /
-            service:
-              name: main
-              port: http
+            pathType: Prefix
     tls:
       - secretName: fireflyiii-tls-certificate
         hosts:
