@@ -1,0 +1,76 @@
+firefly-iii:
+  image:
+    repository: fireflyiii/core
+    tag: "version-6.1.17"
+
+  persistence:
+    enabled: true
+    existingClaim: "fireflyiii-data"
+
+  config:
+    existingSecret: "fireflyiii-secret"
+
+    env:
+      DB_CONNECTION: pgsql
+      DB_PORT: "5432"
+      DB_HOST:
+        valueFrom:
+          secretKeyRef:
+            name: database-fireflyiii-user
+            key: HOST
+      DB_DATABASE:
+        valueFrom:
+          secretKeyRef:
+            name: database-fireflyiii-user
+            key: DATABASE_NAME
+      DB_USERNAME:
+        valueFrom:
+          secretKeyRef:
+            name: database-fireflyiii-user
+            key: LOGIN
+      DB_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: database-fireflyiii-user
+            key: PASSWORD
+      DEFAULT_LANGUAGE: "en_US"
+      DEFAULT_LOCALE: "equal"
+      TZ: "Europe/Berlin"
+      TRUSTED_PROXIES: "**"
+
+  podSecurityContext:
+     fsGroup: 2000
+
+  securityContext:
+     capabilities:
+       drop:
+       - ALL
+     readOnlyRootFilesystem: true
+     runAsNonRoot: true
+     runAsUser: 1000
+
+  ingress:
+    enabled: true
+    className: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - host: &host "firefly.serverton.de"
+        paths:
+          - path: /
+            service:
+              name: main
+              port: http
+    tls:
+      - secretName: fireflyiii-tls-certificate
+        hosts:
+          - *host
+
+importer:
+  image:
+    repository: fireflyiii/data-importer
+    tag: "version-1.5.0"
+
+#  fireflyiii:
+#    url: "http://firefly-firefly-iii:80"
