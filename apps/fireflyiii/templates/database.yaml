@@ -16,4 +16,7 @@ spec:
   secretName: database
   privileges: OWNER
   secretTemplate:
-    TEST: "user={{ `{{ .Role }}` }} password={{ `{{ .Password }}` }}"
+    DB_HOST: "{{ `{{.Host}}` }}"
+    DB_DATABASE: "{{ `{{.Database}}` }}"
+    DB_USERNAME: "{{ `{{.Role}}` }}"
+    DB_PASSWORD: "{{ `{{.Password}}` }}"

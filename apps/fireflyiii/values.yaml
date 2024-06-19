@@ -8,31 +8,11 @@ firefly-iii:
     existingClaim: "fireflyiii-data"
 
   config:
-    existingSecret: "fireflyiii-secret"
+    existingSecret: "database-fireflyiii-user"
 
     env:
       DB_CONNECTION: pgsql
       DB_PORT: "5432"
-      DB_HOST:
-        valueFrom:
-          secretKeyRef:
-            name: database-fireflyiii-user
-            key: HOST
-      DB_DATABASE:
-        valueFrom:
-          secretKeyRef:
-            name: database-fireflyiii-user
-            key: DATABASE_NAME
-      DB_USERNAME:
-        valueFrom:
-          secretKeyRef:
-            name: database-fireflyiii-user
-            key: LOGIN
-      DB_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: database-fireflyiii-user
-            key: PASSWORD
       DEFAULT_LANGUAGE: "en_US"
       DEFAULT_LOCALE: "equal"
       TZ: "Europe/Berlin"
