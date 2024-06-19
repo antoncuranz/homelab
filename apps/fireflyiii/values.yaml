@@ -53,6 +53,7 @@ importer:
 
   fireflyiii:
     url: "http://fireflyiii-firefly-iii.fireflyiii.svc.cluster.local:80"
+    vanityUrl: "https://firefly.serverton.de"
 
     auth:
       existingSecret: "fireflyiii-importer-secret"
