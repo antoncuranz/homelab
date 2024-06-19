@@ -17,6 +17,8 @@ firefly-iii:
       DEFAULT_LOCALE: "equal"
       TZ: "Europe/Berlin"
       TRUSTED_PROXIES: "**"
+      AUTHENTICATION_GUARD: "remote_user_guard"
+      AUTHENTICATION_GUARD_HEADER: "X-Forwarded-User"
 
   podSecurityContext:
      fsGroup: 2000
@@ -34,6 +36,8 @@ firefly-iii:
     annotations:
       external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
       cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+      nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
     hosts:
       - &host "firefly.serverton.de"
     tls:
