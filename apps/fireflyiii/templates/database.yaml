@@ -15,3 +15,5 @@ spec:
   database: fireflyiii-db
   secretName: database
   privileges: OWNER
+  secretTemplate:
+    TEST: "user={{ `{{ .Role }}` }} password={{ `{{ .Password }}` }}"
