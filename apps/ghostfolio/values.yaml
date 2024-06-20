@@ -20,7 +20,7 @@ app-template:
               valueFrom:
                 secretKeyRef:
                   name: database-ghostfolio-user
-                  key: POSTGRES_JDBC_URL
+                  key: POSTGRES_URL
           envFrom:
             - secretRef:
                 name: ghostfolio-secret
