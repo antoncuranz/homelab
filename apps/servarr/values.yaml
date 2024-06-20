@@ -309,7 +309,7 @@ radarr:
         main:
           image:
             repository: ghcr.io/onedr0p/radarr
-            tag: 5.6.0.8846
+            tag: 5.7.0.8882
           env:
             TZ: Europe/Berlin
             RADARR__SERVER__PORT: &port 7878
