@@ -1,0 +1,55 @@
+app-template:
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: ghostfolio/ghostfolio
+            tag: 2.88.0
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /api/v1/health
+                  port: 3333
+                initialDelaySeconds: 30
+          env:
+            REDIS_HOST: localhost
+            DATABASE_URL:
+              valueFrom:
+                secretKeyRef:
+                  name: database-ghostfolio-user
+                  key: POSTGRES_JDBC_URL
+          envFrom:
+            - secretRef:
+                name: ghostfolio-secret
+        redis:
+          image:
+            repository: public.ecr.aws/docker/library/redis
+            tag: 7.2.5
+
+  service:
+    main:
+      ports:
+        http:
+          port: 3333
+
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: &host "ghostfolio.serverton.de"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - secretName: ghostfolio-tls-certificate
+          hosts:
+            - *host

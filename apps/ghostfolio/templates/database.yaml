@@ -1,0 +1,17 @@
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
+metadata:
+  name: ghostfolio-db
+spec:
+  database: ghostfolio
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: ghostfolio-user
+spec:
+  role: ghostfolio
+  database: ghostfolio-db
+  secretName: database
+  privileges: OWNER
