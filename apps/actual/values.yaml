@@ -1,51 +1,41 @@
 app-template:
-  controller:
-    strategy: RollingUpdate
-  image:
-    repository: actualbudget/actual-server
-    tag: 24.6.0
-  env:
-    - name: TZ
-      value: "Europe/Berlin"
-    - name: ACTUAL_NORDIGEN_SECRET_ID
-      valueFrom:
-        secretKeyRef:
-          name: actual-secrets
-          key: NORDIGEN_SECRET_ID
-    - name: ACTUAL_NORDIGEN_SECRET_KEY
-      valueFrom:
-        secretKeyRef:
-          name: actual-secrets
-          key: NORDIGEN_SECRET_KEY
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      containers:
+        main:
+          image:
+            repository: actualbudget/actual-server
+            tag: 24.6.0
+          env:
+            TZ: "Europe/Berlin"
+        rest:
+          image:
+            repository: jhonderson/actual-http-api:latest
+            tag: v0.9.0
+          env:
+            ACTUAL_SERVER_URL: "http://actual.actual.svc.cluster.local:5006"
+          envFrom:
+            - secretRef:
+                name: actual-secrets
+
   persistence:
     data:
       enabled: true
       accessMode: ReadWriteOnce
       size: 4Gi
+
   service:
     main:
       ports:
         http:
-          port: &port 5006
-  # probes:
-  #   liveness: &probes
-  #     enabled: true
-  #     custom: true
-  #     spec:
-  #       httpGet:
-  #         path: /health
-  #         port: *port
-  #       initialDelaySeconds: 0
-  #       periodSeconds: 10
-  #       timeoutSeconds: 1
-  #       failureThreshold: 3
-  #   readiness: *probes
-  #   startup:
-  #     enabled: false
+          port: 5006
+
   ingress:
     main:
       enabled: true
-      ingressClassName: nginx
+      className: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
@@ -55,7 +45,9 @@ app-template:
         - host: &host "actual.serverton.de"
           paths:
             - path: /
-              pathType: Prefix
+              service:
+                name: main
+                port: http
       tls:
         - secretName: actual-tls-certificate
           hosts:
