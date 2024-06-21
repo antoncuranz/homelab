@@ -3,7 +3,7 @@ app-template:
     strategy: RollingUpdate
   image:
     repository: actualbudget/actual-server
-    tag: 23.7.1
+    tag: 23.12.1
   env:
     - name: TZ
       value: "Europe/Berlin"
