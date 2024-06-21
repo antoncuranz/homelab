@@ -31,9 +31,8 @@ app-template:
       ports:
         http:
           port: 5006
-    rest:
-      ports:
         rest:
+          enable: true
           port: 5007
 
   ingress:
