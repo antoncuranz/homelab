@@ -22,6 +22,7 @@ minecraft:
     AUTOPAUSE_TIMEOUT_INIT: 60 # 1min
     JVM_DD_OPTS: "disable.watchdog:true" # autopause
     SKIP_SUDO: true
+    PAPER_CHANNEL: "experimental"
 
   serviceAnnotations:
     metallb.universe.tf/allow-shared-ip: default
