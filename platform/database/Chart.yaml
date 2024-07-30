@@ -3,7 +3,7 @@ name: database
 version: 0.0.0
 dependencies:
   - name: cloudnative-pg
-    version: 0.21.5
+    version: 0.21.6
     repository: https://cloudnative-pg.github.io/charts
   - name: ext-postgres-operator
     version: 1.2.6
