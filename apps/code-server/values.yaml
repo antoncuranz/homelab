@@ -13,21 +13,20 @@ app-template:
           image:
             repository: ghcr.io/coder/code-server
             tag: 4.91.1
-#          command: ["dumb-init", "/bin/bash", "-c"]
-#          args: ["/home/linuxbrew/.linuxbrew/sbin/sshd -p 2222 || true; /usr/bin/code-server --auth none --disable-telemetry --user-data-dir /home/coder/.vscode --extensions-dir /home/coder/.vscode --bind-addr 0.0.0.0:8080 --port 8080 /home/coder"]
           args:
-#            - "--auth"
-#            - "none"
+            - "--auth"
+            - "none"
+            - "--disable-telemetry"
             - "--user-data-dir"
             - "/config/.vscode"
             - "--extensions-dir"
             - "/config/.vscode"
             - "/data"
-          securityContext:
+#          securityContext:
 #            readOnlyRootFilesystem: true
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop: ["ALL"]
+#            allowPrivilegeEscalation: false
+#            capabilities:
+#              drop: ["ALL"]
 #          resources:
 #            limits:
 #              cpu: "1000m"
