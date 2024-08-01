@@ -53,7 +53,7 @@ app-template:
                 name: main
                 port: http
       tls:
-        - secretName: jellyfin-tls-certificate
+        - secretName: code-server-tls-certificate
           hosts:
             - *host
 
