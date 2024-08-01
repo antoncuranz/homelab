@@ -15,6 +15,14 @@ app-template:
             tag: 4.91.1
 #          command: ["dumb-init", "/bin/bash", "-c"]
 #          args: ["/home/linuxbrew/.linuxbrew/sbin/sshd -p 2222 || true; /usr/bin/code-server --auth none --disable-telemetry --user-data-dir /home/coder/.vscode --extensions-dir /home/coder/.vscode --bind-addr 0.0.0.0:8080 --port 8080 /home/coder"]
+          args:
+#            - "--auth"
+#            - "none"
+            - "--user-data-dir"
+            - "/config/.vscode"
+            - "--extensions-dir"
+            - "/config/.vscode"
+            - "/data"
           securityContext:
 #            readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
@@ -51,9 +59,11 @@ app-template:
             - *host
 
   persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 1Gi
     data:
       enabled: true
       accessMode: ReadWriteOnce
       size: 5Gi
-      globalMounts:
-        - path: /home/coder
