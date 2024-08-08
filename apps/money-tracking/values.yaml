@@ -20,9 +20,7 @@ backend:
     main:
       ports:
         http:
-          port: 8080
-        debug:
-          port: 5005
+          port: 80
 
   ingress:
     main:
@@ -41,13 +39,13 @@ backend:
                 name: main
                 port: http
       tls:
-        - secretName: financeq-tls-certificate
+        - secretName: money-tracking-backend-tls-certificate
           hosts:
             - *host
 
 frontend:
   global:
-    nameOverride: money-tracking-frontend
+    nameOverride: frontend
 
   controllers:
     main:
