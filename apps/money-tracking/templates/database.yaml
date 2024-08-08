@@ -13,5 +13,5 @@ metadata:
 spec:
   role: money-tracking
   database: money-tracking-db
-  secretName: money-tracking
+  secretName: database
   privileges: OWNER

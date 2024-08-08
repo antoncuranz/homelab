@@ -13,6 +13,28 @@ backend:
             repository: ghcr.io/antoncuranz/money-tracking/backend
             tag: latest
             pullPolicy: Always
+          env:
+            ACTUAL_BASE_URL: "http://actual.actual.svc.cluster.local:5007"
+            POSTGRES_HOST:
+              valueFrom:
+                secretKeyRef:
+                  name: database-money-tracking-user
+                  key: HOST
+            POSTGRES_DATABASE:
+              valueFrom:
+                secretKeyRef:
+                  name: database-money-tracking-user
+                  key: DATABASE_NAME
+            POSTGRES_USER:
+              valueFrom:
+                secretKeyRef:
+                  name: database-money-tracking-user
+                  key: LOGIN
+            POSTGRES_PASSWORD:
+              valueFrom:
+                secretKeyRef:
+                  name: database-money-tracking-user
+                  key: PASSWORD
           envFrom:
             - secretRef:
                 name: money-tracking-secrets
