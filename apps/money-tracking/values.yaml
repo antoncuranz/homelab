@@ -38,6 +38,18 @@ backend:
           envFrom:
             - secretRef:
                 name: money-tracking-secrets
+
+  persistence:
+    teller_certs:
+      enabled: true
+      type: secret
+      name: money-tracking-secrets
+      globalMounts:
+        - path: /app/teller/certificate.pem
+          subPath: TELLER_CERTIFICATE
+        - path: /app/teller/private_key.pem
+          subPath: TELLER_PRIVATE_KEY
+
   service:
     main:
       ports:
