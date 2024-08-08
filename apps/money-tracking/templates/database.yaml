@@ -1,0 +1,17 @@
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
+metadata:
+  name: money-tracking-db
+spec:
+  database: money-tracking
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: money-tracking-user
+spec:
+  role: money-tracking
+  database: money-tracking-db
+  secretName: money-tracking
+  privileges: OWNER

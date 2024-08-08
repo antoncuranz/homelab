@@ -1,0 +1,12 @@
+apiVersion: v2
+name: finance
+version: 0.0.0
+dependencies:
+  - name: app-template
+    alias: frontend
+    version: 2.6.0
+    repository: https://bjw-s.github.io/helm-charts
+  - name: app-template
+    alias: backend
+    version: 2.6.0
+    repository: https://bjw-s.github.io/helm-charts

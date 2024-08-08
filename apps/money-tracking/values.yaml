@@ -1,0 +1,94 @@
+backend:
+  global:
+    nameOverride: backend
+
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/antoncuranz/money-tracking/backend
+            tag: latest
+            pullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: money-tracking-secrets
+  service:
+    main:
+      ports:
+        http:
+          port: 8080
+        debug:
+          port: 5005
+
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+#        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+#        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+      hosts:
+        - host: &host "money-tracking.serverton.de"
+          paths:
+            - path: /api
+              service:
+                name: main
+                port: http
+      tls:
+        - secretName: financeq-tls-certificate
+          hosts:
+            - *host
+
+frontend:
+  global:
+    nameOverride: money-tracking-frontend
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/antoncuranz/money-tracking/frontend
+            tag: latest
+            pullPolicy: Always
+          env:
+            TELLER_APPLICATION_ID:
+              valueFrom:
+                secretKeyRef:
+                  name: money-tracking-secrets
+                  key: TELLER_APPLICATION_ID
+
+  service:
+    main:
+      ports:
+        http:
+          port: 80
+
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+      hosts:
+        - host: &host "money-tracking.serverton.de"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - secretName: money-tracking-frontend-tls-certificate
+          hosts:
+            - *host
