@@ -40,7 +40,7 @@ backend:
                 name: money-tracking-secrets
 
   persistence:
-    teller_certs:
+    tellerCerts:
       enabled: true
       type: secret
       name: money-tracking-secrets
