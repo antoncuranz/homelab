@@ -24,7 +24,7 @@
       "automerge": false
     },
     {
-      "matchPackageNames": ["kubernetes-dashboard"],
+      "matchPackageNames": ["kubernetes-dashboard", "docker.io/qmcgaw/gluetun"],
       "automerge": false
     }
   ],
