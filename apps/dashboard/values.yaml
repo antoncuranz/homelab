@@ -21,7 +21,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/linuxserver/nginx
-            tag: version-1.26.1-r0
+            tag: version-1.26.2-r0
           probes:
             liveness:
               enabled: true
