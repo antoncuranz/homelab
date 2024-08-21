@@ -18,6 +18,8 @@ backend:
             ACTUAL_CAT_FX_FEES: "ff41dcbd-5962-4b32-b3fe-ce9d63cf9c25"
             ACTUAL_CAT_CCY_RISK: "82da7443-67e0-41b2-84fe-95e17676b5ec"
             ACTUAL_CAT_OTHER: "7e179c86-50cd-4f9e-86dd-d085dfa21a10"
+            ACTUAL_CAT_GROCERIES: "ff259c77-c898-447e-a156-9ee299e09a32"
+            ACTUAL_CAT_DINING: "e2dd17ec-0197-46eb-a855-3cdab1dbb77a"
             POSTGRES_HOST:
               valueFrom:
                 secretKeyRef:
