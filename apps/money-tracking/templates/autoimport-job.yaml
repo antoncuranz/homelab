@@ -7,8 +7,10 @@ spec:
   schedule: "@daily"
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 3
+  concurrencyPolicy: Forbid
   jobTemplate:
     spec:
+      backoffLimit: 0
       template:
         spec:
           containers:
