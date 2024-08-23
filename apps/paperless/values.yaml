@@ -8,7 +8,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/paperless-ngx/paperless-ngx
-            tag: 2.11.4
+            tag: 2.11.5
           env:
             PAPERLESS_DBHOST:
               valueFrom:
