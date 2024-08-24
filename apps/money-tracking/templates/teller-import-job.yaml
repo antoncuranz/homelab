@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: teller-autoimport
+  name: teller-import
 spec:
   schedule: "@daily"
   successfulJobsHistoryLimit: 1
@@ -14,7 +14,7 @@ spec:
       template:
         spec:
           containers:
-            - name: teller-autoimport-container
+            - name: teller-import-container
               image: curlimages/curl:8.9.1
               imagePullPolicy: IfNotPresent
               command:

@@ -1,0 +1,32 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: amex-import
+spec:
+  schedule: "@hourly"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          containers:
+            - name: amex-import-container
+              image: ghcr.io/antoncuranz/money-tracking/scripts:latest
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - 'python scripts/amex_import.py'
+              env:
+                - name: ACTUAL_BASE_URL
+                  value: "http://actual.actual.svc.cluster.local:5007"
+                - name: ACTUAL_ACCOUNT_ID
+                  value: "57019487-d158-4282-88fe-9edf47c41815"
+              envFrom:
+                - secretRef:
+                    name: money-tracking-secrets
+          restartPolicy: Never
