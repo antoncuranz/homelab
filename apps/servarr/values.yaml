@@ -203,7 +203,7 @@ prowlarr:
         main:
           image:
             repository: ghcr.io/onedr0p/prowlarr
-            tag: 1.21.2.4649
+            tag: 1.23.1.4708
           env:
             TZ: Europe/Berlin
             PROWLARR__SERVER__PORT: &port 9696
