@@ -57,6 +57,7 @@ app-template:
             - *host
 
 test:
+  nameOverride: test
   controllers:
     main:
       containers:
