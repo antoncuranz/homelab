@@ -36,7 +36,7 @@ app-template:
       dataSourceRef:
         kind: ReplicationDestination
         apiGroup: volsync.backube
-        name: homebridge-dst
+        name: actual-dst
 
   service:
     main:
