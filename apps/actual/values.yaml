@@ -43,10 +43,10 @@ app-template:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
-#        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
-#        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
         nginx.ingress.kubernetes.io/configuration-snippet: |
-          proxy_set_header x-actual-password some-password;
+          proxy_set_header x-actual-password ejv_nux@DEY9jtn@hwg;
       hosts:
         - host: &host "actual.serverton.de"
           paths:
