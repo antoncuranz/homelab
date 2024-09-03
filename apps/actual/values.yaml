@@ -10,6 +10,7 @@ app-template:
             tag: 24.8.0
           env:
             TZ: "Europe/Berlin"
+            ACTUAL_LOGIN_METHOD: "header"
         rest:
           image:
             repository: jhonderson/actual-http-api
@@ -44,6 +45,8 @@ app-template:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
 #        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
 #        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+        nginx.ingress.kubernetes.io/configuration-snippet: |
+          proxy_set_header x-actual-password some-password;
       hosts:
         - host: &host "actual.serverton.de"
           paths:
@@ -53,45 +56,5 @@ app-template:
                 port: http
       tls:
         - secretName: actual-tls-certificate
-          hosts:
-            - *host
-
-test:
-  global:
-    nameOverride: test
-  controllers:
-    main:
-      containers:
-        main:
-          image:
-            repository: mendhak/http-https-echo
-            tag: 34
-
-  service:
-    main:
-      ports:
-        http:
-          port: 8080
-
-  ingress:
-    main:
-      enabled: true
-      className: nginx
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
-        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
-        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
-        nginx.ingress.kubernetes.io/configuration-snippet: |
-          proxy_set_header x-actual-password some-password;
-      hosts:
-        - host: &host "test.serverton.de"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-      tls:
-        - secretName: test-tls-certificate
           hosts:
             - *host
