@@ -53,10 +53,6 @@ jellyfin:
       enabled: true
       accessMode: ReadWriteOnce
       size: 50Gi
-      dataSourceRef:
-        kind: ReplicationDestination
-        apiGroup: volsync.backube
-        name: jellyfin-dst
     cache:
       enabled: true
       type: emptyDir
