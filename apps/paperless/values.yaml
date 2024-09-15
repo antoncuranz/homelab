@@ -37,6 +37,7 @@ app-template:
             PAPERLESS_PORT: &port 8000
             DJANGO_SETTINGS_MODULE: "paperless.settings_ldap"
             PAPERLESS_LDAP_PIP_INSTALL: "true"
+            PAPERLESS_OCR_USER_ARGS: "{\"invalidate_digital_signatures\": true}"
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
