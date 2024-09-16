@@ -6,5 +6,5 @@ dependencies:
     version: 22.2.4
     repository: https://charts.bitnami.com/bitnami
   - name: oauth2-proxy
-    version: 7.7.19
+    version: 7.7.20
     repository: https://oauth2-proxy.github.io/manifests
