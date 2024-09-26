@@ -692,6 +692,7 @@ sabnzbd:
         cert-manager.io/cluster-issuer: letsencrypt-prod
         nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
         nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+        nginx.ingress.kubernetes.io/proxy-body-size: 10M
       hosts:
         - host: &host "sabnzbd.serverton.de"
           paths:
