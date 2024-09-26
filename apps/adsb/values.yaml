@@ -3,8 +3,9 @@ app-template:
     main:
       strategy: RollingUpdate
 
-#      pod:
-#        securityContext:
+      pod:
+        securityContext:
+          privileged: true
 #          runAsUser: 1001
 #          runAsGroup: 1001
 #          fsGroup: 1001
