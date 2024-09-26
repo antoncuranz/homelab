@@ -81,7 +81,7 @@ app-template:
                   key: PIAWARE_FEEDER_ID
 
   persistence:
-    globeHistory:
+    globe-history:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
