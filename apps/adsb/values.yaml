@@ -87,6 +87,10 @@ app-template:
                   key: PIAWARE_FEEDER_ID
 
   persistence:
+    rtlsdr:
+      enabled: true
+      type: hostPath
+      hostPath: /dev/rtlsdr
     globe-history:
       enabled: true
       accessMode: ReadWriteOnce
