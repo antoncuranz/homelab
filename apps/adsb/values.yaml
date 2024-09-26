@@ -25,7 +25,7 @@ app-template:
             READSB_RX_LOCATION_ACCURACY: "2"
             READSB_STATS_RANGE: "true"
 
-            ULTRAFEEDER_CONFIG: "mlathub,piaware,30105,beast_in;"
+            ULTRAFEEDER_CONFIG: "mlathub,adsb-piaware,30105,beast_in;"
 
             READSB_FORWARD_MLAT_SBS: "true"
 
@@ -61,7 +61,7 @@ app-template:
             repository: ghcr.io/sdr-enthusiasts/docker-flightradar24
             tag: latest
           env:
-            BEASTHOST: "ultrafeeder"
+            BEASTHOST: "adsb"
             TZ: "Europe/Berlin"
 
             FR24KEY:
@@ -77,7 +77,7 @@ app-template:
             repository: ghcr.io/sdr-enthusiasts/docker-piaware
             tag: latest
           env:
-            BEASTHOST: "ultrafeeder"
+            BEASTHOST: "adsb"
             TZ: "Europe/Berlin"
 
             FEEDER_ID:
