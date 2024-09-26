@@ -108,10 +108,12 @@ app-template:
         beast:
           port: 30005
     fr24:
+      controller: fr24
       ports:
         http:
           port: 8754
     piaware:
+      controller: piaware
       ports:
         http:
           port: 8080
