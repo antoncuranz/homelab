@@ -105,6 +105,16 @@ app-template:
       ports:
         http:
           port: 8080
+        beast:
+          port: 30005
+    fr24:
+      ports:
+        http:
+          port: 8754
+    piaware:
+      ports:
+        http:
+          port: 8080
 
   ingress:
     main:
