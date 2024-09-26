@@ -108,7 +108,7 @@ app-template:
     main:
       ports:
         http:
-          port: 8080
+          port: 80
         beast:
           port: 30005
     fr24:
