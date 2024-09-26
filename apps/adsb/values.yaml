@@ -3,9 +3,8 @@ app-template:
     main:
       strategy: RollingUpdate
 
-      pod:
-        securityContext:
-          privileged: true
+#      pod:
+#        securityContext:
 #          runAsUser: 1001
 #          runAsGroup: 1001
 #          fsGroup: 1001
@@ -54,6 +53,8 @@ app-template:
           envFrom:
             - secretRef:
                 name: adsb-secrets
+          securityContext:
+            privileged: true
 
     fr24:
       containers:
