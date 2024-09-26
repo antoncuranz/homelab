@@ -1,8 +1,6 @@
 app-template:
   controllers:
     main:
-      strategy: RollingUpdate
-
 #      pod:
 #        securityContext:
 #          runAsUser: 1001
