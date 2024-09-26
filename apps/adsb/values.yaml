@@ -123,6 +123,8 @@ app-template:
       ports:
         http:
           port: 8080
+        beast:
+          port: 30105
 
   ingress:
     main:
