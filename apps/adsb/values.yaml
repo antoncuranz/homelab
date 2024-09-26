@@ -54,7 +54,7 @@ app-template:
             - secretRef:
                 name: adsb-secrets
 
-    second:
+    fr24:
       containers:
         fr24:
           image:
@@ -69,6 +69,9 @@ app-template:
                 secretKeyRef:
                   name: adsb-secrets
                   key: FR24_SHARING_KEY
+
+    piaware:
+      containers:
         piaware:
           image:
             repository: ghcr.io/sdr-enthusiasts/docker-piaware
