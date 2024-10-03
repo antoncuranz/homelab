@@ -7,7 +7,7 @@ app-template:
         main:
           image:
             repository: ghostfolio/ghostfolio
-            tag: 2.111.0
+            tag: 2.112.0
             liveness:
               enabled: true
               custom: true
