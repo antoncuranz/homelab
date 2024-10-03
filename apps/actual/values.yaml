@@ -14,7 +14,7 @@ app-template:
         main:
           image:
             repository: actualbudget/actual-server
-            tag: 24.9.0
+            tag: 24.10.0
           env:
             TZ: "Europe/Berlin"
             ACTUAL_LOGIN_METHOD: "header"
