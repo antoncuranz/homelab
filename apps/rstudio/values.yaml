@@ -13,6 +13,8 @@ app-template:
           image:
             repository: docker.io/rocker/rstudio
             tag: 4.4.1
+          env:
+            DISABLE_AUTH: "true"
   service:
     main:
       ports:
@@ -25,8 +27,8 @@ app-template:
       annotations:
         external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
-#        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
-#        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
       hosts:
         - host: &host "rstudio.serverton.de"
           paths:
