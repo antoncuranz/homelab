@@ -1,0 +1,51 @@
+app-template:
+  controllers:
+    main:
+#      pod:
+#        securityContext:
+#          runAsUser: 568
+#          runAsGroup: 568
+#          fsGroup: 568
+#          fsGroupChangePolicy: "OnRootMismatch"
+
+      containers:
+        main:
+          image:
+            repository: docker.io/rocker/rstudio
+            tag: 4.4.1
+  service:
+    main:
+      ports:
+        http:
+          port: 8787
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+#        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+#        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+      hosts:
+        - host: &host "rstudio.serverton.de"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - secretName: rstudio-tls-certificate
+          hosts:
+            - *host
+  persistence:
+    data:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 1Gi
+      globalMounts:
+        - path: /home/rstudio
+#      dataSourceRef:
+#        kind: ReplicationDestination
+#        apiGroup: volsync.backube
+#        name: node-red-dst
