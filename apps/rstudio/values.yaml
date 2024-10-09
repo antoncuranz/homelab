@@ -14,7 +14,7 @@ app-template:
             repository: docker.io/rocker/rstudio
             tag: 4.4.1
           env:
-            DISABLE_AUTH: "true"
+#            DISABLE_AUTH: "true"
   service:
     main:
       ports:
