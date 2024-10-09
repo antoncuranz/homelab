@@ -24,7 +24,7 @@
       "automerge": false
     },
     {
-      "matchPackageNames": ["kubernetes-dashboard", "docker.io/qmcgaw/gluetun"],
+      "matchPackageNames": ["cert-manager", "docker.io/qmcgaw/gluetun"],
       "automerge": false
     }
   ],
