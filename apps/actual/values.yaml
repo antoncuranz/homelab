@@ -20,7 +20,7 @@ app-template:
             ACTUAL_LOGIN_METHOD: "header"
         rest:
           image:
-            repository: ghcr.io/antoncuranz/actual-http-api
+            repository: ghcr.io/jhonderson/actual-http-api
             tag: v0.11.0
           env:
             ACTUAL_SERVER_URL: "http://actual.actual.svc.cluster.local:5006"
