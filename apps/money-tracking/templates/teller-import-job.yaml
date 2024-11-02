@@ -20,5 +20,5 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - 'curl -X POST "http://money-tracking-backend.money-tracking.svc.cluster.local/api/import/1" -v'
+                - 'curl -X POST "http://money-tracking-backend.money-tracking.svc.cluster.local/api/import" -v'
           restartPolicy: Never
