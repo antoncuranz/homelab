@@ -15,7 +15,7 @@ spec:
         spec:
           containers:
             - name: teller-import-container
-              image: curlimages/curl:8.10.1
+              image: curlimages/curl:8.11.0
               imagePullPolicy: Always
               command:
                 - /bin/sh
