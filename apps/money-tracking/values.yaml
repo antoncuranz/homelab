@@ -18,6 +18,7 @@ backend:
             ACTUAL_CAT_FX_FEES: "ff41dcbd-5962-4b32-b3fe-ce9d63cf9c25"
             ACTUAL_CAT_GROCERIES: "ff259c77-c898-447e-a156-9ee299e09a32"
             ACTUAL_CAT_DINING: "c1e2f6d7-dd3c-4f66-a1b4-eb6916aba30c"
+            PYDEVD_DISABLE_FILE_VALIDATION: "1"
             POSTGRES_HOST:
               valueFrom:
                 secretKeyRef:
