@@ -248,7 +248,7 @@ rtl:
         main:
           image:
             repository: shahanafarooqui/rtl
-            tag: v0.15.3
+            tag: v0.15.4
           env:
             RTL_CONFIG_PATH: "/data/RTL"
       pod:
