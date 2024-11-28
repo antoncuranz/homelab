@@ -414,7 +414,7 @@ sonarr:
         main:
           image:
             repository: ghcr.io/onedr0p/sonarr-develop
-            tag: 4.0.11.2688
+            tag: 4.0.11.2697
           env:
             SONARR__SERVER__PORT: &port 8989
             SONARR__LOG__DBENABLED: False
