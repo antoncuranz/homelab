@@ -61,28 +61,6 @@ backend:
         http:
           port: 80
 
-  ingress:
-    main:
-      enabled: true
-      className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
-        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
-        nginx.ingress.kubernetes.io/auth-response-headers: "X-Auth-Request-User, X-Auth-Request-Groups, X-Auth-Request-Email, X-Auth-Request-Preferred-Username"
-      hosts:
-        - host: &host "money-tracking.serverton.de"
-          paths:
-            - path: /api
-              service:
-                name: main
-                port: http
-      tls:
-        - secretName: money-tracking-backend-tls-certificate
-          hosts:
-            - *host
-
 frontend:
   global:
     nameOverride: frontend
@@ -119,6 +97,7 @@ frontend:
         cert-manager.io/cluster-issuer: letsencrypt-prod
         nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
         nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+        nginx.ingress.kubernetes.io/auth-response-headers: "X-Auth-Request-User, X-Auth-Request-Groups, X-Auth-Request-Email, X-Auth-Request-Preferred-Username"
       hosts:
         - host: &host "money-tracking.serverton.de"
           paths:
