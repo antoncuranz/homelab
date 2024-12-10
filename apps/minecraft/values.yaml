@@ -1,7 +1,7 @@
 minecraft:
   image:
     repository: itzg/minecraft-server
-    tag: 2024.10.2
+    tag: 2024.12.0
 
   minecraftServer:
     eula: "TRUE"
