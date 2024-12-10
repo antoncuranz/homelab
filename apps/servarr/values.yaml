@@ -630,7 +630,7 @@ sabnzbd:
         main:
           image:
             repository: ghcr.io/onedr0p/sabnzbd
-            tag: 4.3.3
+            tag: 4.4.0
           env:
             TZ: Europe/Berlin
             SABNZBD__PORT: 80
