@@ -77,15 +77,6 @@ app-template:
         kind: ReplicationDestination
         apiGroup: volsync.backube
         name: paperless-media-dst
-    paperless-ldap-config:
-      enabled: true
-      type: secret
-      name: paperless-ldap-config
-      advancedMounts:
-        main:
-          main:
-            - path: /usr/src/paperless/src/paperless/settings_ldap.py
-              subPath: settings_ldap.py
 
   service:
     main:
