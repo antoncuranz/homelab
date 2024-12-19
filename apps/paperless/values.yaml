@@ -33,11 +33,12 @@ app-template:
             PAPERLESS_URL: https://paperless.serverton.de
             PAPERLESS_TIME_ZONE: "Europe/Berlin"
             PAPERLESS_OCR_LANGUAGE: deu
+            PAPERLESS_OCR_USER_ARGS: "{\"invalidate_digital_signatures\": true}"
             PAPERLESS_REDIS: redis://localhost:6379
             PAPERLESS_PORT: &port 8000
-            DJANGO_SETTINGS_MODULE: "paperless.settings_ldap"
-            PAPERLESS_LDAP_PIP_INSTALL: "true"
-            PAPERLESS_OCR_USER_ARGS: "{\"invalidate_digital_signatures\": true}"
+          envFrom:
+            - secretRef:
+                name: paperless-secret
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000

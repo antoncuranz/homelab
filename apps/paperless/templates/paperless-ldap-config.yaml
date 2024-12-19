@@ -1,7 +1,0 @@
----
-apiVersion: onepassword.com/v1
-kind: OnePasswordItem
-metadata:
-  name: paperless-ldap-config
-spec:
-  itemPath: "vaults/Kubernetes/items/Paperless LDAP Config"
