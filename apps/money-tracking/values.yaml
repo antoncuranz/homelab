@@ -44,17 +44,6 @@ backend:
             - secretRef:
                 name: money-tracking-secrets
 
-  persistence:
-    teller-certs:
-      enabled: true
-      type: secret
-      name: money-tracking-secrets
-      globalMounts:
-        - path: /app/teller/certificate.pem
-          subPath: TELLER_CERTIFICATE
-        - path: /app/teller/private_key.pem
-          subPath: TELLER_PRIVATE_KEY
-
   service:
     main:
       ports:
@@ -75,12 +64,6 @@ frontend:
             repository: ghcr.io/antoncuranz/money-tracking/frontend
             tag: latest
             pullPolicy: Always
-          env:
-            TELLER_APPLICATION_ID:
-              valueFrom:
-                secretKeyRef:
-                  name: money-tracking-secrets
-                  key: TELLER_APPLICATION_ID
 
   service:
     main:
