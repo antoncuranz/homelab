@@ -1,6 +1,8 @@
 ingress-nginx:
   controller:
     allowSnippetAnnotations: true
+    config:
+      annotations-risk-level: Critical
     service:
       annotations:
         metallb.universe.tf/allow-shared-ip: default
