@@ -53,7 +53,7 @@ app-template:
       className: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
-        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
         nginx.ingress.kubernetes.io/proxy-body-size: 4G
         nginx.ingress.kubernetes.io/configuration-snippet: |
           proxy_set_header x-actual-password ejv_nux@DEY9jtn@hwg;

@@ -37,7 +37,7 @@ immich:
         enabled: true
         ingressClassName: nginx
         annotations:
-          external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+          external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
           cert-manager.io/cluster-issuer: letsencrypt-prod
         hosts:
           - host: &host "immich.serverton.de"

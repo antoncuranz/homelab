@@ -25,7 +25,7 @@ argo-cd:
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
-        external-dns.alpha.kubernetes.io/target: "ipv4.serverton.de"
+        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
       extraTls:
         - hosts:
           - argocd.serverton.de
