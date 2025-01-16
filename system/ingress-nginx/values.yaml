@@ -4,7 +4,7 @@ ingress-nginx:
     config:
       annotations-risk-level: Critical
     service:
-      externalTrafficPolicy: Local
+#      externalTrafficPolicy: Local
       annotations:
         metallb.universe.tf/allow-shared-ip: default
     admissionWebhooks:
