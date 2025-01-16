@@ -88,7 +88,6 @@ influxdb:
     size: 2Gi
   service:
     type: LoadBalancer
-    externalTrafficPolicy: Local
     annotations:
       metallb.universe.tf/allow-shared-ip: default
   initScripts:
