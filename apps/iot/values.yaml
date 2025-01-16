@@ -27,6 +27,7 @@ mosquitto:
   service:
     main:
       type: LoadBalancer
+      externalTrafficPolicy: Local
       annotations:
         metallb.universe.tf/allow-shared-ip: default
       ports:
