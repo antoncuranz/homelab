@@ -8,7 +8,7 @@ bitcoind:
         main:
           image:
             repository: lncm/bitcoind
-            tag: v27.1
+            tag: v27.2
           probes:
             liveness:
               port: 8332
