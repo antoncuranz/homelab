@@ -20,7 +20,7 @@
       "automerge": false
     },
     {
-      "matchPackageNames": ["cert-manager", "docker.io/qmcgaw/gluetun", "external-dns"],
+      "matchPackageNames": ["docker.io/qmcgaw/gluetun", "external-dns"],
       "automerge": false
     }
   ],
