@@ -15,16 +15,12 @@
       "versionScheme": "regex:^(?<compatibility>.*?)-(?<major>v?\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)[\\.-]*(?<build>r?\\d+)*$"
     },
     {
-      "packagePatterns": ["^fireflyiii\\/"],
-      "versionScheme": "regex:^version-(?<major>v?\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$"
-    },
-    {
       "matchPackageNames": ["immich-app/immich", "immich-app", "immich"],
       "matchUpdateTypes": ["minor"],
       "automerge": false
     },
     {
-      "matchPackageNames": ["cert-manager", "docker.io/qmcgaw/gluetun"],
+      "matchPackageNames": ["cert-manager", "docker.io/qmcgaw/gluetun", "external-dns"],
       "automerge": false
     }
   ],
