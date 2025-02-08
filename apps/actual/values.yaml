@@ -55,12 +55,6 @@ app-template:
         cert-manager.io/cluster-issuer: letsencrypt-prod
         external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
         nginx.ingress.kubernetes.io/proxy-body-size: 4G
-        nginx.ingress.kubernetes.io/configuration-snippet: |
-          proxy_set_header x-actual-password ejv_nux@DEY9jtn@hwg;
-        nginx.ingress.kubernetes.io/server-snippet: |
-          location /sync/delete-user-file {
-            return 403;
-          }
       hosts:
         - host: &host "actual.serverton.de"
           paths:
