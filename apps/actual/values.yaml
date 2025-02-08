@@ -17,7 +17,6 @@ app-template:
             tag: 25.2.1
           env:
             TZ: "Europe/Berlin"
-            ACTUAL_LOGIN_METHOD: "header"
         rest:
           image:
             repository: jhonderson/actual-http-api
