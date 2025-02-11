@@ -128,7 +128,7 @@ lnd:
         main:
           image:
             repository: lightninglabs/lnd
-            tag: v0.18.4-beta
+            tag: v0.18.5-beta
           env:
             HOME: "/data"
       pod:
