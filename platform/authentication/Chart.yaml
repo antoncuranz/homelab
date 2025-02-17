@@ -3,7 +3,7 @@ name: authentication
 version: 0.0.0
 dependencies:
   - name: keycloak
-    version: 24.4.9
+    version: 24.4.10
     repository: https://charts.bitnami.com/bitnami
   - name: oauth2-proxy
     version: 7.11.1
