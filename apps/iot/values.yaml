@@ -7,7 +7,7 @@ mosquitto:
         main:
           image:
             repository: docker.io/library/eclipse-mosquitto
-            tag: 2.0.20
+            tag: 2.0.21
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
