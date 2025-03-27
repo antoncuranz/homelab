@@ -49,6 +49,13 @@ backend:
       ports:
         http:
           port: 80
+  
+  serviceMonitor:
+    main:
+      enabled: true
+      endpoints:
+        - port: http
+          interval: 15m
 
 frontend:
   global:
