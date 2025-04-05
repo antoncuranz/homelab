@@ -14,7 +14,7 @@ app-template:
         main:
           image:
             repository: actualbudget/actual-server
-            tag: 25.3.1
+            tag: 25.4.0
           env:
             TZ: "Europe/Berlin"
             ACTUAL_LOGIN_METHOD: "openid"
