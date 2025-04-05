@@ -17,6 +17,7 @@ app-template:
             tag: 25.4.0
           env:
             TZ: "Europe/Berlin"
+            ACTUAL_PORT: "5006"
             ACTUAL_LOGIN_METHOD: "openid"
         rest:
           image:
