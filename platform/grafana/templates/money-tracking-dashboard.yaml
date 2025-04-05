@@ -26,7 +26,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 12,
+      "id": 10,
       "links": [],
       "panels": [
         {
@@ -89,7 +89,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "changes(plaid_account_3_last_successful_update[1d])",
+              "expr": "changes(plaid_account_3_last_successful_update[5d])/5",
               "hide": false,
               "interval": "",
               "legendFormat": "C1S",
@@ -102,7 +102,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "changes(plaid_account_5_last_successful_update[1d])",
+              "expr": "changes(plaid_account_5_last_successful_update[5d])/5",
               "hide": false,
               "instant": false,
               "legendFormat": "C1PS",
@@ -116,7 +116,7 @@ data:
               },
               "disableTextWrap": false,
               "editorMode": "code",
-              "expr": "changes(plaid_account_4_last_successful_update[1d])",
+              "expr": "changes(plaid_account_4_last_successful_update[5d])/5",
               "fullMetaSearch": false,
               "hide": false,
               "includeNullMetadata": true,
@@ -132,7 +132,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "changes(plaid_account_6_last_successful_update[1d])",
+              "expr": "changes(plaid_account_6_last_successful_update[5d])/5",
               "hide": false,
               "instant": false,
               "legendFormat": "AD2",
@@ -145,7 +145,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "changes(plaid_account_1_last_successful_update[1d])",
+              "expr": "changes(plaid_account_1_last_successful_update[5d])/5",
               "hide": false,
               "instant": false,
               "legendFormat": "ALL1",
@@ -158,7 +158,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "changes(plaid_account_7_last_successful_update[1d])",
+              "expr": "changes(plaid_account_7_last_successful_update[5d])/5",
               "hide": false,
               "instant": false,
               "legendFormat": "ALL2",
@@ -171,7 +171,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "changes(plaid_account_9_last_successful_update[1d])",
+              "expr": "changes(plaid_account_9_last_successful_update[5d])/5",
               "hide": false,
               "instant": false,
               "legendFormat": "BOA",
