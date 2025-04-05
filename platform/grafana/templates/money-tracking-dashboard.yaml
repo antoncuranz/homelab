@@ -179,6 +179,7 @@ data:
               "refId": "G"
             }
           ],
+          "timeFrom": "5d",
           "title": "Plaid Updates",
           "type": "gauge"
         }
