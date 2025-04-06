@@ -15,7 +15,7 @@ spec:
         spec:
           containers:
             - name: data-import-container
-              image: curlimages/curl:8.12.1
+              image: curlimages/curl:8.13.0
               imagePullPolicy: Always
               command:
                 - /bin/sh
