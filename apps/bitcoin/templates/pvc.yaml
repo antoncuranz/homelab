@@ -26,31 +26,3 @@ spec:
   resources:
     requests:
       storage: 1Ti
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: lnd-data-pv
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 2Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/home/ant0n/lightning"
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: lnd-data
-  annotations:
-    k8up.io/backup: 'true'
-spec:
-  volumeName: lnd-data-pv
-  storageClassName: manual
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
