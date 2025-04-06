@@ -109,21 +109,17 @@ tor:
           port: 9051
           protocol: TCP
 
-fulcrum:
+electrs:
   global:
-    nameOverride: fulcrum
+    nameOverride: electrs
 
   controllers:
     main:
       containers:
         main:
           image:
-            repository: cculianu/fulcrum
-            tag: v1.12.0.1
-          command:
-            - Fulcrum
-          args:
-            - /data/fulcrum.conf
+            repository: getumbrel/electrs
+            tag: v0.10.9
       pod:
         securityContext:
           runAsUser: 1000
@@ -132,17 +128,17 @@ fulcrum:
           fsGroupChangePolicy: Always
 
   persistence:
-    config:
-      enabled: true
-      type: secret
-      name: fulcrum-secrets
-      globalMounts:
-        - path: /data/fulcrum.conf
-          subPath: fulcrum.conf
+#    config:
+#      enabled: true
+#      type: secret
+#      name: electrs-secrets
+#      globalMounts:
+#        - path: /data/electrs.conf
+#          subPath: electrs.conf
     data:
       enabled: true
       accessMode: ReadWriteOnce
-      size: 50Gi
+      size: 100Gi
       globalMounts:
         - path: /data
 
@@ -150,7 +146,7 @@ fulcrum:
     main:
       ports:
         http:
-          port: 50001
+          port: 50021
 
   ingress:
     main:
@@ -160,13 +156,13 @@ fulcrum:
         external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: &host "fulcrum.serverton.de"
+        - host: &host "electrs.serverton.de"
           paths:
             - path: /
               service:
                 name: main
                 port: http
       tls:
-        - secretName: fulcrum-tls-certificate
+        - secretName: electrs-tls-certificate
           hosts:
             - *host
