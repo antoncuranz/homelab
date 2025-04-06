@@ -238,19 +238,21 @@ thunderhub:
           hosts:
             - *host
 
-rtl:
+fulcrum:
   global:
-    nameOverride: rtl
+    nameOverride: fulcrum
 
   controllers:
     main:
       containers:
         main:
           image:
-            repository: shahanafarooqui/rtl
-            tag: v0.15.4
-          env:
-            RTL_CONFIG_PATH: "/data/RTL"
+            repository: cculianu/fulcrum
+            tag: v1.12.0.1
+          command:
+            - Fulcrum
+          args:
+            - /data/fulcrum.conf
       pod:
         securityContext:
           runAsUser: 1000
@@ -262,30 +264,22 @@ rtl:
     config:
       enabled: true
       type: secret
-      name: rtl-secrets
+      name: fulcrum-secrets
       globalMounts:
-        - path: /data/RTL/RTL-Config.json
-          subPath: RTL-Config.json
+        - path: /data/fulcrum.conf
+          subPath: fulcrum.conf
     data:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
-      annotations:
-        'k8up.io/backup': 'true'
       globalMounts:
-        - path: /data/RTL
-    lnd:
-      enabled: true
-      existingClaim: lnd-data
-      globalMounts:
-        - path: /data/.lnd
-          readOnly: true
+        - path: /data
 
   service:
     main:
       ports:
         http:
-          port: 3000
+          port: 50001
 
   ingress:
     main:
@@ -294,16 +288,14 @@ rtl:
       annotations:
         external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
         cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
-        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
       hosts:
-        - host: &host "rtl.serverton.de"
+        - host: &host "fulcrum.serverton.de"
           paths:
             - path: /
               service:
                 name: main
                 port: http
       tls:
-        - secretName: rtl-tls-certificate
+        - secretName: fulcrum-tls-certificate
           hosts:
             - *host

@@ -18,7 +18,7 @@ dependencies:
     alias: thunderhub
     version: 2.6.0
     repository: https://bjw-s.github.io/helm-charts
-#  - name: app-template
-#    alias: rtl
-#    version: 2.6.0
-#    repository: https://bjw-s.github.io/helm-charts
+  - name: app-template
+    alias: fulcrum
+    version: 2.6.0
+    repository: https://bjw-s.github.io/helm-charts
