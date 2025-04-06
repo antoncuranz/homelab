@@ -144,25 +144,31 @@ electrs:
 
   service:
     main:
+      type: LoadBalancer
+      annotations:
+        metallb.universe.tf/allow-shared-ip: default
       ports:
         http:
+          enabled: false
+        rpc:
           port: 50001
+          enabled: true
 
-  ingress:
-    main:
-      enabled: true
-      className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-      hosts:
-        - host: &host "electrs.serverton.de"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-      tls:
-        - secretName: electrs-tls-certificate
-          hosts:
-            - *host
+#  ingress:
+#    main:
+#      enabled: true
+#      className: nginx
+#      annotations:
+#        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
+#        cert-manager.io/cluster-issuer: letsencrypt-prod
+#      hosts:
+#        - host: &host "electrs.serverton.de"
+#          paths:
+#            - path: /
+#              service:
+#                name: main
+#                port: http
+#      tls:
+#        - secretName: electrs-tls-certificate
+#          hosts:
+#            - *host
