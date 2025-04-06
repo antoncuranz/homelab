@@ -11,6 +11,6 @@ dependencies:
     version: 2.6.0
     repository: https://bjw-s.github.io/helm-charts
   - name: app-template
-    alias: fulcrum
+    alias: electrs
     version: 2.6.0
     repository: https://bjw-s.github.io/helm-charts
