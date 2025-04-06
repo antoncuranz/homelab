@@ -271,7 +271,7 @@ fulcrum:
     data:
       enabled: true
       accessMode: ReadWriteOnce
-      size: 5Gi
+      size: 50Gi
       globalMounts:
         - path: /data
 
