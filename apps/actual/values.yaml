@@ -22,7 +22,7 @@ app-template:
         rest:
           image:
             repository: jhonderson/actual-http-api
-            tag: v0.18.0
+            tag: 25.4.0
           env:
             ACTUAL_SERVER_URL: "http://actual.actual.svc.cluster.local:5006"
           envFrom:
