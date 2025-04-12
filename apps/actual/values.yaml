@@ -21,8 +21,8 @@ app-template:
             ACTUAL_LOGIN_METHOD: "openid"
         rest:
           image:
-            repository: jhonderson/actual-http-api
-            tag: 25.4.0
+            repository: ghcr.io/antoncuranz/actual-http-api
+            tag: latest
           env:
             ACTUAL_SERVER_URL: "http://actual.actual.svc.cluster.local:5006"
           envFrom:
