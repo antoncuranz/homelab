@@ -6,5 +6,5 @@ dependencies:
     version: 0.23.2
     repository: https://cloudnative-pg.github.io/charts
   - name: ext-postgres-operator
-    version: 1.2.6
+    version: 1.2.7
     repository: https://movetokube.github.io/postgres-operator/
