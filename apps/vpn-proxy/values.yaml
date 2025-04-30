@@ -7,7 +7,7 @@ app-template:
         main:
           image:
             repository: serjs/go-socks5-proxy
-            tag: latest@sha256:d19b9977ebf01739d204efe3c4b1e3b4fa995db3e3b88f5801adfb6c41b1ac2e
+            tag: latest@sha256:aad36c623f16850d7cea0171d1aa79d706129191db9e270b6dfd7db6b552c734
           probes:
             liveness:
               enabled: false
