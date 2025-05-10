@@ -5,28 +5,28 @@ dependencies:
   - name: app-template
     alias: jellyfin
     version: 2.6.0
-    repository: https://bjw-s.github.io/helm-charts
+    repository: https://bjw-s-labs.github.io/helm-charts
   - name: app-template
     alias: jellyseerr
     version: 2.6.0
-    repository: https://bjw-s.github.io/helm-charts
+    repository: https://bjw-s-labs.github.io/helm-charts
   - name: app-template
     alias: prowlarr
     version: 2.6.0
-    repository: https://bjw-s.github.io/helm-charts
+    repository: https://bjw-s-labs.github.io/helm-charts
   - name: app-template
     alias: radarr
     version: 2.6.0
-    repository: https://bjw-s.github.io/helm-charts
+    repository: https://bjw-s-labs.github.io/helm-charts
   - name: app-template
     alias: sonarr
     version: 2.6.0
-    repository: https://bjw-s.github.io/helm-charts
+    repository: https://bjw-s-labs.github.io/helm-charts
   - name: app-template
     alias: transmission
     version: 2.6.0
-    repository: https://bjw-s.github.io/helm-charts
+    repository: https://bjw-s-labs.github.io/helm-charts
   - name: app-template
     alias: sabnzbd
     version: 2.6.0
-    repository: https://bjw-s.github.io/helm-charts
+    repository: https://bjw-s-labs.github.io/helm-charts
