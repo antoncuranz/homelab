@@ -5,8 +5,8 @@ dependencies:
   - name: app-template
     alias: mosquitto
     version: 2.6.0
-    repository: https://bjw-s.github.io/helm-charts
+    repository: https://bjw-s-labs.github.io/helm-charts
   - name: app-template
     alias: node-red
     version: 2.6.0
-    repository: https://bjw-s.github.io/helm-charts
+    repository: https://bjw-s-labs.github.io/helm-charts
