@@ -23,6 +23,7 @@ app-template:
           image:
             repository: ghcr.io/antoncuranz/actual-http-api
             tag: latest
+            pullPolicy: Always
           env:
             ACTUAL_SERVER_URL: "http://actual.actual.svc.cluster.local:5006"
           envFrom:
