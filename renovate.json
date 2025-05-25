@@ -20,7 +20,7 @@
       "automerge": false
     },
     {
-      "matchPackageNames": ["docker.io/qmcgaw/gluetun", "external-dns"],
+      "matchPackageNames": [],
       "automerge": false
     }
   ],
