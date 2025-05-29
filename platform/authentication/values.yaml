@@ -2,7 +2,7 @@ keycloak:
   production: true
   proxy: edge
   proxyHeaders: xforwarded
-  resourcesPreset: "2xlarge"
+  resourcesPreset: "large"
   extraEnvVars:
     - name: "QUARKUS_TRANSACTION_MANAGER_ENABLE_RECOVERY"
       value: "true"
