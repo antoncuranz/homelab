@@ -20,7 +20,7 @@
       "automerge": false
     },
     {
-      "matchPackageNames": [],
+      "matchPackageNames": ["keycloak"],
       "automerge": false
     }
   ],
