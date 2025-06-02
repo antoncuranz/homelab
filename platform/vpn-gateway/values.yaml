@@ -56,6 +56,6 @@ pod-gateway:
           command:
             - sh
             - -c
-            - if [ $(wget -q -O- https://ipinfo.io/country) == 'NL' ]; then exit 0; else exit $?; fi
+            - if [ $(wget -q -O- https://speed.cloudflare.com/meta | jq -r .country) == 'NL' ]; then exit 0; else exit $?; fi
         initialDelaySeconds: 30
         periodSeconds: 60
