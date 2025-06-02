@@ -56,6 +56,6 @@ pod-gateway:
           command:
             - sh
             - -c
-            - if [ $(wget -q -O- https://speed.cloudflare.com/meta) =~ '"country":"NL"' ]; then exit 0; else exit $?; fi
+            - if [ $(expr match "$(wget -q -O- https://speed.cloudflare.com/meta)" ".*\"country\":\"NL\".*") != 0 ]; then exit 0; else exit $?; fi
         initialDelaySeconds: 30
         periodSeconds: 60
