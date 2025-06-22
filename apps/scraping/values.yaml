@@ -1,0 +1,10 @@
+app-template:
+  controllers:
+    main:
+      type: job
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/antoncuranz/deltabot
+            tag: latest
