@@ -1,13 +1,20 @@
 app-template:
   controllers:
     main:
-      type: job
+      type: cronjob
+
+      cronjob:
+        schedule: "2 * * * *"
+
 
       containers:
         main:
           image:
             repository: ghcr.io/antoncuranz/deltabot
             tag: latest
+          envFrom:
+            - secretRef:
+                name: deltabot-secrets
 
   service:
     main:
