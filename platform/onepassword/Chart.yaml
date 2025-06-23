@@ -3,7 +3,7 @@ name: onepassword
 version: 0.0.0
 dependencies:
   - name: connect
-    version: 1.17.0
+    version: 1.17.1
     repository: https://1password.github.io/connect-helm-charts
   - name: external-secrets
     version: 0.18.0
