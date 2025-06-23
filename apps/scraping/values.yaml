@@ -6,7 +6,6 @@ app-template:
       cronjob:
         schedule: "2 * * * *"
 
-
       containers:
         main:
           image:
@@ -15,6 +14,10 @@ app-template:
           envFrom:
             - secretRef:
                 name: deltabot-secrets
+
+      pod:
+        annotations:
+          setGateway: "true"
 
   service:
     main:
