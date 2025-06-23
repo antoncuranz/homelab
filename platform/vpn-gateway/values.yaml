@@ -5,6 +5,7 @@ pod-gateway:
   routed_namespaces:
     - servarr
     - vpn-proxy
+    - scraping
   settings:
     VPN_INTERFACE: wg0
     VPN_BLOCK_OTHER_TRAFFIC: true
