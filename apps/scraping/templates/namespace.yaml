@@ -1,7 +1,0 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: scraping
-  labels:
-    routed-gateway: "true"
