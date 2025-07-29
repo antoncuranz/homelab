@@ -81,7 +81,7 @@ node-red:
         main:
           image:
             repository: docker.io/nodered/node-red
-            tag: 4.0.9
+            tag: 4.1.0
           resources:
             requests:
               cpu: 5m
