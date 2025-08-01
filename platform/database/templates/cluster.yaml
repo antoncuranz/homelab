@@ -4,7 +4,7 @@ metadata:
   name: database-cluster
 spec:
   instances: 1
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16-0.3.0
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.9-0.3.0
   postgresql:
     shared_preload_libraries:
       - "vchord.so"
