@@ -7,11 +7,7 @@ spec:
   imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16-v0.2.1
   postgresql:
     shared_preload_libraries:
-      - "vchord.so"
-  bootstrap:
-    initdb:
-      postInitSQL:
-        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
+      - "vectors.so"
   primaryUpdateStrategy: unsupervised
   storage:
     size: 10Gi
