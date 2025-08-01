@@ -7,6 +7,7 @@ spec:
   imageName: ghcr.io/corentingiraud/cnpg-pgvector-vectorchord:16-migration
   postgresql:
     shared_preload_libraries:
+      - "vectors.so"
       - "vchord.so"
   bootstrap:
     initdb:
