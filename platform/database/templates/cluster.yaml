@@ -18,24 +18,11 @@ spec:
   superuserSecret:
     name: postgres-secret
   enableSuperuserAccess: true
-  backup:
-    barmanObjectStore:
-      destinationPath: s3://homelab-db/
-      endpointURL: https://s3.eu-central-003.backblazeb2.com
-      serverName: database-cluster-c
-      s3Credentials:
-        accessKeyId:
-          name: backblaze-db
-          key: ACCESS_KEY_ID
-        secretAccessKey:
-          name: backblaze-db
-          key: ACCESS_SECRET_KEY
-      wal:
-        compression: gzip
-        encryption: AES256
-      data:
-        compression: gzip
-        encryption: AES256
-    retentionPolicy: "90d"
   monitoring:
     enablePodMonitor: true
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: b2-object-store
+        serverName: database-cluster-c
