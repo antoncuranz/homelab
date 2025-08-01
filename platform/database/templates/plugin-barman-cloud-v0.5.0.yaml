@@ -630,17 +630,17 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/name: plugin-barman-cloud
   name: plugin-barman-cloud
+  namespace: database
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   labels:
-    app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/name: plugin-barman-cloud
   name: leader-election-role
+  namespace: database
 rules:
 - apiGroups:
   - ""
@@ -706,7 +706,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/name: plugin-barman-cloud
   name: objectstore-editor-role
 rules:
@@ -733,7 +732,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/name: plugin-barman-cloud
   name: objectstore-viewer-role
 rules:
@@ -818,9 +816,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
-    app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/name: plugin-barman-cloud
   name: leader-election-rolebinding
+  namespace: database
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -828,6 +826,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: plugin-barman-cloud
+  namespace: database
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -840,12 +839,12 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: plugin-barman-cloud
+  namespace: database
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/name: plugin-barman-cloud
   name: plugin-barman-cloud-binding
 roleRef:
@@ -855,6 +854,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: plugin-barman-cloud
+  namespace: database
 ---
 apiVersion: v1
 data:
@@ -864,6 +864,7 @@ data:
 kind: Secret
 metadata:
   name: plugin-barman-cloud-gt85cmh99d
+  namespace: database
 type: Opaque
 ---
 apiVersion: v1
@@ -877,6 +878,7 @@ metadata:
     app: barman-cloud
     cnpg.io/pluginName: barman-cloud.cloudnative-pg.io
   name: barman-cloud
+  namespace: database
 spec:
   ports:
   - port: 9090
@@ -891,6 +893,7 @@ metadata:
   labels:
     app: barman-cloud
   name: barman-cloud
+  namespace: database
 spec:
   replicas: 1
   selector:
@@ -961,6 +964,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: barman-cloud-client
+  namespace: database
 spec:
   commonName: barman-cloud-client
   duration: 2160h
@@ -978,6 +982,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: barman-cloud-server
+  namespace: database
 spec:
   commonName: barman-cloud
   dnsNames:
@@ -997,5 +1002,6 @@ apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: selfsigned-issuer
+  namespace: database
 spec:
   selfSigned: {}
