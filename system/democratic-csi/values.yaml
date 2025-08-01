@@ -49,7 +49,7 @@ democratic-csi:
       reclaimPolicy: Delete
       volumeBindingMode: WaitForFirstConsumer
       # distributed support is not yet ready for expansion
-      allowVolumeExpansion: false
+      allowVolumeExpansion: true
       parameters:
         fsType: zfs
 
