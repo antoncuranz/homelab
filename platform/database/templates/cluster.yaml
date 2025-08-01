@@ -21,7 +21,8 @@ spec:
   monitoring:
     enablePodMonitor: true
   plugins:
-    - name: barman-cloud.cloudnative-pg.io
+    - enabled: true
+      name: barman-cloud.cloudnative-pg.io
       isWALArchiver: true
       parameters:
         barmanObjectName: b2-object-store
