@@ -1,0 +1,78 @@
+backend:
+  global:
+    nameOverride: backend
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/antoncuranz/travel/backend
+            tag: latest
+            pullPolicy: Always
+          env:
+            PG_URL:
+              valueFrom:
+                secretKeyRef:
+                  name: database-travel-user
+                  key: POSTGRES_URL
+          envFrom:
+            - secretRef:
+                name: travel-secrets
+
+  service:
+    main:
+      ports:
+        http:
+          port: 80
+  
+frontend:
+  global:
+    nameOverride: frontend
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/antoncuranz/travel/frontend
+            tag: latest
+            pullPolicy: Always
+          env:
+            MAPBOX_ACCESS_TOKEN:
+              valueFrom:
+                secretKeyRef:
+                  name: travel-secrets
+                  key: MAPBOX_ACCESS_TOKEN
+
+  service:
+    main:
+      ports:
+        http:
+          port: 3000
+
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
+        nginx.ingress.kubernetes.io/auth-response-headers: "X-Auth-Request-User, X-Auth-Request-Groups, X-Auth-Request-Email, X-Auth-Request-Preferred-Username"
+      hosts:
+        - host: &host "travel.serverton.de"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - secretName: travel-frontend-tls-certificate
+          hosts:
+            - *host
