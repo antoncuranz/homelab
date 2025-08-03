@@ -9,7 +9,7 @@ backend:
       containers:
         main:
           image:
-            repository: ghcr.io/antoncuranz/travel/backend
+            repository: ghcr.io/antoncuranz/travel-planner/backend
             tag: latest
             pullPolicy: Always
           env:
@@ -39,7 +39,7 @@ frontend:
       containers:
         main:
           image:
-            repository: ghcr.io/antoncuranz/travel/frontend
+            repository: ghcr.io/antoncuranz/travel-planner/frontend
             tag: latest
             pullPolicy: Always
           env:
