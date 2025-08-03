@@ -1,0 +1,17 @@
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
+metadata:
+  name: travel-db
+spec:
+  database: travel
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: travel-user
+spec:
+  role: travel
+  database: travel-db
+  secretName: database
+  privileges: OWNER
