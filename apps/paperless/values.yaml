@@ -50,7 +50,7 @@ app-template:
         redis:
           image:
             repository: public.ecr.aws/docker/library/redis
-            tag: 8.0.3
+            tag: 8.2.0
 
       pod:
         securityContext:
