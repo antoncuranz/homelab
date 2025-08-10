@@ -28,6 +28,8 @@ spec:
           serviceTemplate:
             metadata:
               name: database-cluster-rw-lb
+              annotations:
+                metallb.universe.tf/allow-shared-ip: default
             spec:
               type: LoadBalancer
   plugins:
