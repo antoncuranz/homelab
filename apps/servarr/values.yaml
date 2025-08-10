@@ -199,7 +199,7 @@ prowlarr:
         main:
           image:
             repository: ghcr.io/home-operations/prowlarr
-            tag: 1.32.2.4987
+            tag: 1.37.0.5076
           env:
             TZ: Europe/Berlin
             PROWLARR__SERVER__PORT: &port 9696
