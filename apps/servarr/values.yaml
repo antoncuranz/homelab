@@ -198,7 +198,7 @@ prowlarr:
       containers:
         main:
           image:
-            repository: ghcr.io/onedr0p/prowlarr
+            repository: ghcr.io/home-operations/prowlarr
             tag: 1.32.2.4987
           env:
             TZ: Europe/Berlin
@@ -304,7 +304,7 @@ radarr:
       containers:
         main:
           image:
-            repository: ghcr.io/onedr0p/radarr
+            repository: ghcr.io/home-operations/radarr
             tag: 5.20.1.9773
           env:
             TZ: Europe/Berlin
@@ -413,7 +413,7 @@ sonarr:
       containers:
         main:
           image:
-            repository: ghcr.io/onedr0p/sonarr-develop
+            repository: ghcr.io/home-operations/sonarr-develop
             tag: 4.0.14.2938
           env:
             SONARR__SERVER__PORT: &port 8989
@@ -536,7 +536,7 @@ transmission:
       containers:
         main:
           image:
-            repository: ghcr.io/onedr0p/transmission
+            repository: ghcr.io/home-operations/transmission
             tag: 4.0.5
           env:
             TZ: Europe/Berlin
@@ -629,7 +629,7 @@ sabnzbd:
       containers:
         main:
           image:
-            repository: ghcr.io/onedr0p/sabnzbd
+            repository: ghcr.io/home-operations/sabnzbd
             tag: 4.4.1
           env:
             TZ: Europe/Berlin
