@@ -537,7 +537,7 @@ transmission:
         main:
           image:
             repository: ghcr.io/home-operations/transmission
-            tag: 4.0.5
+            tag: 4.0.6
           env:
             TZ: Europe/Berlin
             TRANSMISSION__BLOCKLIST_URL: "https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz"
