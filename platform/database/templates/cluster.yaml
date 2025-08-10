@@ -20,6 +20,16 @@ spec:
   enableSuperuserAccess: true
   monitoring:
     enablePodMonitor: true
+  managed:
+    services:
+      disabledDefaultServices: [ "ro", "r" ]
+      additional:
+        - selectorType: rw
+          serviceTemplate:
+            metadata:
+              name: database-cluster-rw-lb
+            spec:
+              type: LoadBalancer
   plugins:
     - enabled: true
       name: barman-cloud.cloudnative-pg.io
