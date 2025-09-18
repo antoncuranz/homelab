@@ -2,16 +2,16 @@
 apiVersion: db.movetokube.com/v1alpha1
 kind: Postgres
 metadata:
-  name: travel-db
+  name: kompass-db
 spec:
-  database: travel
+  database: kompass
 ---
 apiVersion: db.movetokube.com/v1alpha1
 kind: PostgresUser
 metadata:
-  name: travel-user
+  name: kompass-user
 spec:
-  role: travel
-  database: travel-db
+  role: kompass
+  database: kompass-db
   secretName: database
   privileges: OWNER

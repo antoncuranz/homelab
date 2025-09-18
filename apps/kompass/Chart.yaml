@@ -1,5 +1,5 @@
 apiVersion: v2
-name: travel
+name: kompass
 version: 0.0.0
 dependencies:
   - name: app-template
@@ -8,5 +8,9 @@ dependencies:
     repository: https://bjw-s-labs.github.io/helm-charts
   - name: app-template
     alias: backend
+    version: 2.6.0
+    repository: https://bjw-s-labs.github.io/helm-charts
+  - name: app-template
+    alias: dbvendo
     version: 2.6.0
     repository: https://bjw-s-labs.github.io/helm-charts
