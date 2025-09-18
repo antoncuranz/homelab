@@ -90,7 +90,7 @@ dbvendo:
         main:
           image:
             repository: ghcr.io/public-transport/db-vendo-client
-            tag: v6.9.0
+            tag: v6.10.0
           env:
             USER_AGENT: "antons-homelab"
             DB_PROFILE: "dbnav"
