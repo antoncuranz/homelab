@@ -18,7 +18,7 @@ backend:
                 secretKeyRef:
                   name: database-kompass-user
                   key: POSTGRES_URL
-            DBVENDO_URL: "http://dbvendo.kompass.svc.cluster.local:3000"
+            DBVENDO_URL: "http://kompass-dbvendo.kompass.svc.cluster.local:3000"
           envFrom:
             - secretRef:
                 name: kompass-secrets
