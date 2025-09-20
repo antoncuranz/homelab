@@ -17,7 +17,7 @@ kube-prometheus-stack:
           metrics_path: /metrics
           static_configs:
             - targets:
-              - http://cloudlab.cura.nz/metrics
+              - cloudlab.cura.nz
   kubeControllerManager:
     enabled: false
   kubeScheduler:
