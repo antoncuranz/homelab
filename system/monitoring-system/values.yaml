@@ -25,6 +25,7 @@ kube-prometheus-stack:
             replacement: homelab
   grafana:
     enabled: false
+    forceDeployDatasources: true
   prometheus:
     prometheusSpec:
       ruleSelectorNilUsesHelmValues: false
