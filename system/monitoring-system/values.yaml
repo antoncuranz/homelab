@@ -5,6 +5,10 @@ kube-prometheus-stack:
         - sourceLabels: []
           targetLabel: cluster
           replacement: homelab
+      cAdvisorRelabelings:
+        - sourceLabels: []
+          targetLabel: cluster
+          replacement: homelab
   kube-state-metrics:
     prometheus:
       monitor:
