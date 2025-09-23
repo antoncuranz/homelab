@@ -32,7 +32,7 @@ kube-prometheus-stack:
       podMonitorSelectorNilUsesHelmValues: false
       probeSelectorNilUsesHelmValues: false
       additionalScrapeConfigsSecret:
-        enabled: true
+        enabled: false
         name: cloudlab-scrape-config
         key: prometheus-additional.yaml
   kubeControllerManager:
