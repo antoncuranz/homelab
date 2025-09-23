@@ -1,11 +1,26 @@
 kube-prometheus-stack:
+  kubelet:
+    serviceMonitor:
+      relabelings:
+        - source_labels: []
+          target_label: cluster
+          replacement: homelab
+  kube-state-metrics:
+    prometheus:
+      monitor:
+        relabelings:
+          - source_labels: []
+            target_label: cluster
+            replacement: homelab
+  prometheus-node-exporter:
+    prometheus:
+      monitor:
+        relabelings:
+          - source_labels: []
+            target_label: cluster
+            replacement: homelab
   grafana:
     enabled: false
-    forceDeployDatasources: true
-    additionalDataSources:
-      - name: Loki
-        type: loki
-        url: http://loki.loki:3100
   prometheus:
     prometheusSpec:
       ruleSelectorNilUsesHelmValues: false
