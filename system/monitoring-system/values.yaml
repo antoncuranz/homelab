@@ -2,22 +2,22 @@ kube-prometheus-stack:
   kubelet:
     serviceMonitor:
       relabelings:
-        - source_labels: []
-          target_label: cluster
+        - sourceLabels: []
+          targetLabel: cluster
           replacement: homelab
   kube-state-metrics:
     prometheus:
       monitor:
         relabelings:
-          - source_labels: []
-            target_label: cluster
+          - sourceLabels: []
+            targetLabel: cluster
             replacement: homelab
   prometheus-node-exporter:
     prometheus:
       monitor:
         relabelings:
-          - source_labels: []
-            target_label: cluster
+          - sourceLabels: []
+            targetLabel: cluster
             replacement: homelab
   grafana:
     enabled: false
