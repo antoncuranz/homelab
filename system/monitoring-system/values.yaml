@@ -12,12 +12,10 @@ kube-prometheus-stack:
       serviceMonitorSelectorNilUsesHelmValues: false
       podMonitorSelectorNilUsesHelmValues: false
       probeSelectorNilUsesHelmValues: false
-      additionalScrapeConfigs:
-        - job_name: external-cloudlab
-          metrics_path: /metrics
-          static_configs:
-            - targets:
-              - cloudlab.cura.nz
+      additionalScrapeConfigsSecret:
+        enabled: true
+        name: cloudlab-scrape-config
+        key: prometheus-additional.yaml
   kubeControllerManager:
     enabled: false
   kubeScheduler:
