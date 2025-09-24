@@ -2,25 +2,32 @@ kube-prometheus-stack:
   kubelet:
     serviceMonitor:
       relabelings:
-        - sourceLabels: []
+        - action: replace
+          sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
+        - action: replace
+          sourceLabels: []
           targetLabel: cluster
           replacement: homelab
       cAdvisorRelabelings:
-        - sourceLabels: []
+        - action: replace
+          sourceLabels: []
           targetLabel: cluster
           replacement: homelab
   kube-state-metrics:
     prometheus:
       monitor:
         relabelings:
-          - sourceLabels: []
+          - action: replace
+            sourceLabels: []
             targetLabel: cluster
             replacement: homelab
   prometheus-node-exporter:
     prometheus:
       monitor:
         relabelings:
-          - sourceLabels: []
+          - action: replace
+            sourceLabels: []
             targetLabel: cluster
             replacement: homelab
   grafana:
