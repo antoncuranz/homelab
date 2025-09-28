@@ -1,0 +1,50 @@
+app-template:
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      pod:
+        securityContext:
+          runAsUser: 1001
+          runAsGroup: 1001
+          fsGroup: 1001
+          fsGroupChangePolicy: OnRootMismatch
+
+      containers:
+        main:
+          image:
+            repository: calibre/calibre-server
+            tag: 25.9.0
+          env:
+            CALIBRE_PORT: "8083"
+
+  persistence:
+    calibre-library:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 4Gi
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8083
+
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
+      hosts:
+        - host: &host "calibre.serverton.de"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - secretName: calibre-tls-certificate
+          hosts:
+            - *host
