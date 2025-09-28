@@ -13,8 +13,8 @@ app-template:
       containers:
         main:
           image:
-            repository: calibre/calibre-server
-            tag: 25.9.0
+            repository: crocodilestick/calibre-web-automated
+            tag: latest
           env:
             CALIBRE_PORT: "8083"
 
