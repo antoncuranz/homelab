@@ -49,6 +49,8 @@ oauth2-proxy:
   config:
     existingSecret: oauth2-secrets
     configFile: |-
+      email_domains = [ "*" ]
+      upstreams = [ "file:///dev/null" ]
       set_authorization_header = true
       pass_access_token = true
   extraArgs:
