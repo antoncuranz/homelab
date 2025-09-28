@@ -19,6 +19,7 @@ backend:
                   name: database-kompass-user
                   key: POSTGRES_URL
             DBVENDO_URL: "http://kompass-dbvendo.kompass.svc.cluster.local:3000"
+            JWKS_URL: "https://keycloak.serverton.de/realms/serverton/protocol/openid-connect/certs"
           envFrom:
             - secretRef:
                 name: kompass-secrets
