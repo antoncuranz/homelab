@@ -48,6 +48,9 @@ keycloak:
 oauth2-proxy:
   config:
     existingSecret: oauth2-secrets
+    configFile: |-
+      set_authorization_header = true
+      pass_access_token = true
   extraArgs:
     provider: keycloak-oidc
     oidc-issuer-url: https://keycloak.serverton.de/realms/serverton
