@@ -3,13 +3,6 @@ app-template:
     main:
       strategy: RollingUpdate
 
-      pod:
-        securityContext:
-          runAsUser: 911
-          runAsGroup: 1000
-          fsGroup: 1000
-          fsGroupChangePolicy: OnRootMismatch
-
       containers:
         main:
           image:
@@ -17,6 +10,8 @@ app-template:
             tag: latest
           env:
             CALIBRE_PORT: "8083"
+            PUID: 1000
+            PGID: 1000
 
   persistence:
     calibre-library:
