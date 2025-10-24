@@ -65,6 +65,7 @@ kube-prometheus-stack:
           pushover_configs:
             - user_key_file: /etc/alertmanager/secrets/alertmanager-secrets/PUSHOVER_USER_KEY
               token_file: /etc/alertmanager/secrets/alertmanager-secrets/PUSHOVER_TOKEN
+              device: iphone
               send_resolved: true
               html: true
               priority: |-
