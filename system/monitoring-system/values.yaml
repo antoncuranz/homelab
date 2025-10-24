@@ -96,7 +96,7 @@ kube-prometheus-stack:
         routes:
           - receiver: "null"
             matchers:
-              - alertname =~ "InfoInhibitor|RebootScheduled|NodeMemoryHighUtilization|NodeMemoryMajorPagesFaults|CPUThrottlingHigh"
+              - alertname =~ "InfoInhibitor|RebootScheduled|NodeMemoryHighUtilization|NodeMemoryMajorPagesFaults|CPUThrottlingHigh|KubePersistentVolumeFillingUp"
           - receiver: "healthcheck"
             matchers:
               - alertname = "Watchdog"
