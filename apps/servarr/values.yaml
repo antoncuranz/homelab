@@ -24,7 +24,7 @@ jellyfin:
         main:
           image:
             repository: jellyfin/jellyfin
-            tag: 10.11.1
+            tag: 10.11.2
           env:
             TZ: Europe/Berlin
           resources:
