@@ -14,7 +14,7 @@ app-template:
         main:
           image:
             repository: actualbudget/actual-server
-            tag: 25.10.0
+            tag: 25.11.0
           env:
             TZ: "Europe/Berlin"
             ACTUAL_PORT: "5006"
