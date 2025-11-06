@@ -119,7 +119,7 @@ electrs:
         main:
           image:
             repository: getumbrel/electrs
-            tag: v0.10.9
+            tag: v0.10.10
       pod:
         securityContext:
           runAsUser: 1000
