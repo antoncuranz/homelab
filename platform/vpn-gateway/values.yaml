@@ -33,7 +33,7 @@ pod-gateway:
       gluetun:
         image:
           repository: docker.io/qmcgaw/gluetun
-          tag: v3.40.0
+          tag: v3.40.1
       envFrom:
         - secretRef:
             name: wireguard-config
