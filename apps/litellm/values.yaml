@@ -10,6 +10,11 @@ app-template:
             TZ: "Europe/Berlin"
             LITELLM_MODE: "production"
             LITELLM_DONT_SHOW_FEEDBACK_BOX: "True"
+            DATABASE_URL:
+              valueFrom:
+                secretKeyRef:
+                  name: database-litellm-user
+                  key: POSTGRES_URL
           envFrom:
             - secretRef:
                 name: litellm-secrets

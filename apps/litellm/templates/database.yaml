@@ -1,0 +1,17 @@
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
+metadata:
+  name: litellm-db
+spec:
+  database: litellm
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: litellm-user
+spec:
+  role: litellm
+  database: litellm-db
+  secretName: database
+  privileges: OWNER
