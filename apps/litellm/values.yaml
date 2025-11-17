@@ -1,0 +1,95 @@
+app-template:
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: ghcr.io/berriai/litellm-non_root
+            tag: main-v1.75.8-stable@sha256:eaa381bfd39b56c89e4a61be15ed87e7af02b65bd82a3f50d923e08a5f6d6027
+          env:
+            TZ: "Europe/Berlin"
+            LITELLM_MODE: "production"
+            LITELLM_DONT_SHOW_FEEDBACK_BOX: "True"
+          envFrom:
+            - secretRef:
+                name: litellm-secrets
+          args:
+            - --port
+            - "4000"
+            - --config
+            - /app/config.yaml
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /health/liveliness
+                  port: &port 4000
+            readiness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /health/readiness
+                  port: *port
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: [ "ALL" ] }
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+
+    ingress:
+      main:
+        enabled: true
+        className: nginx
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        hosts:
+          - host: &host "litellm.serverton.de"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - secretName: litellm-tls-certificate
+            hosts:
+              - *host
+
+    persistence:
+      config:
+        type: configMap
+        name: litellm-configmap
+        globalMounts:
+          - path: /app/config.yaml
+            subPath: config.yaml
+            readOnly: true
+          - path: /app/model_config.yaml
+            subPath: model_config.yaml
+            readOnly: true
+
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /.cache
+            subPath: cache
+          - path: /.npm
+            subPath: npm
+          - path: /tmp
+            subPath: tmp
