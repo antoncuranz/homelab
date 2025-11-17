@@ -5,7 +5,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/berriai/litellm-non_root
-            tag: main-v1.75.8-stable@sha256:eaa381bfd39b56c89e4a61be15ed87e7af02b65bd82a3f50d923e08a5f6d6027
+            tag: v1.79.3-stable
           env:
             TZ: "Europe/Berlin"
             LITELLM_MODE: "production"
@@ -79,10 +79,8 @@ app-template:
       globalMounts:
         - path: /app/config.yaml
           subPath: config.yaml
-          readOnly: true
         - path: /app/model_config.yaml
           subPath: model_config.yaml
-          readOnly: true
 
     cache:
       type: emptyDir
