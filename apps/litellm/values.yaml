@@ -25,14 +25,14 @@ app-template:
               spec:
                 httpGet:
                   path: /health/liveliness
-                  port: &port 4000
+                  port: 4000
             readiness:
               enabled: true
               custom: true
               spec:
                 httpGet:
                   path: /health/readiness
-                  port: *port
+                  port: 4000
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -51,7 +51,7 @@ app-template:
     main:
       ports:
         http:
-          port: *port
+          port: 4000
 
   ingress:
     main:
