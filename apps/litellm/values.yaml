@@ -78,6 +78,13 @@ app-template:
             - *host
 
   persistence:
+    dotconfig:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      globalMounts:
+        - path: /app/.config
+
     config:
       type: configMap
       name: litellm-configmap
@@ -100,5 +107,3 @@ app-template:
           subPath: npm
         - path: /tmp
           subPath: tmp
-        - path: /app/.config
-          subPath: config
