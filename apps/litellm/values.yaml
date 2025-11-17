@@ -84,8 +84,6 @@ app-template:
       globalMounts:
         - path: /app/config.yaml
           subPath: config.yaml
-        - path: /app/model_config.yaml
-          subPath: model_config.yaml
 
     migrations:
       type: emptyDir
@@ -102,3 +100,5 @@ app-template:
           subPath: npm
         - path: /tmp
           subPath: tmp
+        - path: /app/.config
+          subPath: config
