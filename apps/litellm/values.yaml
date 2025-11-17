@@ -87,6 +87,12 @@ app-template:
         - path: /app/model_config.yaml
           subPath: model_config.yaml
 
+    migrations:
+      type: emptyDir
+      globalMounts:
+        - path: /usr/lib/python3.13/site-packages/litellm_proxy_extras/migrations
+          subPath: migrations
+
     cache:
       type: emptyDir
       globalMounts:
