@@ -130,7 +130,7 @@ app-template:
       type: configMap
       name: cliproxyapi-configmap
       advancedMounts:
-        litellm:
+        cliproxyapi:
           main:
             - path: /CLIProxyAPI/config.yaml
               subPath: config.yaml
