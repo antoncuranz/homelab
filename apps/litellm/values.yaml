@@ -40,10 +40,10 @@ app-template:
                 httpGet:
                   path: /health/readiness
                   port: 4000
-          securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            capabilities: { drop: [ "ALL" ] }
+#          securityContext:
+#            allowPrivilegeEscalation: false
+#            readOnlyRootFilesystem: true
+#            capabilities: { drop: [ "ALL" ] }
 
     cliproxyapi:
       strategy: RollingUpdate
