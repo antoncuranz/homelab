@@ -126,6 +126,15 @@ app-template:
             - path: /app/config.yaml
               subPath: config.yaml
 
+    cliconfig:
+      type: configMap
+      name: cliproxyapi-configmap
+      advancedMounts:
+        litellm:
+          main:
+            - path: /CLIProxyAPI/config.yaml
+              subPath: config.yaml
+
     migrations:
       type: emptyDir
       advancedMounts:
