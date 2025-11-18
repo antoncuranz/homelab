@@ -162,3 +162,42 @@ app-template:
           subPath: npm
         - path: /tmp
           subPath: tmp
+
+open-webui:
+  ollama:
+    enabled: false
+  pipelines:
+    enabled: false
+
+  image:
+    tag: "0.5.5"
+
+  ingress:
+    enabled: true
+    class: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    host: gpt.serverton.de
+    tls: true
+    existingSecret: gpt-tls-certificate
+
+  extraEnvVars:
+    - name: OPENAI_API_BASE_URL
+      value: "http://litellm:4000/v1"
+    - name: OPENAI_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: open-webui-secrets
+          key: OPENAI_API_KEY
+    - name: DATABASE_URL
+      valueFrom:
+        secretKeyRef:
+          name: database-open-webui-user
+          key: POSTGRES_URL
+
+  persistence:
+    enabled: true
+    size: 2Gi
+    accessModes:
+      - ReadWriteOnce
