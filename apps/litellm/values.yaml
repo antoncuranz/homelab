@@ -183,13 +183,16 @@ open-webui:
     existingSecret: gpt-tls-certificate
 
   extraEnvVars:
-#    - name: OPENAI_API_BASE_URL
-#      value: "http://litellm:4000/v1"
-#    - name: OPENAI_API_KEY
-#      valueFrom:
-#        secretKeyRef:
-#          name: open-webui-secrets
-#          key: OPENAI_API_KEY
+    - name: ENABLE_EVALUATION_ARENA_MODELS
+      value: false
+    - name: ENABLE_MESSAGE_RATING
+      value: false
+    - name: ENABLE_COMMUNITY_SHARING
+      value: false
+    - name: WEBUI_AUTH
+      value: false
+    - name: ENABLE_VERSION_UPDATE_CHECK
+      value: false
     - name: DATABASE_URL
       valueFrom:
         secretKeyRef:
