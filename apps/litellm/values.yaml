@@ -89,8 +89,8 @@ app-template:
         http:
           port: 8317
 
-  litellm:
-    main:
+  ingress:
+    litellm:
       enabled: true
       className: nginx
       annotations:
