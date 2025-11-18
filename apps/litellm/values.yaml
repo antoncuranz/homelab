@@ -101,7 +101,7 @@ app-template:
           paths:
             - path: /
               service:
-                identifier: main
+                identifier: litellm
                 port: http
       tls:
         - secretName: litellm-tls-certificate
