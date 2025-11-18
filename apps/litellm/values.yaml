@@ -170,7 +170,7 @@ open-webui:
     enabled: false
 
   image:
-    tag: "0.5.5"
+    tag: "v0.6.36"
 
   ingress:
     enabled: true
