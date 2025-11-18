@@ -1,8 +1,7 @@
 app-template:
   controllers:
-    main:
+    litellm:
       strategy: RollingUpdate
-      replicas: 0
 
       containers:
         main:
@@ -46,6 +45,19 @@ app-template:
             readOnlyRootFilesystem: true
             capabilities: { drop: [ "ALL" ] }
 
+    cliproxyapi:
+      strategy: RollingUpdate
+
+      containers:
+        main:
+          image:
+            repository: eceasy/cli-proxy-api
+            tag: latest
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: [ "ALL" ] }
+
   defaultPodOptions:
     securityContext:
       runAsNonRoot: true
@@ -56,12 +68,18 @@ app-template:
       seccompProfile: { type: RuntimeDefault }
 
   service:
-    main:
+    litellm:
+      controller: litellm
       ports:
         http:
           port: 4000
+    cliproxyapi:
+      controller: cliproxyapi
+      ports:
+        http:
+          port: 8317
 
-  ingress:
+  litellm:
     main:
       enabled: true
       className: nginx
@@ -85,21 +103,36 @@ app-template:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
-      globalMounts:
-        - path: /app/.config
+      advancedMounts:
+        litellm:
+          main:
+            - path: /app/.config
+
+    cliauthdir:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      advancedMounts:
+        cliproxyapi:
+          main:
+            - path: /root/.cli-proxy-api
 
     config:
       type: configMap
       name: litellm-configmap
-      globalMounts:
-        - path: /app/config.yaml
-          subPath: config.yaml
+      advancedMounts:
+        litellm:
+          main:
+            - path: /app/config.yaml
+              subPath: config.yaml
 
     migrations:
       type: emptyDir
-      globalMounts:
-        - path: /usr/lib/python3.13/site-packages/litellm_proxy_extras/migrations
-          subPath: migrations
+      advancedMounts:
+        litellm:
+          main:
+            - path: /usr/lib/python3.13/site-packages/litellm_proxy_extras/migrations
+              subPath: migrations
 
     cache:
       type: emptyDir
