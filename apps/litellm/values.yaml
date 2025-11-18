@@ -184,15 +184,15 @@ open-webui:
 
   extraEnvVars:
     - name: ENABLE_EVALUATION_ARENA_MODELS
-      value: false
+      value: "false"
     - name: ENABLE_MESSAGE_RATING
-      value: false
+      value: "false"
     - name: ENABLE_COMMUNITY_SHARING
-      value: false
+      value: "false"
     - name: WEBUI_AUTH
-      value: false
+      value: "false"
     - name: ENABLE_VERSION_UPDATE_CHECK
-      value: false
+      value: "false"
     - name: DATABASE_URL
       valueFrom:
         secretKeyRef:
