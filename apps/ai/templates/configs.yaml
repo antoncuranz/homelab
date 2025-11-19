@@ -30,11 +30,6 @@ data:
           model: litellm_proxy/claude-sonnet-4.5
           api_base: http://ai-litellm2:4000
           api_key: sk-dummy
-      - model_name: copilot/claude-haiku-4-5
-        litellm_params:
-          model: litellm_proxy/claude-haiku-4.5
-          api_base: http://ai-litellm2:4000
-          api_key: sk-dummy
       - model_name: claude-sonnet-4-5
         litellm_params:
           model: anthropic/claude-sonnet-4-5-20250929
@@ -59,10 +54,6 @@ data:
       fallbacks: [{"claude-sonnet-4-5": ["copilot/claude-sonnet-4-5"]}, {"claude-haiku-4-5": ["copilot/claude-haiku-4-5"]}]
   litellm2.yaml: |-
     model_list:
-      - model_name: claude-haiku-4.5
-        litellm_params:
-          model: github_copilot/claude-haiku-4.5
-          extra_headers: {"editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat"}
       - model_name: claude-sonnet-4.5
         litellm_params:
           model: github_copilot/claude-sonnet-4.5
