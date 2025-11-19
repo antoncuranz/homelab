@@ -151,7 +151,7 @@ app-template:
               subPath: litellm2.yaml
         cliproxyapi:
           main:
-            - path: /app/config.yaml
+            - path: /CLIProxyAPI/config.yaml
               subPath: cliproxyapi.yaml
 
     tmpfs:
