@@ -2,13 +2,12 @@ app-template:
   controllers:
     litellm:
       strategy: RollingUpdate
-
       containers:
         main:
-          image:
+          image: &image
             repository: ghcr.io/berriai/litellm-non_root
             tag: main-v1.79.3-stable.gemini3
-          env:
+          env: &env
             TZ: "Europe/Berlin"
             LITELLM_MODE: "production"
             LITELLM_DONT_SHOW_FEEDBACK_BOX: "True"
@@ -26,25 +25,25 @@ app-template:
             - --config
             - /app/config.yaml
           probes:
-            liveness:
+            liveness: &liveness
               enabled: true
               custom: true
               spec:
                 httpGet:
                   path: /health/liveliness
                   port: 4000
-            readiness:
+            readiness: &readiness
               enabled: true
               custom: true
               spec:
                 httpGet:
                   path: /health/readiness
                   port: 4000
-          securityContext:
+          securityContext: &securityContext
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
             capabilities: { drop: [ "ALL" ] }
-      pod:
+      pod: &pod
         securityContext:
           runAsNonRoot: true
           runAsUser: 1000
@@ -53,9 +52,28 @@ app-template:
           fsGroupChangePolicy: OnRootMismatch
           seccompProfile: { type: RuntimeDefault }
 
+    litellm2:
+      strategy: RollingUpdate
+      containers:
+        main:
+          image: *image
+          env: *env
+          envFrom:
+            - secretRef:
+                name: litellm-secrets
+          args:
+            - --port *env
+            - "4000"
+            - --config
+            - /app/config2.yaml
+          probes:
+            liveness: *liveness
+            readiness: *readiness
+          securityContext: *securityContext
+      pod: *pod
+
     cliproxyapi:
       strategy: RollingUpdate
-
       containers:
         main:
           image:
@@ -63,23 +81,15 @@ app-template:
             tag: latest
           env:
             TZ: "Europe/Berlin"
-#          securityContext:
-#            allowPrivilegeEscalation: false
-#            readOnlyRootFilesystem: true
-#            capabilities: { drop: [ "ALL" ] }
-
-#  defaultPodOptions:
-#    securityContext:
-#      runAsNonRoot: true
-#      runAsUser: 1000
-#      runAsGroup: 1000
-#      fsGroup: 1000
-#      fsGroupChangePolicy: OnRootMismatch
-#      seccompProfile: { type: RuntimeDefault }
 
   service:
     litellm:
       controller: litellm
+      ports:
+        http:
+          port: 4000
+    litellm2:
+      controller: litellm2
       ports:
         http:
           port: 4000
@@ -117,15 +127,11 @@ app-template:
         litellm:
           main:
             - path: /app/.config
-
-    cliauthdir:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 250Mi
-      advancedMounts:
-        cliproxyapi:
+              subPath: litellm
+        litellm2:
           main:
-            - path: /root/.cli-proxy-api
+            - path: /app/.config
+              subPath: litellm2
 
     config:
       type: configMap
@@ -135,6 +141,19 @@ app-template:
           main:
             - path: /app/config.yaml
               subPath: config.yaml
+        litellm2:
+          main:
+            - path: /app/config.yaml
+              subPath: config2.yaml
+
+    cliauthdir:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      advancedMounts:
+        cliproxyapi:
+          main:
+            - path: /root/.cli-proxy-api
 
     cliconfig:
       type: configMap
