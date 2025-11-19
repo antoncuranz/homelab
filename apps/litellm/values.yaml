@@ -166,11 +166,9 @@ app-template:
 
     migrations:
       type: emptyDir
-      advancedMounts:
-        litellm:
-          main:
-            - path: /usr/lib/python3.13/site-packages/litellm_proxy_extras/migrations
-              subPath: migrations
+      globalMounts:
+        - path: /usr/lib/python3.13/site-packages/litellm_proxy_extras/migrations
+          subPath: migrations
 
     cache:
       type: emptyDir
