@@ -119,7 +119,7 @@ app-template:
             - *host
 
   persistence:
-    dotconfig:
+    authdirs:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
@@ -132,45 +132,29 @@ app-template:
           main:
             - path: /app/.config
               subPath: litellm2
+        cliproxyapi:
+          main:
+            - path: /root/.cli-proxy-api
+              subPath: cliproxyapi
 
-    config:
+    configs:
       type: configMap
-      name: litellm-configmap
+      name: ai-configs
       advancedMounts:
         litellm:
           main:
             - path: /app/config.yaml
-              subPath: config.yaml
+              subPath: litellm.yaml
         litellm2:
           main:
             - path: /app/config.yaml
-              subPath: config2.yaml
-
-    cliauthdir:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 250Mi
-      advancedMounts:
+              subPath: litellm2.yaml
         cliproxyapi:
           main:
-            - path: /root/.cli-proxy-api
+            - path: /app/config.yaml
+              subPath: cliproxyapi.yaml
 
-    cliconfig:
-      type: configMap
-      name: cliproxyapi-configmap
-      advancedMounts:
-        cliproxyapi:
-          main:
-            - path: /CLIProxyAPI/config.yaml
-              subPath: config.yaml
-
-    migrations:
-      type: emptyDir
-      globalMounts:
-        - path: /usr/lib/python3.13/site-packages/litellm_proxy_extras/migrations
-          subPath: migrations
-
-    cache:
+    tmpfs:
       type: emptyDir
       globalMounts:
         - path: /.cache
@@ -179,6 +163,8 @@ app-template:
           subPath: npm
         - path: /tmp
           subPath: tmp
+        - path: /usr/lib/python3.13/site-packages/litellm_proxy_extras/migrations
+          subPath: migrations
 
 open-webui:
   ollama:
