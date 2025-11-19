@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ai-configs
+data:
+  litellm.yaml: |-
+    model_list:
+      - model_name: gpt-5-mini
+        litellm_params:
+          model: github_copilot/gpt-5-mini
+          extra_headers: {"editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat"}
+      - model_name: gpt-4o
+        litellm_params:
+          model: github_copilot/gpt-4o
+          extra_headers: {"editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat"}
+      - model_name: gpt-4.1
+        litellm_params:
+          model: github_copilot/gpt-4.1
+          extra_headers: {"editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat"}
+      - model_name: copilot/claude-sonnet-4.5
+        litellm_params:
+          model: github_copilot/claude-sonnet-4.5
+          extra_headers: {"editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat"}
+      - model_name: copilot/claude-haiku-4.5
+        litellm_params:
+          model: github_copilot/claude-haiku-4.5
+          extra_headers: {"editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat"}
+      - model_name: claude-sonnet-4-5
+        litellm_params:
+          model: anthropic/claude-sonnet-4-5-20250929
+          api_base: http://ai-cliproxyapi:8317
+          api_key: sk-dummy
+      - model_name: claude-haiku-4-5
+        litellm_params:
+          model: anthropic/claude-haiku-4-5-20251001
+          api_base: http://ai-cliproxyapi:8317
+          api_key: sk-dummy
+      - model_name: gemini-2.5-pro
+        litellm_params:
+          model: openai/gemini-2.5-pro
+          api_base: http://ai-cliproxyapi:8317/v1
+          api_key: sk-dummy
+      - model_name: gemini-2.5-flash
+        litellm_params:
+          model: openai/gemini-2.5-flash
+          api_base: http://ai-cliproxyapi:8317/v1
+          api_key: sk-dummy
+    router_settings:
+      fallbacks: [{"claude-sonnet-4-5": ["copilot/claude-sonnet-4-5"]}, {"claude-haiku-4-5": ["copilot/claude-haiku-4-5"]}]
+  litellm2.yaml: |-
+    model_list:
+      - model_name: copilot/claude-sonnet-4.5
+        litellm_params:
+          model: github_copilot/claude-sonnet-4.5
+          extra_headers: { "editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat" }
+      - model_name: copilot/claude-haiku-4.5
+        litellm_params:
+          model: github_copilot/claude-haiku-4.5
+          extra_headers: { "editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat" }
+  cliproxyapi.yaml: |-
+    port: 8317
+    auth-dir: "/root/.cli-proxy-api/.cli-proxy-api"
