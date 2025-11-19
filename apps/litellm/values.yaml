@@ -65,7 +65,7 @@ app-template:
             - --port
             - "4000"
             - --config
-            - /app/config2.yaml
+            - /app/config.yaml
           probes:
             liveness: *liveness
             readiness: *readiness
