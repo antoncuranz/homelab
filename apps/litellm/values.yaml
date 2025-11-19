@@ -7,7 +7,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/berriai/litellm-non_root
-            tag: main-v1.79.3-stable
+            tag: main-v1.79.3-stable.gemini3
           env:
             TZ: "Europe/Berlin"
             LITELLM_MODE: "production"
