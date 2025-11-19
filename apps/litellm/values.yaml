@@ -62,7 +62,7 @@ app-template:
             - secretRef:
                 name: litellm-secrets
           args:
-            - --port *env
+            - --port
             - "4000"
             - --config
             - /app/config2.yaml
