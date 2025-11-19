@@ -7,7 +7,7 @@ app-template:
           image: &image
             repository: ghcr.io/berriai/litellm-non_root
             tag: main-v1.79.3-stable.gemini3
-          env: &env
+          env:
             TZ: "Europe/Berlin"
             LITELLM_MODE: "production"
             LITELLM_DONT_SHOW_FEEDBACK_BOX: "True"
@@ -57,7 +57,11 @@ app-template:
       containers:
         main:
           image: *image
-          env: *env
+          env:
+            TZ: "Europe/Berlin"
+            LITELLM_MODE: "production"
+            LITELLM_MASTER_KEY: "sk-dummy"
+            LITELLM_SALT_KEY: "sk-dummy"
           envFrom:
             - secretRef:
                 name: litellm-secrets
