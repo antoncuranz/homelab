@@ -29,7 +29,7 @@ app-template:
         redis:
           image:
             repository: public.ecr.aws/docker/library/redis
-            tag: 8.2.3
+            tag: 8.4.0
 
   service:
     main:
