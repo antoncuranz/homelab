@@ -109,11 +109,6 @@ app-template:
       ports:
         http:
           port: 4000
-    litellm2:
-      controller: litellm2
-      ports:
-        http:
-          port: 4000
     cliproxyapi:
       controller: cliproxyapi
       ports:
@@ -159,10 +154,6 @@ app-template:
           main:
             - path: /app/.config
               subPath: litellm
-        litellm2:
-          main:
-            - path: /app/.config
-              subPath: litellm2
         cliproxyapi:
           main:
             - path: /root/.cli-proxy-api
@@ -176,10 +167,6 @@ app-template:
           main:
             - path: /app/config.yaml
               subPath: litellm.yaml
-        litellm2:
-          main:
-            - path: /app/config.yaml
-              subPath: litellm2.yaml
         cliproxyapi:
           main:
             - path: /CLIProxyAPI/config.yaml
