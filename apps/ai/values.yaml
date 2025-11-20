@@ -69,22 +69,23 @@ app-template:
           securityContext: *securityContext
       pod: *pod
 
-#    copilot1:
-#      strategy: RollingUpdate
-#      containers:
-#        main:
-#          image:
-#            repository: ghcr.io/ericc-ch/copilot-api
-#            tag: v0.7.0
-#          env:
-#            TZ: "Europe/Berlin"
-#            GH_TOKEN:
-#              valueFrom:
-#                secretKeyRef:
-#                  name: ai-secrets
-#                  key: GH_TOKEN_1
-#          securityContext: *securityContext
-#      pod: *pod
+    copilot1:
+      replicas: 0
+      strategy: RollingUpdate
+      containers:
+        main:
+          image:
+            repository: ghcr.io/ericc-ch/copilot-api
+            tag: v0.7.0
+          env:
+            TZ: "Europe/Berlin"
+            GH_TOKEN:
+              valueFrom:
+                secretKeyRef:
+                  name: ai-secrets
+                  key: GH_TOKEN_1
+          securityContext: *securityContext
+      pod: *pod
 
     copilot2:
       strategy: RollingUpdate
