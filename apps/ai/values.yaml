@@ -52,30 +52,6 @@ app-template:
           fsGroupChangePolicy: OnRootMismatch
           seccompProfile: { type: RuntimeDefault }
 
-    litellm2:
-      strategy: RollingUpdate
-      containers:
-        main:
-          image: *image
-          env:
-            TZ: "Europe/Berlin"
-            LITELLM_MODE: "production"
-            LITELLM_MASTER_KEY: "sk-dummy"
-            LITELLM_SALT_KEY: "sk-dummy"
-          envFrom:
-            - secretRef:
-                name: ai-secrets
-          args:
-            - --port
-            - "4000"
-            - --config
-            - /app/config.yaml
-          probes:
-            liveness: *liveness
-            readiness: *readiness
-          securityContext: *securityContext
-      pod: *pod
-
     cliproxyapi:
       strategy: RollingUpdate
       containers:
@@ -93,7 +69,24 @@ app-template:
           securityContext: *securityContext
       pod: *pod
 
-    copilot1:
+#    copilot1:
+#      strategy: RollingUpdate
+#      containers:
+#        main:
+#          image:
+#            repository: ghcr.io/ericc-ch/copilot-api
+#            tag: v0.7.0
+#          env:
+#            TZ: "Europe/Berlin"
+#            GH_TOKEN:
+#              valueFrom:
+#                secretKeyRef:
+#                  name: ai-secrets
+#                  key: GH_TOKEN_1
+#          securityContext: *securityContext
+#      pod: *pod
+
+    copilot2:
       strategy: RollingUpdate
       containers:
         main:
@@ -107,18 +100,6 @@ app-template:
                 secretKeyRef:
                   name: ai-secrets
                   key: GH_TOKEN_2
-          securityContext: *securityContext
-      pod: *pod
-
-    copilot2:
-      strategy: RollingUpdate
-      containers:
-        main:
-          image:
-            repository: ghcr.io/ericc-ch/copilot-api
-            tag: v0.7.0
-          env:
-            TZ: "Europe/Berlin"
           securityContext: *securityContext
       pod: *pod
 
