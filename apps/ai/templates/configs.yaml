@@ -52,12 +52,6 @@ data:
           api_key: sk-dummy
     router_settings:
       fallbacks: [{"claude-sonnet-4-5": ["copilot/claude-sonnet-4-5"]}, {"claude-haiku-4-5": ["copilot/claude-haiku-4-5"]}]
-  litellm2.yaml: |-
-    model_list:
-      - model_name: claude-sonnet-4.5
-        litellm_params:
-          model: github_copilot/claude-sonnet-4.5
-          extra_headers: {"editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat"}
   cliproxyapi.yaml: |-
     port: 8317
-    auth-dir: "/root/.cli-proxy-api/.cli-proxy-api"
+    auth-dir: "/root/.cli-proxy-api"
