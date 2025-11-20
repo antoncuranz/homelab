@@ -61,13 +61,6 @@ app-template:
             tag: v6.4.1
           env:
             TZ: "Europe/Berlin"
-            GH_TOKEN:
-              valueFrom:
-                secretKeyRef:
-                  name: ai-secrets
-                  key: GH_TOKEN_1
-          securityContext: *securityContext
-      pod: *pod
 
     copilot1:
       replicas: 0
@@ -149,12 +142,8 @@ app-template:
     authdirs:
       enabled: true
       accessMode: ReadWriteOnce
-      size: 250Mi
+      size: 25Mi
       advancedMounts:
-        litellm:
-          main:
-            - path: /app/.config
-              subPath: litellm
         cliproxyapi:
           main:
             - path: /root/.cli-proxy-api
