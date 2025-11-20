@@ -85,6 +85,13 @@ app-template:
             tag: v6.4.1
           env:
             TZ: "Europe/Berlin"
+            GH_TOKEN:
+              valueFrom:
+                secretKeyRef:
+                  name: ai-secrets
+                  key: GH_TOKEN_1
+          securityContext: *securityContext
+      pod: *pod
 
     copilot1:
       strategy: RollingUpdate
@@ -95,6 +102,11 @@ app-template:
             tag: v0.7.0
           env:
             TZ: "Europe/Berlin"
+            GH_TOKEN:
+              valueFrom:
+                secretKeyRef:
+                  name: ai-secrets
+                  key: GH_TOKEN_2
           securityContext: *securityContext
       pod: *pod
 
@@ -192,19 +204,6 @@ app-template:
             - path: /CLIProxyAPI/config.yaml
               subPath: cliproxyapi.yaml
 
-    secrets:
-      type: secret
-      name: ai-secrets
-      advancedMounts:
-        copilot1:
-          main:
-            - path: /home/bun/.local/share/copilot-api
-              subPath: GH_TOKEN_1
-        copilot2:
-          main:
-            - path: /home/bun/.local/share/copilot-api
-              subPath: GH_TOKEN_1
-
     tmpfs:
       type: emptyDir
       globalMounts:
@@ -216,6 +215,8 @@ app-template:
           subPath: tmp
         - path: /usr/lib/python3.13/site-packages/litellm_proxy_extras/migrations
           subPath: migrations
+        - path: /home/bun/.local/share/copilot-api
+          subPath: copilot-api
 
 open-webui:
   ollama:
