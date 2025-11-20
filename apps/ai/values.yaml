@@ -193,7 +193,7 @@ app-template:
               subPath: cliproxyapi.yaml
 
     secrets:
-      type: configMap
+      type: secret
       name: ai-secrets
       advancedMounts:
         copilot1:
