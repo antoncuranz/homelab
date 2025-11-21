@@ -114,7 +114,7 @@ app-template:
         http:
           port: 4141
     copilot2:
-      controller: copilot1
+      controller: copilot2
       ports:
         http:
           port: 4141
