@@ -63,12 +63,11 @@ app-template:
             TZ: "Europe/Berlin"
 
     copilot1:
-      replicas: 0
       strategy: RollingUpdate
       containers:
         main:
           image:
-            repository: ghcr.io/ericc-ch/copilot-api
+            repository: ghcr.io/antoncuranz/copilot-api
             tag: v0.7.0
           env:
             TZ: "Europe/Berlin"
@@ -85,7 +84,7 @@ app-template:
       containers:
         main:
           image:
-            repository: ghcr.io/ericc-ch/copilot-api
+            repository: ghcr.io/antoncuranz/copilot-api
             tag: v0.7.0
           env:
             TZ: "Europe/Berlin"

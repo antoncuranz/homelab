@@ -8,32 +8,32 @@ data:
       - model_name: gpt-5-mini
         litellm_params:
           model: openai/gpt-5-mini
-          api_base: http://ai-copilot2:4141/v1
+          api_base: http://ai-copilot1:4141/v1
           api_key: sk-dummy
       - model_name: gpt-4o
         litellm_params:
           model: openai/gpt-4o
-          api_base: http://ai-copilot2:4141/v1
+          api_base: http://ai-copilot1:4141/v1
           api_key: sk-dummy
       - model_name: gpt-4.1
         litellm_params:
           model: openai/gpt-4.1
-          api_base: http://ai-copilot2:4141/v1
-          api_key: sk-dummy
-      - model_name: copilot/claude-sonnet-4-5
-        litellm_params:
-          model: anthropic/claude-sonnet-4.5
-          api_base: http://ai-copilot2:4141
+          api_base: http://ai-copilot1:4141/v1
           api_key: sk-dummy
       - model_name: copilot/claude-haiku-4-5
         litellm_params:
-          model: anthropic/claude-haiku-4.5
-          api_base: http://ai-copilot2:4141
+          model: anthropic/claude-haiku-4-5
+          api_base: http://ai-copilot1:4141
           api_key: sk-dummy
       - model_name: copilot/claude-sonnet-4-5
         litellm_params:
-          model: litellm_proxy/claude-sonnet-4.5
-          api_base: http://ai-litellm2:4141
+          model: anthropic/claude-sonnet-4-5
+          api_base: http://ai-copilot1:4141
+          api_key: sk-dummy
+      - model_name: copilot/claude-sonnet-4-5
+        litellm_params:
+          model: anthropic/claude-sonnet-4-5
+          api_base: http://ai-copilot2:4141
           api_key: sk-dummy
       - model_name: claude-sonnet-4-5
         litellm_params:
