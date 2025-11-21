@@ -37,18 +37,18 @@ data:
           api_key: sk-dummy
       - model_name: claude-sonnet-4-5
         litellm_params:
-          model: anthropic/claude-sonnet-4-5-20250929
-          api_base: http://ai-cliproxyapi:8317
+          model: openai/claude-sonnet-4-5-20250929
+          api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
       - model_name: claude-haiku-4-5
         litellm_params:
-          model: anthropic/claude-haiku-4-5-20251001
-          api_base: http://ai-cliproxyapi:8317
+          model: openai/claude-haiku-4-5-20251001
+          api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
       - model_name: gemini-2.5-pro
         litellm_params:
-          model: anthropic/gemini-2.5-pro
-          api_base: http://ai-cliproxyapi:8317
+          model: openai/gemini-2.5-pro
+          api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
         model_info:
           supports_audio_input: true
@@ -64,8 +64,8 @@ data:
           supports_web_search: true
       - model_name: gemini-2.5-flash
         litellm_params:
-          model: anthropic/gemini-2.5-flash
-          api_base: http://ai-cliproxyapi:8317
+          model: openai/gemini-2.5-flash
+          api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
         model_info:
           supports_audio_input: true
