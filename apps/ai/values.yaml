@@ -5,8 +5,8 @@ app-template:
       containers:
         main:
           image: &image
-            repository: ghcr.io/berriai/litellm-non_root
-            tag: main-v1.80.0.rc.2
+            repository: ghcr.io/antoncuranz/litellm
+            tag: non-root
           env:
             TZ: "Europe/Berlin"
             LITELLM_MODE: "production"
@@ -63,6 +63,7 @@ app-template:
             TZ: "Europe/Berlin"
 
     copilot1:
+      replicas: 0
       strategy: RollingUpdate
       containers:
         main:
@@ -80,6 +81,7 @@ app-template:
       pod: *pod
 
     copilot2:
+      replicas: 0
       strategy: RollingUpdate
       containers:
         main:
@@ -147,6 +149,10 @@ app-template:
           main:
             - path: /root/.cli-proxy-api
               subPath: cliproxyapi
+        litellm:
+          main:
+            - path: /app/.config
+              subPath: litellm
 
     configs:
       type: configMap
