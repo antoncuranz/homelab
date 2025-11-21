@@ -36,13 +36,11 @@ data:
           model: openai/claude-sonnet-4-5-20250929
           api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
-          allowed_openai_params: ["reasoning_effort"]
       - model_name: claude-haiku-4-5
         litellm_params:
           model: openai/claude-haiku-4-5-20251001
           api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
-          allowed_openai_params: ["reasoning_effort"]
       - model_name: gemini-2.5-pro
         litellm_params:
           model: openai/gemini-2.5-pro
@@ -55,8 +53,8 @@ data:
           api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
           allowed_openai_params: ["reasoning_effort"]
-    # router_settings:
-      # fallbacks: [ { "claude-sonnet-4-5": [ "copilot/claude-sonnet-4-5" ] }, { "claude-haiku-4-5": [ "copilot/claude-haiku-4-5" ] } ]
+    router_settings:
+      fallbacks: [ { "claude-sonnet-4-5": [ "copilot/claude-sonnet-4-5" ] }, { "claude-haiku-4-5": [ "copilot/claude-haiku-4-5" ] } ]
   cliproxyapi.yaml: |-
     port: 8317
     auth-dir: "/root/.cli-proxy-api"
