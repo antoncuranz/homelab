@@ -10,6 +10,7 @@ data:
           model: openai/gpt-5-mini
           api_base: http://ai-copilot1:4141/v1
           api_key: sk-dummy
+          allowed_openai_params: ["reasoning_effort"]
       - model_name: gpt-4o
         litellm_params:
           model: openai/gpt-4o
@@ -22,63 +23,46 @@ data:
           api_key: sk-dummy
       - model_name: copilot/claude-haiku-4-5
         litellm_params:
-          model: anthropic/claude-haiku-4-5
-          api_base: http://ai-copilot1:4141
+          model: openai/claude-haiku-4-5
+          api_base: http://ai-copilot1:4141/v1
           api_key: sk-dummy
+          allowed_openai_params: ["reasoning_effort"]
       - model_name: copilot/claude-sonnet-4-5
         litellm_params:
-          model: anthropic/claude-sonnet-4-5
-          api_base: http://ai-copilot1:4141
+          model: openai/claude-sonnet-4-5
+          api_base: http://ai-copilot1:4141/v1
           api_key: sk-dummy
+          allowed_openai_params: ["reasoning_effort"]
       - model_name: copilot/claude-sonnet-4-5
         litellm_params:
-          model: anthropic/claude-sonnet-4-5
-          api_base: http://ai-copilot2:4141
+          model: openai/claude-sonnet-4-5
+          api_base: http://ai-copilot2:4141/v1
           api_key: sk-dummy
+          allowed_openai_params: ["reasoning_effort"]
       - model_name: claude-sonnet-4-5
         litellm_params:
           model: openai/claude-sonnet-4-5-20250929
           api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
+          allowed_openai_params: ["reasoning_effort"]
       - model_name: claude-haiku-4-5
         litellm_params:
           model: openai/claude-haiku-4-5-20251001
           api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
+          allowed_openai_params: ["reasoning_effort"]
       - model_name: gemini-2.5-pro
         litellm_params:
           model: openai/gemini-2.5-pro
           api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
-        model_info:
-          supports_audio_input: true
-          supports_function_calling: true
-          supports_pdf_input: true
-          supports_prompt_caching: true
-          supports_reasoning: true
-          supports_response_schema: true
-          supports_system_messages: true
-          supports_tool_choice: true
-          supports_video_input: true
-          supports_vision: true
-          supports_web_search: true
+          allowed_openai_params: ["reasoning_effort"]
       - model_name: gemini-2.5-flash
         litellm_params:
           model: openai/gemini-2.5-flash
           api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
-        model_info:
-          supports_audio_input: true
-          supports_function_calling: true
-          supports_pdf_input: true
-          supports_prompt_caching: true
-          supports_reasoning: true
-          supports_response_schema: true
-          supports_system_messages: true
-          supports_tool_choice: true
-          supports_video_input: true
-          supports_vision: true
-          supports_web_search: true
+          allowed_openai_params: ["reasoning_effort"]
     router_settings:
       fallbacks: [ { "claude-sonnet-4-5": [ "copilot/claude-sonnet-4-5" ] }, { "claude-haiku-4-5": [ "copilot/claude-haiku-4-5" ] } ]
   cliproxyapi.yaml: |-
