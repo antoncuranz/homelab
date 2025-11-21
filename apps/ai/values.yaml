@@ -5,8 +5,8 @@ app-template:
       containers:
         main:
           image: &image
-            repository: ghcr.io/antoncuranz/litellm
-            tag: non-root
+            repository: ghcr.io/berriai/litellm
+            tag: main-v1.79.3-stable.gemini3
           env:
             TZ: "Europe/Berlin"
             LITELLM_MODE: "production"
@@ -67,7 +67,7 @@ app-template:
       containers:
         main:
           image:
-            repository: ghcr.io/antoncuranz/copilot-api
+            repository: ghcr.io/ericc-ch/copilot-api
             tag: v0.7.0
           env:
             TZ: "Europe/Berlin"
@@ -84,7 +84,7 @@ app-template:
       containers:
         main:
           image:
-            repository: ghcr.io/antoncuranz/copilot-api
+            repository: ghcr.io/ericc-ch/copilot-api
             tag: v0.7.0
           env:
             TZ: "Europe/Berlin"
