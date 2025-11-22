@@ -98,6 +98,11 @@ kube-prometheus-stack:
           - receiver: "null"
             matchers:
               - alertname =~ "InfoInhibitor|RebootScheduled|NodeMemoryHighUtilization|NodeMemoryMajorPagesFaults|CPUThrottlingHigh|KubePersistentVolumeFillingUp"
+          - receiver: "null"
+            matchers:
+              - namespace = "servarr"
+              - pod =~ "servarr-jellyfin-.*"
+              - alertname = "KubePodNotReady"
           - receiver: "healthcheck"
             matchers:
               - alertname = "Watchdog"
