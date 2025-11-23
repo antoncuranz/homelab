@@ -143,7 +143,7 @@ app-template:
     authdirs:
       enabled: true
       accessMode: ReadWriteOnce
-      size: 25Mi
+      size: 250Mi
       advancedMounts:
         cliproxyapi:
           main:
@@ -227,10 +227,13 @@ librechat:
       existingSecretName: librechat-secrets
   librechat:
     configEnv:
-      ALLOW_EMAIL_LOGIN: "true"
       ALLOW_REGISTRATION: "true"
       ALLOW_SOCIAL_LOGIN: "true"
       ALLOW_SOCIAL_REGISTRATION: "true"
+      OPENID_ISSUER: "https://keycloak.serverton.de/realms/serverton/.well-known/openid-configuration"
+      OPENID_CLIENT_ID: "librechat"
+      OPENID_CALLBACK_URL: "/oauth/openid/callback"
+      OPENID_SCOPE: "openid profile email"
     existingSecretName: librechat-secrets
   mongodb:
     global:
