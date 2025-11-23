@@ -226,9 +226,8 @@ global:
     existingSecretName: librechat-secrets
 librechat:
   existingSecretName: librechat-secrets
-  configEnv:
-    ALLOW_REGISTRATION: "true"
-    ALLOW_EMAIL_LOGIN: "true"
+  volumes:
+    - ./librechat.yaml:/app/api/librechat.yaml
   mongodb:
     global:
       security:
@@ -248,7 +247,7 @@ librechat:
         paths:
           - path: /
             pathType: ImplementationSpecific
-        tls: true
+        tls: []
         existingSecret: chat-tls-certificate
   meilisearch:
     auth:
