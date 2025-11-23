@@ -221,6 +221,9 @@ open-webui:
     accessModes:
       - ReadWriteOnce
 
+global:
+  librechat:
+    existingSecretName: librechat-secrets
 librechat:
   existingSecretName: librechat-secrets
   mongodb:
@@ -245,4 +248,5 @@ librechat:
         tls: true
         existingSecret: chat-tls-certificate
   meilisearch:
-    existingMasterKeySecret: librechat-secrets
+    auth:
+      existingMasterKeySecret: librechat-secrets
