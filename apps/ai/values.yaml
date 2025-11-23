@@ -220,3 +220,26 @@ open-webui:
     size: 2Gi
     accessModes:
       - ReadWriteOnce
+
+librechat:
+  configEnv:
+    PLUGIN_MODELS: gpt-4,gpt-4-turbo-preview,gpt-4-0125-preview,gpt-4-1106-preview,gpt-4-0613,gpt-3.5-turbo,gpt-3.5-turbo-0125,gpt-3.5-turbo-1106,gpt-3.5-turbo-0613
+    DEBUG_PLUGINS: "true"
+    CREDS_KEY: d823dbc3f19f498e7738c8f7c27dc360048e3384623d47cc575c85fc3962a639
+    CREDS_IV: 16186999684fe54e1792dc2736fdd766
+    JWT_SECRET: ade82a8434388b9b30e8e23308fcc55764dc0479f8b07d85ade078cc2f8e24f1
+    JWT_REFRESH_SECRET: 6673c348465a4807c1f03a0cd7d97cf3c4b8eeba2902d2ed5583e7c52042f1c2
+    MEILI_MASTER_KEY: 9cd1bb14ee6309244f40247446f06ec5
+  ingress:
+    enabled: true
+    className: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - host: chat.serverton.de
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+        tls: true
+        existingSecret: chat-tls-certificate
