@@ -240,6 +240,7 @@ librechat:
       OPENID_BUTTON_LABEL: "Login with Serverton"
     existingSecretName: librechat-secrets
     configYamlContent: |
+      version: 1.0.8
       endpoints:
         custom:
           - name: "LiteLLM"
