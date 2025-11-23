@@ -224,13 +224,13 @@ open-webui:
 librechat:
   global:
     librechat:
-      configEnv:
-        ALLOW_EMAIL_LOGIN: "true"
-        ALLOW_REGISTRATION: "true"
-        ALLOW_SOCIAL_LOGIN: "true"
-        ALLOW_SOCIAL_REGISTRATION: "true"
       existingSecretName: librechat-secrets
   librechat:
+    configEnv:
+      ALLOW_EMAIL_LOGIN: "true"
+      ALLOW_REGISTRATION: "true"
+      ALLOW_SOCIAL_LOGIN: "true"
+      ALLOW_SOCIAL_REGISTRATION: "true"
     existingSecretName: librechat-secrets
   mongodb:
     global:
