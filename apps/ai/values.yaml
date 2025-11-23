@@ -227,6 +227,8 @@ librechat:
       existingSecretName: librechat-secrets
   librechat:
     configEnv:
+      DOMAIN_CLIENT: "https://chat.serverton.de"
+      DOMAIN_SERVER: "https://chat.serverton.de"
       ALLOW_EMAIL_LOGIN: "false"
       ALLOW_REGISTRATION: "true"
       ALLOW_SOCIAL_LOGIN: "true"
