@@ -227,13 +227,15 @@ librechat:
       existingSecretName: librechat-secrets
   librechat:
     configEnv:
+      ALLOW_EMAIL_LOGIN: "false"
       ALLOW_REGISTRATION: "true"
       ALLOW_SOCIAL_LOGIN: "true"
       ALLOW_SOCIAL_REGISTRATION: "true"
-      OPENID_ISSUER: "https://keycloak.serverton.de/realms/serverton/.well-known/openid-configuration"
+      OPENID_ISSUER: "https://keycloak.serverton.de/realms/serverton"
       OPENID_CLIENT_ID: "librechat"
       OPENID_CALLBACK_URL: "/oauth/openid/callback"
       OPENID_SCOPE: "openid profile email"
+      OPENID_BUTTON_LABEL: "Serverton"
     existingSecretName: librechat-secrets
   mongodb:
     global:
