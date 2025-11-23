@@ -241,12 +241,14 @@ librechat:
       external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
       cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
-      - host: chat.serverton.de
+      - host: &host chat.serverton.de
         paths:
           - path: /
             pathType: ImplementationSpecific
-        tls: []
-        existingSecret: chat-tls-certificate
+    tls:
+      - secretName: chat-tls-certificate
+        hosts:
+          - *host
   meilisearch:
     auth:
       existingMasterKeySecret: librechat-secrets
