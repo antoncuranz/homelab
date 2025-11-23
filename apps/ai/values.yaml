@@ -245,7 +245,7 @@ librechat:
         custom:
           - name: "LiteLLM"
             apiKey: "${LITELLM_API_KEY}"
-            baseURL: "http://litellm:4000"
+            baseURL: "http://ai-litellm:4000"
             models:
               default: ["gemini-2.5-pro"]
               fetch: true
