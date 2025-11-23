@@ -226,8 +226,6 @@ global:
     existingSecretName: librechat-secrets
 librechat:
   existingSecretName: librechat-secrets
-  volumes:
-    - ./librechat.yaml:/app/api/librechat.yaml
   mongodb:
     global:
       security:
