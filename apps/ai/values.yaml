@@ -221,11 +221,12 @@ open-webui:
     accessModes:
       - ReadWriteOnce
 
-global:
+librechat:
+  global:
+    librechat:
+      existingSecretName: librechat-secrets
   librechat:
     existingSecretName: librechat-secrets
-librechat:
-  existingSecretName: librechat-secrets
   mongodb:
     global:
       security:
