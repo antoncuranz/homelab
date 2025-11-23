@@ -226,6 +226,9 @@ global:
     existingSecretName: librechat-secrets
 librechat:
   existingSecretName: librechat-secrets
+  configEnv:
+    ALLOW_REGISTRATION: "true"
+    ALLOW_EMAIL_LOGIN: "true"
   mongodb:
     global:
       security:
