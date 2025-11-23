@@ -240,19 +240,20 @@ librechat:
       OPENID_BUTTON_LABEL: "Login with Serverton"
     existingSecretName: librechat-secrets
     configYamlContent: |
-      custom:
-        - name: "LiteLLM"
-          apiKey: "${LITELLM_API_KEY}"
-          baseURL: "http://litellm:4000"
-          models:
-            default: ["gemini-2.5-pro"]
-            fetch: true
-          titleConvo: true
-          titleModel: "gpt-4.1"
-          summarize: false
-          summaryModel: "gpt-4.1"
-          forcePrompt: false
-          modelDisplayLabel: "LiteLLM"
+      endpoints:
+        custom:
+          - name: "LiteLLM"
+            apiKey: "${LITELLM_API_KEY}"
+            baseURL: "http://litellm:4000"
+            models:
+              default: ["gemini-2.5-pro"]
+              fetch: true
+            titleConvo: true
+            titleModel: "gpt-4.1"
+            summarize: false
+            summaryModel: "gpt-4.1"
+            forcePrompt: false
+            modelDisplayLabel: "LiteLLM"
   mongodb:
     global:
       security:
