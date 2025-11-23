@@ -230,6 +230,14 @@ librechat:
     JWT_SECRET: ade82a8434388b9b30e8e23308fcc55764dc0479f8b07d85ade078cc2f8e24f1
     JWT_REFRESH_SECRET: 6673c348465a4807c1f03a0cd7d97cf3c4b8eeba2902d2ed5583e7c52042f1c2
     MEILI_MASTER_KEY: 9cd1bb14ee6309244f40247446f06ec5
+  mongodb:
+    global:
+      security:
+        allowInsecureImages: true
+    image:
+      registry: registry-1.docker.io
+      repository: bitnami/mongodb
+      tag: latest
   ingress:
     enabled: true
     className: nginx
