@@ -98,6 +98,24 @@ app-template:
           securityContext: *securityContext
       pod: *pod
 
+    gemini:
+      strategy: RollingUpdate
+      containers:
+        main:
+          image:
+            repository: ghcr.io/gzzhongqi/geminicli2api
+            tag: latest
+            imagePullPolicy: Always
+          env:
+            GEMINI_AUTH_PASSWORD: "sk-dummy"
+            GEMINI_CREDENTIALS:
+              valueFrom:
+                secretKeyRef:
+                  name: ai-secrets
+                  key: GEMINI_CREDENTIALS
+#          securityContext: *securityContext
+#      pod: *pod
+
   service:
     litellm:
       controller: litellm
@@ -119,6 +137,11 @@ app-template:
       ports:
         http:
           port: 4141
+    gemini:
+      controller: gemini
+      ports:
+        http:
+          port: 8888
 
   ingress:
     litellm:
