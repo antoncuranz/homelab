@@ -60,7 +60,7 @@ data:
       - model_name: gemini-3-pro-preview
         litellm_params:
           model: gemini-3-pro-preview
-          api_base: http://ai-geminicli2api:8888
+          api_base: http://ai-gemini:8888
           api_key: sk-dummy
     general_settings:
       store_model_in_db: true
