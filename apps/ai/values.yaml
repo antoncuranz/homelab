@@ -105,7 +105,7 @@ app-template:
           image:
             repository: ghcr.io/gzzhongqi/geminicli2api
             tag: latest
-            imagePullPolicy: Always
+            pullPolicy: Always
           env:
             GEMINI_AUTH_PASSWORD: "sk-dummy"
             GEMINI_CREDENTIALS:
