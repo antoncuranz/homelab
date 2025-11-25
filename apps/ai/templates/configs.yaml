@@ -36,6 +36,10 @@ data:
           model: openai/claude-sonnet-4-5-20250929
           api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
+      - model_name: vercel_ai_gateway/claude-sonnet-4-5
+        litellm_params:
+          model: vercel_ai_gateway/anthropic/claude-sonnet-4.5
+          api_key: os.environ/VERCEL_AI_GATEWAY_API_KEY
       - model_name: claude-haiku-4-5
         litellm_params:
           model: openai/claude-haiku-4-5-20251001
@@ -53,6 +57,14 @@ data:
           api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
           allowed_openai_params: ["reasoning_effort"]
+      - model_name: gemini-3-pro-preview
+        litellm_params:
+          model: gemini-3-pro-preview
+          api_base: http://ai-geminicli2api:8888
+          api_key: sk-dummy
+    general_settings:
+      store_model_in_db: true
+      store_prompts_in_spend_logs: true
     router_settings:
       fallbacks: [ { "claude-sonnet-4-5": [ "copilot/claude-sonnet-4-5" ] }, { "claude-haiku-4-5": [ "copilot/claude-haiku-4-5" ] } ]
   cliproxyapi.yaml: |-
