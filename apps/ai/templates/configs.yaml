@@ -47,16 +47,14 @@ data:
           api_key: sk-dummy
       - model_name: gemini-2.5-pro
         litellm_params:
-          model: openai/gemini-2.5-pro
-          api_base: http://ai-cliproxyapi:8317/v1
+          model: gemini/gemini-2.5-pro
+          api_base: http://ai-gemini:8888
           api_key: sk-dummy
-          allowed_openai_params: ["reasoning_effort"]
       - model_name: gemini-2.5-flash
         litellm_params:
-          model: openai/gemini-2.5-flash
-          api_base: http://ai-cliproxyapi:8317/v1
+          model: gemini/gemini-2.5-flash
+          api_base: http://ai-gemini:8888
           api_key: sk-dummy
-          allowed_openai_params: ["reasoning_effort"]
       - model_name: gemini-3-pro-preview
         litellm_params:
           model: gemini/gemini-3-pro-preview
