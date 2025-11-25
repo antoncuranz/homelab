@@ -103,7 +103,7 @@ app-template:
       containers:
         main:
           image:
-            repository: ghcr.io/gzzhongqi/geminicli2api
+            repository: ghcr.io/antoncuranz/geminicli2api
             tag: latest
             pullPolicy: Always
           env:
