@@ -59,7 +59,7 @@ data:
           allowed_openai_params: ["reasoning_effort"]
       - model_name: gemini-3-pro-preview
         litellm_params:
-          model: gemini-3-pro-preview
+          model: gemini/gemini-3-pro-preview
           api_base: http://ai-gemini:8888
           api_key: sk-dummy
     general_settings:

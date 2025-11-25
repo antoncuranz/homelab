@@ -108,6 +108,7 @@ app-template:
             pullPolicy: Always
           env:
             GEMINI_AUTH_PASSWORD: "sk-dummy"
+            PORT: "8888"
             GEMINI_CREDENTIALS:
               valueFrom:
                 secretKeyRef:
