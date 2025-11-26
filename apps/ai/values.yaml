@@ -5,8 +5,8 @@ app-template:
       containers:
         main:
           image: &image
-            repository: ghcr.io/berriai/litellm-non_root
-            tag: main-v1.80.5.rc.2
+            repository: ghcr.io/antoncuranz/litellm
+            tag: non-root
           env:
             TZ: "Europe/Berlin"
             LITELLM_MODE: "production"
