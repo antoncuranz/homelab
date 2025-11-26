@@ -261,24 +261,22 @@ librechat:
       OPENID_CLIENT_ID: "librechat"
       OPENID_CALLBACK_URL: "/oauth/openid/callback"
       OPENID_SCOPE: "openid profile email"
-      OPENID_BUTTON_LABEL: "Login with Serverton"
+      OPENID_BUTTON_LABEL: "Login with serverton"
     existingSecretName: librechat-secrets
     configYamlContent: |
       version: 1.0.8
       endpoints:
         custom:
-          - name: "Serverton"
+          - name: "serverton"
             apiKey: "${LITELLM_API_KEY}"
             baseURL: "http://ai-litellm:4000"
             models:
-              default: ["gemini-2.5-pro"]
+              default: ["gemini-3-pro-preview"]
               fetch: true
             titleConvo: true
             titleModel: "gpt-4.1"
-            summarize: false
             summaryModel: "gpt-4.1"
-            forcePrompt: false
-            modelDisplayLabel: "LiteLLM"
+            modelDisplayLabel: "Serverton"
       modelSpecs:
         list:
           - name: "gemini-3-pro-preview"
@@ -287,37 +285,40 @@ librechat:
             description: "Das beste von Google."
             iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/gemini-color.png"
             preset:
-              endpoint: "Serverton"
+              endpoint: "serverton"
               model: "gemini-3-pro-preview"
+              modelLabel: "Gemini 3 Pro"
           - name: "gemini-2.5-pro"
             label: "Google Gemini 2.5 Pro"
             iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/gemini-color.png"
             preset:
-              endpoint: "Serverton"
+              endpoint: "serverton"
               model: "gemini-2.5-pro"
+              modelLabel: "Gemini 2.5 Pro"
           - name: "gemini-2.5-flash"
             label: "Google Gemini 2.5 Flash"
             iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/gemini-color.png"
             preset:
-              endpoint: "Serverton"
+              endpoint: "serverton"
               model: "gemini-2.5-flash"
+              modelLabel: "Gemini 2.5 Flash"
           - name: "gpt-5-mini"
             label: "OpenAI GPT 5 mini"
             iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/1.74.0/files/light/openai.png"
             preset:
-              endpoint: "Serverton"
+              endpoint: "serverton"
               model: "gpt-5-mini"
           - name: "gpt-4o"
             label: "OpenAI GPT 4o"
             iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/1.74.0/files/light/openai.png"
             preset:
-              endpoint: "Serverton"
+              endpoint: "serverton"
               model: "gpt-4o"
           - name: "gpt-4.1"
             label: "OpenAI GPT 4.1"
             iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/1.74.0/files/light/openai.png"
             preset:
-              endpoint: "Serverton"
+              endpoint: "serverton"
               model: "gpt-4.1"
   mongodb:
     global:
