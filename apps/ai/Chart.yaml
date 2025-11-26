@@ -9,5 +9,5 @@ dependencies:
     version: 3.8.0
     repository: https://helm.openwebui.com/
   - name: librechat
-    version: 1.9.2
+    version: 1.9.3
     repository: oci://ghcr.io/danny-avila/librechat-chart
