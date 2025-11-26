@@ -205,46 +205,6 @@ app-template:
         - path: /home/bun/.local/share/copilot-api
           subPath: copilot-api
 
-open-webui:
-  ollama:
-    enabled: false
-  pipelines:
-    enabled: false
-
-  image:
-    tag: "v0.6.36"
-
-  ingress:
-    enabled: true
-    class: nginx
-    annotations:
-      external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-    host: gpt.serverton.de
-    tls: true
-    existingSecret: gpt-tls-certificate
-
-  extraEnvVars:
-    - name: ENABLE_EVALUATION_ARENA_MODELS
-      value: "false"
-    - name: ENABLE_MESSAGE_RATING
-      value: "false"
-    - name: ENABLE_COMMUNITY_SHARING
-      value: "false"
-    - name: ENABLE_VERSION_UPDATE_CHECK
-      value: "false"
-    - name: DATABASE_URL
-      valueFrom:
-        secretKeyRef:
-          name: database-open-webui-user
-          key: POSTGRES_URL
-
-  persistence:
-    enabled: true
-    size: 2Gi
-    accessModes:
-      - ReadWriteOnce
-
 librechat:
   global:
     librechat:

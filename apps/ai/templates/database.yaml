@@ -15,20 +15,3 @@ spec:
   database: litellm-db
   secretName: database
   privileges: OWNER
----
-apiVersion: db.movetokube.com/v1alpha1
-kind: Postgres
-metadata:
-  name: open-webui-db
-spec:
-  database: openwebui
----
-apiVersion: db.movetokube.com/v1alpha1
-kind: PostgresUser
-metadata:
-  name: open-webui-user
-spec:
-  role: openwebui
-  database: open-webui-db
-  secretName: database
-  privileges: OWNER
