@@ -267,7 +267,7 @@ librechat:
       version: 1.0.8
       endpoints:
         custom:
-          - name: "LiteLLM"
+          - name: "Serverton"
             apiKey: "${LITELLM_API_KEY}"
             baseURL: "http://ai-litellm:4000"
             models:
@@ -279,6 +279,51 @@ librechat:
             summaryModel: "gpt-4.1"
             forcePrompt: false
             modelDisplayLabel: "LiteLLM"
+      modelSpecs:
+        list:
+          - name: "gemini-3-pro-preview"
+            label: "Google Gemini 3 Pro"
+            default: true
+            description: "Das beste von Google."
+            iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/gemini-color.png"
+            preset:
+              endpoint: "Serverton"
+              model: "gemini-3-pro-preview"
+          - name: "gemini-2.5-pro"
+            label: "Google Gemini 2.5 Pro"
+            default: true
+            iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/gemini-color.png"
+            preset:
+              endpoint: "Serverton"
+              model: "gemini-2.5-pro"
+          - name: "gemini-2.5-flash"
+            label: "Google Gemini 2.5 Flash"
+            default: true
+            iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/gemini-color.png"
+            preset:
+              endpoint: "Serverton"
+              model: "gemini-2.5-flash"
+          - name: "gpt-5-mini"
+            label: "OpenAI GPT 5 mini"
+            default: true
+            iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/1.74.0/files/light/openai.png"
+            preset:
+              endpoint: "Serverton"
+              model: "gpt-5-mini"
+          - name: "gpt-4o"
+            label: "OpenAI GPT 4o"
+            default: true
+            iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/1.74.0/files/light/openai.png"
+            preset:
+              endpoint: "Serverton"
+              model: "gpt-4o"
+          - name: "gpt-4.1"
+            label: "OpenAI GPT 4.1"
+            default: true
+            iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/1.74.0/files/light/openai.png"
+            preset:
+              endpoint: "Serverton"
+              model: "gpt-4.1"
   mongodb:
     global:
       security:
