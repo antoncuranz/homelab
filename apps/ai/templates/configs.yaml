@@ -21,13 +21,15 @@ data:
           api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
         model_info:
-          base_model: claude-sonnet-4-5
+          input_cost_per_token: 3e-06
+          output_cost_per_token: 1.5e-05
       - model_name: copilot/claude-sonnet-4-5
         litellm_params:
           model: github_copilot/claude-sonnet-4.5
           extra_headers: { "editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat" }
         model_info:
-          base_model: claude-sonnet-4-5
+          input_cost_per_token: 3e-06
+          output_cost_per_token: 1.5e-05
       - model_name: vercel_ai_gateway/claude-sonnet-4-5
         litellm_params:
           model: vercel_ai_gateway/anthropic/claude-sonnet-4.5
@@ -40,13 +42,15 @@ data:
           api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
         model_info:
-          base_model: claude-haiku-4-5
+          input_cost_per_token: 1e-06
+          output_cost_per_token: 5e-06
       - model_name: copilot/claude-haiku-4-5
         litellm_params:
           model: github_copilot/claude-haiku-4.5
           extra_headers: { "editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat" }
         model_info:
-          base_model: claude-haiku-4-5
+          input_cost_per_token: 1e-06
+          output_cost_per_token: 5e-06
       - model_name: vercel_ai_gateway/claude-haiku-4-5
         litellm_params:
           model: vercel_ai_gateway/anthropic/claude-haiku-4.5
@@ -59,8 +63,6 @@ data:
         litellm_params:
           model: github_copilot/gpt-5.1-codex
           extra_headers: { "editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat" }
-        model_info:
-          base_model: gpt-5.1-codex
       - model_name: vercel_ai_gateway/gpt-5.1-codex
         litellm_params:
           model: vercel_ai_gateway/openai/gpt-5.1-codex
@@ -104,7 +106,8 @@ data:
           api_base: https://api.z.ai/api/coding/paas/v4
           api_key: os.environ/ZAI_API_KEY
         model_info:
-          base_model: vercel_ai_gateway/zai/glm-4.6
+          input_cost_per_token: 4.5e-07
+          output_cost_per_token: 1.8e-06
 
   cliproxyapi.yaml: |-
     port: 8317
