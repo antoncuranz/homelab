@@ -34,6 +34,9 @@ data:
         litellm_params:
           model: vercel_ai_gateway/anthropic/claude-sonnet-4.5
           api_key: os.environ/VERCEL_AI_GATEWAY_API_KEY
+        model_info:
+          input_cost_per_token: 3e-06
+          output_cost_per_token: 1.5e-05
 
       # CLAUDE HAIKU 4.5
       - model_name: claude-haiku-4-5
@@ -55,6 +58,9 @@ data:
         litellm_params:
           model: vercel_ai_gateway/anthropic/claude-haiku-4.5
           api_key: os.environ/VERCEL_AI_GATEWAY_API_KEY
+        model_info:
+          input_cost_per_token: 1e-06
+          output_cost_per_token: 5e-06
 
       # GPT 5.1 CODEX
       - model_name: gpt-5.1-codex
