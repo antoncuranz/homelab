@@ -14,6 +14,12 @@ data:
     router_settings:
       fallbacks: [ { "claude-sonnet-4-5": [ "copilot/claude-sonnet-4-5" ] }, { "claude-haiku-4-5": [ "copilot/claude-haiku-4-5" ] } ]
     model_list:
+      # CLAUDE OPUS 4.5
+      - model_name: copilot/claude-opus-4-5
+        litellm_params:
+          model: github_copilot/claude-opus-4.5
+          extra_headers: { "editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat" }
+
       # CLAUDE SONNET 4.5
       - model_name: claude-sonnet-4-5
         litellm_params:
