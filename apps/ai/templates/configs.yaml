@@ -124,7 +124,7 @@ data:
       # QWEN3
       - model_name: qwen3-coder
         litellm_params:
-          model: Qwen/Qwen3-Coder-480B-A35B-Instruct
+          model: openai/Qwen/Qwen3-Coder-480B-A35B-Instruct
           api_base: https://api.tokenfactory.nebius.com/v1
           api_key: os.environ/NEBIUS_API_KEY
         model_info:
