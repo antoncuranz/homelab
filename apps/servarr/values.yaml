@@ -507,6 +507,7 @@ transmission:
 
   controllers:
     main:
+      replicas: 0
       strategy: RollingUpdate
 
       pod:
