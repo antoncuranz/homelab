@@ -128,6 +128,7 @@ data:
           api_base: https://api.kimi.com/coding/v1
           api_key: os.environ/KIMI_API_KEY
           extra_headers: { "User-Agent": "RooCode/3.34.8" }
+          allowed_openai_params: ["reasoning_effort"]
         model_info:
           input_cost_per_token: 6.0e-07
           output_cost_per_token: 2.5e-06
