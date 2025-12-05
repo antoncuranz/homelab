@@ -34,6 +34,8 @@ pod-gateway:
         image:
           repository: docker.io/qmcgaw/gluetun
           tag: v3.40.3
+      env:
+        PUBLICIP_API: cloudflare
       envFrom:
         - secretRef:
             name: wireguard-config
@@ -51,11 +53,11 @@ pod-gateway:
                 protocol: UDP
           - to:
               - namespaceSelector: {}
-      livenessProbe:
-        exec:
-          command:
-            - sh
-            - -c
-            - if [ $(expr match "$(wget -q -O- https://speed.cloudflare.com/meta)" ".*\"country\":\"NL\".*") != 0 ]; then exit 0; else exit $?; fi
-        initialDelaySeconds: 30
-        periodSeconds: 60
+#      livenessProbe:
+#        exec:
+#          command:
+#            - sh
+#            - -c
+#            - if [ $(expr match "$(wget -q -O- https://speed.cloudflare.com/meta)" ".*\"country\":\"NL\".*") != 0 ]; then exit 0; else exit $?; fi
+#        initialDelaySeconds: 30
+#        periodSeconds: 60
