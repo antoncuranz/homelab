@@ -360,6 +360,11 @@ radarr:
     mediarr:
       enabled: true
       existingClaim: mediarr
+    tmpfs:
+      enabled: true
+      type: emptyDir
+      globalMounts:
+        - path: /config/MediaCover
 
   service:
     main:
