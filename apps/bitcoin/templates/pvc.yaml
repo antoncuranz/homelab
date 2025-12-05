@@ -10,7 +10,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/home/ant0n/bitcoin"
+    path: "/home/ant0n/bitcoin/bitcoind"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -26,3 +26,31 @@ spec:
   resources:
     requests:
       storage: 1Ti
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: electrs-data-pv
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/ant0n/bitcoin/electrs"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: electrs-data
+  annotations:
+    k8up.io/backup: 'false'
+spec:
+  volumeName: electrs-data-pv
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
