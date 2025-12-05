@@ -5,8 +5,8 @@ metadata:
   name: data-import
 spec:
   schedule: "@hourly"
-  successfulJobsHistoryLimit: 1
-  failedJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 0
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
