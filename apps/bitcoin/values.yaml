@@ -137,10 +137,9 @@ electrs:
           subPath: config.toml
     data:
       enabled: true
-      accessMode: ReadWriteOnce
-      size: 100Gi
+      existingClaim: electrs-data
       globalMounts:
-        - path: /data
+        - path: /data/electrs
 
   service:
     main:
