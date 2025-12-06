@@ -23,7 +23,15 @@ data:
       # CLAUDE SONNET 4.5
       - model_name: claude-sonnet-4-5
         litellm_params:
-          model: openai/claude-sonnet-4-5-20250929
+          model: openai/gemini-claude-sonnet-4-5
+          api_base: http://ai-cliproxyapi:8317/v1
+          api_key: sk-dummy
+        model_info:
+          input_cost_per_token: 3e-06
+          output_cost_per_token: 1.5e-05
+      - model_name: claude-sonnet-4-5-thinking
+        litellm_params:
+          model: openai/gemini-claude-sonnet-4-5-thinking
           api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
         model_info:
@@ -44,26 +52,29 @@ data:
           input_cost_per_token: 3e-06
           output_cost_per_token: 1.5e-05
 
-      # CLAUDE HAIKU 4.5
-      - model_name: claude-haiku-4-5
+      # CLAUDE OPUS 4.5
+      - model_name: claude-opus-4-5
         litellm_params:
-          model: openai/claude-haiku-4-5-20251001
+          model: openai/gemini-claude-opus-4-5
           api_base: http://ai-cliproxyapi:8317/v1
           api_key: sk-dummy
         model_info:
-          input_cost_per_token: 1e-06
-          output_cost_per_token: 5e-06
+          input_cost_per_token: 3e-06
+          output_cost_per_token: 1.5e-05
+      - model_name: claude-opus-4-5-thinking
+        litellm_params:
+          model: openai/gemini-claude-opus-4-5-thinking
+          api_base: http://ai-cliproxyapi:8317/v1
+          api_key: sk-dummy
+        model_info:
+          input_cost_per_token: 3e-06
+          output_cost_per_token: 1.5e-05
+
+      # CLAUDE HAIKU 4.5
       - model_name: copilot/claude-haiku-4-5
         litellm_params:
           model: github_copilot/claude-haiku-4.5
           extra_headers: { "editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat" }
-        model_info:
-          input_cost_per_token: 1e-06
-          output_cost_per_token: 5e-06
-      - model_name: vercel_ai_gateway/claude-haiku-4-5
-        litellm_params:
-          model: vercel_ai_gateway/anthropic/claude-haiku-4.5
-          api_key: os.environ/VERCEL_AI_GATEWAY_API_KEY
         model_info:
           input_cost_per_token: 1e-06
           output_cost_per_token: 5e-06
@@ -132,16 +143,6 @@ data:
         model_info:
           input_cost_per_token: 6.0e-07
           output_cost_per_token: 2.5e-06
-
-      # QWEN3
-      - model_name: qwen3-coder
-        litellm_params:
-          model: openai/Qwen/Qwen3-Coder-480B-A35B-Instruct
-          api_base: https://api.tokenfactory.nebius.com/v1
-          api_key: os.environ/NEBIUS_API_KEY
-        model_info:
-          input_cost_per_token: 4.0e-07
-          output_cost_per_token: 1.8e-06
 
   cliproxyapi.yaml: |-
     port: 8317
