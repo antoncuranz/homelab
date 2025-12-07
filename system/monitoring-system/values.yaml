@@ -97,12 +97,15 @@ kube-prometheus-stack:
         routes:
           - receiver: "null"
             matchers:
-              - alertname =~ "InfoInhibitor|RebootScheduled|NodeMemoryHighUtilization|NodeMemoryMajorPagesFaults|CPUThrottlingHigh|KubePersistentVolumeFillingUp"
+              - alertname =~ "InfoInhibitor|RebootScheduled|NodeMemoryHighUtilization|NodeMemoryMajorPagesFaults|CPUThrottlingHigh"
           - receiver: "null"
             matchers:
               - namespace = "servarr"
               - pod =~ "servarr-jellyfin-.*"
               - alertname = "KubePodNotReady"
+          - receiver: "null"
+              - persistentvolumeclaim =~ "volsync-.*"
+              - alertname =~ "KubePersistentVolume.*FillingUp"
           - receiver: "healthcheck"
             matchers:
               - alertname = "Watchdog"
