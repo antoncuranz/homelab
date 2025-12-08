@@ -104,6 +104,7 @@ kube-prometheus-stack:
               - pod =~ "servarr-jellyfin-.*"
               - alertname = "KubePodNotReady"
           - receiver: "null"
+            matchers:
               - persistentvolumeclaim =~ "volsync-.*"
               - alertname =~ "KubePersistentVolume.*FillingUp"
           - receiver: "healthcheck"
