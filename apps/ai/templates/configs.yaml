@@ -11,8 +11,6 @@ data:
       vercel_ai_gateway:
         budget_limit: 1.0
         time_period: "1d"
-    router_settings:
-      fallbacks: [ { "claude-sonnet-4-5": [ "copilot/claude-sonnet-4-5" ] }, { "claude-haiku-4-5": [ "copilot/claude-haiku-4-5" ] } ]
     model_list:
       # CLAUDE SONNET 4.5
       - model_name: claude-sonnet-4-5
