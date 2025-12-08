@@ -22,11 +22,6 @@
     {
       "matchPackageNames": ["keycloak", "volsync"],
       "automerge": false
-    },
-    {
-      "matchPackageNames": ["getumbrel/electrs"],
-      "matchUpdateTypes": ["minor"],
-      "automerge": false
     }
   ],
   "regexManagers": [
