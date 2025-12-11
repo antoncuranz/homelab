@@ -6,5 +6,5 @@ dependencies:
     version: 4.4.0
     repository: https://bjw-s-labs.github.io/helm-charts
   - name: librechat
-    version: 1.9.3
+    version: 1.9.4
     repository: oci://ghcr.io/danny-avila/librechat-chart
