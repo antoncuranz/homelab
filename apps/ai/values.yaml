@@ -58,7 +58,7 @@ app-template:
         main:
           image:
             repository: eceasy/cli-proxy-api
-            tag: v6.6.58
+            tag: v6.6.59
           env:
             TZ: "Europe/Berlin"
 
