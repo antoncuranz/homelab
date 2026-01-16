@@ -3,7 +3,7 @@ name: ai
 version: 0.0.0
 dependencies:
   - name: app-template
-    version: 4.4.0
+    version: 4.6.2
     repository: https://bjw-s-labs.github.io/helm-charts
   - name: librechat
     version: 1.9.5
