@@ -98,6 +98,14 @@ data:
         model_info:
           input_cost_per_token: 4.5e-07
           output_cost_per_token: 1.8e-06
+      - model_name: glm-4.7
+        litellm_params:
+          model: openai/glm-4.7
+          api_base: https://api.z.ai/api/coding/paas/v4
+          api_key: os.environ/ZAI_API_KEY
+        model_info:
+          input_cost_per_token: 4.5e-07
+          output_cost_per_token: 1.8e-06
 
       # KIMI
       - model_name: kimi-k2
