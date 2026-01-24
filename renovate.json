@@ -20,7 +20,7 @@
       "automerge": false
     },
     {
-      "matchPackageNames": ["keycloak", "volsync"],
+      "matchPackageNames": [],
       "automerge": false
     }
   ],

@@ -8,6 +8,8 @@ app-template:
           image:
             repository: serjs/go-socks5-proxy
             tag: latest@sha256:847fa485f52f4d99668584b620a89acebfe86bc6f2ac1acb6f4dc6b6cb8cbcd0
+          env:
+            REQUIRE_AUTH: "false"
           probes:
             liveness:
               enabled: false
