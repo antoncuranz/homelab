@@ -1,27 +1,27 @@
 #!/bin/sh
 
-# Define variables
 NAMESPACE="onepassword"
 SECRET_NAME="onepassword-secret"
 
-# Prompt user for credentials
-read -rp "Enter the onepassword credentials (Kubernetes Credentials File, base64 enc.): " CREDENTIALS
+read -rp "Enter path to 1Password credentials file: " CREDENTIALS_FILE
 
-# Prompt user for token
 read -rp "Enter the onepassword token (Kubernetes Access Token): " TOKEN
 echo # Move to a new line after token input
 
-# Check if credentials and token are provided
-if [ -z "$CREDENTIALS" ] || [ -z "$TOKEN" ]; then
+if [ -z "$CREDENTIALS_FILE" ] || [ -z "$TOKEN" ]; then
     echo "Error: Missing one or more required inputs."
     exit 1
 fi
 
-# Create Kubernetes secret
+if [ ! -f "$CREDENTIALS_FILE" ]; then
+    echo "Error: Credentials file not found: $CREDENTIALS_FILE"
+    exit 1
+fi
+
 kubectl create secret generic "$SECRET_NAME" \
     --namespace="$NAMESPACE" \
-    --from-literal="credentials=$CREDENTIALS" \
-    --from-literal="token=$TOKEN"
+    --from-file="credentials=$CREDENTIALS_FILE" \
+    --from-literal="token=$TOKEN" \
+    --dry-run=client -o yaml | kubectl apply -f -
 
-echo "Kubernetes secret '$SECRET_NAME' created in namespace '$NAMESPACE'."
-
+echo "Kubernetes secret '$SECRET_NAME' applied in namespace '$NAMESPACE'."
