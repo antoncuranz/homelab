@@ -81,6 +81,15 @@ app-template:
           main:
             - path: /workspace
 
+    data:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      advancedMounts:
+        main:
+          main:
+            - path: /home/opencode/.local/share/opencode
+
   service:
     main:
       ports:
