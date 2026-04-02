@@ -76,7 +76,7 @@ app-template:
     data:
       enabled: true
       accessMode: ReadWriteOnce
-      size: 250Mi
+      size: 10Gi
       advancedMounts:
         main:
           main:
