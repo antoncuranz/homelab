@@ -55,9 +55,6 @@ app-template:
             requests:
               cpu: 100m
               memory: 512Mi
-            limits:
-              cpu: 1000m
-              memory: 2Gi
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
