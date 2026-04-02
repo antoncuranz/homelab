@@ -31,11 +31,6 @@ app-template:
                 secretKeyRef:
                   name: opencode-secrets
                   key: GH_TOKEN
-            OPENCODE_SERVER_PASSWORD:
-              valueFrom:
-                secretKeyRef:
-                  name: opencode-secrets
-                  key: OPENCODE_SERVER_PASSWORD
           probes:
             liveness: &probe
               enabled: true
@@ -103,6 +98,8 @@ app-template:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
         external-dns.alpha.kubernetes.io/target: lb1.serverton.de
+        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
+        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
       hosts:
         - host: &host oc.serverton.de
           paths:
