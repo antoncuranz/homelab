@@ -25,12 +25,11 @@ app-template:
             tag: latest
             pullPolicy: Always
           env:
-            TZ: Europe/Berlin
-            GH_TOKEN:
-              valueFrom:
-                secretKeyRef:
-                  name: opencode-secrets
-                  key: GH_TOKEN
+            - name: TZ
+              value: Europe/Berlin
+          envFrom:
+            - secretRef:
+                name: opencode-secrets
           probes:
             liveness: &probe
               enabled: true
