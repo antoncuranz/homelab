@@ -1,0 +1,35 @@
+# Values for fints-actual-sync
+app-template:
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/antoncuranz/fints-actual-sync
+            tag: latest
+          env:
+            FINTS_PRODUCT_ID: ""
+            FINTS_PRODUCT_VERSION: ""
+            ACTUAL_API_URL: ""
+            ACTUAL_API_KEY: ""
+            FERNET_KEY: ""
+            SECRET_KEY: ""
+            TAN_SESSION_TIMEOUT_MINUTES: "15"
+            DEBUG: "true"
+            ALLOWED_HOSTS: "localhost,127.0.0.1"
+            DATABASE_URL:
+              valueFrom:
+                secretKeyRef:
+                  name: database-fints-actual-sync-user
+                  key: DATABASE_URL
+          envFrom:
+            - secretRef:
+                name: fints-actual-sync-secrets
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8000
