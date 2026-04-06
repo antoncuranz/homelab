@@ -10,15 +10,6 @@ app-template:
             repository: ghcr.io/antoncuranz/fints-actual-sync
             tag: latest
           env:
-            FINTS_PRODUCT_ID: ""
-            FINTS_PRODUCT_VERSION: ""
-            ACTUAL_API_URL: ""
-            ACTUAL_API_KEY: ""
-            FERNET_KEY: ""
-            SECRET_KEY: ""
-            TAN_SESSION_TIMEOUT_MINUTES: "15"
-            DEBUG: "true"
-            ALLOWED_HOSTS: "localhost,127.0.0.1"
             DATABASE_URL:
               valueFrom:
                 secretKeyRef:
@@ -33,3 +24,21 @@ app-template:
       ports:
         http:
           port: 8000
+  ingress:
+    main:
+      enabled: true
+      className: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
+      hosts:
+        - host: &host "fints.serverton.de"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - secretName: fints-actual-sync-tls-certificate
+          hosts:
+            - *host
