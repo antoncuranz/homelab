@@ -8,8 +8,11 @@ app-template:
           image:
             repository: ghcr.io/antoncuranz/fints-actual-sync
             tag: latest
+            pullPolicy: Always
           env:
             ACTUAL_API_URL: "http://actual.actual.svc.cluster.local:5007"
+            ALLOWED_HOSTS: "*"
+            CSRF_TRUSTED_ORIGINS: "https://fints.serverton.de"
             DATABASE_URL:
               valueFrom:
                 secretKeyRef:
