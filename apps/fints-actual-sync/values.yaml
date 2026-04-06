@@ -9,6 +9,7 @@ app-template:
             repository: ghcr.io/antoncuranz/fints-actual-sync
             tag: latest
           env:
+            ACTUAL_API_URL: "http://actual.actual.svc.cluster.local:5007"
             DATABASE_URL:
               valueFrom:
                 secretKeyRef:
