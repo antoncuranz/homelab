@@ -14,7 +14,7 @@ app-template:
               valueFrom:
                 secretKeyRef:
                   name: database-fints-actual-sync-user
-                  key: DATABASE_URL
+                  key: POSTGRES_URL
           envFrom:
             - secretRef:
                 name: fints-actual-sync-secrets
