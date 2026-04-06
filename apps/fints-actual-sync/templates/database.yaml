@@ -1,0 +1,17 @@
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
+metadata:
+  name: fints-actual-sync-db
+spec:
+  database: fints_actual
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: fints-actual-sync-user
+spec:
+  role: fints_actual
+  database: fints-actual-sync-db
+  secretName: database
+  privileges: OWNER
