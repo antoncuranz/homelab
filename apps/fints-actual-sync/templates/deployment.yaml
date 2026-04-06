@@ -1,2 +1,0 @@
-{{- /* app-template will render deployment/service/ingress based on app-template values. */ -}}
-{{- /* This chart provides values for app-template. No raw Deployment/Service templates needed. */ -}}
