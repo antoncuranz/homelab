@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: sync-all-import
 spec:
-  schedule: "@hourly"
+  schedule: "0 */8 * * *"
   successfulJobsHistoryLimit: 0
   failedJobsHistoryLimit: 0
   concurrencyPolicy: Forbid
