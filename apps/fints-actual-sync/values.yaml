@@ -10,6 +10,7 @@ app-template:
             tag: latest
             pullPolicy: Always
           env:
+            LOG_LEVEL: "DEBUG"
             ACTUAL_API_URL: "http://actual.actual.svc.cluster.local:5007"
             ALLOWED_HOSTS: "*"
             CSRF_TRUSTED_ORIGINS: "https://fints.serverton.de"
