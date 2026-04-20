@@ -116,7 +116,7 @@ jellyseerr:
       containers:
         main:
           image:
-            repository: seerr-team/seerr
+            repository: ghcr.io/seerr-team/seerr
             tag: v3.2.0
           env:
             TZ: Europe/Berlin
