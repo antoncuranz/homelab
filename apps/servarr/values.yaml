@@ -116,8 +116,8 @@ jellyseerr:
       containers:
         main:
           image:
-            repository: fallenbagel/jellyseerr
-            tag: 2.7.3
+            repository: seerr-team/seerr
+            tag: v3.2.0
           env:
             TZ: Europe/Berlin
           probes:
