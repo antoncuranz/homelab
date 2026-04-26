@@ -2,6 +2,15 @@ pod-gateway:
   image:
     repository: ghcr.io/angelnu/pod-gateway
     tag: v1.13.0
+  initContainers:
+    zzz-allow-icmp:
+      image: ghcr.io/angelnu/pod-gateway:v1.13.0
+      command:
+        - /bin/sh
+        - -ec
+        - iptables -A INPUT -i eth0 -p icmp -j ACCEPT
+      securityContext:
+        privileged: true
   routed_namespaces:
     - servarr
     - vpn-proxy
