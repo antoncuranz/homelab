@@ -20,3 +20,9 @@ cilium:
     rollOutPods: true
 
   rollOutCiliumPods: true
+
+  hubble:
+    relay:
+      enabled: true
+    ui:
+      enabled: true
