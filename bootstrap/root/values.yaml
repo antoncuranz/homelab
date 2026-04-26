@@ -3,7 +3,6 @@ gitops:
   revision: main
   stacks:
     - name: bootstrap
-      namespace: argocd
     - name: system
     - name: platform
     - name: apps
