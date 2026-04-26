@@ -1,9 +1,9 @@
 gitops:
   repo: https://github.com/antoncuranz/homelab
   revision: main
-stacks:
-  - name: bootstrap
-    namespace: argocd  # Override default value
-  - name: system
-  - name: platform
-  - name: apps
+  stacks:
+    - name: bootstrap
+      namespace: argocd
+    - name: system
+    - name: platform
+    - name: apps
