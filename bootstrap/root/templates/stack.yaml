@@ -4,7 +4,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: {{ $stack.name }}
-  namespace: {{ $.Release.Namespace }}
+  namespace: argocd
 spec:
   generators:
     - git:
