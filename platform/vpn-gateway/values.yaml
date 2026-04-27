@@ -1,16 +1,57 @@
 pod-gateway:
-  image:
-    repository: ghcr.io/angelnu/pod-gateway
-    tag: v1.13.0
-  initContainers:
-    zzz-allow-icmp:
-      image: ghcr.io/angelnu/pod-gateway:v1.13.0
-      command:
-        - /bin/sh
-        - -ec
-        - iptables -A INPUT -i eth0 -p icmp -j ACCEPT
-      securityContext:
-        privileged: true
+  controllers:
+    main:
+      initContainers:
+        zzz-allow-icmp:
+          image:
+            repository: ghcr.io/angelnu/pod-gateway
+            tag: v1.13.0
+          command:
+            - /bin/sh
+            - -ec
+            - iptables -A INPUT -i eth0 -p icmp -j ACCEPT
+          securityContext:
+            privileged: true
+      containers:
+        main:
+          image:
+            repository: ghcr.io/angelnu/pod-gateway
+            tag: v1.13.0
+        gluetun:
+          enabled: true
+          image:
+            repository: docker.io/qmcgaw/gluetun
+            tag: v3.41.1
+          env:
+            PUBLICIP_API: cloudflare
+          envFrom:
+            - secretRef:
+                name: wireguard-config
+          securityContext:
+            capabilities:
+              add: ["NET_ADMIN"]
+    webhook:
+      containers:
+        main:
+          image:
+            repository: ghcr.io/angelnu/gateway-admision-controller
+            tag: v3.12.0
+  networkpolicies:
+    main:
+      enabled: true
+      controller: main
+      policyTypes:
+        - Egress
+      rules:
+        egress:
+          - to:
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+            ports:
+              - port: 1637
+                protocol: UDP
+          - to:
+              - namespaceSelector: {}
   routed_namespaces:
     - servarr
     - vpn-proxy
@@ -25,9 +66,6 @@ pod-gateway:
     SNAT_IP: "10.142.189.251"
   webhook:
     gatewayDefault: false
-    image:
-      repository: ghcr.io/angelnu/gateway-admision-controller
-      tag: v3.12.0
   publicPorts:
     - IP: 10
       hostname: transmission
@@ -36,33 +74,6 @@ pod-gateway:
           type: udp
         - port: 9453
           type: tcp
-  addons:
-    vpn:
-      enabled: true
-      type: gluetun
-      gluetun:
-        image:
-          repository: docker.io/qmcgaw/gluetun
-          tag: v3.41.1
-      env:
-        PUBLICIP_API: cloudflare
-      envFrom:
-        - secretRef:
-            name: wireguard-config
-      securityContext:
-        capabilities:
-          add: [ "NET_ADMIN" ]
-      networkPolicy:
-        enabled: true
-        egress:
-          - to:
-              - ipBlock:
-                  cidr: 0.0.0.0/0
-            ports:
-              - port: 1637
-                protocol: UDP
-          - to:
-              - namespaceSelector: {}
 #      livenessProbe:
 #        exec:
 #          command:
