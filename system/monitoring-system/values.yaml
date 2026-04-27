@@ -130,7 +130,9 @@ influxdb:
   service:
     type: LoadBalancer
     annotations:
-      metallb.universe.tf/allow-shared-ip: default
+      lbipam.cilium.io/sharing-key: default
+      lbipam.cilium.io/sharing-cross-namespace: "*"
+      lbipam.cilium.io/ips: 192.168.1.11
   initScripts:
     enabled: true
     scripts:

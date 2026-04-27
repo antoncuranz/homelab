@@ -28,7 +28,7 @@ minecraft:
     PAPER_CHANNEL: "experimental"
 
   serviceAnnotations:
-    metallb.universe.tf/allow-shared-ip: default
+    lbipam.cilium.io/ips: 192.168.1.12
 
   persistence:
     dataDir:
