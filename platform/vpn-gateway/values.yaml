@@ -1,17 +1,22 @@
 pod-gateway:
+  configMaps:
+    gluetun-post-rules:
+      forceRename: vpn-gateway-pod-gateway-gluetun-post-rules
+      data:
+        post-rules.txt: |
+          iptables -A INPUT -i eth0 -p icmp -j ACCEPT
+  persistence:
+    gluetun-post-rules:
+      type: configMap
+      identifier: gluetun-post-rules
+      advancedMounts:
+        main:
+          gluetun:
+            - path: /iptables/post-rules.txt
+              subPath: post-rules.txt
+              readOnly: true
   controllers:
     main:
-      initContainers:
-        zzz-allow-icmp:
-          image:
-            repository: ghcr.io/angelnu/pod-gateway
-            tag: v1.13.0
-          command:
-            - /bin/sh
-            - -ec
-            - iptables -A INPUT -i eth0 -p icmp -j ACCEPT
-          securityContext:
-            privileged: true
       containers:
         main:
           image:
