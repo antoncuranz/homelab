@@ -4,9 +4,11 @@ metadata:
   name: default-restricted
 spec:
   podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
   ingress:
     - from:
-      # Only allow local ingress
       - ipBlock:
           cidr: 10.0.0.0/8
       - ipBlock:
@@ -15,9 +17,22 @@ spec:
           cidr: 192.168.0.0/16
   egress:
     - to:
-      # Only allow egress to K8S
-      - ipBlock:
-          cidr: 10.0.0.0/8
-  policyTypes:
-    - Ingress
-    - Egress
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: kube-system
+        podSelector:
+          matchLabels:
+            k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: vpn-gateway
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: vpn-proxy
