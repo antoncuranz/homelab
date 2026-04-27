@@ -1,0 +1,15 @@
+kyverno:
+  admissionController:
+    replicas: 1
+  backgroundController:
+    replicas: 1
+  reportsController:
+    replicas: 1
+  crds:
+    install: true
+
+kyverno-policies:
+  baseline:
+    enabled: true
+  restricted:
+    enabled: false
