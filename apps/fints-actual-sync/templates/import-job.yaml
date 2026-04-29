@@ -16,7 +16,7 @@ spec:
         spec:
           containers:
             - name: sync-all-import-container
-              image: curlimages/curl:8.19.0
+              image: curlimages/curl:8.20.0
               imagePullPolicy: Always
               command:
                 - /bin/sh
