@@ -1,4 +1,6 @@
 cert-manager:
+  config:
+    enableGatewayAPI: true
   installCRDs: true
   prometheus:
     enabled: true

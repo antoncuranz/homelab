@@ -1,4 +1,7 @@
 external-dns:
+  sources:
+    - ingress
+    - gateway-httproute
   provider: cloudflare
   txtOwnerId: homelab
   env:

@@ -5,7 +5,6 @@ app-template:
 
       initContainers:
         www-provider:
-          name: www-provider
           image:
             repository: registry.gitlab.com/antoncuranz/dashboard
             tag: latest
@@ -55,21 +54,18 @@ app-template:
         http:
           port: 80
 
-  ingress:
+  route:
     main:
-      enabled: true
-      className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-      hosts:
-        - host: &host "serverton.de"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-      tls:
-        - secretName: dashboard-tls-certificate
-          hosts:
-            - *host
+      hostnames:
+        - serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: http
