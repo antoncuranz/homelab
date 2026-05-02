@@ -1,4 +1,6 @@
 keycloak:
+  image:
+    repository: bitnamilegacy/keycloak
   production: true
   proxy: edge
   proxyHeaders: xforwarded
