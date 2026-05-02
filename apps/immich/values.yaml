@@ -27,7 +27,7 @@ immich:
     persistence:
       library:
         existingClaim: immich-data
-  redis:
+  valkey:
     enabled: true
   typesense:
     enabled: true
