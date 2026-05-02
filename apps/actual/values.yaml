@@ -49,22 +49,18 @@ app-template:
           enable: true
           port: 5007
 
-  ingress:
+  route:
     main:
-      enabled: true
-      className: nginx
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
-        nginx.ingress.kubernetes.io/proxy-body-size: 4G
-      hosts:
-        - host: &host "actual.serverton.de"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-      tls:
-        - secretName: actual-tls-certificate
-          hosts:
-            - *host
+      hostnames:
+        - "actual.serverton.de"
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: 5006

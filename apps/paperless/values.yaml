@@ -89,22 +89,18 @@ app-template:
         http:
           port: *port
 
-  ingress:
+  route:
     main:
-      enabled: true
-      className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/proxy-body-size: 4G
-      hosts:
-        - host: &host "paperless.serverton.de"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-      tls:
-        - secretName: paperless-tls-certificate
-          hosts:
-            - *host
+      hostnames:
+        - "paperless.serverton.de"
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: 8000

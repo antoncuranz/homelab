@@ -57,22 +57,18 @@ app-template:
         http:
           port: 3000
 
-  ingress:
+  route:
     main:
-      enabled: true
-      className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/proxy-body-size: 4G
-      hosts:
-        - host: &host "outline.serverton.de"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-      tls:
-        - secretName: outline-tls-certificate
-          hosts:
-            - *host
+      hostnames:
+        - "outline.serverton.de"
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: 3000
