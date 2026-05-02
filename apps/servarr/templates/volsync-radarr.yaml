@@ -25,7 +25,7 @@ kind: ReplicationSource
 metadata:
   name: radarr
 spec:
-  sourcePVC: servarr-radarr-config
+  sourcePVC: servarr-radarr
   trigger:
     schedule: "0 5 * * *"
   restic:

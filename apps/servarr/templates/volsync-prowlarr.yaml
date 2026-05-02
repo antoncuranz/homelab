@@ -25,7 +25,7 @@ kind: ReplicationSource
 metadata:
   name: prowlarr
 spec:
-  sourcePVC: servarr-prowlarr-config
+  sourcePVC: servarr-prowlarr
   trigger:
     schedule: "0 5 * * *"
   restic:

@@ -25,7 +25,7 @@ kind: ReplicationSource
 metadata:
   name: sabnzbd
 spec:
-  sourcePVC: servarr-sabnzbd-config
+  sourcePVC: servarr-sabnzbd
   trigger:
     schedule: "0 5 * * *"
   restic:

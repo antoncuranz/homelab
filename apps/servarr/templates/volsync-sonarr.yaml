@@ -25,7 +25,7 @@ kind: ReplicationSource
 metadata:
   name: sonarr
 spec:
-  sourcePVC: servarr-sonarr-config
+  sourcePVC: servarr-sonarr
   trigger:
     schedule: "0 5 * * *"
   restic:

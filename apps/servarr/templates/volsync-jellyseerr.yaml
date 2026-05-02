@@ -25,7 +25,7 @@ kind: ReplicationSource
 metadata:
   name: jellyseerr
 spec:
-  sourcePVC: servarr-jellyseerr-config
+  sourcePVC: servarr-jellyseerr
   trigger:
     schedule: "0 5 * * *"
   restic:
