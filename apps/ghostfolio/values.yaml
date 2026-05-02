@@ -37,21 +37,18 @@ app-template:
         http:
           port: 3333
 
-  ingress:
+  route:
     main:
-      enabled: true
-      className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-      hosts:
-        - host: &host "ghostfolio.serverton.de"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-      tls:
-        - secretName: ghostfolio-tls-certificate
-          hosts:
-            - *host
+      hostnames:
+        - ghostfolio.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: 3333

@@ -144,24 +144,21 @@ app-template:
         http:
           port: 8888
 
-  ingress:
+  route:
     litellm:
-      enabled: true
-      className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-      hosts:
-        - host: &host "aikeys.serverton.de"
-          paths:
-            - path: /
-              service:
-                identifier: litellm
-                port: http
-      tls:
-        - secretName: litellm-tls-certificate
-          hosts:
-            - *host
+      hostnames:
+        - aikeys.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: litellm
+              port: 4000
 
   persistence:
     authdirs:
