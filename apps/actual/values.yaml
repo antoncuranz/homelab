@@ -46,7 +46,6 @@ app-template:
         http:
           port: 5006
         rest:
-          enable: true
           port: 5007
 
   route:
