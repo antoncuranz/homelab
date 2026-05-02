@@ -68,4 +68,4 @@ app-template:
                 value: /
           backendRefs:
             - identifier: main
-              port: http
+              port: 80
