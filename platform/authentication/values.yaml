@@ -18,11 +18,11 @@ keycloak:
   postgresql:
     enabled: false
   externalDatabase:
+    host: database-cluster-rw.database.svc.cluster.local
+    database: keycloak
     existingSecret: database-keycloak-user
-    existingSecretHostKey: HOST
     existingSecretUserKey: LOGIN
     existingSecretPasswordKey: PASSWORD
-    existingSecretDatabaseKey: DATABASE_NAME
   initContainers:
     - name: theme-provider
       image: registry.gitlab.com/antoncuranz/keycloak-theme:latest
