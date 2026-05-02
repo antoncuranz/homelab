@@ -266,8 +266,8 @@ prowlarr:
           paths:
             - path: /
               service:
-                name: main
-                port: http
+                identifier: main
+                port: 9696
       tls:
         - secretName: prowlarr-tls-certificate
           hosts:
@@ -380,8 +380,8 @@ radarr:
           paths:
             - path: /
               service:
-                name: main
-                port: http
+                identifier: main
+                port: 7878
       tls:
         - secretName: radarr-tls-certificate
           hosts:
@@ -493,8 +493,8 @@ sonarr:
           paths:
             - path: /
               service:
-                name: main
-                port: http
+                identifier: main
+                port: 8989
       tls:
         - secretName: sonarr-tls-certificate
           hosts:
@@ -601,8 +601,8 @@ transmission:
           paths:
             - path: /
               service:
-                name: main
-                port: http
+                identifier: main
+                port: 9091
       tls:
         - secretName: transmission-tls-certificate
           hosts:
@@ -702,8 +702,8 @@ sabnzbd:
           paths:
             - path: /
               service:
-                name: main
-                port: http
+                identifier: main
+                port: 80
       tls:
         - secretName: sabnzbd-tls-certificate
           hosts:
