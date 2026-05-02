@@ -61,6 +61,7 @@ spec:
             - '.spec.dataFrom[].extract.conversionStrategy'
             - '.spec.dataFrom[].extract.decodingStrategy'
             - '.spec.dataFrom[].extract.metadataPolicy'
+            - '.spec.dataFrom[].extract.nullBytePolicy'
         - group: cert-manager.io
           kind: Certificate
           jqPathExpressions:
