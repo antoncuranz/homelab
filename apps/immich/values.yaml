@@ -2,27 +2,31 @@ immich:
   image:
     # renovate: datasource=github-releases depName=immich-app/immich
     tag: "v2.6.3"
-  env:
-    DB_HOSTNAME:
-      valueFrom:
-        secretKeyRef:
-          name: database-immich-user
-          key: HOST
-    DB_USERNAME:
-      valueFrom:
-        secretKeyRef:
-          name: database-immich-user
-          key: LOGIN
-    DB_PASSWORD:
-      valueFrom:
-        secretKeyRef:
-          name: database-immich-user
-          key: PASSWORD
-    DB_DATABASE_NAME:
-      valueFrom:
-        secretKeyRef:
-          name: database-immich-user
-          key: DATABASE_NAME
+  controllers:
+    main:
+      containers:
+        main:
+          env:
+            DB_HOSTNAME:
+              valueFrom:
+                secretKeyRef:
+                  name: database-immich-user
+                  key: HOST
+            DB_USERNAME:
+              valueFrom:
+                secretKeyRef:
+                  name: database-immich-user
+                  key: LOGIN
+            DB_PASSWORD:
+              valueFrom:
+                secretKeyRef:
+                  name: database-immich-user
+                  key: PASSWORD
+            DB_DATABASE_NAME:
+              valueFrom:
+                secretKeyRef:
+                  name: database-immich-user
+                  key: DATABASE_NAME
   immich:
     persistence:
       library:
