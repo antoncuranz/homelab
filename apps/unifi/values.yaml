@@ -120,5 +120,5 @@ app-template:
                 type: PathPrefix
                 value: /
           backendRefs:
-            - name: main
+            - name: unifi
               port: 8443
