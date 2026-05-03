@@ -25,7 +25,7 @@ kind: ReplicationSource
 metadata:
   name: unifi
 spec:
-  sourcePVC: unifi-config
+  sourcePVC: unifi
   trigger:
     schedule: "0 5 * * *"
   restic:
