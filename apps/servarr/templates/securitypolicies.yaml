@@ -1,0 +1,94 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: prowlarr
+  namespace: servarr
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: servarr-prowlarr-main
+  oidc:
+    provider:
+      issuer: https://keycloak.serverton.de/realms/serverton
+    clientID: oauth2-proxy
+    clientSecret:
+      name: oauth2-secrets
+    redirectURL: https://prowlarr.serverton.de/oauth2/callback
+    logoutPath: /oauth2/logout
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: radarr
+  namespace: servarr
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: servarr-radarr-main
+  oidc:
+    provider:
+      issuer: https://keycloak.serverton.de/realms/serverton
+    clientID: oauth2-proxy
+    clientSecret:
+      name: oauth2-secrets
+    redirectURL: https://radarr.serverton.de/oauth2/callback
+    logoutPath: /oauth2/logout
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: sonarr
+  namespace: servarr
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: servarr-sonarr-main
+  oidc:
+    provider:
+      issuer: https://keycloak.serverton.de/realms/serverton
+    clientID: oauth2-proxy
+    clientSecret:
+      name: oauth2-secrets
+    redirectURL: https://sonarr.serverton.de/oauth2/callback
+    logoutPath: /oauth2/logout
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: transmission
+  namespace: servarr
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: servarr-transmission-main
+  oidc:
+    provider:
+      issuer: https://keycloak.serverton.de/realms/serverton
+    clientID: oauth2-proxy
+    clientSecret:
+      name: oauth2-secrets
+    redirectURL: https://transmission.serverton.de/oauth2/callback
+    logoutPath: /oauth2/logout
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: sabnzbd
+  namespace: servarr
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: servarr-sabnzbd-main
+  oidc:
+    provider:
+      issuer: https://keycloak.serverton.de/realms/serverton
+    clientID: oauth2-proxy
+    clientSecret:
+      name: oauth2-secrets
+    redirectURL: https://sabnzbd.serverton.de/oauth2/callback
+    logoutPath: /oauth2/logout

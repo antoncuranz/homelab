@@ -252,26 +252,21 @@ prowlarr:
         http:
           port: *port
 
-  ingress:
+  route:
     main:
-      enabled: true
-      className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
-        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
-      hosts:
-        - host: &host "prowlarr.serverton.de"
-          paths:
-            - path: /
-              service:
-                identifier: main
-                port: 9696
-      tls:
-        - secretName: prowlarr-tls-certificate
-          hosts:
-            - *host
+      hostnames:
+        - prowlarr.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: *port
 
 
 ######################
@@ -366,26 +361,21 @@ radarr:
         http:
           port: *port
 
-  ingress:
+  route:
     main:
-      enabled: true
-      className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
-        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
-      hosts:
-        - host: &host "radarr.serverton.de"
-          paths:
-            - path: /
-              service:
-                identifier: main
-                port: 7878
-      tls:
-        - secretName: radarr-tls-certificate
-          hosts:
-            - *host
+      hostnames:
+        - radarr.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: *port
 
 
 ######################
@@ -479,26 +469,21 @@ sonarr:
         http:
           port: *port
 
-  ingress:
+  route:
     main:
-      enabled: true
-      className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
-        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
-      hosts:
-        - host: &host "sonarr.serverton.de"
-          paths:
-            - path: /
-              service:
-                identifier: main
-                port: 8989
-      tls:
-        - secretName: sonarr-tls-certificate
-          hosts:
-            - *host
+      hostnames:
+        - sonarr.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: *port
 
 
 ######################
@@ -587,26 +572,21 @@ transmission:
         http:
           port: *port
 
-  ingress:
+  route:
     main:
-      enabled: true
-      className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
-        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
-      hosts:
-        - host: &host "transmission.serverton.de"
-          paths:
-            - path: /
-              service:
-                identifier: main
-                port: 9091
-      tls:
-        - secretName: transmission-tls-certificate
-          hosts:
-            - *host
+      hostnames:
+        - transmission.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: *port
 
 
 ######################
@@ -687,24 +667,18 @@ sabnzbd:
         http:
           port: 80
 
-  ingress:
+  route:
     main:
-      enabled: true
-      className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/auth-signin: https://oauth2.serverton.de/oauth2/start
-        nginx.ingress.kubernetes.io/auth-url: https://oauth2.serverton.de/oauth2/auth
-        nginx.ingress.kubernetes.io/proxy-body-size: 10M
-      hosts:
-        - host: &host "sabnzbd.serverton.de"
-          paths:
-            - path: /
-              service:
-                identifier: main
-                port: 80
-      tls:
-        - secretName: sabnzbd-tls-certificate
-          hosts:
-            - *host
+      hostnames:
+        - sabnzbd.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: 80
