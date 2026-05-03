@@ -25,7 +25,7 @@ kind: ReplicationSource
 metadata:
   name: node-red
 spec:
-  sourcePVC: iot-node-red-data
+  sourcePVC: iot-node-red
   trigger:
     schedule: "0 5 * * *"
   restic:

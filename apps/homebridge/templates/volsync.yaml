@@ -25,7 +25,7 @@ kind: ReplicationSource
 metadata:
   name: homebridge
 spec:
-  sourcePVC: homebridge-config
+  sourcePVC: homebridge
   trigger:
     schedule: "0 5 * * *"
   restic:

@@ -1,0 +1,19 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: node-red
+  namespace: iot
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: iot-node-red
+  oidc:
+    provider:
+      issuer: https://keycloak.serverton.de/realms/serverton
+    clientID: oauth2-proxy
+    clientSecret:
+      name: oauth2-secrets
+    redirectURL: https://mqtt.serverton.de/oauth2/callback
+    logoutPath: /oauth2/logout
