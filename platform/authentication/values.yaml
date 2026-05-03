@@ -39,32 +39,3 @@ keycloak:
       emptyDir: {}
   auth:
     adminPassword: "unused"
-
-oauth2-proxy:
-  config:
-    existingSecret: oauth2-secrets
-    configFile: |-
-      email_domains = [ "*" ]
-      upstreams = [ "file:///dev/null" ]
-      set_authorization_header = true
-      pass_access_token = true
-  extraArgs:
-    provider: keycloak-oidc
-    oidc-issuer-url: https://keycloak.serverton.de/realms/serverton
-    redirect-url: https://oauth2.serverton.de/oauth2/callback
-    cookie-domain: .serverton.de
-    whitelist-domain: .serverton.de
-    set-xauthrequest: true
-  ingress:
-    enabled: true
-    className: nginx
-    annotations:
-      external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-      nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
-    hosts:
-      - &host "oauth2.serverton.de"
-    tls:
-      - secretName: oauth2-tls-certificate
-        hosts:
-          - *host

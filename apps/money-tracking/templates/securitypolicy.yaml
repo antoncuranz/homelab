@@ -1,0 +1,20 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: money-tracking
+  namespace: {{ .Release.Namespace }}
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: money-tracking-frontend
+  oidc:
+    provider:
+      issuer: https://keycloak.serverton.de/realms/serverton
+    clientID: oauth2-proxy
+    clientSecret:
+      name: oauth2-secrets
+    redirectURL: https://money-tracking.serverton.de/oauth2/callback
+    logoutPath: /oauth2/logout
+    forwardAccessToken: true
