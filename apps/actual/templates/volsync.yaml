@@ -25,7 +25,7 @@ kind: ReplicationSource
 metadata:
   name: actual
 spec:
-  sourcePVC: actual-data
+  sourcePVC: actual
   trigger:
     schedule: "0 5 * * *"
   restic:
