@@ -7,7 +7,7 @@ spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
-      name: servarr-prowlarr-main
+      name: servarr-prowlarr
   oidc:
     provider:
       issuer: https://keycloak.serverton.de/realms/serverton
@@ -26,7 +26,7 @@ spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
-      name: servarr-radarr-main
+      name: servarr-radarr
   oidc:
     provider:
       issuer: https://keycloak.serverton.de/realms/serverton
@@ -45,7 +45,7 @@ spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
-      name: servarr-sonarr-main
+      name: servarr-sonarr
   oidc:
     provider:
       issuer: https://keycloak.serverton.de/realms/serverton
@@ -64,7 +64,7 @@ spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
-      name: servarr-transmission-main
+      name: servarr-transmission
   oidc:
     provider:
       issuer: https://keycloak.serverton.de/realms/serverton
@@ -83,7 +83,7 @@ spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
-      name: servarr-sabnzbd-main
+      name: servarr-sabnzbd
   oidc:
     provider:
       issuer: https://keycloak.serverton.de/realms/serverton
