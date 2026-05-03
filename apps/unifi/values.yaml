@@ -80,17 +80,4 @@ app-template:
 
   route:
     main:
-      enabled: true
-      hostnames:
-        - unifi.serverton.de
-      parentRefs:
-        - name: envoy-gateway
-          namespace: envoy-gateway
-      rules:
-        - matches:
-            - path:
-                type: PathPrefix
-                value: /
-          backendRefs:
-            - name: main
-              port: 8443
+      enabled: false

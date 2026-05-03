@@ -1,0 +1,12 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: unifi-https
+  namespace: unifi
+spec:
+  endpoints:
+    - fqdn:
+        hostname: unifi-main.unifi.svc.cluster.local
+        port: 8443
+  tls:
+    insecureSkipVerify: true
