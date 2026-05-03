@@ -25,7 +25,7 @@ kind: ReplicationSource
 metadata:
   name: outline
 spec:
-  sourcePVC: outline-data
+  sourcePVC: outline
   trigger:
     schedule: "0 5 * * *"
   restic:
