@@ -78,22 +78,19 @@ app-template:
           port: 10001
           protocol: UDP
 
-  ingress:
+  route:
     main:
       enabled: true
-      className: nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "lb1.serverton.de"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      hosts:
-        - host: &host "unifi.serverton.de"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-      tls:
-        - secretName: unifi-tls-certificate
-          hosts:
-            - *host
+      hostnames:
+        - unifi.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - name: main
+              port: 8443
