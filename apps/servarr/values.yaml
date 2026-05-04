@@ -403,7 +403,7 @@ sonarr:
         main:
           image:
             repository: ghcr.io/home-operations/sonarr
-            tag: 4.0.17.2953
+            tag: 4.0.17.2967
           env:
             SONARR__SERVER__PORT: &port 8989
             SONARR__LOG__DBENABLED: False
