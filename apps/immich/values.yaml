@@ -1,7 +1,4 @@
 immich:
-  image:
-    # renovate: datasource=github-releases depName=immich-app/immich
-    tag: "v2.7.5"
   controllers:
     main:
       containers:
@@ -39,3 +36,10 @@ immich:
     ingress:
       main:
         enabled: false
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          # renovate: datasource=github-releases depName=immich-app/immich
+          tag: "v2.7.5"
