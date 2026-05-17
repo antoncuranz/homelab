@@ -100,7 +100,7 @@ app-template:
           targetRefs:
             - group: ""
               kind: Service
-              name: unifi-main
+              name: unifi
               sectionName: http
           validation:
             hostname: unifi.serverton.de
