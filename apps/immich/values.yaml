@@ -3,6 +3,9 @@ immich:
     main:
       containers:
         main:
+          image:
+            # renovate: datasource=github-releases depName=immich-app/immich
+            tag: "v2.7.5"
           env:
             DB_HOSTNAME:
               valueFrom:
@@ -36,10 +39,3 @@ immich:
     ingress:
       main:
         enabled: false
-controllers:
-  main:
-    containers:
-      main:
-        image:
-          # renovate: datasource=github-releases depName=immich-app/immich
-          tag: "v2.7.5"
