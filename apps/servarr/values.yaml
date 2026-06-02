@@ -114,7 +114,7 @@ jellyseerr:
         main:
           image:
             repository: ghcr.io/seerr-team/seerr
-            tag: v3.2.0
+            tag: v3.3.0
           env:
             TZ: Europe/Berlin
           probes:
