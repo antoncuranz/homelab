@@ -614,7 +614,7 @@ sabnzbd:
         main:
           image:
             repository: ghcr.io/home-operations/sabnzbd
-            tag: 5.0.3
+            tag: 5.0.4
           env:
             TZ: Europe/Berlin
             SABNZBD__PORT: 80
