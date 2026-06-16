@@ -1,0 +1,57 @@
+app-template:
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      pod:
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          fsGroup: 1000
+          fsGroupChangePolicy: OnRootMismatch
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/betterbahn/betterbahn
+            tag: latest
+          env:
+            TZ: Europe/Berlin
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+
+  persistence:
+    tmp:
+      enabled: true
+      type: emptyDir
+      advancedMounts:
+        main:
+          main:
+            - path: /tmp
+
+  service:
+    main:
+      ports:
+        http:
+          port: 3000
+
+  route:
+    main:
+      hostnames:
+        - bahn.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: 3000
