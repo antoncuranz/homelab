@@ -63,3 +63,48 @@ app-template:
           backendRefs:
             - identifier: main
               port: 5006
+
+sync:
+  global:
+    nameOverride: sync
+
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/antoncuranz/actual-sync
+            tag: latest
+            pullPolicy: Always
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /healthz
+                  port: 8080
+                initialDelaySeconds: 30
+            readiness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /healthz
+                  port: 8080
+                initialDelaySeconds: 5
+          env:
+            LOG_LEVEL: "info"
+            HTTP_PORT: "8080"
+            ACTUAL_BASE_URL: "http://actual.actual.svc.cluster.local:5007/v1"
+          envFrom:
+            - secretRef:
+                name: actual-sync-secrets
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8080
