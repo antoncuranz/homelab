@@ -76,7 +76,7 @@ sync:
         main:
           image:
             repository: ghcr.io/antoncuranz/actual-sync
-            tag: latest
+            tag: main
             pullPolicy: Always
           probes:
             liveness:
