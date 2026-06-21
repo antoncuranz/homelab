@@ -46,6 +46,14 @@ grafana:
           uid: influxdb
           database: serverton
           url: http://monitoring-system-influxdb.monitoring-system.svc.cluster.local:8086
+        - name: cloudlab
+          type: prometheus
+          url: https://metrics.cura.nz/prometheus
+          access: proxy
+          basicAuth: true
+          basicAuthUser: ${CLOUDLAB_PROMETHEUS_USERNAME}
+          secureJsonData:
+            basicAuthPassword: ${CLOUDLAB_PROMETHEUS_PASSWORD}
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1

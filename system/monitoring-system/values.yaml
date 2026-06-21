@@ -1,35 +1,4 @@
 kube-prometheus-stack:
-  kubelet:
-    serviceMonitor:
-      relabelings:
-        - action: replace
-          sourceLabels: [__metrics_path__]
-          targetLabel: metrics_path
-        - action: replace
-          sourceLabels: []
-          targetLabel: cluster
-          replacement: homelab
-      cAdvisorRelabelings:
-        - action: replace
-          sourceLabels: []
-          targetLabel: cluster
-          replacement: homelab
-  kube-state-metrics:
-    prometheus:
-      monitor:
-        relabelings:
-          - action: replace
-            sourceLabels: []
-            targetLabel: cluster
-            replacement: homelab
-  prometheus-node-exporter:
-    prometheus:
-      monitor:
-        relabelings:
-          - action: replace
-            sourceLabels: []
-            targetLabel: cluster
-            replacement: homelab
   grafana:
     enabled: false
     forceDeployDatasources: true
@@ -39,10 +8,6 @@ kube-prometheus-stack:
       serviceMonitorSelectorNilUsesHelmValues: false
       podMonitorSelectorNilUsesHelmValues: false
       probeSelectorNilUsesHelmValues: false
-      additionalScrapeConfigsSecret:
-        enabled: true
-        name: cloudlab-scrape-config
-        key: prometheus-additional.yaml
   kubeControllerManager:
     enabled: false
   kubeScheduler:
