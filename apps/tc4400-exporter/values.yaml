@@ -1,0 +1,31 @@
+app-template:
+  controllers:
+    main:
+      pod:
+        hostNetwork: true
+        dnsPolicy: ClusterFirstWithHostNet
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/antoncuranz/tc4400_exporter
+            tag: sha-ea2fcb21f79df3ee3d925e6824bd21355dcc938b
+            pullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: tc4400-exporter-secrets
+
+  service:
+    main:
+      ports:
+        metrics:
+          port: 9623
+
+  serviceMonitor:
+    main:
+      enabled: true
+      endpoints:
+        - port: metrics
+          path: /metrics
+          interval: 1m
+          scrapeTimeout: 55s
