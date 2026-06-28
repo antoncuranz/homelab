@@ -101,7 +101,7 @@ data:
               "editorMode": "code",
               "expr": "tc4400_downstream_snr_threshold_db",
               "instant": true,
-              "legendFormat": "{{channel}}",
+              "legendFormat": ""{{ `{{channel}}` }}"",
               "refId": "A"
             }
           ],
@@ -567,7 +567,7 @@ data:
               },
               "expr": "tc4400_downstream_receive_level_dbmv",
               "instant": true,
-              "legendFormat": "{{channel}}",
+              "legendFormat": ""{{ `{{channel}}` }}"",
               "refId": "A"
             }
           ],
@@ -682,7 +682,7 @@ data:
                   "editorMode": "code",
                   "expr": "tc4400_downstream_snr_threshold_db and on(channel) tc4400_downstream_modulation{modulation=~\"QAM256\"}",
                   "instant": false,
-                  "legendFormat": "{{channel}}",
+                  "legendFormat": ""{{ `{{channel}}` }}"",
                   "range": true,
                   "refId": "A"
                 }
@@ -788,7 +788,7 @@ data:
                   "editorMode": "code",
                   "expr": "tc4400_downstream_snr_threshold_db and on(channel) tc4400_downstream_modulation{modulation=~\"QAM64\"}",
                   "instant": false,
-                  "legendFormat": "{{channel}}",
+                  "legendFormat": ""{{ `{{channel}}` }}"",
                   "range": true,
                   "refId": "A"
                 }
@@ -905,7 +905,7 @@ data:
                   "editorMode": "code",
                   "expr": "tc4400_downstream_receive_level_dbmv and on(channel) tc4400_downstream_modulation{modulation=~\"QAM256\"}",
                   "instant": false,
-                  "legendFormat": "{{channel}}",
+                  "legendFormat": ""{{ `{{channel}}` }}"",
                   "range": true,
                   "refId": "A"
                 }
@@ -1023,7 +1023,7 @@ data:
                   "editorMode": "code",
                   "expr": "tc4400_downstream_receive_level_dbmv and on(channel) tc4400_downstream_modulation{modulation=~\"QAM64\"}",
                   "instant": false,
-                  "legendFormat": "{{channel}}",
+                  "legendFormat": ""{{ `{{channel}}` }}"",
                   "range": true,
                   "refId": "A"
                 }
@@ -1129,7 +1129,7 @@ data:
               },
               "expr": "irate(tc4400_downstream_codewords_corrected_total[5m])",
               "format": "time_series",
-              "legendFormat": "CH{{channel}}",
+              "legendFormat": "CH"{{ `{{channel}}` }}"",
               "refId": "A"
             }
           ],
@@ -1619,7 +1619,7 @@ data:
               },
               "expr": "irate(tc4400_downstream_codewords_unerrored_total[5m])",
               "format": "time_series",
-              "legendFormat": "CH{{channel}}",
+              "legendFormat": "CH"{{ `{{channel}}` }}"",
               "refId": "A"
             }
           ],
@@ -1720,7 +1720,7 @@ data:
               },
               "expr": "irate(tc4400_downstream_codewords_uncorrectable_total[5m])",
               "format": "time_series",
-              "legendFormat": "CH{{channel}}",
+              "legendFormat": "CH"{{ `{{channel}}` }}"",
               "refId": "A"
             }
           ],
@@ -1797,7 +1797,7 @@ data:
               },
               "expr": "tc4400_upstream_transmit_level_dbmv",
               "instant": true,
-              "legendFormat": "{{channel}}",
+              "legendFormat": ""{{ `{{channel}}` }}"",
               "refId": "A"
             }
           ],
