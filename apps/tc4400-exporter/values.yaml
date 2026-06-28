@@ -29,3 +29,101 @@ app-template:
           path: /metrics
           interval: 1m
           scrapeTimeout: 55s
+
+docsight:
+  global:
+    nameOverride: docsight
+
+  controllers:
+    main:
+      initContainers:
+        seed-config:
+          image:
+            repository: docker.io/library/busybox
+            tag: 1.36.1
+          command:
+            - sh
+          args:
+            - -c
+            - |
+              set -eu
+              if [ ! -f /data/config.json ]; then
+                printf '{"modem_type":"tc4400"}\n' > /data/config.json
+                chown 1000:1000 /data/config.json
+              fi
+
+      pod:
+        hostNetwork: true
+        dnsPolicy: ClusterFirstWithHostNet
+        securityContext:
+          fsGroup: 1000
+          fsGroupChangePolicy: OnRootMismatch
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/itsdnns/docsight
+            tag: latest
+            pullPolicy: IfNotPresent
+          env:
+            MODEM_TYPE: tc4400
+            MODEM_URL:
+              valueFrom:
+                secretKeyRef:
+                  name: tc4400-exporter-secrets
+                  key: MODEM_URL
+            MODEM_USER:
+              valueFrom:
+                secretKeyRef:
+                  name: tc4400-exporter-secrets
+                  key: MODEM_USER
+            MODEM_PASSWORD:
+              valueFrom:
+                secretKeyRef:
+                  name: tc4400-exporter-secrets
+                  key: MODEM_PASSWORD
+          probes:
+            liveness: &docsightProbes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /health
+                  port: 8765
+                initialDelaySeconds: 15
+                periodSeconds: 15
+                timeoutSeconds: 5
+                failureThreshold: 4
+            readiness: *docsightProbes
+            startup:
+              enabled: false
+
+  persistence:
+    data:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 5Gi
+      globalMounts:
+        - path: /data
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8765
+
+  route:
+    main:
+      hostnames:
+        - docsight.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: 8765
