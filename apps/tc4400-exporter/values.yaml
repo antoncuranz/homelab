@@ -40,7 +40,7 @@ docsight:
         seed-config:
           image:
             repository: docker.io/library/busybox
-            tag: 1.36.1
+            tag: 1.38.0
           command:
             - sh
           args:
