@@ -22,7 +22,7 @@ app-template:
         rest:
           image:
             repository: docker.io/antoncuranz/actual-http-api
-            tag: 1.0.0
+            tag: 1.1.0
             pullPolicy: Always
           env:
             ACTUAL_SERVER_URL: "http://actual.actual.svc.cluster.local:5006"
