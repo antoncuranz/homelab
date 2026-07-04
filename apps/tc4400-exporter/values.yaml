@@ -1,6 +1,7 @@
 app-template:
   controllers:
     main:
+      replicas: 0
       pod:
         hostNetwork: true
         dnsPolicy: ClusterFirstWithHostNet
