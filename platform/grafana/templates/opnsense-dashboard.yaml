@@ -1107,7 +1107,7 @@ data:
               "refId": "A"
             }
           ],
-          "title": "[RATE $rate_interval]] Received Bytes By Interface",
+          "title": "[RATE $rate_interval] Received Bytes By Interface",
           "transparent": true,
           "type": "timeseries"
         },
@@ -2016,12 +2016,12 @@ data:
             "name": "rate_interval",
             "options": [
               {
-                "selected": true,
+                "selected": false,
                 "text": "1m",
                 "value": "1m"
               },
               {
-                "selected": false,
+                "selected": true,
                 "text": "2m",
                 "value": "2m"
               },
