@@ -1,4 +1,7 @@
-app-template:
+tc4400-exporter:
+  global:
+    nameOverride: tc4400-exporter
+
   controllers:
     main:
       pod:
@@ -93,3 +96,44 @@ docsight:
           backendRefs:
             - identifier: main
               port: 8765
+
+opnsense-exporter:
+  global:
+    nameOverride: opnsense-exporter
+
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: ghcr.io/athennamind/opnsense-exporter
+            tag: 0.0.16
+            pullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: opnsense-exporter-secrets
+          probes:
+            liveness: &opnsenseExporterProbes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /
+                  port: 8080
+            readiness: *opnsenseExporterProbes
+
+  service:
+    main:
+      type: ClusterIP
+      ports:
+        http:
+          port: 8080
+
+  serviceMonitor:
+    main:
+      enabled: true
+      endpoints:
+        - port: http
+          path: /metrics
+          interval: 1m
+          scrapeTimeout: 10s
