@@ -8,6 +8,13 @@ kube-prometheus-stack:
       serviceMonitorSelectorNilUsesHelmValues: false
       podMonitorSelectorNilUsesHelmValues: false
       probeSelectorNilUsesHelmValues: false
+      additionalScrapeConfigs:
+        - job_name: opnsense-node-exporter
+          scrape_interval: 1m
+          scrape_timeout: 10s
+          static_configs:
+            - targets:
+                - 192.168.1.1:9100
       storageSpec:
         volumeClaimTemplate:
           spec:
