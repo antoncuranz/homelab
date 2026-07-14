@@ -90,6 +90,9 @@ frontend:
             - path:
                 type: PathPrefix
                 value: /
+          timeouts:
+            request: 5m
+            backendRequest: 5m
           backendRefs:
             - identifier: main
               port: 3000
