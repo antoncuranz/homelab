@@ -5,13 +5,13 @@ version: 0.0.0
 dependencies:
   - name: app-template
     alias: tc4400-exporter
-    version: 4.6.2
+    version: 5.0.1
     repository: https://bjw-s-labs.github.io/helm-charts
   - name: app-template
     alias: docsight
-    version: 4.6.2
+    version: 5.0.1
     repository: https://bjw-s-labs.github.io/helm-charts
   - name: app-template
     alias: opnsense-exporter
-    version: 4.6.2
+    version: 5.0.1
     repository: https://bjw-s-labs.github.io/helm-charts
