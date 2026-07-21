@@ -26,3 +26,5 @@ cilium:
       enabled: true
     ui:
       enabled: true
+
+  devices: "br-lan"
