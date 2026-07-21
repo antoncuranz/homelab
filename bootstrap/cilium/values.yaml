@@ -27,4 +27,4 @@ cilium:
     ui:
       enabled: true
 
-  devices: "br-lan"
+  devices: "eno1 br-lan"
