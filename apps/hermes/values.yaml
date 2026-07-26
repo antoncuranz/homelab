@@ -41,7 +41,13 @@ app-template:
             HERMES_HOME: /opt/data
             HOME: /opt/data
             HERMES_DASHBOARD: "true"
+            HERMES_DASHBOARD_PUBLIC_URL: https://hermes.serverton.de
+            HERMES_DASHBOARD_OIDC_ISSUER: https://keycloak.serverton.de/realms/serverton
+            HERMES_DASHBOARD_OIDC_CLIENT_ID: hermes
             TZ: Europe/Berlin
+          envFrom:
+            - secretRef:
+                name: hermes
           ports:
             - name: dashboard
               containerPort: 9119
