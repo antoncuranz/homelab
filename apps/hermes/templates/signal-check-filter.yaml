@@ -1,0 +1,11 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: HTTPRouteFilter
+metadata:
+  name: signal-check
+spec:
+  directResponse:
+    statusCode: 200
+    contentType: text/plain
+    body:
+      type: Inline
+      inline: ok

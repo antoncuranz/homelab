@@ -97,6 +97,32 @@ signal-cli-rest-api:
           port: 8080
           targetPort: http
 
+  route:
+    main:
+      hostnames:
+        - signal.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: Exact
+                value: /api/v1/check
+          filters:
+            - type: ExtensionRef
+              extensionRef:
+                group: gateway.envoyproxy.io
+                kind: HTTPRouteFilter
+                name: signal-check
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: http
+
 app-template:
   controllers:
     main:
