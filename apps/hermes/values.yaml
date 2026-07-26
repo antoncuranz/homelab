@@ -16,6 +16,20 @@ signal-cli-rest-api:
           seccompProfile:
             type: RuntimeDefault
 
+      initContainers:
+        fix-run:
+          image:
+            repository: docker.io/library/busybox
+            tag: "1.38"
+          command:
+            - sh
+            - -c
+            - chown 1000:1000 /run && chmod 700 /run
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+            runAsNonRoot: false
+
       containers:
         main:
           image:
