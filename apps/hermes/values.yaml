@@ -71,6 +71,10 @@ signal-cli-rest-api:
       type: emptyDir
       globalMounts:
         - path: /tmp
+    run:
+      type: emptyDir
+      globalMounts:
+        - path: /run
 
   service:
     main:
