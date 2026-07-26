@@ -1,0 +1,85 @@
+app-template:
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      pod:
+        automountServiceAccountToken: false
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 10000
+          runAsGroup: 10000
+          fsGroup: 10000
+          fsGroupChangePolicy: OnRootMismatch
+          seccompProfile:
+            type: RuntimeDefault
+
+
+      containers:
+        main:
+          image:
+            repository: docker.io/nousresearch/hermes-agent
+            tag: v2026.7.20@sha256:f7b35053268f532f98955195c909f15a230470fbcbdacaa9fdecb95707dad04a
+          args:
+            - sleep
+            - infinity
+          env:
+            HERMES_HOME: /opt/data
+            HOME: /opt/data
+            HERMES_DASHBOARD: "true"
+            TZ: Europe/Berlin
+          ports:
+            - name: dashboard
+              containerPort: 9119
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 150m
+              memory: 768Mi
+            limits:
+              memory: 2Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+
+  persistence:
+    data:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 10Gi
+      globalMounts:
+        - path: /opt/data
+    tmp:
+      type: emptyDir
+      globalMounts:
+        - path: /tmp
+    run:
+      type: emptyDir
+      globalMounts:
+        - path: /run
+
+  service:
+    main:
+      ports:
+        http:
+          port: 9119
+          targetPort: dashboard
+
+  route:
+    main:
+      hostnames:
+        - hermes.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: http
