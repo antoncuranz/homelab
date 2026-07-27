@@ -1,10 +1,68 @@
-camofox:
-  global:
-    nameOverride: camofox
-    fullnameOverride: camofox
-
+app-template:
   controllers:
-    main:
+    hermes:
+      forceRename: hermes
+      strategy: RollingUpdate
+      pod:
+        automountServiceAccountToken: false
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 10000
+          runAsGroup: 10000
+          fsGroup: 10000
+          fsGroupChangePolicy: OnRootMismatch
+          seccompProfile:
+            type: RuntimeDefault
+      initContainers:
+        fix-run:
+          image:
+            repository: docker.io/library/busybox
+            tag: "1.38"
+          command:
+            - sh
+            - -c
+            - chown 10000:10000 /run && chmod 755 /run
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+            runAsNonRoot: false
+      containers:
+        main:
+          image:
+            repository: docker.io/nousresearch/hermes-agent
+            tag: v2026.7.20@sha256:f7b35053268f532f98955195c909f15a230470fbcbdacaa9fdecb95707dad04a
+          args:
+            - sleep
+            - infinity
+          env:
+            HERMES_HOME: /opt/data
+            HOME: /opt/data
+            HERMES_DASHBOARD: "true"
+            HERMES_DASHBOARD_PUBLIC_URL: https://hermes.serverton.de
+            HERMES_DASHBOARD_OIDC_ISSUER: https://keycloak.serverton.de/realms/serverton
+            HERMES_DASHBOARD_OIDC_CLIENT_ID: hermes
+            TZ: Europe/Berlin
+          envFrom:
+            - secretRef:
+                name: hermes
+          ports:
+            - name: dashboard
+              containerPort: 9119
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 150m
+              memory: 768Mi
+            limits:
+              memory: 2Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+    camofox:
+      forceRename: camofox
       strategy: Recreate
       pod:
         automountServiceAccountToken: false
@@ -16,7 +74,6 @@ camofox:
           fsGroupChangePolicy: OnRootMismatch
           seccompProfile:
             type: RuntimeDefault
-
       containers:
         main:
           image:
@@ -73,45 +130,8 @@ camofox:
             capabilities:
               drop:
                 - ALL
-
-  persistence:
-    data:
-      type: emptyDir
-      globalMounts:
-        - path: /home/node/.camofox
-    camoufox:
-      type: emptyDir
-      globalMounts:
-        - path: /home/node/.camoufox
-    fontconfig:
-      type: emptyDir
-      globalMounts:
-        - path: /home/node/.cache/fontconfig
-    tmp:
-      type: emptyDir
-      globalMounts:
-        - path: /tmp
-    shm:
-      type: emptyDir
-      medium: Memory
-      sizeLimit: 512Mi
-      globalMounts:
-        - path: /dev/shm
-
-  service:
-    main:
-      ports:
-        http:
-          port: 9377
-          targetPort: http
-
-signal-cli:
-  global:
-    nameOverride: signal-cli
-    fullnameOverride: signal-cli
-
-  controllers:
-    main:
+    signal-cli:
+      forceRename: signal-cli
       strategy: Recreate
       pod:
         automountServiceAccountToken: false
@@ -123,7 +143,6 @@ signal-cli:
           fsGroupChangePolicy: OnRootMismatch
           seccompProfile:
             type: RuntimeDefault
-
       containers:
         main:
           image:
@@ -172,118 +191,101 @@ signal-cli:
                 - ALL
 
   persistence:
-    config:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 1Gi
-      globalMounts:
-        - path: /var/lib/signal-cli
-    tmp:
-      type: emptyDir
-      globalMounts:
-        - path: /tmp
     data:
-      type: emptyDir
-      medium: Memory
-      globalMounts:
-        - path: /opt/data
-
-  service:
-    main:
-      ports:
-        http:
-          port: 8080
-          targetPort: http
-
-app-template:
-  controllers:
-    main:
-      strategy: RollingUpdate
-
-      pod:
-        automountServiceAccountToken: false
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 10000
-          runAsGroup: 10000
-          fsGroup: 10000
-          fsGroupChangePolicy: OnRootMismatch
-          seccompProfile:
-            type: RuntimeDefault
-
-
-      initContainers:
-        fix-run:
-          image:
-            repository: docker.io/library/busybox
-            tag: "1.38"
-          command:
-            - sh
-            - -c
-            - chown 10000:10000 /run && chmod 755 /run
-          securityContext:
-            runAsUser: 0
-            runAsGroup: 0
-            runAsNonRoot: false
-
-      containers:
-        main:
-          image:
-            repository: docker.io/nousresearch/hermes-agent
-            tag: v2026.7.20@sha256:f7b35053268f532f98955195c909f15a230470fbcbdacaa9fdecb95707dad04a
-          args:
-            - sleep
-            - infinity
-          env:
-            HERMES_HOME: /opt/data
-            HOME: /opt/data
-            HERMES_DASHBOARD: "true"
-            HERMES_DASHBOARD_PUBLIC_URL: https://hermes.serverton.de
-            HERMES_DASHBOARD_OIDC_ISSUER: https://keycloak.serverton.de/realms/serverton
-            HERMES_DASHBOARD_OIDC_CLIENT_ID: hermes
-            TZ: Europe/Berlin
-          envFrom:
-            - secretRef:
-                name: hermes
-          ports:
-            - name: dashboard
-              containerPort: 9119
-              protocol: TCP
-          resources:
-            requests:
-              cpu: 150m
-              memory: 768Mi
-            limits:
-              memory: 2Gi
-          securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            capabilities:
-              drop:
-                - ALL
-
-  persistence:
-    data:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 10Gi
-      globalMounts:
-        - path: /opt/data
-    tmp:
-      type: emptyDir
-      globalMounts:
-        - path: /tmp
+      existingClaim: hermes
+      advancedMounts:
+        hermes:
+          main:
+            - path: /opt/data
+        camofox:
+          main:
+            - path: /opt/data
+              readOnly: true
+        signal-cli:
+          main:
+            - path: /opt/data
+              readOnly: true
+    signal-config:
+      existingClaim: signal-cli
+      advancedMounts:
+        signal-cli:
+          main:
+            - path: /var/lib/signal-cli
     run:
       type: emptyDir
-      globalMounts:
-        - path: /run
+      advancedMounts:
+        hermes:
+          main:
+            - path: /run
+          fix-run:
+            - path: /run
+    hermes-tmp:
+      type: emptyDir
+      advancedMounts:
+        hermes:
+          main:
+            - path: /tmp
+    camofox-data:
+      type: emptyDir
+      advancedMounts:
+        camofox:
+          main:
+            - path: /home/node/.camofox
+    camoufox:
+      type: emptyDir
+      advancedMounts:
+        camofox:
+          main:
+            - path: /home/node/.camoufox
+    fontconfig:
+      type: emptyDir
+      advancedMounts:
+        camofox:
+          main:
+            - path: /home/node/.cache/fontconfig
+    camofox-tmp:
+      type: emptyDir
+      advancedMounts:
+        camofox:
+          main:
+            - path: /tmp
+    shm:
+      type: emptyDir
+      medium: Memory
+      sizeLimit: 512Mi
+      advancedMounts:
+        camofox:
+          main:
+            - path: /dev/shm
+    signal-tmp:
+      type: emptyDir
+      advancedMounts:
+        signal-cli:
+          main:
+            - path: /tmp
 
   service:
     main:
+      controller: hermes
+      forceRename: hermes
       ports:
         http:
           port: 9119
           targetPort: dashboard
+    camofox:
+      controller: camofox
+      forceRename: camofox
+      ports:
+        http:
+          port: 9377
+          targetPort: http
+    signal-cli:
+      controller: signal-cli
+      forceRename: signal-cli
+      ports:
+        http:
+          port: 8080
+          targetPort: http
 
   route:
     main:
