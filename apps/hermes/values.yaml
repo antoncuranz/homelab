@@ -105,9 +105,10 @@ camofox:
           port: 9377
           targetPort: http
 
-signal-cli-rest-api:
+signal-cli:
   global:
-    nameOverride: signal-cli-rest-api
+    nameOverride: signal-cli
+    fullnameOverride: signal-cli
 
   controllers:
     main:
@@ -181,10 +182,14 @@ signal-cli-rest-api:
       type: emptyDir
       globalMounts:
         - path: /tmp
+    data:
+      type: emptyDir
+      medium: Memory
+      globalMounts:
+        - path: /opt/data
 
   service:
     main:
-      forceRename: signal-cli
       ports:
         http:
           port: 8080
