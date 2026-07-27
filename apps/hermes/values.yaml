@@ -253,6 +253,20 @@ app-template:
             - path: /root/.cache
           cache-init:
             - path: /cache
+    camofox-tmp:
+      type: emptyDir
+      advancedMounts:
+        camofox:
+          main:
+            - path: /tmp
+    camofox-shm:
+      type: emptyDir
+      medium: Memory
+      sizeLimit: 512Mi
+      advancedMounts:
+        camofox:
+          main:
+            - path: /dev/shm
 
   service:
     main:
