@@ -67,23 +67,17 @@ app-template:
       pod:
         automountServiceAccountToken: false
         securityContext:
-          runAsNonRoot: true
-          runAsUser: 1000
-          runAsGroup: 1000
-          fsGroup: 1000
-          fsGroupChangePolicy: OnRootMismatch
           seccompProfile:
             type: RuntimeDefault
       containers:
         main:
           image:
-            repository: ghcr.io/redf0x1/camofox-browser
-            tag: 2.4.6@sha256:41e79fb61d50f0a8292b2a51c81ebcb0a2be24d89e9eac970edd12613006ced7
+            repository: ghcr.io/jo-inc/camofox-browser
+            tag: 1.13.0@sha256:64b30ffdbbc4ae0e28200a66dfbd6f55ac4188229eb34ef769afcf7be40faa6e
           env:
-            CAMOFOX_HOST: 0.0.0.0
+            CAMOFOX_BIND_HOST: 0.0.0.0
             CAMOFOX_PORT: "9377"
-            CAMOFOX_HEADLESS: "true"
-            CAMOFOX_AUTH_MODE: disabled
+            CAMOFOX_CRASH_REPORT_ENABLED: "false"
           ports:
             - name: http
               containerPort: 9377
@@ -226,9 +220,8 @@ app-template:
       advancedMounts:
         camofox:
           main:
-            - path: /home/node/.camofox
-            - path: /home/node/.camoufox
-            - path: /home/node/.cache/fontconfig
+            - path: /root/.camofox
+            - path: /root/.cache/fontconfig
     camofox-tmp:
       type: emptyDir
       advancedMounts:
