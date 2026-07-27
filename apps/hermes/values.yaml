@@ -79,6 +79,14 @@ camofox:
       type: emptyDir
       globalMounts:
         - path: /home/node/.camofox
+    camoufox:
+      type: emptyDir
+      globalMounts:
+        - path: /home/node/.camoufox
+    fontconfig:
+      type: emptyDir
+      globalMounts:
+        - path: /home/node/.cache/fontconfig
     tmp:
       type: emptyDir
       globalMounts:
