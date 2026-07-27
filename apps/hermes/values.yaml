@@ -191,16 +191,12 @@ app-template:
                 - ALL
 
   persistence:
-    data:
+    hermes-data:
       existingClaim: hermes
       advancedMounts:
         hermes:
           main:
             - path: /opt/data
-        camofox:
-          main:
-            - path: /opt/data
-              readOnly: true
         signal-cli:
           main:
             - path: /opt/data
@@ -211,7 +207,7 @@ app-template:
         signal-cli:
           main:
             - path: /var/lib/signal-cli
-    run:
+    hermes-run:
       type: emptyDir
       advancedMounts:
         hermes:
@@ -231,17 +227,7 @@ app-template:
         camofox:
           main:
             - path: /home/node/.camofox
-    camoufox:
-      type: emptyDir
-      advancedMounts:
-        camofox:
-          main:
             - path: /home/node/.camoufox
-    fontconfig:
-      type: emptyDir
-      advancedMounts:
-        camofox:
-          main:
             - path: /home/node/.cache/fontconfig
     camofox-tmp:
       type: emptyDir
@@ -249,7 +235,7 @@ app-template:
         camofox:
           main:
             - path: /tmp
-    shm:
+    camofox-shm:
       type: emptyDir
       medium: Memory
       sizeLimit: 512Mi
