@@ -215,13 +215,18 @@ app-template:
         hermes:
           main:
             - path: /tmp
-    camofox-data:
+    camofox:
       type: emptyDir
       advancedMounts:
         camofox:
           main:
             - path: /root/.camofox
-            - path: /root/.cache/fontconfig
+    camofox-cache:
+      type: emptyDir
+      advancedMounts:
+        camofox:
+          main:
+            - path: /root/.cache
     camofox-tmp:
       type: emptyDir
       advancedMounts:
