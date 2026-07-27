@@ -233,6 +233,14 @@ app-template:
         camofox:
           main:
             - path: /root/.cache/camoufox
+    camofox-cookies:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 10Mi
+      advancedMounts:
+        camofox:
+          main:
+            - path: /root/.camoufox/cookies
 
   service:
     main:
