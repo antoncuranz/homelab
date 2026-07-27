@@ -231,6 +231,12 @@ app-template:
         signal-cli:
           main:
             - path: /var/lib/signal-cli
+    signal-tmp:
+      type: emptyDir
+      advancedMounts:
+        signal-cli:
+          main:
+            - path: /tmp
     camofox:
       type: emptyDir
       advancedMounts:
@@ -270,12 +276,6 @@ app-template:
         http:
           port: 8080
           targetPort: http
-    signal-tmp:
-      type: emptyDir
-      advancedMounts:
-        signal-cli:
-          main:
-            - path: /tmp
 
   route:
     main:
