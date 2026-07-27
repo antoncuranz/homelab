@@ -64,18 +64,6 @@ app-template:
     camofox:
       forceRename: camofox
       strategy: Recreate
-      initContainers:
-        cache-init:
-          image:
-            repository: ghcr.io/jo-inc/camofox-browser
-            tag: 1.13.0@sha256:64b30ffdbbc4ae0e28200a66dfbd6f55ac4188229eb34ef769afcf7be40faa6e
-          command:
-            - sh
-            - -c
-            - |
-              if [ ! -f /cache/camoufox/version.json ]; then
-                cp -a /root/.cache/ /cache/
-              fi
       pod:
         automountServiceAccountToken: false
         securityContext:
@@ -237,12 +225,12 @@ app-template:
         signal-cli:
           main:
             - path: /tmp
-    camofox:
+    camofox-camoufox:
       type: emptyDir
       advancedMounts:
         camofox:
           main:
-            - path: /root/.camofox
+            - path: /root/.camoufox
     camofox-cache:
       enabled: true
       accessMode: ReadWriteOnce
@@ -250,9 +238,7 @@ app-template:
       advancedMounts:
         camofox:
           main:
-            - path: /root/.cache
-          cache-init:
-            - path: /cache
+            - path: /root/.cache/camoufox2
     camofox-tmp:
       type: emptyDir
       advancedMounts:
