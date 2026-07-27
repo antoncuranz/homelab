@@ -78,6 +78,7 @@ app-template:
             CAMOFOX_BIND_HOST: 0.0.0.0
             CAMOFOX_PORT: "9377"
             CAMOFOX_CRASH_REPORT_ENABLED: "false"
+            CAMOFOX_API_KEY: "anton"
           ports:
             - name: http
               containerPort: 9377
