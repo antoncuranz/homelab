@@ -120,7 +120,7 @@ app-template:
               memory: 2Gi
           securityContext:
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
+            readOnlyRootFilesystem: false
             capabilities:
               drop:
                 - ALL
@@ -225,12 +225,6 @@ app-template:
         signal-cli:
           main:
             - path: /tmp
-    camofox-camoufox:
-      type: emptyDir
-      advancedMounts:
-        camofox:
-          main:
-            - path: /root/.camoufox
     camofox-cache:
       enabled: true
       accessMode: ReadWriteOnce
@@ -239,20 +233,6 @@ app-template:
         camofox:
           main:
             - path: /root/.cache/camoufox
-    camofox-tmp:
-      type: emptyDir
-      advancedMounts:
-        camofox:
-          main:
-            - path: /tmp
-    camofox-shm:
-      type: emptyDir
-      medium: Memory
-      sizeLimit: 512Mi
-      advancedMounts:
-        camofox:
-          main:
-            - path: /dev/shm
 
   service:
     main:
