@@ -238,7 +238,7 @@ app-template:
       advancedMounts:
         camofox:
           main:
-            - path: /root/.cache/camoufox2
+            - path: /root/.cache/camoufox
     camofox-tmp:
       type: emptyDir
       advancedMounts:
