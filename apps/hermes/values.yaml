@@ -74,7 +74,7 @@ app-template:
             - -c
             - |
               if [ ! -f /cache/camoufox/version.json ]; then
-                cp -a /root/.cache/camoufox /cache/
+                cp -a /root/.cache/ /cache/
               fi
       pod:
         automountServiceAccountToken: false
@@ -198,7 +198,9 @@ app-template:
 
   persistence:
     hermes-data:
-      existingClaim: hermes
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 10Gi
       advancedMounts:
         hermes:
           main:
@@ -207,12 +209,6 @@ app-template:
           main:
             - path: /opt/data
               readOnly: true
-    signal-config:
-      existingClaim: signal-cli
-      advancedMounts:
-        signal-cli:
-          main:
-            - path: /var/lib/signal-cli
     hermes-run:
       type: emptyDir
       advancedMounts:
@@ -227,6 +223,14 @@ app-template:
         hermes:
           main:
             - path: /tmp
+    signal-config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 1Gi
+      advancedMounts:
+        signal-cli:
+          main:
+            - path: /var/lib/signal-cli
     camofox:
       type: emptyDir
       advancedMounts:
@@ -243,26 +247,6 @@ app-template:
             - path: /root/.cache
           cache-init:
             - path: /cache
-    camofox-tmp:
-      type: emptyDir
-      advancedMounts:
-        camofox:
-          main:
-            - path: /tmp
-    camofox-shm:
-      type: emptyDir
-      medium: Memory
-      sizeLimit: 512Mi
-      advancedMounts:
-        camofox:
-          main:
-            - path: /dev/shm
-    signal-tmp:
-      type: emptyDir
-      advancedMounts:
-        signal-cli:
-          main:
-            - path: /tmp
 
   service:
     main:
