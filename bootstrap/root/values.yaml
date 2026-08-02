@@ -1,8 +1,0 @@
-gitops:
-  repo: https://github.com/antoncuranz/homelab
-  revision: main
-  stacks:
-    - name: bootstrap
-    - name: system
-    - name: platform
-    - name: apps
