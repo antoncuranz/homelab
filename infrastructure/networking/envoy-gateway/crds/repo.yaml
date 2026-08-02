@@ -1,0 +1,11 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: envoy-gateway-crds
+  namespace: networking
+spec:
+  interval: 1h
+  ref:
+    tag: v1.8.3
+  url: https://github.com/envoyproxy/gateway

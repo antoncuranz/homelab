@@ -1,0 +1,30 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../infrastructure/networking/cert-manager/crds
+  - ../../../infrastructure/networking/cert-manager/app.yaml
+  - ../../../infrastructure/networking/cilium/app.yaml
+  - ../../../infrastructure/networking/envoy-gateway/crds
+  - ../../../infrastructure/networking/envoy-gateway/app.yaml
+  - ../../../infrastructure/networking/external-dns/app.yaml
+  - ../../../infrastructure/secrets/onepassword/app.yaml
+  - ../../../infrastructure/secrets/external-secrets/crds
+  - ../../../infrastructure/secrets/external-secrets/prod.yaml
+  - ../../../infrastructure/storage/democratic-csi/app.yaml
+  - ../../../infrastructure/storage/snapshot-controller/app.yaml
+  - ../../../infrastructure/storage/volsync/app.yaml
+patches:
+  - target:
+      group: kustomize.toolkit.fluxcd.io
+      kind: Kustomization
+    patch: |-
+      apiVersion: kustomize.toolkit.fluxcd.io/v1
+      kind: Kustomization
+      metadata:
+        name: template
+      spec:
+        prune: true
+        wait: true
+        interval: 1m0s
+        timeout: 5m0s

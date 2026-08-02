@@ -1,0 +1,23 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: ${APP}
+spec:
+  sourcePVC: ${APP}
+  trigger:
+    schedule: "0 5 * * *"
+  restic:
+    repository: ${APP}-volsync-secret
+    copyMethod: Snapshot
+    accessModes:
+      - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}
+    pruneIntervalDays: 14
+    moverSecurityContext:
+      runAsUser: ${VOLSYNC_PUID:=1000}
+      runAsGroup: ${VOLSYNC_PGID:=1000}
+      fsGroup: ${VOLSYNC_PGID:=1000}
+    retain:
+      daily: 7
+      weekly: 4
+      monthly: 3

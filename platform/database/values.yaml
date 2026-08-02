@@ -1,2 +1,0 @@
-ext-postgres-operator:
-  existingSecret: ext-postgres-secrets

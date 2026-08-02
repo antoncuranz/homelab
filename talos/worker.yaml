@@ -1,0 +1,158 @@
+version: v1alpha1
+debug: false
+persist: true
+machine:
+  type: worker
+  token: op://Kubernetes/talos/MACHINE_TOKEN
+
+  ca:
+    crt: op://Kubernetes/talos/MACHINE_CA_CRT
+    key: ""
+
+  kubelet:
+    image: ghcr.io/siderolabs/kubelet:v1.36.3
+    defaultRuntimeSeccompProfileEnabled: true
+    disableManifestsDirectory: true
+
+  network:
+    nameservers:
+      - 9.9.9.9
+      - 149.112.112.112
+
+  install:
+    disk: /dev/vda
+    image: factory.talos.dev/metal-installer-secureboot/74d69d65af3df1cb7f90b83593afae228a695c4f4af5c8d88eae79eeb8b058fa:v1.13.7
+    wipe: false
+
+  registries: { }
+
+  features:
+    rbac: true
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
+
+    kubePrism:
+      enabled: true
+      port: 7445
+
+    hostDNS:
+      enabled: true
+      forwardKubeDNSToHost: true
+
+  time:
+    servers:
+      - europe.pool.ntp.org
+
+cluster:
+  id: op://Kubernetes/talos/CLUSTER_ID
+  secret: op://Kubernetes/talos/CLUSTER_SECRET
+  token: op://Kubernetes/talos/CLUSTER_TOKEN
+  ca:
+    crt: op://Kubernetes/talos/CLUSTER_CA_CRT
+    key: ""
+
+  clusterName: homelab-ng
+  controlPlane:
+    endpoint: https://{{ op://Kubernetes/talos/TALOS1_IPV4 }}:6443
+
+  network:
+    cni:
+      name: none
+    dnsDomain: cluster.local
+    podSubnets:
+      - 10.244.0.0/16
+    serviceSubnets:
+      - 10.96.0.0/12
+
+  proxy:
+    disabled: true
+    image: registry.k8s.io/kube-proxy:v1.36.3
+
+  discovery:
+    enabled: false
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: STATE
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  minSize: 10Gi
+  grow: true
+---
+apiVersion: v1alpha1
+kind: NetworkDefaultActionConfig
+ingress: block
+---
+apiVersion: v1alpha1
+kind: NetworkRuleConfig
+name: kubelet-ingress
+portSelector:
+  ports:
+    - 10250
+  protocol: tcp
+ingress:
+  - subnet: 10.244.0.0/16
+  - subnet: {{ op://Kubernetes/talos/TALOS1_IPV4 }}/32
+  - subnet: {{ op://Kubernetes/talos/TALOS2_IPV4 }}/32
+  - subnet: {{ op://Kubernetes/talos/TALOS3_IPV4 }}/32
+---
+apiVersion: v1alpha1
+kind: NetworkRuleConfig
+name: apid-ingress
+portSelector:
+  ports:
+    - 50000
+  protocol: tcp
+ingress:
+  - subnet: 0.0.0.0/0
+  - subnet: ::/0
+---
+apiVersion: v1alpha1
+kind: NetworkRuleConfig
+name: cni-vxlan
+portSelector:
+  ports:
+    - 8472
+  protocol: udp
+ingress:
+  - subnet: {{ op://Kubernetes/talos/TALOS1_IPV4 }}/32
+  - subnet: {{ op://Kubernetes/talos/TALOS2_IPV4 }}/32
+  - subnet: {{ op://Kubernetes/talos/TALOS3_IPV4 }}/32
+---
+apiVersion: v1alpha1
+kind: NetworkRuleConfig
+name: metrics-ingress
+portSelector:
+  ports:
+    - 10255
+    - 9100
+  protocol: tcp
+ingress:
+  - subnet: 10.244.0.0/16
+  - subnet: {{ op://Kubernetes/talos/TALOS1_IPV4 }}/32
+  - subnet: {{ op://Kubernetes/talos/TALOS2_IPV4 }}/32
+  - subnet: {{ op://Kubernetes/talos/TALOS3_IPV4 }}/32
+---
+apiVersion: v1alpha1
+kind: NetworkRuleConfig
+name: https-ingress
+portSelector:
+  ports:
+    - 443
+  protocol: tcp
+ingress:
+  - subnet: 0.0.0.0/0
+  - subnet: ::/0
+---
+apiVersion: v1alpha1
+kind: NetworkRuleConfig
+name: allow-dhcp6-client
+portSelector:
+  ports:
+    - 546
+  protocol: udp
+ingress:
+  - subnet: fe80::/10

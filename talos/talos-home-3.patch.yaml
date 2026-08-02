@@ -1,0 +1,18 @@
+machine:
+  type: controlplane
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: talos-home-3
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: {{ op://Kubernetes/talos/TALOSX_INTERFACE }}
+addresses:
+  - address: {{ op://Kubernetes/talos/TALOS3_IPV4 }}/24
+routes:
+  - gateway: {{ op://Kubernetes/talos/TALOSX_GATEWAY }}
+---
+apiVersion: v1alpha1
+kind: DHCPv6Config
+name: {{ op://Kubernetes/talos/TALOSX_INTERFACE }}

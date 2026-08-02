@@ -1,7 +1,0 @@
-apiVersion: v2
-name: authentication
-version: 0.0.0
-dependencies:
-  - name: keycloak
-    version: 25.2.0
-    repository: https://charts.bitnami.com/bitnami

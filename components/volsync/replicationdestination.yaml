@@ -1,0 +1,20 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: "${APP}-dst"
+  labels:
+    kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: ${APP}-volsync-secret
+    copyMethod: Snapshot
+    accessModes:
+      - ${VOLSYNC_ACCESSMODES:=ReadWriteOnce}
+    capacity: ${VOLSYNC_CAPACITY:=5Gi}
+    moverSecurityContext:
+      runAsUser: ${VOLSYNC_PUID:=1000}
+      runAsGroup: ${VOLSYNC_PGID:=1000}
+      fsGroup: ${VOLSYNC_PGID:=1000}

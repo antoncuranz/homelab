@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: snapshot-controller
+  namespace: storage
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: snapshot-controller
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: snapshot-controller
+      version: 0.3.0
+  values:
+    controller:
+      replicaCount: 1

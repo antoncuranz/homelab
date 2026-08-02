@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cilium
+  namespace: networking
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./infrastructure/networking/cilium/app
+  patches:
+    - target:
+        kind: HelmRelease
+        name: cilium
+        namespace: networking
+      patch: |-
+        - op: replace
+          path: /spec/values/kubeProxyReplacement
+          value: false

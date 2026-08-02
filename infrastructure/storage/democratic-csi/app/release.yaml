@@ -1,0 +1,82 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: democratic-csi
+  namespace: storage
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: democratic-csi
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: democratic-csi
+      version: 0.15.1
+  values:
+    csiDriver:
+      name: "org.democratic-csi.local-hostpath"
+      attachRequired: false
+      storageCapacity: true
+      fsGroupPolicy: File
+
+    storageClasses:
+      - name: local-hostpath
+        defaultClass: true
+        reclaimPolicy: Retain
+        volumeBindingMode: WaitForFirstConsumer
+        allowVolumeExpansion: false
+
+    volumeSnapshotClasses:
+      - name: local-hostpath
+        annotations:
+          snapshot.storage.kubernetes.io/is-default-class: "true"
+        deletionPolicy: Delete
+        parameters:
+          cluster: "cloudlab"
+
+    controller:
+      enabled: true
+      strategy: node
+      externalProvisioner:
+        enabled: true
+        extraArgs:
+          - --leader-election=false
+          - --node-deployment=true
+          - --node-deployment-immediate-binding=false
+          - --feature-gates=Topology=true
+          - --strict-topology=true
+          - --enable-capacity=true
+          - --capacity-ownerref-level=1
+      externalAttacher:
+        enabled: false
+      externalResizer:
+        enabled: false
+      externalSnapshotter:
+        enabled: true
+        extraArgs:
+          - --leader-election=false
+          - --node-deployment=true
+
+    node:
+      driver:
+        extraVolumeMounts:
+          - name: local-hostpath
+            mountPath: &path "/var/mnt/local-storage"
+            mountPropagation: Bidirectional
+      extraVolumes:
+        - name: local-hostpath
+          hostPath:
+            path: *path
+            type: DirectoryOrCreate
+
+    driver:
+      config:
+        driver: local-hostpath
+        local-hostpath:
+          shareBasePath: *path
+          controllerBasePath: *path
+          dirPermissionsMode: "0770"
+          dirPermissionsUser: 0
+          dirPermissionsGroup: 0

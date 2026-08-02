@@ -1,0 +1,80 @@
+machine:
+  type: controlplane
+  ca:
+    crt: op://Kubernetes/talos/MACHINE_CA_CRT
+    key: op://Kubernetes/talos/MACHINE_CA_KEY
+
+cluster:
+  ca:
+    crt: op://Kubernetes/talos/CLUSTER_CA_CRT
+    key: op://Kubernetes/talos/CLUSTER_CA_KEY
+  aggregatorCA:
+    crt: op://Kubernetes/talos/CLUSTER_AGGREGATORCA_CRT
+    key: op://Kubernetes/talos/CLUSTER_AGGREGATORCA_KEY
+  serviceAccount:
+    key: op://Kubernetes/talos/CLUSTER_SERVICEACCOUNT_KEY
+  etcd:
+    ca:
+      crt: op://Kubernetes/talos/CLUSTER_ETCD_CA_CRT
+      key: op://Kubernetes/talos/CLUSTER_ETCD_CA_KEY
+  secretboxEncryptionSecret: op://Kubernetes/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
+
+  apiServer:
+    image: registry.k8s.io/kube-apiserver:v1.36.3
+    extraArgs:
+      feature-gates: MutablePVNodeAffinity=true
+    certSANs:
+      - {{ op://Kubernetes/talos/API_ENDPOINT_DNS }}
+      - {{ op://Kubernetes/talos/TALOS1_IPV4 }}
+      - {{ op://Kubernetes/talos/TALOS2_IPV4 }}
+      - {{ op://Kubernetes/talos/TALOS3_IPV4 }}
+    disablePodSecurityPolicy: true
+
+    auditPolicy:
+      apiVersion: audit.k8s.io/v1
+      kind: Policy
+      rules:
+        - level: Metadata
+
+  controllerManager:
+    image: registry.k8s.io/kube-controller-manager:v1.36.3
+
+  scheduler:
+    image: registry.k8s.io/kube-scheduler:v1.36.3
+
+  allowSchedulingOnControlPlanes: true
+---
+apiVersion: v1alpha1
+kind: NetworkRuleConfig
+name: trustd-ingress
+portSelector:
+  ports:
+    - 50001
+  protocol: tcp
+ingress:
+  - subnet: {{ op://Kubernetes/talos/TALOS1_IPV4 }}/32
+  - subnet: {{ op://Kubernetes/talos/TALOS2_IPV4 }}/32
+  - subnet: {{ op://Kubernetes/talos/TALOS3_IPV4 }}/32
+---
+apiVersion: v1alpha1
+kind: NetworkRuleConfig
+name: kubernetes-api-ingress
+portSelector:
+  ports:
+    - 6443
+  protocol: tcp
+ingress:
+  - subnet: 0.0.0.0/0
+  - subnet: ::/0
+---
+apiVersion: v1alpha1
+kind: NetworkRuleConfig
+name: etcd-ingress
+portSelector:
+  ports:
+    - 2379-2380
+  protocol: tcp
+ingress:
+  - subnet: {{ op://Kubernetes/talos/TALOS1_IPV4 }}/32
+  - subnet: {{ op://Kubernetes/talos/TALOS2_IPV4 }}/32
+  - subnet: {{ op://Kubernetes/talos/TALOS3_IPV4 }}/32

@@ -1,0 +1,32 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: external-dns
+  namespace: networking
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./infrastructure/networking/external-dns/app
+  patches:
+    - target:
+        kind: HelmRelease
+        name: external-dns
+        namespace: networking
+      patch: |-
+        - op: add
+          path: /spec/postRenderers
+          value:
+            - kustomize:
+                patches:
+                  - target:
+                      group: apps
+                      version: v1
+                      kind: Deployment
+                      name: external-dns
+                    patch: |-
+                      - op: replace
+                        path: /spec/replicas
+                        value: 0
