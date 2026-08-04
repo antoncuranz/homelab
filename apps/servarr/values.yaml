@@ -294,7 +294,7 @@ radarr:
         main:
           image:
             repository: ghcr.io/home-operations/radarr
-            tag: 6.4.0.10540
+            tag: 6.4.1.10545
           env:
             TZ: Europe/Berlin
             RADARR__SERVER__PORT: &port 7878
