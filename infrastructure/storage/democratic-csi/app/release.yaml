@@ -16,67 +16,59 @@ spec:
       version: 0.15.1
   values:
     csiDriver:
-      name: "org.democratic-csi.local-hostpath"
-      attachRequired: false
+      name: "org.democratic-csi.zfs-iscsi"
       storageCapacity: true
-      fsGroupPolicy: File
 
     storageClasses:
-      - name: local-hostpath
+      - name: zfs-iscsi
         defaultClass: true
         reclaimPolicy: Retain
         volumeBindingMode: WaitForFirstConsumer
-        allowVolumeExpansion: false
+        parameters:
+          fsType: ext4
 
     volumeSnapshotClasses:
-      - name: local-hostpath
+      - name: zfs-iscsi
         annotations:
           snapshot.storage.kubernetes.io/is-default-class: "true"
         deletionPolicy: Delete
-        parameters:
-          cluster: "cloudlab"
-
-    controller:
-      enabled: true
-      strategy: node
-      externalProvisioner:
-        enabled: true
-        extraArgs:
-          - --leader-election=false
-          - --node-deployment=true
-          - --node-deployment-immediate-binding=false
-          - --feature-gates=Topology=true
-          - --strict-topology=true
-          - --enable-capacity=true
-          - --capacity-ownerref-level=1
-      externalAttacher:
-        enabled: false
-      externalResizer:
-        enabled: false
-      externalSnapshotter:
-        enabled: true
-        extraArgs:
-          - --leader-election=false
-          - --node-deployment=true
 
     node:
+      hostPID: true
       driver:
-        extraVolumeMounts:
-          - name: local-hostpath
-            mountPath: &path "/var/mnt/local-storage"
-            mountPropagation: Bidirectional
-      extraVolumes:
-        - name: local-hostpath
-          hostPath:
-            path: *path
-            type: DirectoryOrCreate
+        extraEnv:
+          - name: ISCSIADM_HOST_STRATEGY
+            value: nsenter
+          - name: ISCSIADM_HOST_PATH
+            value: /usr/local/sbin/iscsiadm
+        iscsiDirHostPath: /var/iscsi
+        iscsiDirHostPathType: ""
 
     driver:
       config:
-        driver: local-hostpath
-        local-hostpath:
-          shareBasePath: *path
-          controllerBasePath: *path
-          dirPermissionsMode: "0770"
-          dirPermissionsUser: 0
-          dirPermissionsGroup: 0
+        driver: zfs-generic-iscsi
+
+        sshConnection:
+          host: 192.168.1.2
+          port: 22
+          username: democratic-csi
+
+        zfs:
+          datasetParentName: zroot/k8s/iscsi
+          detachedSnapshotsDatasetParentName: zroot/k8s/iscsi-snapshots
+          iscsi:
+            shareStrategy: "targetCli"
+            shareStrategyTargetCli:
+              sudoEnabled: true
+              basename: "iqn.2026-08.nz.cura:homelab"
+              tpg:
+                attributes:
+                  authentication: 0
+                  generate_node_acls: 1
+                  demo_mode_write_protect: 0
+            targetPortal: "192.168.1.2:3260"
+  valuesFrom:
+    - kind: Secret
+      name: democratic-csi
+      valuesKey: privateKey
+      targetPath: driver.config.sshConnection.privateKey
