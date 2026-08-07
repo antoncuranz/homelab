@@ -32,6 +32,8 @@ spec:
         annotations:
           snapshot.storage.kubernetes.io/is-default-class: "true"
         deletionPolicy: Delete
+        parameters:
+          detachedSnapshots: "false"
 
     node:
       hostPID: true
