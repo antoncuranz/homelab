@@ -8,10 +8,10 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: main
+    branch: talos
   secretRef:
     name: flux-system
-  url: ssh://git@github.com/antoncuranz/cloudlab
+  url: ssh://git@github.com/antoncuranz/homelab
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
