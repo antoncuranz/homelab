@@ -70,5 +70,5 @@ spec:
   valuesFrom:
     - kind: Secret
       name: democratic-csi
-      valuesKey: privateKey
+      valuesKey: Private-Key
       targetPath: driver.config.sshConnection.privateKey
