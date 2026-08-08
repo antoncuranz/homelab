@@ -74,6 +74,9 @@ spec:
                   authentication: 0
                   generate_node_acls: 1
                   demo_mode_write_protect: 0
+
+            namePrefix: csi-
+            nameSuffix: -cluster
             targetPortal: "192.168.1.2:3260"
   valuesFrom:
     - kind: Secret
