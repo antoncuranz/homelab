@@ -60,7 +60,7 @@ spec:
             paths:
               zfs: /run/current-system/sw/bin/zfs
               zpool: /run/current-system/sw/bin/zpool
-              sudo: /run/current-system/sw/bin/sudo
+              sudo: /run/wrappers/bin/sudo
 
           datasetParentName: zroot/k8s/iscsi
           detachedSnapshotsDatasetParentName: zroot/k8s/iscsi-snapshots
