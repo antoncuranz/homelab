@@ -55,6 +55,11 @@ spec:
           username: democratic-csi
 
         zfs:
+          cli:
+            paths:
+              zfs: /run/current-system/sw/bin/zfs
+              zpool: /run/current-system/sw/bin/zpool
+
           datasetParentName: zroot/k8s/iscsi
           detachedSnapshotsDatasetParentName: zroot/k8s/iscsi-snapshots
           iscsi:
