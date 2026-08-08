@@ -17,7 +17,6 @@ spec:
   values:
     csiDriver:
       name: "org.democratic-csi.zfs-iscsi"
-      storageCapacity: true
 
     storageClasses:
       - name: zfs-iscsi
