@@ -5,6 +5,7 @@ resources:
   - ./flux-system
   - ./namespaces/ks.yaml
   - ./infrastructure/ks.yaml
+  - ./apps/ks.yaml
 patches:
   - target:
       group: kustomize.toolkit.fluxcd.io
