@@ -60,8 +60,8 @@ spec:
         hostnames:
           - homebridge.ng.serverton.de
         parentRefs:
-          - name: envoy-gateway
-            namespace: envoy-gateway
+          - name: gateway
+            namespace: networking
         rules:
           - matches:
               - path:
