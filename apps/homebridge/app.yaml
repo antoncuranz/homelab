@@ -15,5 +15,5 @@ spec:
     - ../../../components/volsync
   postBuild:
     substitute:
-      APP: kompass
-      VOLSYNC_CAPACITY: 10Gi
+      APP: homebridge
+      VOLSYNC_CAPACITY: 250Mi
