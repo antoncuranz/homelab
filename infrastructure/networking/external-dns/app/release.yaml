@@ -15,6 +15,8 @@ spec:
         name: external-dns
       version: 1.21.1
   values:
+    sources:
+      - gateway-httproute
     provider: cloudflare
     txtOwnerId: homelab
     env:
@@ -24,7 +26,4 @@ spec:
             name: cloudflare-api-token
             key: api-token
     extraArgs:
-      - --cloudflare-proxied
-    sources:
-      - service
-      - gateway-httproute
+      - --annotation-filter=external-dns.alpha.kubernetes.io/exclude notin (true)
