@@ -22,7 +22,7 @@ app-template:
         rest:
           image:
             repository: docker.io/jhonderson/actual-http-api
-            tag: 26.8.0
+            tag: 26.8.1
           env:
             ACTUAL_SERVER_URL: "http://actual.actual.svc.cluster.local:5006"
           envFrom:
