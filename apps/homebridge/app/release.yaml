@@ -58,7 +58,7 @@ spec:
     route:
       main:
         hostnames:
-          - homebridge-ng.serverton.de
+          - homebridge.ng.serverton.de
         parentRefs:
           - name: envoy-gateway
             namespace: envoy-gateway

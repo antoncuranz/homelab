@@ -9,7 +9,7 @@ spec:
   gatewayClassName: envoy-gateway
   listeners:
     - name: https-wildcard
-      hostname: "*.serverton.de"
+      hostname: "*.ng.serverton.de"
       port: 443
       protocol: HTTPS
       tls:
@@ -21,7 +21,7 @@ spec:
         namespaces:
           from: All
     - name: https-root
-      hostname: serverton.de
+      hostname: ng.serverton.de
       port: 443
       protocol: HTTPS
       tls:
