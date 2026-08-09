@@ -6,7 +6,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
-  gatewayClassName: envoy-gateway
+  gatewayClassName: envoy
   listeners:
     - name: https-wildcard
       hostname: "*.ng.serverton.de"
