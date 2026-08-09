@@ -29,3 +29,10 @@ metadata:
   name: storage
   labels:
     pod-security.kubernetes.io/enforce: privileged
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: homebridge
+  annotations:
+    volsync.backube/privileged-movers: 'true'
