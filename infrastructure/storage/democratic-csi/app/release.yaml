@@ -64,19 +64,20 @@ spec:
 
           datasetParentName: zroot/k8s/iscsi
           detachedSnapshotsDatasetParentName: zroot/k8s/iscsi-snapshots
-          iscsi:
-            shareStrategy: "targetCli"
-            shareStrategyTargetCli:
-              sudoEnabled: true
-              basename: "iqn.2026-08.nz.cura:homelab"
-              tpg:
-                attributes:
-                  authentication: 0
-                  generate_node_acls: 1
-                  demo_mode_write_protect: 0
 
-            nameTemplate: "{{ parameters.[csi.storage.k8s.io/pvc/namespace] }}-{{ parameters.[csi.storage.k8s.io/pvc/name] }}"
-            targetPortal: "192.168.1.2:3260"
+        iscsi:
+          shareStrategy: "targetCli"
+          shareStrategyTargetCli:
+            sudoEnabled: true
+            basename: "iqn.2026-08.nz.cura:homelab"
+            tpg:
+              attributes:
+                authentication: 0
+                generate_node_acls: 1
+                demo_mode_write_protect: 0
+
+          nameTemplate: "{{ parameters.[csi.storage.k8s.io/pvc/namespace] }}-{{ parameters.[csi.storage.k8s.io/pvc/name] }}"
+          targetPortal: "192.168.1.2:3260"
   valuesFrom:
     - kind: Secret
       name: democratic-csi
