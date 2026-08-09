@@ -11,8 +11,8 @@ spec:
     namespace: flux-system
   targetNamespace: homebridge
   path: ./apps/homebridge/app
-#  components:
-#    - ../../../components/volsync
+  components:
+    - ../../../components/volsync
   postBuild:
     substitute:
       APP: kompass
