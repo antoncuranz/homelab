@@ -4,6 +4,7 @@ bitcoind:
 
   controllers:
     main:
+      replicas: 0
       containers:
         main:
           image:
@@ -69,6 +70,7 @@ tor:
 
   controllers:
     main:
+      replicas: 0
       containers:
         main:
           image:
@@ -117,6 +119,7 @@ electrs:
 
   controllers:
     main:
+      replicas: 0
       containers:
         main:
           image:
