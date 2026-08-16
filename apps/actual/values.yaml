@@ -19,7 +19,12 @@ app-template:
             TZ: "Europe/Berlin"
             ACTUAL_PORT: "5006"
             ACTUAL_LOGIN_METHOD: "openid"
-        rest:
+
+    rest:
+      strategy: RollingUpdate
+
+      containers:
+        main:
           image:
             repository: docker.io/jhonderson/actual-http-api
             tag: 26.8.1
@@ -29,46 +34,7 @@ app-template:
             - secretRef:
                 name: actual-secrets
 
-  persistence:
-    data:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 4Gi
-      dataSourceRef:
-        kind: ReplicationDestination
-        apiGroup: volsync.backube
-        name: actual-dst
-
-  service:
-    main:
-      ports:
-        http:
-          port: 5006
-        rest:
-          port: 5007
-
-  route:
-    main:
-      hostnames:
-        - "actual.serverton.de"
-      parentRefs:
-        - name: envoy-gateway
-          namespace: envoy-gateway
-      rules:
-        - matches:
-            - path:
-                type: PathPrefix
-                value: /
-          backendRefs:
-            - identifier: main
-              port: 5006
-
-sync:
-  global:
-    nameOverride: sync
-
-  controllers:
-    main:
+    sync:
       strategy: RollingUpdate
 
       containers:
@@ -97,13 +63,56 @@ sync:
           env:
             LOG_LEVEL: "info"
             HTTP_PORT: "8080"
-            ACTUAL_BASE_URL: "http://actual.actual.svc.cluster.local:5007/v1"
+            ACTUAL_BASE_URL: "http://actual-rest.actual.svc.cluster.local:5007/v1"
           envFrom:
             - secretRef:
                 name: actual-sync-secrets
 
+  persistence:
+    data:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 4Gi
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: actual-dst
+      advancedMounts:
+        main:
+          main:
+            - path: /data
+
   service:
     main:
+      controller: main
+      ports:
+        http:
+          port: 5006
+
+    rest:
+      controller: rest
+      ports:
+        http:
+          port: 5007
+
+    sync:
+      controller: sync
       ports:
         http:
           port: 8080
+
+  route:
+    main:
+      hostnames:
+        - "actual.serverton.de"
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: 5006
