@@ -29,7 +29,7 @@ app-template:
             repository: docker.io/jhonderson/actual-http-api
             tag: 26.8.1
           env:
-            ACTUAL_SERVER_URL: "http://actual.actual.svc.cluster.local:5006"
+            ACTUAL_SERVER_URL: "http://actual-main.actual.svc.cluster.local:5006"
           envFrom:
             - secretRef:
                 name: actual-secrets
