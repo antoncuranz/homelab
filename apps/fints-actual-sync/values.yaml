@@ -12,6 +12,7 @@ app-template:
           env:
             LOG_LEVEL: "DEBUG"
             ACTUAL_API_URL: "http://actual-rest.actual.svc.cluster.local:5007"
+            BASE_URL: "https://fints.serverton.de"
             ALLOWED_HOSTS: "*"
             CSRF_TRUSTED_ORIGINS: "https://fints.serverton.de"
             DATABASE_URL:
