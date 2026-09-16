@@ -1,0 +1,60 @@
+app-template:
+  controllers:
+    main:
+      strategy: RollingUpdate
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/iptv-org/epg
+            tag: master
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 3000
+            readiness:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 3000
+          resources:
+            requests:
+              cpu: 10m
+              memory: 128Mi
+            limits:
+              memory: 512Mi
+
+  persistence:
+    channels:
+      type: secret
+      name: epg-channels
+      globalMounts:
+        - path: /epg/public/channels.xml
+          subPath: channels.xml
+          readOnly: true
+
+  service:
+    main:
+      ports:
+        http:
+          port: 3000
+
+  route:
+    main:
+      hostnames:
+        - epg.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: 3000
