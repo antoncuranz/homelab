@@ -8,6 +8,8 @@ app-template:
           image:
             repository: ghcr.io/iptv-org/epg
             tag: master
+          env:
+            NODE_OPTIONS: --max-old-space-size=768
           probes:
             liveness:
               enabled: true
@@ -26,7 +28,7 @@ app-template:
               cpu: 10m
               memory: 128Mi
             limits:
-              memory: 512Mi
+              memory: 1Gi
 
   persistence:
     channels:
