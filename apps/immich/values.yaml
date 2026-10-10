@@ -5,7 +5,7 @@ immich:
         main:
           image:
             # renovate: datasource=github-releases depName=immich-app/immich
-            tag: "v2.7.5"
+            tag: "v3.3.1"
           env:
             DB_HOSTNAME:
               valueFrom:
