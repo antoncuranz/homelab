@@ -1,0 +1,62 @@
+app-template:
+  controllers:
+    main:
+      pod:
+        hostNetwork: true
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/home-assistant/home-assistant
+            tag: 2026.10.2
+          env:
+            TZ: Europe/Berlin
+          resources:
+            requests:
+              cpu: 50m
+              memory: 512Mi
+            limits:
+              memory: 1Gi
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /
+                  port: 8123
+                initialDelaySeconds: 60
+
+  persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 2Gi
+      globalMounts:
+        - path: /config
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: homeassistant-dst
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8123
+
+  route:
+    main:
+      hostnames:
+        - homeassistant.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: 8123
