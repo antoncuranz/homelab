@@ -3,6 +3,9 @@ app-template:
     main:
       pod:
         hostNetwork: true
+        # Home Assistant needs the host network for HomeKit/mDNS discovery, but
+        # still needs to resolve the in-cluster Wyoming services.
+        dnsPolicy: ClusterFirstWithHostNet
 
       containers:
         main:
@@ -27,23 +30,123 @@ app-template:
                   port: 8123
                 initialDelaySeconds: 60
 
+    whisper:
+      strategy: Recreate
+
+      containers:
+        main:
+          image:
+            repository: rhasspy/wyoming-whisper
+            tag: 3.8.1
+          args:
+            - --model=small-int8
+            - --language=de
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+            limits:
+              cpu: 2
+              memory: 2Gi
+          probes:
+            liveness: &whisperProbes
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 10300
+            readiness: *whisperProbes
+            startup:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 10300
+                periodSeconds: 5
+                failureThreshold: 120
+
+    piper:
+      strategy: Recreate
+
+      containers:
+        main:
+          image:
+            repository: rhasspy/wyoming-piper
+            tag: 2.5.2
+          args:
+            - --voice=de_DE-thorsten-medium
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          probes:
+            liveness: &piperProbes
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 10200
+            readiness: *piperProbes
+            startup:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 10200
+                periodSeconds: 5
+                failureThreshold: 120
+
   persistence:
     config:
       enabled: true
       accessMode: ReadWriteOnce
       size: 2Gi
-      globalMounts:
-        - path: /config
+      advancedMounts:
+        main:
+          main:
+            - path: /config
       dataSourceRef:
         kind: ReplicationDestination
         apiGroup: volsync.backube
         name: homeassistant-dst
+    whisper-data:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 5Gi
+      advancedMounts:
+        whisper:
+          main:
+            - path: /data
+    piper-data:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 1Gi
+      advancedMounts:
+        piper:
+          main:
+            - path: /data
 
   service:
     main:
+      controller: main
       ports:
         http:
           port: 8123
+    whisper:
+      controller: whisper
+      ports:
+        wyoming:
+          port: 10300
+          protocol: TCP
+    piper:
+      controller: piper
+      ports:
+        wyoming:
+          port: 10200
+          protocol: TCP
 
   route:
     main:
