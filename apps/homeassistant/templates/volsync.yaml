@@ -25,7 +25,7 @@ kind: ReplicationSource
 metadata:
   name: homeassistant
 spec:
-  sourcePVC: homeassistant
+  sourcePVC: homeassistant-config
   trigger:
     schedule: "0 5 * * *"
   restic:
