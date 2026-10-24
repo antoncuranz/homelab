@@ -7,7 +7,7 @@ app-template:
         main:
           image:
             repository: ghostfolio/ghostfolio
-            tag: 3.91.0
+            tag: 3.92.0
           probes:
             liveness:
               enabled: true
