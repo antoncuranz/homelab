@@ -45,9 +45,6 @@ app-template:
             requests:
               cpu: 500m
               memory: 1Gi
-            limits:
-              cpu: 2
-              memory: 2Gi
           probes:
             liveness: &whisperProbes
               enabled: true
@@ -79,9 +76,6 @@ app-template:
             requests:
               cpu: 100m
               memory: 128Mi
-            limits:
-              cpu: 500m
-              memory: 512Mi
           probes:
             liveness: &piperProbes
               enabled: true
