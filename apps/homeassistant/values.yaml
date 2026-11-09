@@ -31,6 +31,7 @@ app-template:
                 initialDelaySeconds: 60
 
     whisper:
+      replicas: 0
       strategy: Recreate
 
       containers:
@@ -63,6 +64,7 @@ app-template:
                 failureThreshold: 120
 
     piper:
+      replicas: 0
       strategy: Recreate
 
       containers:
@@ -90,6 +92,44 @@ app-template:
               spec:
                 tcpSocket:
                   port: 10200
+                periodSeconds: 5
+                failureThreshold: 120
+
+    music-assistant:
+      replicas: 1
+      strategy: Recreate
+      pod:
+        # Required for mDNS/uPnP discovery and streaming to LAN players.
+        hostNetwork: true
+        dnsPolicy: ClusterFirstWithHostNet
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/music-assistant/server
+            tag: 2.10.9
+          env:
+            TZ: Europe/Berlin
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+            limits:
+              memory: 2Gi
+          probes:
+            liveness: &musicAssistantProbes
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 8095
+            readiness: *musicAssistantProbes
+            startup:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 8095
                 periodSeconds: 5
                 failureThreshold: 120
 
@@ -122,6 +162,14 @@ app-template:
         piper:
           main:
             - path: /data
+    music-assistant-data:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 5Gi
+      advancedMounts:
+        music-assistant:
+          main:
+            - path: /data
 
   service:
     main:
@@ -141,6 +189,13 @@ app-template:
         wyoming:
           port: 10200
           protocol: TCP
+    music-assistant:
+      controller: music-assistant
+      ports:
+        http:
+          port: 8095
+        stream:
+          port: 8097
 
   route:
     main:
@@ -157,3 +212,17 @@ app-template:
           backendRefs:
             - identifier: main
               port: 8123
+    music-assistant:
+      hostnames:
+        - musicassistant.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: music-assistant
+              port: 8095
