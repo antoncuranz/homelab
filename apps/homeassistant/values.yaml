@@ -71,7 +71,7 @@ app-template:
         main:
           image:
             repository: rhasspy/wyoming-piper
-            tag: 2.5.2
+            tag: 2.5.3
           args:
             - --voice=de_DE-thorsten-medium
           resources:
