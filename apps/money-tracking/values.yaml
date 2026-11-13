@@ -81,7 +81,7 @@ frontend:
   route:
     main:
       hostnames:
-        - money-tracking.serverton.de
+        - dollar.serverton.de
       parentRefs:
         - name: envoy-gateway
           namespace: envoy-gateway
