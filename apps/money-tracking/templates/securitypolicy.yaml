@@ -15,6 +15,6 @@ spec:
     clientID: oauth2-proxy
     clientSecret:
       name: oauth2-secrets
-    redirectURL: https://money-tracking.serverton.de/oauth2/callback
+    redirectURL: https://dollar.serverton.de/oauth2/callback
     logoutPath: /oauth2/logout
     forwardAccessToken: true

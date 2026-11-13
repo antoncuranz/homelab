@@ -154,7 +154,7 @@ jellyseerr:
   route:
     main:
       hostnames:
-        - jellyseerr.serverton.de
+        - seerr.serverton.de
       parentRefs:
         - name: envoy-gateway
           namespace: envoy-gateway
