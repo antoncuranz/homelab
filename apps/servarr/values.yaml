@@ -53,6 +53,8 @@ jellyfin:
       enabled: true
       accessMode: ReadWriteOnce
       size: 50Gi
+      storageClass: zfs
+      volumeName: pvc-cd1adc69-3d2a-4d78-9c2f-2adab2b7462e
     cache:
       enabled: true
       type: emptyDir

@@ -15,7 +15,8 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - kind: Secret
+          - group: ""
+            kind: Secret
             name: wildcard-serverton-de-tls
       allowedRoutes:
         namespaces:
@@ -27,7 +28,8 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - kind: Secret
+          - group: ""
+            kind: Secret
             name: serverton-de-tls
       allowedRoutes:
         namespaces:
