@@ -1,0 +1,4 @@
+apiVersion: v2
+name: agent-access
+description: Read-only ServiceAccount for AI agents (kubeconfig is generated on serverton, see nix-config nixos/agent-access)
+version: 0.0.0

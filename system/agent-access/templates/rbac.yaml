@@ -1,0 +1,47 @@
+# built-in "view": read most namespaced resources incl. pods/log, but NOT secrets
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ai-agent-view
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+subjects:
+  - kind: ServiceAccount
+    name: ai-agent
+    namespace: {{ .Release.Namespace }}
+---
+# cluster-scoped core resources and CRD groups not covered by "view"
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ai-agent-cluster-read
+rules:
+  - apiGroups: [""]
+    resources:
+      - nodes
+      - nodes/status
+      - persistentvolumes
+      - namespaces
+      - componentstatuses
+    verbs: [get, list, watch]
+  - apiGroups:
+    {{- toYaml .Values.readOnlyApiGroups | nindent 6 }}
+    resources: ["*"]
+    verbs: [get, list, watch]
+  - nonResourceURLs: [/healthz, /livez, /readyz, /version, "/livez/*", "/readyz/*"]
+    verbs: [get]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ai-agent-cluster-read
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ai-agent-cluster-read
+subjects:
+  - kind: ServiceAccount
+    name: ai-agent
+    namespace: {{ .Release.Namespace }}
