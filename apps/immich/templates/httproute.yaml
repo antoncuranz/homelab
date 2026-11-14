@@ -17,3 +17,4 @@ spec:
       backendRefs:
         - name: immich-server
           port: 2283
+          weight: 1
