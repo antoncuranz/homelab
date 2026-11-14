@@ -107,7 +107,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/music-assistant/server
-            tag: 2.10.11
+            tag: 2.10.12
           env:
             TZ: Europe/Berlin
           resources:
