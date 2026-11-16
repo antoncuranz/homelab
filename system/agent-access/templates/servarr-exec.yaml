@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ai-agent-exec
+  namespace: servarr
+rules:
+  - apiGroups: [""]
+    resources: [pods/exec]
+    verbs: [create]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ai-agent-exec
+  namespace: servarr
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ai-agent-exec
+subjects:
+  - kind: ServiceAccount
+    name: ai-agent
+    namespace: {{ .Release.Namespace }}
