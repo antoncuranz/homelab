@@ -38,7 +38,7 @@ app-template:
         main:
           image:
             repository: rhasspy/wyoming-whisper
-            tag: 3.8.1
+            tag: 3.9.0
           args:
             - --model=small-int8
             - --language=de
