@@ -7,7 +7,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/iptv-org/epg
-            tag: master
+            tag: master@sha256:f03b79e0e6e27d94e5234bd38a33fe4fc53234b12c73ad8bfd304a6f1eef8492
           env:
             NODE_OPTIONS: --max-old-space-size=768
           probes:

@@ -24,7 +24,7 @@ jellyfin:
         main:
           image:
             repository: jellyfin/jellyfin
-            tag: 12.4
+            tag: "12.4" # quoted: unquoted 12.10 would render as 12.1
           env:
             TZ: Europe/Berlin
           resources:
