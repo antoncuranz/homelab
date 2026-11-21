@@ -18,7 +18,7 @@ all_charts() {
 changed_charts() {
   local files
   files=$(git diff --name-only "$(git merge-base "$1" HEAD)" HEAD)
-  if grep -qE '^(ci/|\.kube-linter\.yaml$|\.github/workflows/lint\.yaml$)' <<<"$files"; then
+  if grep -qE '^(ci/|\.kube-linter\.yaml$|(\.github|\.forgejo)/workflows/lint\.yaml$)' <<<"$files"; then
     echo "lint setup changed, linting all charts" >&2
     all_charts; return
   fi
