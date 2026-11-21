@@ -7,7 +7,7 @@ app-template:
         main:
           image:
             repository: crocodilestick/calibre-web-automated
-            tag: latest
+            tag: v4.0.8
           env:
             CALIBRE_PORT: "8083"
             PUID: 1000

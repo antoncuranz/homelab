@@ -4,6 +4,7 @@ argo-cd:
   configs:
     params:
       server.insecure: true
+      controller.diff.server.side: true # server-side diff for all apps
     cm:
       timeout.reconciliation: 3600s # 1h
       resource.customizations.health.argoproj.io_Application: |

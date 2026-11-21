@@ -1,0 +1,21 @@
+# kube-linter runs on the rendered output of every chart (ci/lint.sh), including
+# upstream charts we don't control. Default checks, minus the ones that are noise here.
+#
+# Only checks that would fire for most charts are excluded here. Exceptions for single
+# resources go on the object itself (metadata, not the pod template), via the chart values:
+#   ignore-check.kube-linter.io/<check>: "<reason>"
+checks:
+  addAllBuiltIn: false
+  exclude:
+    # homelab: no resource limits, many images that need a writable fs / run as root
+    - unset-cpu-requirements
+    - unset-memory-requirements
+    - no-read-only-root-fs
+    - run-as-non-root
+    # bjw-s app-template only defines ports on the Service, not on the container
+    - liveness-port
+    - readiness-port
+    - startup-port
+    # only fire on upstream objects that have no annotation value
+    - dangling-service # kube-prometheus-stack coredns/etcd Services select kube-system pods
+    - deprecated-service-account-field # democratic-csi, snapshot-controller

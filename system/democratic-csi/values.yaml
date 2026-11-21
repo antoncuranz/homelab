@@ -1,4 +1,18 @@
 democratic-csi:
+  node:
+    annotations:
+      ignore-check.kube-linter.io/host-network: "CSI node plugin mounts host volumes"
+      ignore-check.kube-linter.io/host-ipc: "CSI node plugin mounts host volumes"
+      ignore-check.kube-linter.io/privileged-container: "CSI node plugin mounts host volumes"
+      ignore-check.kube-linter.io/privilege-escalation-container: "CSI node plugin mounts host volumes"
+      ignore-check.kube-linter.io/sensitive-host-mounts: "CSI node plugin mounts host volumes"
+      ignore-check.kube-linter.io/drop-net-raw-capability: "CSI node plugin mounts host volumes"
+    driver:
+      image:
+        registry: ghcr.io/democratic-csi/democratic-csi
+        # renovate: datasource=docker depName=ghcr.io/democratic-csi/democratic-csi
+        tag: "v1.9.5"
+
   driver:
     config:
       driver: zfs-local-dataset
@@ -19,6 +33,11 @@ democratic-csi:
 
   controller:
     enabled: true
+    driver:
+      image:
+        registry: ghcr.io/democratic-csi/democratic-csi
+        # renovate: datasource=docker depName=ghcr.io/democratic-csi/democratic-csi
+        tag: "v1.9.5"
     strategy: node
     externalProvisioner:
       extraArgs:

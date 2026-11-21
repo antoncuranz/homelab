@@ -3,6 +3,7 @@ external-dns:
     - ingress
     - gateway-httproute
   provider: cloudflare
+  policy: upsert-only # required since chart 1.24.0; previous default
   txtOwnerId: homelab
   env:
     - name: CF_API_TOKEN

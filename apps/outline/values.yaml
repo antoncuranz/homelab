@@ -7,8 +7,8 @@ app-template:
       containers:
         main:
           image:
-            repository: docker.getoutline.com/outlinewiki/outline
-            tag: latest
+            repository: outlinewiki/outline # docker.getoutline.com redirects here; Renovate can only query Docker Hub
+            tag: 1.13.0
           env:
             URL: "https://outline.serverton.de"
             REDIS_URL: "redis://localhost:6379"

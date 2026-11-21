@@ -2,6 +2,8 @@ cert-manager:
   config:
     enableGatewayAPI: true
   installCRDs: true
+  startupapicheck:
+    ttlSecondsAfterFinished: 3600
   prometheus:
     enabled: true
     servicemonitor:

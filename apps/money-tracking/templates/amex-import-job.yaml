@@ -16,7 +16,7 @@ spec:
         spec:
           containers:
             - name: amex-import-container
-              image: ghcr.io/antoncuranz/money-tracking/scripts:latest
+              image: ghcr.io/antoncuranz/money-tracking/scripts:latest@sha256:6feb7e875cc88dd9df637146f2bf6f7fff0f46017dc15cba5ebf6cfdcabae924
               imagePullPolicy: Always
               command:
                 - /bin/sh

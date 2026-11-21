@@ -4,6 +4,8 @@ tc4400-exporter:
 
   controllers:
     main:
+      annotations:
+        ignore-check.kube-linter.io/host-network: "reaches the cable modem via the host network"
       pod:
         hostNetwork: true
         dnsPolicy: ClusterFirstWithHostNet
@@ -12,7 +14,7 @@ tc4400-exporter:
         main:
           image:
             repository: ghcr.io/antoncuranz/tc4400_exporter
-            tag: latest
+            tag: latest@sha256:7c083677bc6d1a043ca322fafc5b32822323c64d01e46a5e48c95852e07d8120
             pullPolicy: IfNotPresent
           envFrom:
             - secretRef:
@@ -49,7 +51,7 @@ docsight:
         main:
           image:
             repository: ghcr.io/itsdnns/docsight
-            tag: latest
+            tag: v2026-11-18.1
             pullPolicy: IfNotPresent
           probes:
             liveness: &docsightProbes

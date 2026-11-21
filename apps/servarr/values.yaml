@@ -24,7 +24,7 @@ jellyfin:
         main:
           image:
             repository: jellyfin/jellyfin
-            tag: 12.4
+            tag: "12.4" # quoted: unquoted 12.10 would render as 12.1
           env:
             TZ: Europe/Berlin
           resources:
@@ -522,7 +522,7 @@ transmission:
         01-init-themes:
           image:
             repository: registry.gitlab.com/antoncuranz/transmission-themes
-            tag: latest
+            tag: latest@sha256:f5e74d7fc5b1f3b2c644e4178341cbc938149e7a95e0454581310ec447b9e72d
           command:
             - sh
           args:
