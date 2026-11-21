@@ -17,7 +17,12 @@ app-template:
           env:
             FORGEJO__server__DOMAIN: git.cura.nz
             FORGEJO__server__ROOT_URL: https://git.cura.nz/
-            FORGEJO__server__DISABLE_SSH: "true"
+            FORGEJO__server__DISABLE_SSH: "false"
+            FORGEJO__server__START_SSH_SERVER: "true"
+            FORGEJO__server__BUILTIN_SSH_SERVER_USER: git
+            FORGEJO__server__SSH_DOMAIN: git.cura.nz
+            FORGEJO__server__SSH_PORT: "22"
+            FORGEJO__server__SSH_LISTEN_PORT: "2222"
             FORGEJO__service__DISABLE_REGISTRATION: "true"
             FORGEJO__security__INSTALL_LOCK: "true"
             FORGEJO__database__DB_TYPE: postgres
@@ -141,6 +146,18 @@ app-template:
       ports:
         http:
           port: 3000
+    ssh:
+      controller: main
+      type: LoadBalancer
+      annotations:
+        lbipam.cilium.io/sharing-key: default
+        lbipam.cilium.io/sharing-cross-namespace: "*"
+        lbipam.cilium.io/ips: 192.168.1.11
+      ports:
+        ssh:
+          port: 22
+          targetPort: 2222
+          protocol: TCP
   route:
     main:
       hostnames:

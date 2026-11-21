@@ -20,3 +20,15 @@ ExternalSecret creates the runner configuration from those fields; do not
 commit the token. Once the secret has synchronized and the pod is ready, check
 that the runner is online in Forgejo and run a test workflow. The runner uses
 `https://git.cura.nz/`, so DNS and TLS must work from the pod and job containers.
+
+## Git over SSH
+
+Forgejo's built-in SSH server listens on container port 2222. Its load balancer
+service exposes TCP port 22 on `192.168.1.11`; forward public TCP port 22 to
+that address on the router for external access. Ensure DNS points SSH clients to
+a reachable address: the LAN DNS currently resolves `git.cura.nz` to the web
+gateway at `192.168.1.13`, which does not route SSH. LAN clients can test via
+`ssh -T git@192.168.1.11`. Add your public key under **Settings → SSH / GPG
+Keys**. From an external network, test with `ssh -T git@git.cura.nz`.
+The built-in server's host keys are stored in the persistent Forgejo data volume
+and should be included in backups.
