@@ -23,6 +23,7 @@ app-template:
             FORGEJO__server__SSH_DOMAIN: git.cura.nz
             FORGEJO__server__SSH_PORT: "22"
             FORGEJO__server__SSH_LISTEN_PORT: "2222"
+            FORGEJO__webhook__ALLOWED_HOST_LIST: "external,argocd.serverton.de"
             FORGEJO__service__DISABLE_REGISTRATION: "true"
             FORGEJO__security__INSTALL_LOCK: "true"
             FORGEJO__database__DB_TYPE: postgres
