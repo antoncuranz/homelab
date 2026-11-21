@@ -17,3 +17,4 @@ spec:
       backendRefs:
         - name: authentication-keycloak
           port: 80
+          weight: 1
