@@ -49,7 +49,18 @@ jobs:
         env:
           LINT_OUT: ${{ runner.temp }}/lint-rendered
           BASE_REF: origin/${{ forgejo.base_ref }}
-        run: ci/manifest-diff.sh "$BASE_REF"
+        run: |
+          set -o pipefail
+          {
+            echo '# Rendered manifest diff'
+            echo
+            echo '```diff'
+            ci/manifest-diff.sh "$BASE_REF" || exit $?
+            echo '```'
+          } | tee "$RUNNER_TEMP/manifest-diff.md"
+          if [ -n "${FORGEJO_STEP_SUMMARY:-}" ]; then
+            cat "$RUNNER_TEMP/manifest-diff.md" >> "$FORGEJO_STEP_SUMMARY"
+          fi
 
       - name: Render and lint all charts
         if: forgejo.event_name != 'pull_request'
