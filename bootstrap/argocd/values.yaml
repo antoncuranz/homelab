@@ -6,7 +6,7 @@ argo-cd:
       server.insecure: true
       controller.diff.server.side: true # server-side diff for all apps
     cm:
-      timeout.reconciliation: 3600s # 1h
+      timeout.reconciliation: 86400s # 24h
       accounts.ai-agent: apiKey
       resource.customizations.health.argoproj.io_Application: |
         hs = {}
