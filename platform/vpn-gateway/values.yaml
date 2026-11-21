@@ -17,6 +17,10 @@ pod-gateway:
               readOnly: true
   controllers:
     main:
+      annotations:
+        ignore-check.kube-linter.io/privileged-container: "VPN gateway configures routing and iptables"
+        ignore-check.kube-linter.io/privilege-escalation-container: "VPN gateway configures routing and iptables"
+        ignore-check.kube-linter.io/drop-net-raw-capability: "VPN gateway configures routing and iptables"
       containers:
         main:
           image:

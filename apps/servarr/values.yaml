@@ -505,6 +505,8 @@ transmission:
 
   controllers:
     main:
+      annotations:
+        ignore-check.kube-linter.io/latest-tag: "own theme image, deployed from :latest"
       replicas: 0
       strategy: RollingUpdate
 

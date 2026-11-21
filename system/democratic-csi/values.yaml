@@ -1,4 +1,14 @@
 democratic-csi:
+  node:
+    annotations:
+      ignore-check.kube-linter.io/host-network: "CSI node plugin mounts host volumes"
+      ignore-check.kube-linter.io/host-ipc: "CSI node plugin mounts host volumes"
+      ignore-check.kube-linter.io/privileged-container: "CSI node plugin mounts host volumes"
+      ignore-check.kube-linter.io/privilege-escalation-container: "CSI node plugin mounts host volumes"
+      ignore-check.kube-linter.io/sensitive-host-mounts: "CSI node plugin mounts host volumes"
+      ignore-check.kube-linter.io/drop-net-raw-capability: "CSI node plugin mounts host volumes"
+      ignore-check.kube-linter.io/latest-tag: "chart default image tag, not pinned yet"
+
   driver:
     config:
       driver: zfs-local-dataset

@@ -4,6 +4,9 @@ tc4400-exporter:
 
   controllers:
     main:
+      annotations:
+        ignore-check.kube-linter.io/host-network: "reaches the cable modem via the host network"
+        ignore-check.kube-linter.io/latest-tag: "own image, deployed from :latest"
       pod:
         hostNetwork: true
         dnsPolicy: ClusterFirstWithHostNet
@@ -39,6 +42,8 @@ docsight:
 
   controllers:
     main:
+      annotations:
+        ignore-check.kube-linter.io/latest-tag: "upstream image not pinned yet"
       replicas: 0
       pod:
         securityContext:

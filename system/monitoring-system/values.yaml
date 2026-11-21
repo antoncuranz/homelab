@@ -1,4 +1,10 @@
 kube-prometheus-stack:
+  prometheus-node-exporter:
+    daemonsetAnnotations:
+      ignore-check.kube-linter.io/host-network: "node-exporter reads host metrics"
+      ignore-check.kube-linter.io/host-pid: "node-exporter reads host metrics"
+      ignore-check.kube-linter.io/sensitive-host-mounts: "node-exporter reads host metrics"
+
   grafana:
     enabled: false
     forceDeployDatasources: true

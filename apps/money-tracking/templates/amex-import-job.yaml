@@ -3,6 +3,8 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: amex-import
+  annotations:
+    ignore-check.kube-linter.io/latest-tag: "own image, deployed from :latest"
 spec:
   schedule: "@hourly"
   successfulJobsHistoryLimit: 0

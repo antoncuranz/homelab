@@ -1,5 +1,9 @@
 # kube-linter runs on the rendered output of every chart (ci/lint.sh), including
 # upstream charts we don't control. Default checks, minus the ones that are noise here.
+#
+# Only checks that would fire for most charts are excluded here. Exceptions for single
+# resources go on the object itself (metadata, not the pod template), via the chart values:
+#   ignore-check.kube-linter.io/<check>: "<reason>"
 checks:
   addAllBuiltIn: false
   exclude:
@@ -12,18 +16,6 @@ checks:
     - liveness-port
     - readiness-port
     - startup-port
-    # own images are deployed from :latest on purpose
-    - latest-tag
-    # node-level infra (cilium, democratic-csi, node-exporter, vpn-gateway, homeassistant)
-    - host-network
-    - host-pid
-    - host-ipc
-    - privileged-container
-    - privilege-escalation-container
-    - sensitive-host-mounts
-    - drop-net-raw-capability
-    # false positives / not fixable in upstream charts
-    - dangling-service # pods created by operators (prometheus, alertmanager) or kube-system
-    - deprecated-service-account-field
-    - pdb-unhealthy-pod-eviction-policy
-    - job-ttl-seconds-after-finished
+    # only fire on upstream objects that have no annotation value
+    - dangling-service # kube-prometheus-stack coredns/etcd Services select kube-system pods
+    - deprecated-service-account-field # democratic-csi, snapshot-controller

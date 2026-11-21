@@ -2,6 +2,10 @@ keycloak:
   image:
     repository: bitnamilegacy/keycloak
   production: true
+  statefulsetAnnotations:
+    ignore-check.kube-linter.io/latest-tag: "own theme image, deployed from :latest"
+  commonAnnotations: # the PDB has no annotation value of its own
+    ignore-check.kube-linter.io/pdb-unhealthy-pod-eviction-policy: "upstream chart has no setting for it"
   proxy: edge
   proxyHeaders: xforwarded
   resourcesPreset: "2xlarge"

@@ -29,10 +29,16 @@ else
   done
 fi
 
-out=$(mktemp -d)
-trap 'rm -rf "$out"' EXIT
+# set LINT_OUT=<dir> to keep the rendered manifests for inspection
+if [[ -n ${LINT_OUT:-} ]]; then
+  out=$LINT_OUT; mkdir -p "$out"
+else
+  out=$(mktemp -d)
+  trap 'rm -rf "$out"' EXIT
+fi
 
-helm_args=()
+# Argo CD ignores helm test hooks, so don't lint them either
+helm_args=(--skip-tests)
 for v in "${API_VERSIONS[@]}"; do helm_args+=(--api-versions "$v"); done
 
 failed=()

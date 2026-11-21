@@ -1,4 +1,15 @@
 cilium:
+  annotations:
+    ignore-check.kube-linter.io/host-network: "CNI agent needs full host access"
+    ignore-check.kube-linter.io/privileged-container: "CNI agent needs full host access"
+    ignore-check.kube-linter.io/privilege-escalation-container: "CNI agent needs full host access"
+    ignore-check.kube-linter.io/sensitive-host-mounts: "CNI agent needs full host access"
+    ignore-check.kube-linter.io/drop-net-raw-capability: "CNI agent needs full host access"
+  envoy:
+    annotations:
+      ignore-check.kube-linter.io/host-network: "node-local proxy for the CNI"
+      ignore-check.kube-linter.io/privilege-escalation-container: "node-local proxy for the CNI"
+
   kubeProxyReplacement: true
   k8sServiceHost: 192.168.1.2
   k8sServicePort: 6443
@@ -16,6 +27,8 @@ cilium:
     burst: 40
 
   operator:
+    annotations:
+      ignore-check.kube-linter.io/host-network: "must run before pod networking is up"
     replicas: 1
     rollOutPods: true
 

@@ -1,6 +1,8 @@
 app-template:
   controllers:
     main:
+      annotations:
+        ignore-check.kube-linter.io/host-network: "device discovery on the LAN (mDNS/SSDP)"
       pod:
         hostNetwork: true
         # Home Assistant needs the host network for HomeKit/mDNS discovery, but
@@ -96,6 +98,8 @@ app-template:
                 failureThreshold: 120
 
     music-assistant:
+      annotations:
+        ignore-check.kube-linter.io/host-network: "speaker discovery on the LAN (mDNS)"
       replicas: 1
       strategy: Recreate
       pod:

@@ -1,6 +1,8 @@
 app-template:
   controllers:
     main:
+      annotations:
+        ignore-check.kube-linter.io/latest-tag: "own image, deployed from :latest"
       strategy: RollingUpdate
 
       containers:
