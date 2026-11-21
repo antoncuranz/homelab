@@ -44,3 +44,11 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: forgejo-ssh
+      port: 22
+      protocol: TCP
+      allowedRoutes:
+        kinds:
+          - kind: TCPRoute
+        namespaces:
+          from: All
