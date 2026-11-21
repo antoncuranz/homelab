@@ -1,11 +1,9 @@
 name: Lint
 
 # No `paths:` filter: lint is a required check, so it has to report on every PR.
-# PRs only lint the charts they touch; pushes to main and manual runs lint everything.
+# PRs only lint the charts they touch; manual runs lint everything.
 on:
   pull_request:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
