@@ -1,9 +1,12 @@
 name: Lint
 
+# No `paths:` filter: lint is a required check, so it has to report on every PR.
+# PRs only lint the charts they touch; pushes to main and manual runs lint everything.
 on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -21,6 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # needed to diff against the PR base
 
       - uses: azure/setup-helm@v5
         with:
@@ -42,5 +47,10 @@ jobs:
           key: helm-${{ hashFiles('**/Chart.yaml') }}
           restore-keys: helm-
 
-      - name: Render and lint charts
+      - name: Render and lint changed charts
+        if: github.event_name == 'pull_request'
+        run: ci/lint.sh --changed "origin/${{ github.base_ref }}"
+
+      - name: Render and lint all charts
+        if: github.event_name != 'pull_request'
         run: ci/lint.sh

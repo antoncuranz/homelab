@@ -1,11 +1,31 @@
 #!/usr/bin/env bash
 # Render every Helm chart the way Argo CD does and lint the output.
 #
-# Usage: ci/lint.sh [chart-dir...]   (default: all charts in bootstrap/ system/ platform/ apps/)
+# Usage: ci/lint.sh [chart-dir...]          lint the given charts (default: all charts)
+#        ci/lint.sh --changed [base-ref]    lint charts changed since base-ref (default: origin/main)
 # Requires: helm, kubeconform, kube-linter
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
+
+all_charts() {
+  for f in bootstrap/*/Chart.yaml system/*/Chart.yaml platform/*/Chart.yaml apps/*/Chart.yaml; do
+    dirname "$f"
+  done
+}
+
+# chart dirs touched since the merge base with $1; all charts if the lint setup itself changed
+changed_charts() {
+  local files
+  files=$(git diff --name-only "$(git merge-base "$1" HEAD)" HEAD)
+  if grep -qE '^(ci/|\.kube-linter\.yaml$|\.github/workflows/lint\.yaml$)' <<<"$files"; then
+    echo "lint setup changed, linting all charts" >&2
+    all_charts; return
+  fi
+  grep -oE '^(bootstrap|system|platform|apps)/[^/]+/' <<<"$files" | sort -u | while read -r dir; do
+    [[ -f $dir/Chart.yaml ]] && echo "${dir%/}" # skips deleted charts
+  done
+}
 
 # CRD schemas that are not part of upstream Kubernetes (ExternalSecret, HTTPRoute, ServiceMonitor, ...)
 CRD_SCHEMAS='https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json'
@@ -20,14 +40,19 @@ API_VERSIONS=(
   postgresql.cnpg.io/v1
 )
 
-if [[ $# -gt 0 ]]; then
+if [[ ${1:-} == --changed ]]; then
+  charts=(); while IFS= read -r c; do charts+=("$c"); done < <(changed_charts "${2:-origin/main}")
+elif [[ $# -gt 0 ]]; then
   charts=("$@")
 else
-  charts=()
-  for f in bootstrap/*/Chart.yaml system/*/Chart.yaml platform/*/Chart.yaml apps/*/Chart.yaml; do
-    charts+=("$(dirname "$f")")
-  done
+  charts=(); while IFS= read -r c; do charts+=("$c"); done < <(all_charts)
 fi
+
+if [[ ${#charts[@]} -eq 0 ]]; then
+  echo "No charts changed, nothing to lint."
+  exit 0
+fi
+echo "Linting: ${charts[*]}"
 
 # set LINT_OUT=<dir> to keep the rendered manifests for inspection
 if [[ -n ${LINT_OUT:-} ]]; then
@@ -56,6 +81,11 @@ for chart in "${charts[@]}"; do
     failed+=("$chart"); continue
   fi
 done
+
+if ! compgen -G "$out/*.yaml" >/dev/null; then
+  echo "FAILED: ${failed[*]}" >&2
+  exit 1
+fi
 
 echo "--- kubeconform"
 kubeconform -strict -summary -ignore-missing-schemas \
