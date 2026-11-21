@@ -8,8 +8,14 @@ app-template:
         main:
           image:
             repository: ghcr.io/paperless-ngx/paperless-ngx
-            tag: 2.20.15
+            tag: 3.5.1
           env:
+            PAPERLESS_DBENGINE: postgresql
+            PAPERLESS_SECRET_KEY:
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: PAPERLESS_SECRET_KEY
             PAPERLESS_DBHOST:
               valueFrom:
                 secretKeyRef:
