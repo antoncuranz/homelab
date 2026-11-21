@@ -1,6 +1,7 @@
 app-template:
   controllers:
     main:
+      forceRename: forgejo
       strategy: Recreate
       pod:
         securityContext:
@@ -56,6 +57,56 @@ app-template:
                 httpGet:
                   path: /api/healthz
                   port: 3000
+    runner:
+      strategy: Recreate
+      annotations:
+        ignore-check.kube-linter.io/privileged-container: "Dedicated Docker daemon runs job containers"
+        ignore-check.kube-linter.io/privilege-escalation-container: "Docker-in-Docker requires privileged mode"
+        ignore-check.kube-linter.io/drop-net-raw-capability: "Docker-in-Docker manages container networking"
+      pod:
+        automountServiceAccountToken: false
+      containers:
+        main:
+          image:
+            repository: data.forgejo.org/forgejo/runner
+            tag: 13.1.0
+          command: ["forgejo-runner", "daemon", "--config", "/config/config.yaml"]
+          env:
+            DOCKER_HOST: tcp://127.0.0.1:2375
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              memory: 512Mi
+        docker:
+          image:
+            repository: docker
+            tag: 28.5.2-dind
+          args: ["dockerd", "--host=tcp://127.0.0.1:2375", "--tls=false"]
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 4Gi
+          probes:
+            readiness:
+              enabled: true
+              custom: true
+              spec:
+                exec:
+                  command: ["docker", "-H", "tcp://127.0.0.1:2375", "info"]
+                initialDelaySeconds: 5
+                periodSeconds: 10
   persistence:
     data:
       enabled: true
@@ -65,10 +116,28 @@ app-template:
         kind: ReplicationDestination
         apiGroup: volsync.backube
         name: forgejo-dst
-      globalMounts:
-        - path: /var/lib/gitea
+      advancedMounts:
+        main:
+          main:
+            - path: /var/lib/gitea
+    runner-config:
+      type: secret
+      name: forgejo-runner
+      advancedMounts:
+        runner:
+          main:
+            - path: /config
+              readOnly: true
+    runner-docker-data:
+      type: emptyDir
+      sizeLimit: 20Gi
+      advancedMounts:
+        runner:
+          docker:
+            - path: /var/lib/docker
   service:
     main:
+      controller: main
       ports:
         http:
           port: 3000
