@@ -66,16 +66,41 @@ fi
 helm_args=(--skip-tests)
 for v in "${API_VERSIONS[@]}"; do helm_args+=(--api-versions "$v"); done
 
+# Own repo config/cache, so the user's `helm repo list` is neither used nor refreshed.
+# `helm dependency update` would otherwise refresh every configured repo for every chart.
+helm_home=${HELM_LINT_HOME:-${XDG_CACHE_HOME:-$HOME/.cache}/homelab-lint}
+export HELM_REPOSITORY_CONFIG=$helm_home/repositories.yaml HELM_REPOSITORY_CACHE=$helm_home/repository
+mkdir -p "$HELM_REPOSITORY_CACHE"
+
+# true if charts/ already holds every dependency at the version in Chart.yaml
+deps_ok() {
+  helm dependency list "$1" 2>/dev/null | awk 'NR > 1 && NF && $NF != "ok" { bad = 1 } END { exit bad }'
+}
+
+stale=()
+for chart in "${charts[@]}"; do
+  deps_ok "${chart%/}" || stale+=("${chart%/}")
+done
+
+if [[ ${#stale[@]} -gt 0 ]]; then
+  echo "Fetching dependencies for: ${stale[*]}"
+  # add each HTTP repo once (OCI deps need no repo), then refresh all indexes once
+  for url in $(sed -nE 's/^[[:space:]-]*repository:[[:space:]]*"?(https?:\/\/[^" ]+)"?.*/\1/p' \
+                 "${stale[@]/%//Chart.yaml}" | sed 's:/*$::' | sort -u); do
+    helm repo add --force-update "$(tr -c 'a-zA-Z0-9\n' - <<<"${url#*://}")" "$url" >/dev/null
+  done
+  [[ -s $HELM_REPOSITORY_CONFIG ]] && helm repo update >/dev/null
+fi
+
 failed=()
 for chart in "${charts[@]}"; do
   chart=${chart%/}
   name=$(basename "$chart")
-  # same release name/namespace as the ApplicationSet in bootstrap/root/templates/stack.yaml
-  # "update" (not "build") works without `helm repo add` and with the gitignored Chart.lock
-  if ! helm dependency update "$chart" >/dev/null; then
+  if [[ " ${stale[*]-} " == *" $chart "* ]] && ! helm dependency update --skip-refresh "$chart" >/dev/null; then
     echo "::error file=$chart/Chart.yaml::helm dependency update failed for $chart"
     failed+=("$chart"); continue
   fi
+  # same release name/namespace as the ApplicationSet in bootstrap/root/templates/stack.yaml
   if ! helm template "$name" "$chart" --namespace "$name" "${helm_args[@]}" >"$out/$name.yaml"; then
     echo "::error file=$chart/values.yaml::helm template failed for $chart"
     failed+=("$chart"); continue

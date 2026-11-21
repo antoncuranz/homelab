@@ -39,11 +39,14 @@ jobs:
           chmod +x "$HOME/.local/bin/kube-linter"
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
+      # repo indexes + downloaded charts; ci/lint.sh re-fetches only charts whose versions changed
       - uses: actions/cache@v6
         with:
-          path: ~/.cache/helm
-          key: helm-${{ hashFiles('**/Chart.yaml') }}
-          restore-keys: helm-
+          path: |
+            ~/.cache/homelab-lint
+            */*/charts
+          key: helm-deps-${{ hashFiles('*/*/Chart.yaml') }}
+          restore-keys: helm-deps-
 
       - name: Render and lint changed charts
         if: github.event_name == 'pull_request'
