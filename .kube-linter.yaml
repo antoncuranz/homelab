@@ -1,0 +1,29 @@
+# kube-linter runs on the rendered output of every chart (ci/lint.sh), including
+# upstream charts we don't control. Default checks, minus the ones that are noise here.
+checks:
+  addAllBuiltIn: false
+  exclude:
+    # homelab: no resource limits, many images that need a writable fs / run as root
+    - unset-cpu-requirements
+    - unset-memory-requirements
+    - no-read-only-root-fs
+    - run-as-non-root
+    # bjw-s app-template only defines ports on the Service, not on the container
+    - liveness-port
+    - readiness-port
+    - startup-port
+    # own images are deployed from :latest on purpose
+    - latest-tag
+    # node-level infra (cilium, democratic-csi, node-exporter, vpn-gateway, homeassistant)
+    - host-network
+    - host-pid
+    - host-ipc
+    - privileged-container
+    - privilege-escalation-container
+    - sensitive-host-mounts
+    - drop-net-raw-capability
+    # false positives / not fixable in upstream charts
+    - dangling-service # pods created by operators (prometheus, alertmanager) or kube-system
+    - deprecated-service-account-field
+    - pdb-unhealthy-pod-eviction-policy
+    - job-ttl-seconds-after-finished

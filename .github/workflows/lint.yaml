@@ -1,0 +1,46 @@
+name: Lint
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  # renovate: datasource=github-releases depName=helm/helm
+  HELM_VERSION: "v3.20.2"
+  # renovate: datasource=github-releases depName=yannh/kubeconform
+  KUBECONFORM_VERSION: "v0.8.0"
+  # renovate: datasource=github-releases depName=stackrox/kube-linter
+  KUBE_LINTER_VERSION: "v0.8.3"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: azure/setup-helm@v5
+        with:
+          version: ${{ env.HELM_VERSION }}
+
+      - name: Install kubeconform and kube-linter
+        run: |
+          mkdir -p "$HOME/.local/bin"
+          curl -sSfL "https://github.com/yannh/kubeconform/releases/download/${KUBECONFORM_VERSION}/kubeconform-linux-amd64.tar.gz" \
+            | tar xz -C "$HOME/.local/bin" kubeconform
+          curl -sSfL -o "$HOME/.local/bin/kube-linter" \
+            "https://github.com/stackrox/kube-linter/releases/download/${KUBE_LINTER_VERSION}/kube-linter-linux"
+          chmod +x "$HOME/.local/bin/kube-linter"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/helm
+          key: helm-${{ hashFiles('**/Chart.yaml') }}
+          restore-keys: helm-
+
+      - name: Render and lint charts
+        run: ci/lint.sh

@@ -3,12 +3,10 @@
   "extends": [
     "config:recommended",
     ":disableRateLimiting",
-    ":automergeMinor",
-    ":automergeBranch"
+    ":automergeMinor"
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "commitMessageExtra": "from {{{displayFrom}}} to {{{displayTo}}}",
-  "requiredStatusChecks": null,
   "packageRules": [
     {
       "packagePatterns": ["^ghcr.io\\/linuxserver\\/"],
