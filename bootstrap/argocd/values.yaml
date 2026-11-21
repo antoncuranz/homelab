@@ -7,6 +7,7 @@ argo-cd:
       controller.diff.server.side: true # server-side diff for all apps
     cm:
       timeout.reconciliation: 3600s # 1h
+      accounts.ai-agent: apiKey
       resource.customizations.health.argoproj.io_Application: |
         hs = {}
         hs.status = "Progressing"
@@ -20,6 +21,9 @@ argo-cd:
           end
         end
         return hs
+    rbac:
+      policy.csv: |
+        p, ai-agent, applications, get, default/*, allow
   server:
     ingress:
       enabled: false
