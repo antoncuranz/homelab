@@ -3,8 +3,7 @@ cert-manager:
     enableGatewayAPI: true
   installCRDs: true
   startupapicheck:
-    jobAnnotations: # merged with the chart's helm.sh/hook annotations
-      ignore-check.kube-linter.io/job-ttl-seconds-after-finished: "helm hook, removed by hook-delete-policy"
+    ttlSecondsAfterFinished: 3600
   prometheus:
     enabled: true
     servicemonitor:

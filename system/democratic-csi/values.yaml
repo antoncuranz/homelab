@@ -7,7 +7,11 @@ democratic-csi:
       ignore-check.kube-linter.io/privilege-escalation-container: "CSI node plugin mounts host volumes"
       ignore-check.kube-linter.io/sensitive-host-mounts: "CSI node plugin mounts host volumes"
       ignore-check.kube-linter.io/drop-net-raw-capability: "CSI node plugin mounts host volumes"
-      ignore-check.kube-linter.io/latest-tag: "chart default image tag, not pinned yet"
+    driver:
+      image:
+        registry: ghcr.io/democratic-csi/democratic-csi
+        # renovate: datasource=docker depName=ghcr.io/democratic-csi/democratic-csi
+        tag: "v1.9.5"
 
   driver:
     config:
@@ -29,6 +33,11 @@ democratic-csi:
 
   controller:
     enabled: true
+    driver:
+      image:
+        registry: ghcr.io/democratic-csi/democratic-csi
+        # renovate: datasource=docker depName=ghcr.io/democratic-csi/democratic-csi
+        tag: "v1.9.5"
     strategy: node
     externalProvisioner:
       extraArgs:

@@ -2,15 +2,13 @@ app-template:
 
   controllers:
     main:
-      annotations:
-        ignore-check.kube-linter.io/latest-tag: "upstream image not pinned yet"
       strategy: RollingUpdate
 
       containers:
         main:
           image:
             repository: docker.getoutline.com/outlinewiki/outline
-            tag: latest
+            tag: 1.13.0
           env:
             URL: "https://outline.serverton.de"
             REDIS_URL: "redis://localhost:6379"
