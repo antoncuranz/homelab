@@ -9,6 +9,7 @@ base_commit=$(git merge-base "$base" HEAD)
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 mkdir -p "$tmp/base" "$tmp/rendered"
+printf '# Rendered manifest diff\n\n' > "$tmp/summary"
 git archive "$base_commit" | tar -x -C "$tmp/base"
 # Use the current rendering logic on both revisions, even if the script changed.
 mkdir -p "$tmp/base/ci"
@@ -22,9 +23,12 @@ done < <(git diff --name-only "$base_commit" HEAD -- bootstrap system platform a
 
 if [[ ${#charts[@]} -eq 0 ]]; then
   echo "No chart manifests to diff."
+  echo "No chart manifests to diff." >> "$tmp/summary"
+  [[ -z ${DIFF_SUMMARY:-} ]] || cat "$tmp/summary" >> "$DIFF_SUMMARY"
   exit 0
 fi
 base_charts=()
+changed=false
 for chart in "${charts[@]}"; do
   [[ -f $tmp/base/$chart/Chart.yaml ]] && base_charts+=("$chart")
 done
@@ -45,10 +49,23 @@ for chart in "${charts[@]}"; do
   fi
   echo "--- Manifest diff: $chart"
   status=0
-  diff -u --label "base/$chart" --label "head/$chart" "$old" "$new" || status=$?
+  diff -u --label "base/$chart" --label "head/$chart" "$old" "$new" > "$tmp/diff" || status=$?
   if [[ $status -eq 0 ]]; then
     echo "No rendered changes."
+  elif [[ $status -eq 1 ]]; then
+    changed=true
+    cat "$tmp/diff"
+    {
+      printf '## `%s`\n\n' "$chart"
+      echo '````diff'
+      cat "$tmp/diff"
+      printf '\n````\n\n'
+    } >> "$tmp/summary"
   elif [[ $status -ne 1 ]]; then
     exit "$status"
   fi
 done
+if [[ $changed == false ]]; then
+  echo "No rendered changes." >> "$tmp/summary"
+fi
+[[ -z ${DIFF_SUMMARY:-} ]] || cat "$tmp/summary" >> "$DIFF_SUMMARY"
