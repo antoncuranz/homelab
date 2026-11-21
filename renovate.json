@@ -5,7 +5,9 @@
     ":disableRateLimiting",
     ":automergeMinor"
   ],
-  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
+  "dependencyDashboard": {
+    "title": "Renovate Dashboard 🤖"
+  },
   "commitMessageExtra": "from {{{displayFrom}}} to {{{displayTo}}}",
   "packageRules": [
     {
