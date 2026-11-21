@@ -39,7 +39,17 @@ jobs:
 
       - name: Render and lint changed charts
         if: forgejo.event_name == 'pull_request'
-        run: ci/lint.sh --changed "origin/${{ forgejo.base_ref }}"
+        env:
+          LINT_OUT: ${{ runner.temp }}/lint-rendered
+          BASE_REF: origin/${{ forgejo.base_ref }}
+        run: ci/lint.sh --changed "$BASE_REF"
+
+      - name: Show rendered manifest diff
+        if: forgejo.event_name == 'pull_request'
+        env:
+          LINT_OUT: ${{ runner.temp }}/lint-rendered
+          BASE_REF: origin/${{ forgejo.base_ref }}
+        run: ci/manifest-diff.sh "$BASE_REF"
 
       - name: Render and lint all charts
         if: forgejo.event_name != 'pull_request'

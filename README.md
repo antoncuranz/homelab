@@ -52,3 +52,12 @@ The following will ask you for Cloudflare and 1Password credentials and creates 
 ```sh
 make external
 ```
+
+## Manifest validation
+
+Pull requests render and lint changed Helm charts. The **Show rendered manifest
+diff** step in the lint job log compares their rendered manifests with the PR
+merge base, including added and deleted charts. For local linting, use `make
+lint-changed BASE=origin/main` or `make lint CHARTS=apps/servarr`. Run `make
+manifest-diff BASE=origin/main` to view the manifest diff locally. Like CI, it
+compares committed changes at `HEAD` against the merge base.

@@ -3,6 +3,7 @@
 #
 # Usage: ci/lint.sh [chart-dir...]          lint the given charts (default: all charts)
 #        ci/lint.sh --changed [base-ref]    lint charts changed since base-ref (default: origin/main)
+#        ci/lint.sh --render-only chart...   render charts without running the linters
 # Requires: helm, kubeconform, kube-linter
 set -euo pipefail
 
@@ -39,6 +40,12 @@ API_VERSIONS=(
   snapshot.storage.k8s.io/v1
   postgresql.cnpg.io/v1
 )
+
+render_only=false
+if [[ ${1:-} == --render-only ]]; then
+  render_only=true; shift
+  [[ $# -gt 0 ]] || { echo "--render-only requires at least one chart" >&2; exit 1; }
+fi
 
 if [[ ${1:-} == --changed ]]; then
   charts=(); while IFS= read -r c; do charts+=("$c"); done < <(changed_charts "${2:-origin/main}")
@@ -106,6 +113,14 @@ for chart in "${charts[@]}"; do
     failed+=("$chart"); continue
   fi
 done
+
+if [[ $render_only == true ]]; then
+  if [[ ${#failed[@]} -gt 0 ]]; then
+    echo "FAILED: ${failed[*]}" >&2
+    exit 1
+  fi
+  exit 0
+fi
 
 if ! compgen -G "$out/*.yaml" >/dev/null; then
   echo "FAILED: ${failed[*]}" >&2
