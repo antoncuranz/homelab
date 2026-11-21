@@ -1,0 +1,89 @@
+app-template:
+  controllers:
+    main:
+      strategy: Recreate
+      pod:
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
+          fsGroupChangePolicy: OnRootMismatch
+      containers:
+        main:
+          image:
+            repository: codeberg.org/forgejo/forgejo
+            tag: 17-rootless
+          env:
+            FORGEJO__server__DOMAIN: git.cura.nz
+            FORGEJO__server__ROOT_URL: https://git.cura.nz/
+            FORGEJO__server__DISABLE_SSH: "true"
+            FORGEJO__service__DISABLE_REGISTRATION: "true"
+            FORGEJO__security__INSTALL_LOCK: "true"
+            FORGEJO__database__DB_TYPE: postgres
+            FORGEJO__database__HOST:
+              valueFrom:
+                secretKeyRef:
+                  name: database-forgejo-user
+                  key: HOST
+            FORGEJO__database__NAME:
+              valueFrom:
+                secretKeyRef:
+                  name: database-forgejo-user
+                  key: DATABASE_NAME
+            FORGEJO__database__USER:
+              valueFrom:
+                secretKeyRef:
+                  name: database-forgejo-user
+                  key: LOGIN
+            FORGEJO__database__PASSWD:
+              valueFrom:
+                secretKeyRef:
+                  name: database-forgejo-user
+                  key: PASSWORD
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /api/healthz
+                  port: 3000
+                initialDelaySeconds: 30
+            readiness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /api/healthz
+                  port: 3000
+  persistence:
+    data:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 20Gi
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: forgejo-dst
+      globalMounts:
+        - path: /var/lib/gitea
+  service:
+    main:
+      ports:
+        http:
+          port: 3000
+  route:
+    main:
+      hostnames:
+        - git.cura.nz
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: main
+              port: 3000

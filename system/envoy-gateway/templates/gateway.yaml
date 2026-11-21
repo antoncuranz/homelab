@@ -32,3 +32,15 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: https-git-cura-nz
+      hostname: git.cura.nz
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: git-cura-nz-tls
+      allowedRoutes:
+        namespaces:
+          from: All

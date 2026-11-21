@@ -1,0 +1,17 @@
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
+metadata:
+  name: forgejo-db
+spec:
+  database: forgejo
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: forgejo-user
+spec:
+  role: forgejo
+  database: forgejo-db
+  secretName: database
+  privileges: OWNER
