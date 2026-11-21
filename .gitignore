@@ -9,11 +9,8 @@ book/
 *kubeconfig
 Chart.lock
 *hosts.yml
-.idea/.gitignore
-.idea/homelab.iml
-.idea/misc.xml
-.idea/modules.xml
-.idea/vcs.xml
+.idea/
+.DS_Store
 .gitignore
 .vscode/launch.json
 .envrc

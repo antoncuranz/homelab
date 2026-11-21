@@ -15,13 +15,6 @@
       "versioning": "regex:^(?<compatibility>.*?)-(?<major>v?\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)[\\.-]*(?<build>r?\\d+)*$"
     },
     {
-      "description": "docsight uses date-based tags like v2026-11-18.1",
-      "matchPackageNames": [
-        "ghcr.io/itsdnns/docsight"
-      ],
-      "versioning": "regex:^v(?<major>\\d{4})-(?<minor>\\d{2})-(?<patch>\\d{2})\\.(?<build>\\d+)$"
-    },
-    {
       "matchPackageNames": [
         "immich-app/immich",
         "immich-app",
