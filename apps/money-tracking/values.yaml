@@ -5,15 +5,13 @@ backend:
 
   controllers:
     main:
-      annotations:
-        ignore-check.kube-linter.io/latest-tag: "own image, deployed from :latest"
       strategy: RollingUpdate
 
       containers:
         main:
           image:
             repository: ghcr.io/antoncuranz/money-tracking/backend
-            tag: latest
+            tag: latest@sha256:d9ddef6d729455f5cb85c0225be80a7c26762bded7b50324ecb9bc462c5fd1ce
             pullPolicy: Always
           env:
             ACTUAL_BASE_URL: "http://actual-rest.actual.svc.cluster.local:5007"
@@ -65,15 +63,13 @@ frontend:
 
   controllers:
     main:
-      annotations:
-        ignore-check.kube-linter.io/latest-tag: "own image, deployed from :latest"
       strategy: RollingUpdate
 
       containers:
         main:
           image:
             repository: ghcr.io/antoncuranz/money-tracking/frontend
-            tag: latest
+            tag: latest@sha256:227f218bf4c79229d5a44bf75991e6a6279ae9f79c2fe99aba85df22434c119a
             pullPolicy: Always
 
   service:

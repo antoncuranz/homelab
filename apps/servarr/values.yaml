@@ -505,8 +505,6 @@ transmission:
 
   controllers:
     main:
-      annotations:
-        ignore-check.kube-linter.io/latest-tag: "own theme image, deployed from :latest"
       replicas: 0
       strategy: RollingUpdate
 
@@ -524,7 +522,7 @@ transmission:
         01-init-themes:
           image:
             repository: registry.gitlab.com/antoncuranz/transmission-themes
-            tag: latest
+            tag: latest@sha256:f5e74d7fc5b1f3b2c644e4178341cbc938149e7a95e0454581310ec447b9e72d
           command:
             - sh
           args:

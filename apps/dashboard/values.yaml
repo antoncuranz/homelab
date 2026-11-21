@@ -1,15 +1,13 @@
 app-template:
   controllers:
     main:
-      annotations:
-        ignore-check.kube-linter.io/latest-tag: "own image, deployed from :latest"
       strategy: RollingUpdate
 
       initContainers:
         www-provider:
           image:
             repository: registry.gitlab.com/antoncuranz/dashboard
-            tag: latest
+            tag: latest@sha256:6c582b48d2391ce14b7565d6a60ec928d070cc1ea970330924b0b2fca7f9a56d
           command:
             - sh
           args:

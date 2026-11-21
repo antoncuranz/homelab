@@ -25,6 +25,12 @@
     {
       "matchPackageNames": [],
       "automerge": false
+    },
+    {
+      "description": "Own images are pinned by digest; deploy new builds automatically once lint passes",
+      "matchPackageNames": ["ghcr.io/antoncuranz/**", "registry.gitlab.com/antoncuranz/**"],
+      "matchUpdateTypes": ["digest"],
+      "automerge": true
     }
   ],
   "regexManagers": [

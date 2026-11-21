@@ -1,15 +1,13 @@
 app-template:
   controllers:
     main:
-      annotations:
-        ignore-check.kube-linter.io/latest-tag: "own image, deployed from :latest"
       strategy: RollingUpdate
 
       containers:
         main:
           image:
             repository: ghcr.io/antoncuranz/fints-actual-sync
-            tag: latest
+            tag: latest@sha256:3c8a689e9bcf41002a731aa446ef772e8f9d9f9c821d09152e8ada877cafaf10
             pullPolicy: Always
           env:
             LOG_LEVEL: "DEBUG"

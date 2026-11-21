@@ -41,7 +41,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/antoncuranz/actual-sync
-            tag: main
+            tag: main@sha256:e08742977e0413d6899ba11c105599d3819d9036de6be73f9e5e433af43c9e0e
             pullPolicy: Always
           probes:
             liveness:

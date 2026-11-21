@@ -2,8 +2,6 @@ keycloak:
   image:
     repository: bitnamilegacy/keycloak
   production: true
-  statefulsetAnnotations:
-    ignore-check.kube-linter.io/latest-tag: "own theme image, deployed from :latest"
   commonAnnotations: # the PDB has no annotation value of its own
     ignore-check.kube-linter.io/pdb-unhealthy-pod-eviction-policy: "upstream chart has no setting for it"
   proxy: edge
@@ -24,7 +22,7 @@ keycloak:
     existingSecretPasswordKey: PASSWORD
   initContainers:
     - name: theme-provider
-      image: registry.gitlab.com/antoncuranz/keycloak-theme:latest
+      image: registry.gitlab.com/antoncuranz/keycloak-theme:latest@sha256:65f3c507dd6762f593291625bb1f56a1418c240203e397ed0567728dc881c807
       command:
         - sh
       args:
