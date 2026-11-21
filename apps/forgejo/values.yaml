@@ -103,7 +103,7 @@ app-template:
               cpu: 100m
               memory: 256Mi
             limits:
-              memory: 4Gi
+              memory: 6Gi
           probes:
             readiness:
               enabled: true

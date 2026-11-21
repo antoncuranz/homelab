@@ -1,9 +1,13 @@
 # Forgejo Actions runner
 
-This runner accepts `runs-on: ubuntu-latest` jobs, one at a time. Jobs run in a
-Node.js Debian container, not a full GitHub-hosted Ubuntu VM. Docker builds and
+This runner accepts up to four `runs-on: ubuntu-latest` jobs at a time. Jobs run
+in a Node.js Debian container, not a full GitHub-hosted Ubuntu VM. Docker builds and
 Docker-based actions are not supported by default. Cache is disabled, and
 images and Docker data are discarded when the pod is replaced.
+
+The jobs share the Docker sidecar's 6 GiB memory limit. After changing runner
+configuration, wait for the ExternalSecret to synchronize, then restart the
+runner pod so the daemon reads the updated configuration.
 
 The Docker-in-Docker sidecar is privileged and shares the cluster node's kernel.
 Use this runner only for trusted workflows; it is not an isolation boundary for
