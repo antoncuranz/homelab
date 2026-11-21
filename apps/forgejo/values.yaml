@@ -88,7 +88,7 @@ app-template:
         docker:
           image:
             repository: docker
-            tag: 28.5.2-dind
+            tag: 29.10.0-dind
           args: ["dockerd", "--host=tcp://127.0.0.1:2375", "--tls=false"]
           securityContext:
             privileged: true
