@@ -12,7 +12,7 @@ app-template:
         main:
           image:
             repository: codeberg.org/forgejo/forgejo
-            tag: 17-rootless
+            tag: 17.0.2-rootless
           env:
             FORGEJO__server__DOMAIN: git.cura.nz
             FORGEJO__server__ROOT_URL: https://git.cura.nz/
