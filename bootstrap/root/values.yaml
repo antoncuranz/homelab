@@ -1,5 +1,5 @@
 gitops:
-  repo: https://github.com/antoncuranz/homelab
+  repo: https://git.cura.nz/antoncuranz/homelab
   revision: main
   stacks:
     - name: bootstrap
