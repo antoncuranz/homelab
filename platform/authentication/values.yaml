@@ -22,22 +22,24 @@ keycloak:
     existingSecretPasswordKey: PASSWORD
   initContainers:
     - name: theme-provider
-      image: registry.gitlab.com/antoncuranz/keycloak-theme:latest@sha256:65f3c507dd6762f593291625bb1f56a1418c240203e397ed0567728dc881c807
-      command:
-        - sh
+      image: git.cura.nz/antoncuranz/keycloak-theme@sha256:b1bd2e9882dbf3a0668e5cdaf916ad41019e740772d220784c80248b7fa4ea8a
+      command: [sh, -ec]
       args:
-        - -c
-        - |
-          echo "Copying theme..."
-          cp -R /keywind/* /theme
+        - cp /theme/keycloak-theme.jar /providers/keycloak-theme.jar
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: [ALL]
+        readOnlyRootFilesystem: true
+        runAsGroup: 1001
+        runAsNonRoot: true
+        runAsUser: 1001
+        seccompProfile:
+          type: RuntimeDefault
       volumeMounts:
-        - name: theme
-          mountPath: /theme
-  extraVolumeMounts:
-    - name: theme
-      mountPath: /opt/bitnami/keycloak/themes/keywind
-  extraVolumes:
-    - name: theme
-      emptyDir: {}
+        # Bitnami's prepare-write-dirs init container populates this subPath.
+        - name: empty-dir
+          mountPath: /providers
+          subPath: app-providers-dir
   auth:
     adminPassword: "unused"
