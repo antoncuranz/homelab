@@ -1,10 +1,9 @@
 # Forgejo Actions runner
 
 This runner accepts up to four `runs-on: ubuntu-latest` jobs at a time. Jobs run
-in a Node.js Debian container, not a full GitHub-hosted Ubuntu VM. All jobs have
-access to the shared Docker daemon through `/var/run/docker.sock`. The default job
-image does not include the Docker CLI; workflows using `docker` must install it
-or select a job image that includes it and Node.js. Cache is disabled, and
+in a Gitea Ubuntu 26.04 container, not a full GitHub-hosted Ubuntu VM. The job
+image includes Node.js, Docker CLI and Buildx. All jobs have access to the shared
+Docker daemon through `/var/run/docker.sock`. Cache is disabled, and
 images and Docker data are discarded when the pod is replaced.
 
 The jobs share the Docker sidecar's 6 GiB memory limit. After changing runner
