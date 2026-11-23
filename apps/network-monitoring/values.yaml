@@ -1,9 +1,6 @@
-tc4400-exporter:
-  global:
-    nameOverride: tc4400-exporter
-
+app-template:
   controllers:
-    main:
+    tc4400-exporter:
       annotations:
         ignore-check.kube-linter.io/host-network: "reaches the cable modem via the host network"
       pod:
@@ -20,27 +17,10 @@ tc4400-exporter:
             - secretRef:
                 name: tc4400-exporter-secrets
 
-  service:
-    main:
-      ports:
-        metrics:
-          port: 9623
-
-  serviceMonitor:
-    main:
-      enabled: true
-      endpoints:
-        - port: metrics
-          path: /metrics
-          interval: 1m
-          scrapeTimeout: 10s
-
-opnsense-exporter:
-  global:
-    nameOverride: opnsense-exporter
-
-  controllers:
-    main:
+      extraSelectorLabels:
+        app.kubernetes.io/name: tc4400-exporter
+        app.kubernetes.io/controller: main
+    opnsense-exporter:
       containers:
         main:
           image:
@@ -59,19 +39,44 @@ opnsense-exporter:
                   path: /
                   port: 8080
             readiness: *opnsenseExporterProbes
-
+      extraSelectorLabels:
+        app.kubernetes.io/name: opnsense-exporter
+        app.kubernetes.io/controller: main
   service:
-    main:
+    tc4400-exporter:
+      ports:
+        metrics:
+          port: 9623
+
+      forceRename: network-monitoring-tc4400-exporter
+      controller: tc4400-exporter
+    opnsense-exporter:
       type: ClusterIP
       ports:
         http:
           port: 8080
 
+      forceRename: network-monitoring-opnsense-exporter
+      controller: opnsense-exporter
   serviceMonitor:
-    main:
+    tc4400-exporter:
+      enabled: true
+      endpoints:
+        - port: metrics
+          path: /metrics
+          interval: 1m
+          scrapeTimeout: 10s
+
+      forceRename: network-monitoring-tc4400-exporter
+      serviceName: network-monitoring-tc4400-exporter
+      jobLabel: network-monitoring-tc4400-exporter
+    opnsense-exporter:
       enabled: true
       endpoints:
         - port: http
           path: /metrics
           interval: 1m
           scrapeTimeout: 10s
+      forceRename: network-monitoring-opnsense-exporter
+      serviceName: network-monitoring-opnsense-exporter
+      jobLabel: network-monitoring-opnsense-exporter

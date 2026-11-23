@@ -1,10 +1,6 @@
-backend:
-  global:
-    nameOverride: backend
-
-
+app-template:
   controllers:
-    main:
+    backend:
       strategy: RollingUpdate
 
       containers:
@@ -44,25 +40,10 @@ backend:
             - secretRef:
                 name: money-tracking-secrets
 
-  service:
-    main:
-      ports:
-        http:
-          port: 80
-  
-  serviceMonitor:
-    main:
-      enabled: true
-      endpoints:
-        - port: http
-          interval: 15m
-
-frontend:
-  global:
-    nameOverride: frontend
-
-  controllers:
-    main:
+      extraSelectorLabels:
+        app.kubernetes.io/name: backend
+        app.kubernetes.io/controller: main
+    frontend:
       strategy: RollingUpdate
 
       containers:
@@ -72,14 +53,36 @@ frontend:
             tag: latest@sha256:9acc2cab24b619e8ec27cb0e219192081dbf0a6a4aaa735d911e20b1dbe49bd1
             pullPolicy: Always
 
+      extraSelectorLabels:
+        app.kubernetes.io/name: frontend
+        app.kubernetes.io/controller: main
   service:
-    main:
+    backend:
+      ports:
+        http:
+          port: 80
+
+      forceRename: money-tracking-backend
+      controller: backend
+    frontend:
       ports:
         http:
           port: 3000
 
+      forceRename: money-tracking-frontend
+      controller: frontend
+  serviceMonitor:
+    backend:
+      enabled: true
+      endpoints:
+        - port: http
+          interval: 15m
+
+      forceRename: money-tracking-backend
+      serviceName: money-tracking-backend
+      jobLabel: money-tracking-backend
   route:
-    main:
+    frontend:
       hostnames:
         - dollar.serverton.de
       parentRefs:
@@ -94,5 +97,6 @@ frontend:
             request: 5m
             backendRequest: 5m
           backendRefs:
-            - identifier: main
+            - identifier: frontend
               port: 3000
+      forceRename: money-tracking-frontend

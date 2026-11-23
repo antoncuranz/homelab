@@ -1,13 +1,6 @@
-######################
-# Jellyfin           #
-######################
-
-jellyfin:
-  global:
-    nameOverride: jellyfin
-
+app-template:
   controllers:
-    main:
+    jellyfin:
       strategy: Recreate
 
       pod:
@@ -33,7 +26,7 @@ jellyfin:
             limits:
               gpu.intel.com/i915: "1"
           probes:
-            liveness: &probes
+            liveness: &probes1
               enabled: true
               custom: true
               spec:
@@ -44,63 +37,14 @@ jellyfin:
                 periodSeconds: 10
                 timeoutSeconds: 1
                 failureThreshold: 3
-            readiness: *probes
+            readiness: *probes1
             startup:
               enabled: false
 
-  persistence:
-    config:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 50Gi
-    cache:
-      enabled: true
-      type: emptyDir
-    mediarr:
-      enabled: true
-      existingClaim: mediarr
-      advancedMounts:
-        main:
-          main:
-            - path: /filme
-              subPath: filme
-            - path: /serien
-              subPath: serien
-
-  service:
-    main:
-      ports:
-        http:
-          port: 8096
-
-
-  route:
-    main:
-      hostnames:
-        - jellyfin.serverton.de
-      parentRefs:
-        - name: envoy-gateway
-          namespace: envoy-gateway
-      rules:
-        - matches:
-            - path:
-                type: PathPrefix
-                value: /
-          backendRefs:
-            - identifier: main
-              port: 8096
-
-
-######################
-# Jellyseerr         #
-######################
-
-jellyseerr:
-  global:
-    nameOverride: jellyseerr
-
-  controllers:
-    main:
+      extraSelectorLabels:
+        app.kubernetes.io/name: jellyfin
+        app.kubernetes.io/controller: main
+    jellyseerr:
       strategy: RollingUpdate
 
       pod:
@@ -118,7 +62,7 @@ jellyseerr:
           env:
             TZ: Europe/Berlin
           probes:
-            liveness: &probes
+            liveness: &probes2
               enabled: true
               custom: true
               spec:
@@ -129,55 +73,14 @@ jellyseerr:
                 periodSeconds: 10
                 timeoutSeconds: 1
                 failureThreshold: 3
-            readiness: *probes
+            readiness: *probes2
             startup:
               enabled: false
 
-  persistence:
-    config:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 250Mi
-      globalMounts:
-        - path: /app/config
-      dataSourceRef:
-        kind: ReplicationDestination
-        apiGroup: volsync.backube
-        name: jellyseerr-dst
-
-  service:
-    main:
-      ports:
-        http:
-          port: 5055
-
-  route:
-    main:
-      hostnames:
-        - seerr.serverton.de
-      parentRefs:
-        - name: envoy-gateway
-          namespace: envoy-gateway
-      rules:
-        - matches:
-            - path:
-                type: PathPrefix
-                value: /
-          backendRefs:
-            - identifier: main
-              port: 5055
-
-
-######################
-# Prowlarr           #
-######################
-
-prowlarr:
-  global:
-    nameOverride: prowlarr
-
-  controllers:
-    main:
+      extraSelectorLabels:
+        app.kubernetes.io/name: jellyseerr
+        app.kubernetes.io/controller: main
+    prowlarr:
       strategy: RollingUpdate
 
       pod:
@@ -196,8 +99,8 @@ prowlarr:
             tag: 3.0.2.5780
           env:
             TZ: Europe/Berlin
-            PROWLARR__SERVER__PORT: &port 9696
-            PROWLARR__LOG__DBENABLED: False
+            PROWLARR__SERVER__PORT: &port1 9696
+            PROWLARR__LOG__DBENABLED: false
             PROWLARR__AUTH__METHOD: External
             PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
             PROWLARR__POSTGRES__HOST:
@@ -221,67 +124,25 @@ prowlarr:
                   name: database-prowlarr-user
                   key: DATABASE_NAME
           probes:
-            liveness: &probes
+            liveness: &probes3
               enabled: true
               custom: true
               spec:
                 httpGet:
                   path: /ping
-                  port: *port
+                  port: *port1
                 initialDelaySeconds: 0
                 periodSeconds: 10
                 timeoutSeconds: 2
                 failureThreshold: 3
-            readiness: *probes
+            readiness: *probes3
             startup:
               enabled: false
 
-  persistence:
-    config:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 250Mi
-      dataSourceRef:
-        kind: ReplicationDestination
-        apiGroup: volsync.backube
-        name: prowlarr-dst
-
-  service:
-    main:
-      ports:
-        http:
-          port: *port
-
-  route:
-    main:
-      hostnames:
-        - prowlarr.serverton.de
-      parentRefs:
-        - name: envoy-gateway
-          namespace: envoy-gateway
-      rules:
-        - matches:
-            - path:
-                type: PathPrefix
-                value: /
-          timeouts:
-            request: 5m
-            backendRequest: 5m
-          backendRefs:
-            - identifier: main
-              port: *port
-
-
-######################
-# Radarr             #
-######################
-
-radarr:
-  global:
-    nameOverride: radarr
-
-  controllers:
-    main:
+      extraSelectorLabels:
+        app.kubernetes.io/name: prowlarr
+        app.kubernetes.io/controller: main
+    radarr:
       strategy: RollingUpdate
 
       pod:
@@ -300,8 +161,8 @@ radarr:
             tag: 7.0.3.10918
           env:
             TZ: Europe/Berlin
-            RADARR__SERVER__PORT: &port 7878
-            RADARR__LOG__DBENABLED: False
+            RADARR__SERVER__PORT: &port2 7878
+            RADARR__LOG__DBENABLED: false
             RADARR__AUTH__METHOD: External
             RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
             RADARR__POSTGRES__HOST:
@@ -325,75 +186,25 @@ radarr:
                   name: database-radarr-user
                   key: DATABASE_NAME
           probes:
-            liveness: &probes
+            liveness: &probes4
               enabled: true
               custom: true
               spec:
                 httpGet:
                   path: /ping
-                  port: *port
+                  port: *port2
                 initialDelaySeconds: 0
                 periodSeconds: 10
                 timeoutSeconds: 2
                 failureThreshold: 3
-            readiness: *probes
+            readiness: *probes4
             startup:
               enabled: false
 
-  persistence:
-    config:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 250Mi
-      dataSourceRef:
-        kind: ReplicationDestination
-        apiGroup: volsync.backube
-        name: radarr-dst
-    mediarr:
-      enabled: true
-      existingClaim: mediarr
-    tmpfs:
-      enabled: true
-      type: emptyDir
-      globalMounts:
-        - path: /config/MediaCover
-
-  service:
-    main:
-      ports:
-        http:
-          port: *port
-
-  route:
-    main:
-      hostnames:
-        - radarr.serverton.de
-      parentRefs:
-        - name: envoy-gateway
-          namespace: envoy-gateway
-      rules:
-        - matches:
-            - path:
-                type: PathPrefix
-                value: /
-          timeouts:
-            request: 5m
-            backendRequest: 5m
-          backendRefs:
-            - identifier: main
-              port: *port
-
-
-######################
-# Sonarr             #
-######################
-
-sonarr:
-  global:
-    nameOverride: sonarr
-
-  controllers:
-    main:
+      extraSelectorLabels:
+        app.kubernetes.io/name: radarr
+        app.kubernetes.io/controller: main
+    sonarr:
       strategy: RollingUpdate
 
       pod:
@@ -411,8 +222,8 @@ sonarr:
             repository: ghcr.io/home-operations/sonarr
             tag: 5.0.0.3041
           env:
-            SONARR__SERVER__PORT: &port 8989
-            SONARR__LOG__DBENABLED: False
+            SONARR__SERVER__PORT: &port3 8989
+            SONARR__LOG__DBENABLED: false
             SONARR__AUTH__METHOD: External
             SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
             SONARR__POSTGRES__HOST:
@@ -436,75 +247,25 @@ sonarr:
                   name: database-sonarr-user
                   key: DATABASE_NAME
           probes:
-            liveness: &probes
+            liveness: &probes5
               enabled: true
               custom: true
               spec:
                 httpGet:
                   path: /ping
-                  port: *port
+                  port: *port3
                 initialDelaySeconds: 0
                 periodSeconds: 10
                 timeoutSeconds: 2
                 failureThreshold: 3
-            readiness: *probes
+            readiness: *probes5
             startup:
               enabled: false
 
-  persistence:
-    config:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 250Mi
-      dataSourceRef:
-        kind: ReplicationDestination
-        apiGroup: volsync.backube
-        name: sonarr-dst
-    mediarr:
-      enabled: true
-      existingClaim: mediarr
-    tmpfs:
-      enabled: true
-      type: emptyDir
-      globalMounts:
-        - path: /config/MediaCover
-
-  service:
-    main:
-      ports:
-        http:
-          port: *port
-
-  route:
-    main:
-      hostnames:
-        - sonarr.serverton.de
-      parentRefs:
-        - name: envoy-gateway
-          namespace: envoy-gateway
-      rules:
-        - matches:
-            - path:
-                type: PathPrefix
-                value: /
-          timeouts:
-            request: 5m
-            backendRequest: 5m
-          backendRefs:
-            - identifier: main
-              port: *port
-
-
-######################
-# Transmission       #
-######################
-
-transmission:
-  global:
-    nameOverride: transmission
-
-  controllers:
-    main:
+      extraSelectorLabels:
+        app.kubernetes.io/name: sonarr
+        app.kubernetes.io/controller: main
+    transmission:
       replicas: 0
       strategy: RollingUpdate
 
@@ -541,73 +302,17 @@ transmission:
             TRANSMISSION__BLOCKLIST_URL: "https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz"
             TRANSMISSION__DOWNLOAD_DIR: "/downloads/mediarr"
             TRANSMISSION__INCOMPLETE_DIR_ENABLED: false
-            TRANSMISSION__RPC_PORT: &port 9091
+            TRANSMISSION__RPC_PORT: &port4 9091
             TRANSMISSION__PEER_PORT: 9453
             TRANSMISSION__MESSAGE_LEVEL: 3
             TRANSMISSION__SPEED_LIMIT_DOWN_ENABLED: true
             TRANSMISSION__SPEED_LIMIT_DOWN: 20000
             TRANSMISSION_WEB_HOME: "/opt/transmission-ui/transmissionic"
 
-  persistence:
-    config:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 250Mi
-      dataSourceRef:
-        kind: ReplicationDestination
-        apiGroup: volsync.backube
-        name: transmission-dst
-    mediarr:
-      enabled: true
-      existingClaim: mediarr
-      advancedMounts:
-        main:
-          main:
-            - path: /downloads/mediarr
-              subPath: transmission
-    themes:
-      enabled: true
-      type: emptyDir
-      advancedMounts:
-        main:
-          01-init-themes:
-            - path: /themes
-          main:
-            - path: /opt/transmission-ui
-
-  service:
-    main:
-      ports:
-        http:
-          port: *port
-
-  route:
-    main:
-      hostnames:
-        - transmission.serverton.de
-      parentRefs:
-        - name: envoy-gateway
-          namespace: envoy-gateway
-      rules:
-        - matches:
-            - path:
-                type: PathPrefix
-                value: /
-          backendRefs:
-            - identifier: main
-              port: *port
-
-
-######################
-# sabnzbd            #
-######################
-
-sabnzbd:
-  global:
-    nameOverride: sabnzbd
-
-  controllers:
-    main:
+      extraSelectorLabels:
+        app.kubernetes.io/name: transmission
+        app.kubernetes.io/controller: main
+    sabnzbd:
       strategy: RollingUpdate
 
       pod:
@@ -635,7 +340,7 @@ sabnzbd:
               sabnzbd.default.svc.cluster.local,
               sabnzbd.serverton.de
           probes:
-            liveness: &probes
+            liveness: &probes6
               enabled: true
               custom: true
               spec:
@@ -646,12 +351,159 @@ sabnzbd:
                 periodSeconds: 10
                 timeoutSeconds: 1
                 failureThreshold: 3
-            readiness: *probes
+            readiness: *probes6
             startup:
               enabled: false
 
+      extraSelectorLabels:
+        app.kubernetes.io/name: sabnzbd
+        app.kubernetes.io/controller: main
   persistence:
-    config:
+    jellyfin-config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 50Gi
+      advancedMounts:
+        jellyfin:
+          main:
+            - path: /config
+      forceRename: servarr-jellyfin
+    jellyfin-cache:
+      enabled: true
+      type: emptyDir
+      advancedMounts:
+        jellyfin:
+          main:
+            - path: /cache
+    jellyfin-mediarr:
+      enabled: true
+      existingClaim: mediarr
+      advancedMounts:
+        jellyfin:
+          main:
+            - path: /filme
+              subPath: filme
+            - path: /serien
+              subPath: serien
+
+    jellyseerr-config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: jellyseerr-dst
+
+      advancedMounts:
+        jellyseerr:
+          main:
+            - path: /app/config
+      forceRename: servarr-jellyseerr
+    prowlarr-config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: prowlarr-dst
+
+      advancedMounts:
+        prowlarr:
+          main:
+            - path: /config
+      forceRename: servarr-prowlarr
+    radarr-config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: radarr-dst
+      advancedMounts:
+        radarr:
+          main:
+            - path: /config
+      forceRename: servarr-radarr
+    radarr-mediarr:
+      enabled: true
+      existingClaim: mediarr
+      advancedMounts:
+        radarr:
+          main:
+            - path: /mediarr
+    radarr-tmpfs:
+      enabled: true
+      type: emptyDir
+      advancedMounts:
+        radarr:
+          main:
+            - path: /config/MediaCover
+
+    sonarr-config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: sonarr-dst
+      advancedMounts:
+        sonarr:
+          main:
+            - path: /config
+      forceRename: servarr-sonarr
+    sonarr-mediarr:
+      enabled: true
+      existingClaim: mediarr
+      advancedMounts:
+        sonarr:
+          main:
+            - path: /mediarr
+    sonarr-tmpfs:
+      enabled: true
+      type: emptyDir
+      advancedMounts:
+        sonarr:
+          main:
+            - path: /config/MediaCover
+
+    transmission-config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 250Mi
+      dataSourceRef:
+        kind: ReplicationDestination
+        apiGroup: volsync.backube
+        name: transmission-dst
+      advancedMounts:
+        transmission:
+          main:
+            - path: /config
+          01-init-themes:
+            - path: /config
+      forceRename: servarr-transmission
+    transmission-mediarr:
+      enabled: true
+      existingClaim: mediarr
+      advancedMounts:
+        transmission:
+          main:
+            - path: /downloads/mediarr
+              subPath: transmission
+    transmission-themes:
+      enabled: true
+      type: emptyDir
+      advancedMounts:
+        transmission:
+          01-init-themes:
+            - path: /themes
+          main:
+            - path: /opt/transmission-ui
+
+    sabnzbd-config:
       enabled: true
       accessMode: ReadWriteOnce
       size: 250Mi
@@ -659,25 +511,210 @@ sabnzbd:
         kind: ReplicationDestination
         apiGroup: volsync.backube
         name: sabnzbd-dst
-    tmp:
+      advancedMounts:
+        sabnzbd:
+          main:
+            - path: /config
+      forceRename: servarr-sabnzbd
+    sabnzbd-tmp:
       type: emptyDir
-    mediarr:
+      advancedMounts:
+        sabnzbd:
+          main:
+            - path: /tmp
+    sabnzbd-mediarr:
       enabled: true
       existingClaim: mediarr
       advancedMounts:
-        main:
+        sabnzbd:
           main:
             - path: /mediarr
               subPath: sabnzbd
 
   service:
-    main:
+    jellyfin:
+      ports:
+        http:
+          port: 8096
+
+
+      forceRename: servarr-jellyfin
+      controller: jellyfin
+    jellyseerr:
+      ports:
+        http:
+          port: 5055
+
+      forceRename: servarr-jellyseerr
+      controller: jellyseerr
+    prowlarr:
+      ports:
+        http:
+          port: *port1
+      forceRename: servarr-prowlarr
+      controller: prowlarr
+    radarr:
+      ports:
+        http:
+          port: *port2
+      forceRename: servarr-radarr
+      controller: radarr
+    sonarr:
+      ports:
+        http:
+          port: *port3
+      forceRename: servarr-sonarr
+      controller: sonarr
+    transmission:
+      ports:
+        http:
+          port: *port4
+      forceRename: servarr-transmission
+      controller: transmission
+    sabnzbd:
       ports:
         http:
           port: 80
 
+      forceRename: servarr-sabnzbd
+      controller: sabnzbd
   route:
-    main:
+    jellyfin:
+      hostnames:
+        - jellyfin.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: jellyfin
+              port: 8096
+
+
+######################
+# Jellyseerr         #
+######################
+
+      forceRename: servarr-jellyfin
+    jellyseerr:
+      hostnames:
+        - seerr.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: jellyseerr
+              port: 5055
+
+
+######################
+# Prowlarr           #
+######################
+
+      forceRename: servarr-jellyseerr
+    prowlarr:
+      hostnames:
+        - prowlarr.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          timeouts:
+            request: 5m
+            backendRequest: 5m
+          backendRefs:
+            - identifier: prowlarr
+              port: *port1
+
+
+######################
+# Radarr             #
+######################
+
+      forceRename: servarr-prowlarr
+    radarr:
+      hostnames:
+        - radarr.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          timeouts:
+            request: 5m
+            backendRequest: 5m
+          backendRefs:
+            - identifier: radarr
+              port: *port2
+
+
+######################
+# Sonarr             #
+######################
+
+      forceRename: servarr-radarr
+    sonarr:
+      hostnames:
+        - sonarr.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          timeouts:
+            request: 5m
+            backendRequest: 5m
+          backendRefs:
+            - identifier: sonarr
+              port: *port3
+
+
+######################
+# Transmission       #
+######################
+
+      forceRename: servarr-sonarr
+    transmission:
+      hostnames:
+        - transmission.serverton.de
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - identifier: transmission
+              port: *port4
+
+
+######################
+# sabnzbd            #
+######################
+
+      forceRename: servarr-transmission
+    sabnzbd:
       hostnames:
         - sabnzbd.serverton.de
       parentRefs:
@@ -689,5 +726,6 @@ sabnzbd:
                 type: PathPrefix
                 value: /
           backendRefs:
-            - identifier: main
+            - identifier: sabnzbd
               port: 80
+      forceRename: servarr-sabnzbd
