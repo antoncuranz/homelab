@@ -56,6 +56,8 @@ spec:
             - '.spec.resourceManager'
         - group: external-secrets.io
           kind: ExternalSecret
+          jsonPointers:
+            - /metadata/labels
           jqPathExpressions:
             - '.spec.data[].remoteRef.conversionStrategy'
             - '.spec.data[].remoteRef.decodingStrategy'
