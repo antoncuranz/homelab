@@ -78,7 +78,7 @@ app-template:
             tag: 13.2.2
           command: ["forgejo-runner", "daemon", "--config", "/config/config.yaml"]
           env:
-            DOCKER_HOST: tcp://127.0.0.1:2375
+            DOCKER_HOST: unix:///docker-socket/docker.sock
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
@@ -95,7 +95,7 @@ app-template:
           image:
             repository: docker
             tag: 29.10.0-dind
-          args: ["dockerd", "--host=tcp://127.0.0.1:2375", "--tls=false"]
+          args: ["dockerd", "--host=unix:///docker-socket/docker.sock", "--group=1000"]
           securityContext:
             privileged: true
           resources:
@@ -110,7 +110,7 @@ app-template:
               custom: true
               spec:
                 exec:
-                  command: ["docker", "-H", "tcp://127.0.0.1:2375", "info"]
+                  command: ["docker", "-H", "unix:///docker-socket/docker.sock", "info"]
                 initialDelaySeconds: 5
                 periodSeconds: 10
   persistence:
@@ -134,6 +134,14 @@ app-template:
           main:
             - path: /config
               readOnly: true
+    runner-docker-socket:
+      type: emptyDir
+      advancedMounts:
+        runner:
+          main:
+            - path: /docker-socket
+          docker:
+            - path: /docker-socket
     runner-docker-data:
       type: emptyDir
       sizeLimit: 20Gi

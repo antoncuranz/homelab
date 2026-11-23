@@ -1,8 +1,10 @@
 # Forgejo Actions runner
 
 This runner accepts up to four `runs-on: ubuntu-latest` jobs at a time. Jobs run
-in a Node.js Debian container, not a full GitHub-hosted Ubuntu VM. Docker builds and
-Docker-based actions are not supported by default. Cache is disabled, and
+in a Node.js Debian container, not a full GitHub-hosted Ubuntu VM. All jobs have
+access to the shared Docker daemon through `/var/run/docker.sock`. The default job
+image does not include the Docker CLI; workflows using `docker` must install it
+or select a job image that includes it and Node.js. Cache is disabled, and
 images and Docker data are discarded when the pod is replaced.
 
 The jobs share the Docker sidecar's 6 GiB memory limit. After changing runner
@@ -10,9 +12,11 @@ configuration, wait for the ExternalSecret to synchronize, then restart the
 runner pod so the daemon reads the updated configuration.
 
 The Docker-in-Docker sidecar is privileged and shares the cluster node's kernel.
-Use this runner only for trusted workflows; it is not an isolation boundary for
-untrusted pull requests. A dedicated VM is preferable for untrusted jobs. The
-runner does not mount the node's Docker socket or a Kubernetes service account.
+Use this runner only for trusted workflows: jobs can control the shared daemon,
+inspect or interfere with other jobs and potentially compromise the node. It is
+not an isolation boundary for untrusted pull requests. A dedicated VM is
+preferable for untrusted jobs. The runner does not mount the node's Docker
+socket or a Kubernetes service account.
 
 ## Registration
 
