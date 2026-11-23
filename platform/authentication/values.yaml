@@ -22,7 +22,7 @@ keycloak:
     existingSecretPasswordKey: PASSWORD
   initContainers:
     - name: theme-provider
-      image: git.cura.nz/antoncuranz/keycloak-theme@sha256:b1bd2e9882dbf3a0668e5cdaf916ad41019e740772d220784c80248b7fa4ea8a
+      image: git.cura.nz/antoncuranz/keycloak-theme@sha256:57bd3d3f0260eb8667bda2184f8e9a98469e8377af427864d4d3e8789fa63bd7
       command: [sh, -ec]
       args:
         - cp /theme/keycloak-theme.jar /providers/keycloak-theme.jar
