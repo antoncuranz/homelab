@@ -69,7 +69,7 @@ frontend:
         main:
           image:
             repository: ghcr.io/antoncuranz/money-tracking/frontend
-            tag: latest@sha256:dc1917dff447d6402b599a7931781bde711bc94fef416e68ea5a0ae71b1b7355
+            tag: latest@sha256:9acc2cab24b619e8ec27cb0e219192081dbf0a6a4aaa735d911e20b1dbe49bd1
             pullPolicy: Always
 
   service:
