@@ -134,6 +134,13 @@ app-template:
           main:
             - path: /config
               readOnly: true
+    runner-cache:
+      type: emptyDir
+      sizeLimit: 10Gi
+      advancedMounts:
+        runner:
+          main:
+            - path: /cache
     runner-docker-socket:
       type: emptyDir
       advancedMounts:

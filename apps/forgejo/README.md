@@ -3,8 +3,9 @@
 This runner accepts up to four `runs-on: ubuntu-latest` jobs at a time. Jobs run
 in a Gitea Ubuntu 26.04 container, not a full GitHub-hosted Ubuntu VM. The job
 image includes Node.js, Docker CLI and Buildx. All jobs have access to the shared
-Docker daemon through `/var/run/docker.sock`. Cache is disabled, and
-images and Docker data are discarded when the pod is replaced.
+Docker daemon through `/var/run/docker.sock`. The runner stores Actions
+caches in a dedicated pod-local volume with a 10 GiB limit. Replacing the
+pod clears the cache, images, and Docker data.
 
 The jobs share the Docker sidecar's 6 GiB memory limit. After changing runner
 configuration, wait for the ExternalSecret to synchronize, then restart the
