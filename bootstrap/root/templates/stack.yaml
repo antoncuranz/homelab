@@ -57,7 +57,6 @@ spec:
         - group: external-secrets.io
           kind: ExternalSecret
           jqPathExpressions:
-            - '.metadata.labels | select(. == {})'
             - '.spec.data[].remoteRef.conversionStrategy'
             - '.spec.data[].remoteRef.decodingStrategy'
             - '.spec.data[].remoteRef.metadataPolicy'
