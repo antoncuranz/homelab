@@ -7,7 +7,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/antoncuranz/money-tracking/backend
-            tag: latest@sha256:2f7f89967159b0c6e78bdd47e7c23d13de5a413e20187ddc5b2d4ef8647ffaaf
+            tag: latest@sha256:ec3e38116bbb6a5f822b28a7784a6714d6b660a2fb596692f91717902ec30b7a
             pullPolicy: Always
           env:
             ACTUAL_BASE_URL: "http://actual-rest.actual.svc.cluster.local:5007"
