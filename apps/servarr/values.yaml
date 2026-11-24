@@ -158,7 +158,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/home-operations/radarr
-            tag: 7.0.3.10918
+            tag: 7.1.0.10948
           env:
             TZ: Europe/Berlin
             RADARR__SERVER__PORT: &port2 7878
