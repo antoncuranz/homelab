@@ -94,7 +94,7 @@ app-template:
         docker:
           image:
             repository: docker
-            tag: 29.10.0-dind
+            tag: 29.10.1-dind
           args: ["dockerd", "--host=unix:///docker-socket/docker.sock", "--group=1000"]
           securityContext:
             privileged: true
