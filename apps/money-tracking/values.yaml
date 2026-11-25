@@ -50,7 +50,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/antoncuranz/money-tracking/frontend
-            tag: latest@sha256:4648a7e9ecd9d795fa62ce3ef1dca77ae1baf365bc2843c2b6e57e1225b23090
+            tag: latest@sha256:45422dcb86bd208787bc0096526fd48efaecf88880d88057f8ec7191f68e58eb
             pullPolicy: Always
 
       extraSelectorLabels:
